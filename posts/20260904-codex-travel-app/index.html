@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>19명 대가족 여행, Codex로 일정 짜고 앱까지 만들어서 다녀왔다</title><meta name="description" content="5가족 19명 삼척 갈남항 여행. ChatGPT(Codex)로 일정을 짜고 여행 앱까지 만들어 실제로 썼다. 첫 앱은 폐기, 두 번째 앱이 성공한 이유까지 — 전 과정 실전 기록."><meta property="og:title" content="19명 대가족 여행, Codex로 일정 짜고 앱까지 만들어서 다녀왔다"><meta property="og:description" content="5가족 19명 삼척 갈남항 여행. ChatGPT(Codex)로 일정을 짜고 여행 앱까지 만들어 실제로 썼다. 첫 앱은 폐기, 두 번째 앱이 성공한 이유까지 — 전 과정 실전 기록."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">와니의 <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 4일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. 언급된 숙소·식당·서비스로부터 어떤 대가도 받지 않았습니다.</blockquote> <h1 id="19명-대가족-여행-codex로-일정-짜고-앱까지-만들어서-다녀왔다">19명 대가족 여행, Codex로 일정 짜고 앱까지 만들어서 다녀왔다</h1>
+<p><img alt="다섯 가족의 갈남항 물놀이를 그린 일러스트 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1536" height="1024" src="/_astro/illust-hero.Dq4SifJK_44Ug1.webp" ></p>
+<p>5가족이 함께 가는 여행을 준비해본 적 있다면 안다. 어른 9명, 초등학생 10명 — 총 19명의 일정·맛집·준비물·안전 수칙을 단톡방에 텍스트로 뿌리는 순간, 아무도 안 읽는다. 이번 8월 말 삼척 갈남항 2박 3일 여행에서 나는 이 문제를 Codex(ChatGPT Pro)로 풀었다. <strong>일정 설계부터 여행 앱 제작까지 전부.</strong> 그리고 실제로 그 앱을 들고 여행을 다녀왔다.</p>
+<p>미리 말해두면: 첫 번째 앱은 폐기했다. 그 실패가 이 글에서 제일 쓸모 있는 부분일 것이다.</p>
+<h2 id="결론-요약">결론 요약</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>단계</th><th>한 일</th><th>결과</th></tr></thead><tbody><tr><td>일정 설계</td><td>민박 정보 사진 + 프롬프트 1개</td><td>3일 일정 + 맛집 5곳, 그대로 뼈대로 사용</td></tr><tr><td>앱 v1</td><td>HTML 원페이지 생성</td><td>기능은 완성, <strong>가독성이 떨어져 폐기</strong></td></tr><tr><td>앱 v2</td><td>전 페이지를 지도·이미지로 리프레이밍</td><td>6탭 보물지도 앱, 채택</td></tr><tr><td>실전</td><td>8/28~30 실제 여행에서 사용</td><td>사흘 내내 비 예보였지만 앱의 플랜B가 불안을 잡아줌</td></tr></tbody></table>
+<h2 id="1-프롬프트-하나로-나온-2박-3일-일정">1. 프롬프트 하나로 나온 2박 3일 일정</h2>
+<p><img alt="스노클링하는 아이 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-snorkel-kid.BdSyq9Xg_1SBdXU.webp" ></p>
+<p>민박 정보가 담긴 사진 한 장을 첨부하고 이렇게 요청했다.</p>
+<blockquote>
+<p>8월 말에 여기를 예약해서 2박 3일 동안 여행을 가기로 했고, 총 다섯 가족이 가는 거야. 아이들은 한 열 명 정도 되고, 다 초등학생들이야. (…) 2박 3일 일정을 간단하게 짜서 주고, 근처 맛집 다섯 군데를 추천해줘.</p>
+</blockquote>
+<p>돌아온 답의 핵심 설계는 이랬다: <strong>“이동을 줄이고 갈남항 물놀이에 체력을 몰아준다.”</strong> 서울 출발 → 막국수 점심 → 입실 → 물놀이 → 바비큐로 이어지는 1일 차, 오전 스노클링에 몰고 오후는 체력에 따라 2차 물놀이/케이블카를 고르게 한 2일 차, 해안 산책 후 귀가하는 3일 차. 아이 전원 구명조끼, 가족별 자기 아이 담당 같은 안전 수칙까지 들어 있었다.</p>
+<p>이 일정을 거의 그대로 뼈대로 썼다. 다만 그대로 믿지는 않았다 — 시설 운영시간 같은 정보는 별도 확인이 필요했고, 인원도 “성인 약 10명”으로 가정했지만 실제는 9명이었다. AI 일정의 역할은 <strong>결정을 대신하는 게 아니라 결정할 틀을 만들어주는 것</strong>이었다.</p>
+<h2 id="2-첫-번째-앱-기능은-완성-그런데-아무도-안-읽는다">2. 첫 번째 앱: 기능은 완성, 그런데 아무도 안 읽는다</h2>
+<p>일정이 나왔으니 이걸 5가족에게 공유할 방법이 필요했다. Codex에게 단일 HTML 파일로 앱을 만들어 달라고 했다.</p>
+<p>결과물(v1)은 객관적으로 잘 만들어진 원페이지였다. 18KB 파일 하나에 일정 3일 카드, 맛집 5곳(전화·네이버지도 바로가기), 숙소 렌탈 가격표, 기기에 저장되는 준비물 체크리스트, 카톡으로 파일을 보내는 공유 버튼까지 들어 있었다.</p>
+<p><img alt="v1 앱 스크린샷 — 텍스트·카드 중심의 원페이지" loading="lazy" decoding="async" fetchpriority="auto" width="780" height="2550" src="/_astro/screenshot-v1.CNHRXWTw_buGgX.webp" ></p>
+<p><strong>그런데 폐기했다.</strong> 스크롤을 내리며 읽어야 하는 텍스트와 표 중심 구성은 가독성이 떨어졌고, 무엇보다 재미가 없었다. 어른들도 안 읽는데 초등학생 10명이 볼 리가 없다. 기능 체크리스트로는 만점인데 “쓰이는 물건”은 아니었던 것이다.</p>
+<h2 id="3-방향-전환-모든-페이지를-지도로-만들어라">3. 방향 전환: 모든 페이지를 지도로 만들어라</h2>
+<p><img alt="보물지도를 든 탐험가 아이 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-treasure-map.DcwFP-e5_Z1gvHth.webp" ></p>
+<p>여기서 요구사항을 바꿨다. 정보를 텍스트로 나열하지 말고, <strong>모든 페이지를 지도화·이미지화</strong>해 달라고. 포스터 그림 6장은 별도 도구 없이 Codex 안에서 바로 이미지 생성으로 만들었다.</p>
+<p>최종 앱 “갈남항 여행 보물지도”는 완전히 다른 물건이 됐다. 6개 탭을 옆으로 넘기는 카루셀 구조인데, 각 탭이 보물지도 스타일의 포스터 그림 한 장이다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>탭</th><th>내용</th></tr></thead><tbody><tr><td>📅 일정</td><td>3일 일정 + 숙소 이용 안내 포스터</td></tr><tr><td>🌤️ 날씨</td><td>여행 3일 예보(강수확률 70~80%)와 우비·방수팩 준비물</td></tr><tr><td>☔ 플랜B</td><td>비 오는 날 대안: 실내 체험시설을 비 강도별로 정리한 지도</td></tr><tr><td>🎯 액티비티</td><td>케이블카·레일바이크·동굴 등을 표시한 지도</td></tr><tr><td>🛒 장보기</td><td>마트·수산시장 위치와 살 것 목록 지도</td></tr><tr><td>🍽️ 맛집</td><td>숙소 주변 가족 식당 5곳 지도</td></tr></tbody></table>
+<p>그림 속 장소마다 번호가 붙고, 그림 아래 패널의 같은 번호가 네이버지도로 바로 연결된다. <strong>그림으로 훑고, 번호로 이동하는</strong> 구조다. 파일 크기는 18KB에서 22MB(이미지 6장 내장)로 커졌지만, 이번엔 읽혔다.</p>
+<p><img alt="최종 앱 — 일정 탭" loading="lazy" decoding="async" fetchpriority="auto" width="780" height="2250" src="/_astro/screenshot-final-schedule.BKZPy79B_ZBNA57.webp" ></p>
+<p><img alt="최종 앱 — 플랜B 탭: 비 오는 날 대안 지도" loading="lazy" decoding="async" fetchpriority="auto" width="780" height="2250" src="/_astro/screenshot-final-planb.BqCjlUel_18MHG6.webp" ></p>
+<p>같은 정보, 같은 도구인데 산출물의 운명을 가른 것은 프롬프트에 담은 <strong>소비 맥락</strong>이었다. “일정 앱을 만들어줘”가 아니라 “초등학생 10명도 들여다볼 물건을 만들어줘”에 가까워질수록 결과가 좋아졌다.</p>
+<h2 id="4-실전-검증-예보는-사흘-내내-비였다">4. 실전 검증: 예보는 사흘 내내 비였다</h2>
+<p><img alt="우비 입은 아이 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-rain-kid.CQ1rX3Tl_Z1KzaxI.webp" ></p>
+<p>출발 전 예보는 최악이었다. 앱의 날씨 탭에 박힌 예보 포스터가 그 증거다 — <strong>8/28, 29, 30 사흘 전부 “비 소식”, 강수확률 70~80%.</strong> 보통이라면 단톡방이 “취소해야 하나?”로 뒤덮일 상황이다.</p>
+<p><img alt="최종 앱 — 날씨 탭: 사흘 내내 비 예보가 담긴 포스터" loading="lazy" decoding="async" fetchpriority="auto" width="780" height="2250" src="/_astro/screenshot-final-weather.Cahh0H6H_Z29lKWb.webp" ></p>
+<p>그런데 앱에는 이미 ☔플랜B 탭이 있었다. 비 강도별로 실내 체험시설 대안을 지도로 정리해둔 것이다. <strong>“비 와도 갈 곳이 정해져 있다”는 사실만으로 19명 그룹의 불안이 잡혔다.</strong></p>
+<p>실제로는 어땠나. 첫날만 비가 왔고 — 그마저 물놀이가 가능한 수준이라 플랜B는 꺼내지도 않았다 — 남은 이틀은 날씨가 아주 좋았다. 예보보다 현실이 나았지만, 준비의 가치는 예보가 틀렸다고 사라지지 않는다. 숙소 선택(민박 1층 전체 — 방 5개와 거실·공용주방을 5가족이 통째로 사용)도 “이동을 줄이고 물놀이에 집중”이라는 설계와 맞물려 잘 작동했다.</p>
+<h2 id="5-배운-것">5. 배운 것</h2>
+<ol>
+<li><strong>AI의 1차 산출물은 ‘완성’이어도 ‘채택’이 아닐 수 있다.</strong> v1은 기능적으로 흠잡을 데 없었지만 폐기됐다. 산출물 평가 기준을 기능이 아니라 실사용에 둬야 한다.</li>
+<li><strong>리프레이밍이 프롬프트 디테일보다 강했다.</strong> 같은 정보를 “지도·이미지로”라고 방향을 바꾼 한 번의 결정이 세부 수정 수십 번보다 효과가 컸다.</li>
+<li><strong>AI 일정은 뼈대, 검증은 사람 몫.</strong> 운영시간·인원 같은 사실 정보는 따로 확인해야 했다.</li>
+<li>이것은 우리 가족 여행 1건의 사례다. 일반화가 아니라 재현 가능한 절차(프롬프트 → v1 → 리프레이밍 → 실전)로 읽어 달라.</li>
+</ol>
+<h2 id="다음-단계">다음 단계</h2>
+<p>이 여행 앱의 구조(6탭 보물지도 카루셀)를 다른 여행에도 쓸 수 있게 템플릿으로 정리해 공개할 예정이다. 프롬프트 원문이 궁금하다면 댓글로 남겨 달라 — 다음 글에서 전문을 다룬다.</p>
+<hr>
+<p><em>앱 스크린샷은 직접 캡처했습니다. 본문의 캐릭터·삽화는 GPT 이미지 생성으로 제작한 것입니다. 이 글에는 제휴 링크가 없습니다.</em></p>
+<!-- CTA 확장: 뉴스레터 구독 장치 구축(M5) 후 구독 CTA 추가. 템플릿 공개 시 products/ 연결 --> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
