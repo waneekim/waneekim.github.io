@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Claude Code vs Cursor — 구조가 다르면 쓰임새가 다릅니다 (실사용자의 정직한 비교)</title><meta name="description" content="Claude Code를 매일 쓰는 입장에서 Cursor와의 구조적 차이를 정리했다. 에디터형과 에이전트형은 경쟁 관계가 아니라 쓰임새가 다른 도구다."><meta property="og:title" content="Claude Code vs Cursor — 구조가 다르면 쓰임새가 다릅니다 (실사용자의 정직한 비교)"><meta property="og:description" content="Claude Code를 매일 쓰는 입장에서 Cursor와의 구조적 차이를 정리했다. 에디터형과 에이전트형은 경쟁 관계가 아니라 쓰임새가 다른 도구다."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 6일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. Claude Code는 제 돈으로 구독해 실사용 중이며, Cursor는 실사용 경험이 없어 공개 정보 기준으로만 다룹니다.</blockquote> <h1 id="claude-code-vs-cursor--구조가-다르면-쓰임새가-다릅니다-실사용자의-정직한-비교">Claude Code vs Cursor — 구조가 다르면 쓰임새가 다릅니다 (실사용자의 정직한 비교)</h1>
+<p><img alt="두 갈래 길 앞의 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="720" height="720" src="/_astro/char-crossroad.qLDkBJLf_vGvYo.webp" ></p>
+<p>먼저 정직하게 밝힙니다. <strong>저는 Claude Code를 매일 쓰는 실사용자이고, Cursor는 써본 적이 없습니다.</strong> 그래서 이 글은 “둘 다 써봤다”고 주장하는 비교 글과 다르게, 실사용 절반 + 공개 정보 절반으로 씁니다. 대신 구조 차이는 명확하게 정리할 수 있습니다 — 이 둘은 애초에 <strong>같은 물건이 아니기 때문입니다.</strong></p>
+<h2 id="결론-요약">결론 요약</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>원하는 것</th><th>추천</th></tr></thead><tbody><tr><td>코드를 <strong>내가 쓰면서</strong> AI 보완을 받고 싶다 (자동완성·인라인 수정)</td><td>Cursor 계열 (AI 에디터)</td></tr><tr><td>일을 <strong>AI에게 맡기고</strong> 결과를 검증하고 싶다 (위임·자동화)</td><td>Claude Code (에이전트)</td></tr><tr><td>나는 개발자가 아니고 코드를 볼 일이 없다</td><td>Claude Code 쪽이 자연스럽다</td></tr></tbody></table>
+<h2 id="️-1-구조-차이--ai가-들어간-에디터-vs-터미널에-사는-에이전트">🏗️ 1. 구조 차이 — “AI가 들어간 에디터” vs “터미널에 사는 에이전트”</h2>
+<p><img alt="에디터형 vs 에이전트형 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1240" src="/_astro/diagram-editor-vs-agent.BtHif2Fk_Z1yOc3c.webp" ></p>
+<p><strong>Cursor는 에디터입니다.</strong> VS Code 기반의 코드 에디터에 AI가 깊게 통합된 형태로, 타이핑하는 동안 자동완성이 오고, 코드를 선택해 고쳐달라고 하고, 채팅으로 에이전트 작업도 시킵니다. 주인공은 <strong>에디터를 열고 코드를 보는 나</strong>입니다.</p>
+<p><strong>Claude Code는 에이전트입니다.</strong> 에디터가 아니라 터미널(그리고 VS Code 확장)에서 돌며, 저장소 전체를 맥락으로 갖고 파일 수정·명령 실행·검증까지 해냅니다. 주인공은 <strong>일을 시키는 나</strong>고, 코드는 AI가 만집니다.</p>
+<p>같은 “AI 코딩 도구”로 묶이지만, 전자는 <strong>작업대에 붙은 조수</strong>, 후자는 <strong>일을 통째로 받아가는 외주 파트너</strong>에 가깝습니다.</p>
+<h2 id="-2-에이전트형의-실사용-감각-여기부터는-실경험">🧪 2. 에이전트형의 실사용 감각 (여기부터는 실경험)</h2>
+<p>제가 Claude Code로 하는 일에는 코드 편집기가 등장하지 않습니다. “이 글을 사이트에 배포해줘”, “브라우저를 조종해서 블로그에 글을 올려줘” 같은 요청을 하면, 파일을 고치고 스크립트를 돌리고 실패하면 스스로 고쳐서 결과만 보고받습니다. 이 블로그 운영 시스템 전체가 그렇게 돌아갑니다. (<a href="/posts/20260906-claude-code-usage/">사용법 정리</a>)</p>
+<p>핵심 체감은 이겁니다. <strong>에이전트형은 “코딩 도구”라기보다 “업무 위임 도구”입니다.</strong> 코드를 한 줄도 안 보는 저 같은 사용자가 성립하는 이유죠.</p>
+<h2 id="-3-그래서-어느-쪽--사람-기준으로-가르면-간단합니다">📊 3. 그래서 어느 쪽? — 사람 기준으로 가르면 간단합니다</h2>
+<p>· <strong>현직 개발자, 하루 종일 에디터에서 산다</strong> → Cursor 계열이 작업 흐름에 자연스럽습니다. 코드를 눈으로 보며 통제하고 싶은 사람의 도구입니다
+· <strong>개발자인데 반복 작업·리팩터링을 위임하고 싶다</strong> → 둘을 병행하는 경우가 많습니다. 에디터에서 쓰고, 큰 위임은 에이전트로
+· <strong>비개발자, 자동화가 목적이다</strong> → Cursor는 에디터라는 전제부터 낯섭니다. Claude Code(또는 <a href="/posts/20260906-claude-code-vs-codex/">Codex</a>)처럼 말로 시키는 쪽이 맞습니다</p>
+<p>가격은 둘 다 월 $20 안팎의 구독제입니다(요금제·한도는 자주 바뀌니 공식 페이지 확인). 결정 기준은 가격이 아니라 <strong>“내가 코드를 보고 싶은가”</strong> 하나로 충분합니다.</p>
+<h2 id="-다음-단계">🚀 다음 단계</h2>
+<p>에이전트형이 궁금해졌다면: <a href="/posts/20260905-claude-code-install-windows/">Claude Code 설치 (Windows 5분)</a> → <a href="/posts/20260906-claude-code-usage/">사용법</a> · 구독 비교가 고민이라면: <a href="/posts/20260905-chatgpt-plus-vs-claude-pro/">ChatGPT Plus vs Claude Pro</a></p>
+<hr>
+<p><em>Cursor 관련 내용은 2026-09-06 기준 공개 자료를 참고했으며 실사용 평가가 아닙니다. 실사용 후기가 필요하면 실제 사용자의 글을 함께 찾아보시길 권합니다. 다이어그램은 직접 제작, 캐릭터 삽화는 GPT 이미지 생성입니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
