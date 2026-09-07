@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>HTML 파일 하나로 앱 만들기 — 설치도 서버도 없이 내가 쓸 앱을 갖는 가장 빠른 방법 (실물 3개 기준)</title><meta name="description" content="앱스토어·서버·개발자 없이 HTML 파일 하나로 실제로 쓰는 앱을 만드는 법. 직접 만들어 쓰고 있는 앱 3개(여행 앱·비용 계산기·관제판)의 크기와 구조, 되는 것과 안 되는 것, 40줄짜리 복붙 템플릿과 AI에게 시키는 프롬프트까지 정리했다."><meta property="og:title" content="HTML 파일 하나로 앱 만들기 — 설치도 서버도 없이 내가 쓸 앱을 갖는 가장 빠른 방법 (실물 3개 기준)"><meta property="og:description" content="앱스토어·서버·개발자 없이 HTML 파일 하나로 실제로 쓰는 앱을 만드는 법. 직접 만들어 쓰고 있는 앱 3개(여행 앱·비용 계산기·관제판)의 크기와 구조, 되는 것과 안 되는 것, 40줄짜리 복붙 템플릿과 AI에게 시키는 프롬프트까지 정리했다."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 8일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. 캐릭터 삽화는 GPT 이미지 생성으로 제작했고, 앱 화면은 직접 캡처했습니다.</blockquote> <h1 id="html-파일-하나로-앱-만들기--설치도-서버도-없이-내가-쓸-앱을-갖는-가장-빠른-방법">HTML 파일 하나로 앱 만들기 — 설치도 서버도 없이 내가 쓸 앱을 갖는 가장 빠른 방법</h1>
+<p>“앱을 만든다”고 하면 앱스토어 등록, 서버, 개발자 고용이 떠오르죠. 그런데 저는 지금 실제로 쓰는 앱이 셋 있는데, <strong>전부 HTML 파일 하나</strong>입니다. 19명 대가족 여행에 들고 간 앱, 이 사이트에 올려둔 API 비용 계산기, 그리고 이번 주에 만든 블로그 관제판. 셋 다 설치도 서버도 없이 더블클릭이면 열립니다.</p>
+<p>이 글은 그 세 개를 근거로 <strong>왜 파일 하나로 되는지, 뭐가 되고 뭐가 안 되는지, 오늘 당장 하나 만드는 법</strong>을 정리합니다. 코딩을 몰라도 됩니다 — AI에게 시키는 프롬프트까지 같이 드려요.</p>
+<p><img alt="종이 한 장을 들자 그 위로 앱 화면이 떠오르는 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-one-file-app.DYcqCfEq_Z13us9s.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li><strong>브라우저가 곧 실행기</strong>라서, 화면(HTML)·모양(CSS)·동작(JS)을 한 파일에 담으면 그게 앱입니다</li>
+<li>실물 3개 크기: <strong>18KB · 5.8KB · 30KB</strong> — 사진을 파일 안에 넣으면 22MB까지도 갑니다</li>
+<li>되는 것: 화면·버튼·계산·체크리스트·<strong>기기 저장</strong>·지도/전화 바로가기·오프라인. 안 되는 것: <strong>여러 사람이 같은 데이터 공유</strong>, 알림, 비밀 보관</li>
+<li>아래 40줄 템플릿을 메모장에 붙여넣고 <code>.html</code>로 저장하면 지금 바로 첫 앱이 생깁니다</li>
+</ul>
+<h2 id="-1-왜-파일-하나로-되나--브라우저가-실행기입니다">🧩 1. 왜 파일 하나로 되나 — 브라우저가 실행기입니다</h2>
+<p>앱이 돌아가려면 “실행해주는 무언가”가 필요합니다. 폰 앱은 iOS·안드로이드가, PC 프로그램은 윈도우가 실행해주죠. <strong>HTML 파일은 브라우저가 실행해줍니다.</strong> 그리고 브라우저는 이미 모든 폰과 PC에 깔려 있어요.</p>
+<p>HTML 파일 안에는 세 가지가 들어갑니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>부분</th><th>역할</th><th>비유</th></tr></thead><tbody><tr><td><strong>HTML</strong></td><td>화면에 뭐가 있는지 (제목, 목록, 버튼)</td><td>뼈대</td></tr><tr><td><strong>CSS</strong></td><td>어떻게 보이는지 (색, 크기, 배치)</td><td>옷</td></tr><tr><td><strong>JavaScript</strong></td><td>눌렀을 때 뭐가 일어나는지 (계산, 저장)</td><td>근육</td></tr></tbody></table>
+<p>보통은 이 셋을 파일 여러 개로 나누지만, <strong>한 파일에 다 넣어도 브라우저는 똑같이 읽습니다.</strong> 그래서 설치 과정도, 서버도, 인터넷 연결도 필요 없어요. 파일이 곧 앱입니다.</p>
+<h2 id="-2-실물-3개--크기와-구조를-공개합니다">📦 2. 실물 3개 — 크기와 구조를 공개합니다</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>앱</th><th>용도</th><th>크기</th><th>안에 든 것</th><th>배운 것</th></tr></thead><tbody><tr><td><a href="/posts/20260904-codex-travel-app/">여행 앱 v1</a></td><td>5가족 여행 일정 공유</td><td><strong>18KB</strong></td><td>3일 일정, 맛집 5곳(전화·지도 바로가기), 준비물 체크리스트(기기 저장), 카톡 공유 버튼</td><td>기능은 완벽했는데 아무도 안 읽어서 폐기</td></tr><tr><td>여행 앱 최종</td><td>같은 용도, 지도로 재구성</td><td><strong>22MB</strong></td><td>6탭 보물지도 포스터, 그림 속 번호 → 네이버지도 연결</td><td>이미지 6장을 파일 안에 넣으니 1,000배 커짐 — 그래도 읽혔음</td></tr><tr><td><a href="/tools/openai-cost/">OpenAI 비용 계산기</a></td><td>사이트 무료 도구</td><td><strong>5.8KB</strong></td><td>입력 4개, 계산 로직, 결과 표. 외부 라이브러리 0개</td><td>작은 계산기는 이 정도면 충분</td></tr><tr><td>블로그 관제판</td><td>발행 현황 한눈에</td><td><strong>30KB</strong></td><td>표·배지·탭, 접힘 상태를 기기에 기억(localStorage). JS는 571자</td><td>30KB의 대부분(9.7KB)이 디자인(CSS) — 동작 코드는 놀랄 만큼 적음</td></tr></tbody></table>
+<p>세 가지가 보일 겁니다. <strong>동작 코드는 생각보다 적고</strong>(관제판 JS 571자), <strong>크기는 이미지가 결정하고</strong>(18KB→22MB), <strong>실패는 기능이 아니라 가독성에서 옵니다</strong>(v1 폐기).</p>
+<h2 id="️-3-되는-것과-안-되는-것--여기서-갈립니다">⚙️ 3. 되는 것과 안 되는 것 — 여기서 갈립니다</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>되는 것 ✅</th><th>안 되는 것 ❌</th></tr></thead><tbody><tr><td>화면·버튼·탭·목록</td><td><strong>여러 사람이 같은 데이터를 공유</strong> (서버가 필요)</td></tr><tr><td>계산기, 변환기, 체크리스트</td><td>푸시 알림</td></tr><tr><td><strong>내 기기에 저장</strong> (다음에 열어도 유지)</td><td>앱스토어 등록</td></tr><tr><td>전화 걸기·지도 열기·카톡 공유 링크</td><td><strong>비밀 보관</strong> — 파일을 열면 코드가 다 보임</td></tr><tr><td>이미지·지도 그림 내장</td><td>수천 건 넘는 큰 데이터</td></tr><tr><td>인터넷 없이 실행</td><td>다른 기기와 자동 동기화</td></tr></tbody></table>
+<p>핵심은 왼쪽 열 세 번째, <strong>내 기기에 저장</strong>입니다. 브라우저에는 <code>localStorage</code>라는 작은 저장 공간이 있어서, 체크한 항목이나 입력값을 파일 안에 기록해둘 수 있어요. 여행 앱의 준비물 체크리스트도, 관제판의 접힘 상태도 이걸로 기억합니다. 서버 없이 “앱답게” 느껴지는 건 대부분 이 기능 덕분이에요.</p>
+<p>반대로 오른쪽 첫 줄 — <strong>5가족이 같은 체크리스트를 같이 체크</strong>는 안 됩니다. 각자 자기 폰의 저장소에만 기록되니까요. 그게 필요해지는 순간이 서버가 필요해지는 순간이고, 그 전까지는 파일 하나로 충분합니다.</p>
+<h2 id="-4-오늘-만들기--40줄-복붙-템플릿">🎯 4. 오늘 만들기 — 40줄 복붙 템플릿</h2>
+<p>말로만 하면 안 믿기니까 진짜로 돌아가는 걸 드립니다. <strong>여행 준비물 체크리스트</strong> — 체크하면 줄이 그어지고, 항목을 추가할 수 있고, 닫았다 열어도 그대로 남습니다. 이 글을 쓰면서 브라우저에서 직접 열어 체크·추가·새로고침까지 확인했어요.</p>
+<p><img alt="템플릿을 실제로 연 화면 — 체크·추가 후 새로고침해도 유지됨 (직접 캡처)" loading="lazy" decoding="async" fetchpriority="auto" width="780" height="720" src="/_astro/screenshot-starter.CJXs73w-_NxJhT.webp" ></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="html"><code><span class="line"><span style="color:#E1E4E8">&#x3C;!</span><span style="color:#85E89D">doctype</span><span style="color:#B392F0"> html</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">html</span><span style="color:#B392F0"> lang</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"ko"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">head</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">meta</span><span style="color:#B392F0"> charset</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"utf-8"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">meta</span><span style="color:#B392F0"> name</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"viewport"</span><span style="color:#B392F0"> content</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"width=device-width, initial-scale=1"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">title</span><span style="color:#E1E4E8">>여행 준비물&#x3C;/</span><span style="color:#85E89D">title</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#85E89D">  body</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">font-family</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">sans-serif</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">max-width</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">480</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">margin</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">24</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> auto</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">padding</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">0</span><span style="color:#79B8FF"> 16</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#85E89D">  h1</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">font-size</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">22</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#85E89D">  label</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">display</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">flex</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">gap</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">10</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">align-items</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">center</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">padding</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">10</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">border-bottom</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">1</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> solid</span><span style="color:#79B8FF"> #eee</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">font-size</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">17</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#85E89D">  input</span><span style="color:#E1E4E8">[</span><span style="color:#B392F0">type</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">checkbox</span><span style="color:#E1E4E8">]{</span><span style="color:#79B8FF">width</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">22</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">height</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">22</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#B392F0">  .done</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">color</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">#999</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">text-decoration</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">line-through</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#B392F0">  #add</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">display</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">flex</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">gap</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">8</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">margin-top</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">16</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#B392F0">  #add</span><span style="color:#85E89D"> input</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">flex</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">font-size</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">16</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">padding</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">8</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#85E89D">  button</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">font-size</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">16</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">;</span><span style="color:#79B8FF">padding</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">8</span><span style="color:#F97583">px</span><span style="color:#79B8FF"> 14</span><span style="color:#F97583">px</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">head</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">body</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">>🧳 여행 준비물&#x3C;/</span><span style="color:#85E89D">h1</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> id</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"list"</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">form</span><span style="color:#B392F0"> id</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"add"</span><span style="color:#E1E4E8">>&#x3C;</span><span style="color:#85E89D">input</span><span style="color:#B392F0"> placeholder</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"항목 추가"</span><span style="color:#B392F0"> required</span><span style="color:#E1E4E8">>&#x3C;</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">>추가&#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">form</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> KEY</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'trip-checklist'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> items </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">parse</span><span style="color:#E1E4E8">(localStorage.</span><span style="color:#B392F0">getItem</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">KEY</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">||</span><span style="color:#9ECBFF"> 'null'</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">||</span><span style="color:#E1E4E8"> [</span></span>
+<span class="line"><span style="color:#E1E4E8">  {t:</span><span style="color:#9ECBFF">'구명조끼'</span><span style="color:#E1E4E8">, d:</span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">}, {t:</span><span style="color:#9ECBFF">'우비·방수팩'</span><span style="color:#E1E4E8">, d:</span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">}, {t:</span><span style="color:#9ECBFF">'상비약'</span><span style="color:#E1E4E8">, d:</span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">}];</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> list</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> document.</span><span style="color:#B392F0">getElementById</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'list'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> save</span><span style="color:#E1E4E8">(){ localStorage.</span><span style="color:#B392F0">setItem</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">KEY</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">stringify</span><span style="color:#E1E4E8">(items)); }</span></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> render</span><span style="color:#E1E4E8">(){</span></span>
+<span class="line"><span style="color:#E1E4E8">  list.innerHTML </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  items.</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">it</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> l</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> document.</span><span style="color:#B392F0">createElement</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'label'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    l.className </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> it.d </span><span style="color:#F97583">?</span><span style="color:#9ECBFF"> 'done'</span><span style="color:#F97583"> :</span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> c</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> document.</span><span style="color:#B392F0">createElement</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'input'</span><span style="color:#E1E4E8">); c.type </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'checkbox'</span><span style="color:#E1E4E8">; c.checked </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> it.d;</span></span>
+<span class="line"><span style="color:#E1E4E8">    c.</span><span style="color:#B392F0">onchange</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> { it.d </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> c.checked; </span><span style="color:#B392F0">save</span><span style="color:#E1E4E8">(); </span><span style="color:#B392F0">render</span><span style="color:#E1E4E8">(); };</span></span>
+<span class="line"><span style="color:#E1E4E8">    l.</span><span style="color:#B392F0">append</span><span style="color:#E1E4E8">(c, it.t); list.</span><span style="color:#B392F0">append</span><span style="color:#E1E4E8">(l);</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#E1E4E8">document.</span><span style="color:#B392F0">getElementById</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'add'</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">onsubmit</span><span style="color:#F97583"> =</span><span style="color:#FFAB70"> e</span><span style="color:#F97583"> =></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  e.</span><span style="color:#B392F0">preventDefault</span><span style="color:#E1E4E8">(); </span><span style="color:#F97583">const</span><span style="color:#79B8FF"> inp</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> e.target.</span><span style="color:#B392F0">querySelector</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'input'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  items.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">({t: inp.value.</span><span style="color:#B392F0">trim</span><span style="color:#E1E4E8">(), d:</span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">}); inp.value </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">; </span><span style="color:#B392F0">save</span><span style="color:#E1E4E8">(); </span><span style="color:#B392F0">render</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"><span style="color:#B392F0">render</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">script</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">body</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">></span></span></code></pre>
+<p><strong>실행하는 법 — 3단계</strong></p>
+<ol>
+<li>위 내용을 전부 복사해 <strong>메모장</strong>에 붙여넣고, 파일 이름을 <code>checklist.html</code>로 저장 (저장할 때 “모든 파일” 선택, 인코딩 UTF-8)</li>
+<li>저장된 파일을 <strong>더블클릭</strong> — 브라우저가 열리면 끝. 이게 앱입니다</li>
+<li>폰에서 쓰려면: 파일을 카톡 ‘나와의 채팅’이나 이메일로 보내 열거나, 확실하게는 <strong>GitHub Pages 같은 무료 호스팅에 올려 링크로</strong> 씁니다 — 위 비용 계산기가 이 방식이에요</li>
+</ol>
+<p>첫 줄의 <code>구명조끼</code>, <code>우비·방수팩</code>, <code>상비약</code>을 바꾸면 내 목록이 되고, <code>여행 준비물</code>을 바꾸면 제목이 바뀝니다. 이 두 군데만 고쳐도 이미 “내 앱”이에요.</p>
+<h2 id="-5-ai에게-시키기--프롬프트-한-장">🤖 5. AI에게 시키기 — 프롬프트 한 장</h2>
+<p>직접 고치는 게 귀찮으면 AI에게 시키면 됩니다. 여행 앱 두 개를 <a href="/posts/20260904-codex-travel-app/">Codex로 만들면서</a> 배운 조건을 프롬프트로 굳혔어요. 이대로 복사해서 쓰세요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>HTML 파일 하나로 [무엇: 예) 우리 가족 주간 식단표] 앱을 만들어줘.</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>조건:</span></span>
+<span class="line"><span>· 외부 라이브러리 없이, 파일 하나에 HTML·CSS·JS 전부</span></span>
+<span class="line"><span>· 폰 화면(세로) 기준으로 큼직하게</span></span>
+<span class="line"><span>· 입력한 내용은 localStorage에 저장해서 다시 열어도 유지</span></span>
+<span class="line"><span>· 이 앱을 쓸 사람: [누가: 예) 요리 안 하는 남편, 초등학생 아이]</span></span>
+<span class="line"><span>· 화면은 글자 나열 말고 [형태: 예) 요일별 카드 7장]으로</span></span>
+<span class="line"><span>· 완성된 파일 전체를 코드블록 하나로 줘</span></span></code></pre>
+<p>마지막 두 줄이 핵심입니다. 여행 앱 v1이 폐기된 이유는 기능이 아니라 <strong>“누가 볼 물건인지”를 안 적어서</strong>였어요. “초등학생 10명도 들여다볼 것”이라고 바꾸는 순간 결과가 달라졌습니다. 기능 목록보다 <strong>소비 맥락</strong>을 적으세요.</p>
+<p>받은 코드가 안 돌아가면 그대로 다시 붙여넣고 “이 파일을 열었더니 [증상]이 나와. 고쳐줘”라고 하면 됩니다 — <a href="/posts/20260905-vibe-coding-guide/">바이브 코딩</a>의 기본 루프예요.</p>
+<h2 id="️-6-주의--파일-하나라서-생기는-함정">⚠️ 6. 주의 — 파일 하나라서 생기는 함정</h2>
+<ul>
+<li><strong>파일 안에 비밀을 넣지 마세요.</strong> API 키, 비밀번호, 개인정보 — HTML 파일은 열면 코드가 그대로 보입니다. 비용 계산기가 API 키 없이 요금표만 넣은 이유예요</li>
+<li><strong>이미지를 넣으면 급격히 커집니다.</strong> 여행 앱은 그림 6장에 18KB → 22MB. 카톡으로 보내긴 부담스러운 크기였어요. 사진이 많으면 링크로 대체하거나 호스팅으로</li>
+<li><strong>브라우저 데이터를 지우면 저장한 것도 사라집니다.</strong> localStorage는 브라우저 안에 있어서, “방문 기록 삭제”를 하면 같이 날아가요. 오래 둘 데이터는 내보내기 버튼을 달거나 별도 백업을</li>
+<li><strong>여러 명이 같이 편집해야 하면 이 방식이 아닙니다.</strong> 그건 서버가 필요한 일이고, 그때 가서 고민해도 늦지 않아요</li>
+</ul>
+<h2 id="마무리--앱을-만들었다의-문턱">마무리 — “앱을 만들었다”의 문턱</h2>
+<p><a href="/posts/20260907-ai-automation-start/">AI 업무 자동화는 도구가 아니라 순서</a>라고 썼는데, HTML 파일 하나는 그 순서의 첫 번째 실물입니다. 계산기 하나, 체크리스트 하나가 “내가 쓰는 앱”이 되는 순간 AI에게 뭘 시킬 수 있는지에 대한 감이 완전히 달라져요. 위 템플릿을 저장하고 항목 하나만 바꿔보세요. 그게 시작입니다.</p>
+<hr>
+<p><em>기준: 2026-09-08. 크기·구조는 이 저장소의 실제 파일(여행 앱 v1 18,990바이트, 최종 22,780,441바이트, 계산기 5,816바이트, 관제판 29,812바이트)을 직접 측정했습니다. 템플릿은 Edge에서 열어 체크·추가·새로고침 유지를 확인했습니다. 캐릭터 삽화는 GPT 이미지 생성, 앱 화면은 직접 캡처입니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
