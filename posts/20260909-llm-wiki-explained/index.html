@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>LLM 위키 뜻 — AI에게 메모장 대신 백과사전을 맡기면 생기는 일 (5분 설명)</title><meta name="description" content="2026년 4월 카파시가 제안한 'LLM 위키'를 비개발자 눈높이로 설명한다. 매번 처음부터 찾는 사서(RAG)와 읽은 걸 정리해 자기 백과사전을 키우는 사서(LLM 위키)의 차이, 3층 구조와 세 가지 동작, 그리고 제 블로그 공장이 이미 이걸 돌리고 있다는 실물 증거까지."><meta property="og:title" content="LLM 위키 뜻 — AI에게 메모장 대신 백과사전을 맡기면 생기는 일 (5분 설명)"><meta property="og:description" content="2026년 4월 카파시가 제안한 'LLM 위키'를 비개발자 눈높이로 설명한다. 매번 처음부터 찾는 사서(RAG)와 읽은 걸 정리해 자기 백과사전을 키우는 사서(LLM 위키)의 차이, 3층 구조와 세 가지 동작, 그리고 제 블로그 공장이 이미 이걸 돌리고 있다는 실물 증거까지."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 9일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. 삽화는 GPT 이미지 생성으로 제작했습니다.</blockquote> <h1 id="llm-위키-뜻--ai에게-메모장-대신-백과사전을-맡기면-생기는-일">LLM 위키 뜻 — AI에게 메모장 대신 백과사전을 맡기면 생기는 일</h1>
+<p>AI에게 자료를 잔뜩 주고 질문하면 매번 똑같은 일이 벌어집니다. 자료를 처음부터 다시 뒤지고, 지난주에 했던 결론을 이번 주에 또 내고, 그 사이 뭘 배웠는지는 남지 않아요. 냉장고에 붙인 메모지가 아무리 많아도 살림이 정리되지 않는 것과 같습니다. <strong>LLM 위키는 이 문제를 “AI에게 메모지 대신 백과사전을 맡기자”로 푸는 방식</strong>이에요. 2026년 4월 4일, 안드레 카파시(전 테슬라 AI 총괄·OpenAI 초기 멤버)가 올린 문서 한 장에서 시작됐고, 저는 그 뒤로 이게 제 블로그 공장에서 이미 돌아가고 있었다는 걸 알았습니다.</p>
+<p><img alt="어질러진 메모지를 책으로 묶어 서가에 꽂는 로봇 사서 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-wiki-librarian.jR8PlkRR_2o9roq.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li>LLM 위키 = <strong>AI가 읽은 자료를 정리·연결해서 스스로 키워가는 지식 백과사전.</strong> 질문마다 처음부터 찾는 게 아니라, 정리해둔 것 위에 새 것을 쌓습니다</li>
+<li>구조는 3층: <strong>원본(손대지 않음) · 위키(AI가 씀) · 규칙(어떻게 정리할지)</strong>. 동작은 셋: <strong>넣기 · 묻기 · 점검</strong></li>
+<li>기존 방식(RAG)과의 차이는 한 단어, <strong>누적</strong>. AI의 역할이 “검색기”에서 “편집자”로 바뀝니다</li>
+<li>도구가 아니라 패턴이라 폴더 하나와 규칙 파일 한 장이면 시작할 수 있습니다</li>
+</ul>
+<h2 id="-1-사서-두-명을-상상해-보세요">🧩 1. 사서 두 명을 상상해 보세요</h2>
+<p>도서관에 사서가 둘 있습니다.</p>
+<p><strong>첫 번째 사서</strong>는 질문을 받으면 서가로 뛰어가 책을 뒤지고, 관련 페이지를 찾아 읽어주고, 책을 제자리에 꽂습니다. 다음 질문이 오면 또 뛰어갑니다. 어제 같은 질문을 받았어도 기억하지 않아요. 열심히는 하는데 <strong>아무것도 쌓이지 않습니다.</strong> 이게 지금까지의 방식, RAG(검색 증강 생성)입니다.</p>
+<p><strong>두 번째 사서</strong>는 새 책이 들어오면 일단 읽고, 자기 노트에 요약을 적고, 이미 있는 노트와 연결선을 긋습니다. “이 책은 저 책의 주장과 충돌하네”라고 표시도 해두고요. 질문이 오면 서가가 아니라 <strong>자기 노트</strong>부터 봅니다. 시간이 지날수록 이 노트는 그 도서관에 대한 백과사전이 됩니다. 이게 LLM 위키예요.</p>
+<p>카파시는 이걸 이렇게 표현했습니다 — 원본 자료와 나 사이에 “<strong>구조화되고 서로 연결된 마크다운 파일 묶음</strong>”을 두고, AI가 그걸 “<strong>점진적으로 만들고 유지</strong>”하게 하라. 핵심 단어는 “<strong>누적되는 산출물(compounding artifact)</strong>“입니다. 매번 새로 만드는 답이 아니라, 쌓여가는 물건이라는 뜻이에요.</p>
+<h2 id="-2-구조-3층과-동작-3개">📦 2. 구조 3층과 동작 3개</h2>
+<p>거창해 보이지만 실체는 폴더 세 개입니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>층</th><th>뭔가</th><th>누가 손대나</th><th>비유</th></tr></thead><tbody><tr><td><strong>원본</strong></td><td>논문·기사·회의록·사진 등 내가 모은 자료</td><td>아무도 안 고침 (읽기만)</td><td>서가의 책</td></tr><tr><td><strong>위키</strong></td><td>AI가 쓰는 정리 페이지들 — 요약, 인물·개념 페이지, 비교, 로그</td><td><strong>AI가 전부 소유</strong></td><td>사서의 노트</td></tr><tr><td><strong>규칙</strong></td><td>어떤 형식으로 정리할지, 뭘 연결할지 적은 안내문</td><td>사람이 씀</td><td>사서에게 준 업무 지침</td></tr></tbody></table>
+<p>셋째 층 ‘규칙’은 <a href="/posts/20260908-yaml-for-ai/">yml 글</a>에서 말한 그 규칙 파일입니다. 카파시도 <code>CLAUDE.md</code> 같은 설정 문서를 예로 들었어요. 그리고 이 위에서 AI가 하는 일은 딱 세 가지입니다.</p>
+<ul>
+<li><strong>넣기(ingest)</strong> — 새 자료를 읽고 요약을 쓰고, 관련 페이지들을 갱신하고, 로그에 한 줄 남긴다</li>
+<li><strong>묻기(query)</strong> — 질문을 받으면 위키 페이지를 찾아 근거를 달아 답하고, 좋은 답이면 그것도 새 페이지로 저장한다</li>
+<li><strong>점검(lint)</strong> — 가끔 전체를 훑어 모순·오래된 주장·고립된 페이지·빠진 연결을 찾아 고친다</li>
+</ul>
+<p>셋째가 재미있는 부분이에요. <strong>위키도 사람처럼 틀리고 낡습니다.</strong> 그래서 대청소 날이 있는 거죠.</p>
+<h2 id="-3-rag와-뭐가-다른가--한-줄로">🔍 3. RAG와 뭐가 다른가 — 한 줄로</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>RAG</th><th>LLM 위키</th></tr></thead><tbody><tr><td>질문할 때</td><td>원본을 처음부터 검색</td><td>정리된 위키부터 본다</td></tr><tr><td>시간이 지나면</td><td>아무것도 남지 않음</td><td>위키가 두꺼워짐</td></tr><tr><td>AI의 역할</td><td>검색기 + 요약기</td><td><strong>편집자 + 사서</strong></td></tr><tr><td>잘 맞는 곳</td><td>자료가 너무 많거나 여러 사람이 동시에 쓸 때</td><td>개인·소규모 팀, 같은 주제를 오래 파는 사람</td></tr></tbody></table>
+<p>둘 중 하나가 옳은 게 아닙니다. 자료가 수만 건이면 RAG가 맞고, 내가 오래 파는 주제 하나면 위키가 맞아요. 카파시 자신도 “이건 도구가 아니라 패턴이고, <strong>의도적으로 추상적</strong>”이라고 못 박았습니다. 폴더 구조든 페이지 형식이든 자기 주제에 맞게 정하라는 거죠.</p>
+<h2 id="-4-실물--제-블로그-공장은-이미-위키였습니다">💥 4. 실물 — 제 블로그 공장은 이미 위키였습니다</h2>
+<p>이 개념을 읽고 제 저장소를 세어봤습니다. AI와 제가 같이 쓰는 마크다운이 <strong>5,869줄</strong>. 그중 “(2026-09-05 학습)”, “(2026-09-08 확인)“처럼 <strong>날짜가 박힌 학습 메모가 17개</strong>, 글마다 붙은 상태 파일이 39개, 운영 문서가 12개, AI가 저에 대해 기억해둔 메모가 6개. 누가 시킨 적 없는데 3층 구조가 그대로 있었어요 — 원본(리뷰·사진 아카이브)은 안 건드리고, 정리 문서는 AI가 쓰고, 규칙 파일은 제가 승인합니다.</p>
+<p>이게 실제로 뭘 해주는지는 어제 하루가 증명했습니다.</p>
+<ul>
+<li><strong>08:50</strong> — 네이버 발행 자동화가 숨은 버튼을 잘못 잡아 30초 타임아웃이 났고, AI가 원인과 올바른 선택 방법을 문서에 적었습니다</li>
+<li><strong>그날 저녁까지 네이버 발행 7건</strong> — 같은 타임아웃 <strong>0번.</strong> 매번 그 문서를 먼저 읽고 시작했으니까요</li>
+<li><strong>21:51</strong> — 다른 블로그의 카테고리 이름에 보이지 않는 공백이 섞여 있어 선택이 실패했고, 그것도 문서에 추가됐습니다. 다음 발행부터는 이 실수도 안 합니다</li>
+</ul>
+<p>RAG였다면 어땠을까요. 매번 대화 기록을 뒤져 “지난번에 뭐가 문제였지”를 다시 찾았을 거고, 대화가 끝나면 그 기억은 사라졌을 겁니다. <a href="/posts/20260908-ai-agent-intro/">에이전트 글</a>에서 “지시서 91줄이 11분을 만들었다”고 썼는데, 그 지시서가 바로 이 위키의 한 페이지예요.</p>
+<h2 id="️-5-주의--위키라서-생기는-함정">⚠️ 5. 주의 — 위키라서 생기는 함정</h2>
+<ul>
+<li><strong>원본은 절대 AI가 고치게 두지 마세요.</strong> 위키가 틀렸을 때 돌아갈 곳이 원본입니다. 카파시가 원본 층을 “불변”으로 둔 이유예요</li>
+<li><strong>점검 없는 위키는 낡은 백과사전이 됩니다.</strong> 넣기만 하고 점검을 안 하면 6개월 전 결론이 오늘 답이 돼요. 주기를 정하세요 (저는 90일마다 수익 가정을 실측으로 갈아끼웁니다)</li>
+<li><strong>처음부터 큰 구조를 짜지 마세요.</strong> 폴더 하나, 규칙 한 장, 자료 다섯 개. 위키는 쓰면서 모양이 잡힙니다</li>
+<li><strong>위키의 답도 검증 대상입니다.</strong> 근거 페이지가 달려 있어서 검증이 쉬워질 뿐, 안 해도 되는 건 아니에요 — <a href="/posts/20260907-ai-review-automation/">AI 산출물은 검증까지가 한 세트</a></li>
+</ul>
+<h2 id="-시작-코스--오늘-저녁에-할-수-있는-것">🎯 시작 코스 — 오늘 저녁에 할 수 있는 것</h2>
+<ol>
+<li>폴더를 하나 만들고 <code>원본/</code>에 자료 다섯 개를 넣습니다 (PDF, 메모, 링크 저장본 뭐든)</li>
+<li><code>규칙.md</code> 한 장: “자료마다 요약 페이지 하나, 등장하는 개념마다 개념 페이지 하나, 서로 링크로 연결, 원본은 수정 금지”</li>
+<li>AI에게: “<strong>규칙.md대로 원본 폴더를 읽고 위키/ 폴더에 정리해줘</strong>”</li>
+<li>새 자료가 생기면: “이것도 위키에 반영해줘” — 여기서부터 쌓입니다</li>
+<li>주 1회: “위키에서 서로 모순되는 페이지랑 오래된 주장 찾아줘”</li>
+</ol>
+<p><a href="/posts/20260906-claude-code-usage/">Claude Code</a>처럼 파일을 직접 다루는 도구면 이대로 되고, 카파시는 위키를 구경하는 창으로 옵시디언(Obsidian)을 썼습니다. 그의 비유를 빌리면 “<strong>옵시디언은 작업실, AI는 작업자, 위키는 작업물</strong>”이에요.</p>
+<p>메모지가 아무리 많아도 살림이 정리되지 않는 이유는 메모지가 서로를 모르기 때문입니다. 위키는 메모지끼리 서로를 알게 만드는 방식이고, 그 일을 AI에게 맡기는 게 LLM 위키의 전부예요.</p>
+<hr>
+<p><em>기준: 2026-09-09. 개념·구조·동작·비유는 카파시의 원문 “LLM Wiki”(GitHub Gist, 2026-04-04)를 직접 확인했고, 국내외 해설 기사(DataCamp, PyTorchKR 등)로 교차 확인했습니다. 저장소 수치(마크다운 5,869줄·학습 메모 17개·상태 파일 39개)와 어제 타임라인은 직접 집계했습니다. 삽화는 GPT 이미지 생성입니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
