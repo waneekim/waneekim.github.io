@@ -1,22 +1,23 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Playwright 뜻 — AI에게 브라우저를 쥐여주는 도구, 이 블로그가 네이버에 글을 올리는 방법 (5분 설명)</title><meta name="description" content="브라우저 자동화 도구 Playwright를 비개발자 눈높이로 설명한다. 사람의 클릭·타이핑을 코드로 옮기는 원리, 테스트 도구에서 AI 에이전트의 '손'이 된 흐름, 그리고 이 블로그가 네이버 39건·인스타 16건을 이 도구로 발행하며 배운 '로그인은 사람이, 조종은 코드가' 원칙까지."><meta property="og:title" content="Playwright 뜻 — AI에게 브라우저를 쥐여주는 도구, 이 블로그가 네이버에 글을 올리는 방법 (5분 설명)"><meta property="og:description" content="브라우저 자동화 도구 Playwright를 비개발자 눈높이로 설명한다. 사람의 클릭·타이핑을 코드로 옮기는 원리, 테스트 도구에서 AI 에이전트의 '손'이 된 흐름, 그리고 이 블로그가 네이버 39건·인스타 16건을 이 도구로 발행하며 배운 '로그인은 사람이, 조종은 코드가' 원칙까지."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
-</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 10일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. 화면은 직접 캡처했고 다이어그램은 직접 제작했습니다.</blockquote> <h1 id="playwright-뜻--ai에게-브라우저를-쥐여주는-도구-이-블로그가-네이버에-글을-올리는-방법">Playwright 뜻 — AI에게 브라우저를 쥐여주는 도구, 이 블로그가 네이버에 글을 올리는 방법</h1>
-<p>이 글을 읽고 계신 네이버 블로그판은 제가 손으로 올리지 않았습니다. 제목 입력, 본문 타이핑, 사진 업로드, 크기 조정, 캡션, 카테고리 선택, 태그, 발행 버튼까지 — 전부 <strong>Playwright(플레이라이트)</strong> 라는 도구가 브라우저를 대신 조작했어요. 지금까지 네이버 39건, 인스타그램 16건이 이렇게 나갔습니다. 이 글은 그 도구가 뭔지, 왜 AI 자동화 이야기에 자꾸 등장하는지, 그리고 제가 55번 발행하며 배운 원칙 하나를 정리합니다.</p>
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Playwright 뜻 — 브라우저에 손을 달아주는 도구, AI가 내 대신 클릭하게 만드는 법 (5분 설명)</title><meta name="description" content="브라우저 자동화 도구 Playwright를 비개발자 눈높이로 설명한다. 극작가와 배우 비유로 푸는 작동 원리, 테스트 도구가 AI 에이전트의 '손'이 된 흐름, 이 블로그가 네이버 글을 실제로 올리는 방식, 그리고 '로그인은 사람이, 조종은 코드가'라는 원칙까지."><meta property="og:title" content="Playwright 뜻 — 브라우저에 손을 달아주는 도구, AI가 내 대신 클릭하게 만드는 법 (5분 설명)"><meta property="og:description" content="브라우저 자동화 도구 Playwright를 비개발자 눈높이로 설명한다. 극작가와 배우 비유로 푸는 작동 원리, 테스트 도구가 AI 에이전트의 '손'이 된 흐름, 이 블로그가 네이버 글을 실제로 올리는 방식, 그리고 '로그인은 사람이, 조종은 코드가'라는 원칙까지."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 10일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. 삽화는 GPT 이미지 생성, 화면은 직접 캡처, 다이어그램은 직접 제작했습니다.</blockquote> <h1 id="playwright-뜻--브라우저에-손을-달아주는-도구-ai가-내-대신-클릭하게-만드는-법">Playwright 뜻 — 브라우저에 손을 달아주는 도구, AI가 내 대신 클릭하게 만드는 법</h1>
+<p>컴퓨터로 하는 일의 대부분은 결국 브라우저 안에서 벌어집니다. 글을 올리고, 사진을 첨부하고, 버튼을 누르고, 결과를 확인하는 일. 그런데 AI는 글은 잘 쓰면서 정작 그 글을 <strong>올리는 손이 없어요.</strong> 브라우저 앞에 앉아 클릭하는 건 여전히 사람 몫이었죠. <strong>Playwright(플레이라이트)는 AI에게 그 손을 달아주는 도구</strong>입니다. 이 글의 네이버판도 제가 손으로 올리지 않았어요. 제목 입력부터 사진 첨부, 카테고리 선택, 발행 버튼까지 전부 이 도구가 대신 눌렀습니다. 오늘은 그게 어떻게 가능한지, 그리고 쓰면서 정한 원칙 하나를 이야기해 볼게요.</p>
+<p><img alt="베레모를 쓴 로봇 감독이 대본을 건네자, 무대 위의 브라우저 창이 그대로 연기하는 장면 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-director-browser.CqizCWe9_Z2smFw3.webp" ></p>
 <h2 id="결론-요약">결론 요약</h2>
 <ul>
-<li>Playwright = <strong>사람이 브라우저에서 하는 클릭·타이핑·스크롤을 코드로 시키는 도구.</strong> 마이크로소프트가 만든 무료 오픈소스</li>
-<li>원래는 웹사이트 테스트용이었는데, 지금은 <strong>AI 에이전트의 손</strong>으로 더 많이 쓰입니다 (공식 MCP 서버까지 있음)</li>
-<li>제 원칙 하나: <strong>로그인은 사람이, 조종은 코드가.</strong> 비밀번호를 코드에 넣지 않고, 사람이 로그인해둔 창에 붙습니다</li>
-<li>브라우저 자동화는 사람보다 정확하지만 사람보다 순진합니다 — 그래서 규칙이 필요해요</li>
+<li>Playwright = <strong>사람이 브라우저에서 하는 클릭·타이핑·스크롤을 대본으로 적어 브라우저에 시키는 도구.</strong> 마이크로소프트가 만든 무료 오픈소스</li>
+<li>원래는 웹사이트 테스트용이었지만, 지금은 <strong>AI 에이전트의 손</strong>으로 더 많이 쓰입니다. 공식 MCP 서버까지 나와 있어요</li>
+<li>이 블로그의 네이버·인스타 발행은 전부 이 도구가 합니다. 원칙은 하나, <strong>로그인은 사람이, 조종은 코드가</strong></li>
+<li>브라우저 자동화는 사람보다 정확하지만 사람보다 순진합니다. 그래서 검증 단계와 속도 제한이 꼭 필요해요</li>
 </ul>
-<h2 id="-1-한-줄로--브라우저에-손을-달아주는-것">🧩 1. 한 줄로 — 브라우저에 손을 달아주는 것</h2>
-<p>브라우저는 원래 사람이 조작하는 물건입니다. 주소를 치고, 버튼을 누르고, 글자를 입력하죠. Playwright는 그 동작을 <strong>코드로 적어서 브라우저에 시키는 도구</strong>예요. “이 주소로 가서, ‘사진’ 버튼을 누르고, 이 파일을 올리고, 제목 칸에 이 글자를 쳐라.” 이걸 사람 대신 초당 수십 번 정확히 합니다.</p>
-<p>이름이 왜 ‘극작가(playwright)‘냐면, 대본을 쓰면 브라우저가 그대로 연기한다는 뜻이에요. 마이크로소프트가 2020년에 공개했고, 크롬·엣지·파이어폭스·사파리 계열 브라우저를 전부 다룰 수 있으며, 파이썬·자바스크립트 등 여러 언어에서 씁니다. 2026년 9월 기준 최신은 1.62 버전이고 무료입니다.</p>
-<h2 id="-2-테스트-도구에서-ai의-손으로">📦 2. 테스트 도구에서 AI의 손으로</h2>
-<p>원래 용도는 <strong>웹사이트 테스트</strong>였습니다. “회원가입 버튼이 잘 눌리나”를 매번 사람이 확인하지 않고 코드가 대신 눌러보는 거죠. 개발자들의 도구였어요.</p>
-<p>그런데 AI 에이전트가 등장하면서 쓰임이 바뀌었습니다. <a href="/posts/20260908-ai-agent-intro/">에이전트 글</a>에서 “에이전트 = 목표를 주면 도구를 써서 일을 끝내는 AI”라고 했는데, 그 도구 중 가장 강력한 게 <strong>브라우저</strong>입니다. 세상 대부분의 일이 브라우저 안에서 벌어지니까요. 그래서 마이크로소프트는 AI가 브라우저를 다루게 해주는 <strong>Playwright MCP</strong>를 공식으로 내놨고, 2026년 릴리스는 아예 “에이전트가 브라우저를 모는 것”을 전제로 설계됐습니다. <a href="/posts/20260906-mcp-explained/">MCP</a>가 AI에게 손발을 달아주는 표준이라면, Playwright는 그 손이 브라우저를 잡게 해주는 부품이에요.</p>
-<h2 id="-3-실물--이-블로그의-네이버-발행">🔍 3. 실물 — 이 블로그의 네이버 발행</h2>
-<p><img alt="Playwright가 네이버 에디터에 글을 쓰고 있는 순간 — 제목과 다이어그램이 코드로 입력된 상태 (직접 캡처)" loading="lazy" decoding="async" fetchpriority="auto" width="1912" height="896" src="/_astro/screenshot-naver-editor.G_-SF2EO_1WtOCS.webp" ></p>
-<p>네이버는 글쓰기 API를 2020년에 닫았습니다. 그래서 자동화하려면 사람처럼 에디터를 조작하는 수밖에 없어요. 제 발행 파이프라인이 하는 일은 이렇습니다.</p>
+<h2 id="-1-극작가와-배우--이름부터-풀어봅니다">🧩 1. 극작가와 배우 — 이름부터 풀어봅니다</h2>
+<p>Playwright는 영어로 ‘극작가’입니다. 이름이 곧 원리예요. <strong>극작가가 대본을 쓰면 배우가 그대로 연기합니다.</strong> 여기서 배우는 브라우저고, 대본은 코드예요. “이 주소로 가서, ‘사진’ 버튼을 누르고, 이 파일을 올리고, 제목 칸에 이 글자를 쳐라.” 이렇게 적어두면 브라우저가 그 순서대로, 사람보다 빠르고 정확하게 움직입니다.</p>
+<p>마이크로소프트가 2020년에 공개했고, 크롬·엣지·파이어폭스·사파리 계열 브라우저를 모두 다룰 수 있어요. 파이썬이나 자바스크립트로 대본을 쓰고, 2026년 9월 기준 최신 버전은 1.62, 무료입니다. 비슷한 도구로 셀레니움(Selenium)이 오래전부터 있었는데, Playwright는 페이지가 다 뜰 때까지 알아서 기다려주는 것 같은 ‘눈치’가 더 좋아서 요즘은 이쪽이 기본이 됐어요.</p>
+<h2 id="-2-테스트-도구가-ai의-손이-되기까지">📦 2. 테스트 도구가 AI의 손이 되기까지</h2>
+<p>원래 용도는 <strong>웹사이트 테스트</strong>였습니다. “회원가입 버튼이 잘 눌리나”를 사람이 매번 확인하는 대신 코드가 눌러보게 하는 거죠. 개발자들만 쓰는 도구였어요.</p>
+<p>그런데 AI 에이전트가 등장하면서 쓰임이 달라졌습니다. <a href="/posts/20260908-ai-agent-intro/">에이전트 글</a>에서 “에이전트 = 목표를 주면 도구를 써서 일을 끝내는 AI”라고 했는데, 그 도구 중 가장 강력한 게 브라우저예요. 세상 대부분의 일이 브라우저 안에 있으니까요. 그래서 마이크로소프트는 AI가 브라우저를 직접 다루게 해주는 <strong>Playwright MCP</strong>를 공식으로 내놨고, 2026년 릴리스들은 아예 “에이전트가 브라우저를 모는 것”을 전제로 설계됐습니다. <a href="/posts/20260906-mcp-explained/">MCP</a>가 AI에게 손발을 달아주는 표준 규격이라면, Playwright는 그 손이 브라우저를 잡게 해주는 부품인 셈이에요.</p>
+<h2 id="-3-실물--이-블로그의-네이버-글은-이렇게-올라갑니다">🔍 3. 실물 — 이 블로그의 네이버 글은 이렇게 올라갑니다</h2>
+<p><img alt="Playwright가 네이버 에디터에 글을 쓰고 있는 순간 — 제목과 그림이 코드로 입력된 상태 (직접 캡처)" loading="lazy" decoding="async" fetchpriority="auto" width="1912" height="896" src="/_astro/screenshot-naver-editor.G_-SF2EO_1WtOCS.webp" ></p>
+<p>네이버는 블로그 글쓰기 API를 2020년에 닫았습니다. 그래서 자동으로 올리려면 <strong>사람처럼 에디터를 조작하는 수밖에</strong> 없어요. 제 발행 대본이 하는 일을 사람의 동작과 나란히 놓으면 이렇습니다.</p>
 
 
 
@@ -47,34 +48,35 @@
 
 
 
-<table><thead><tr><th>단계</th><th>Playwright가 하는 일</th><th>사람이었다면</th></tr></thead><tbody><tr><td>제목·본문</td><td>글자 하나당 10ms 간격으로 타이핑 (네이버 에디터가 자동 서식을 거는 패턴은 피해서)</td><td>복붙 후 서식 정리</td></tr><tr><td>사진</td><td>‘사진’ 버튼 → 파일 선택창에 파일 전달 → 업로드 완료 감지 → 크기 250/400px 지정 → 가운데 정렬 → 캡션 입력</td><td>장당 30초</td></tr><tr><td>발행</td><td>패널 열기 → 카테고리 드롭다운에서 항목 좌표 클릭 → 태그 7개 → 전체공개 확인 → 발행</td><td>1분</td></tr><tr><td>검증</td><td>발행 전 전 문단을 읽어 원고와 글자 단위로 대조, 발행 후 게시글의 이미지 수·태그를 다시 읽음</td><td>눈으로 훑기</td></tr></tbody></table>
-<p>저장소에 이 일을 하는 스크립트가 10개, 이번 주에 임시로 만들었다 굳힌 게 27개. 글 한 편의 네이버판은 <strong>대본 파일 하나</strong>(제목·문단·사진·캡션·카테고리·태그)로 굳혀두고, 매일 아침 릴리스 작업이 그 대본을 Playwright에게 넘깁니다.</p>
+<table><thead><tr><th>단계</th><th>Playwright가 하는 일</th><th>사람이었다면</th></tr></thead><tbody><tr><td>제목·본문</td><td>글자 하나당 10ms 간격으로 타이핑. 에디터가 자동 서식을 거는 패턴은 피해서</td><td>복붙 후 서식 정리</td></tr><tr><td>사진</td><td>‘사진’ 버튼 → 파일 전달 → 업로드 완료 감지 → 크기 지정 → 가운데 정렬 → 캡션</td><td>장당 30초</td></tr><tr><td>발행</td><td>패널 열기 → 카테고리 선택 → 태그 입력 → 전체공개 확인 → 발행</td><td>1분</td></tr><tr><td>검증</td><td>발행 전 전 문단을 읽어 원고와 글자 단위로 대조, 발행 후 게시글의 사진 수·태그를 다시 읽기</td><td>눈으로 훑기</td></tr></tbody></table>
+<p>글 한 편의 네이버판은 <strong>대본 파일 하나</strong>(제목·문단·사진·캡션·카테고리·태그)로 굳혀둡니다. 매일 아침 정해진 시간에 릴리스 작업이 그 대본을 Playwright에게 넘기고, 저는 결과 링크만 확인해요. 지금까지 네이버 39편, 인스타그램 16편이 이렇게 나갔습니다.</p>
 <h2 id="️-4-핵심-원칙--로그인은-사람이-조종은-코드가">⚙️ 4. 핵심 원칙 — 로그인은 사람이, 조종은 코드가</h2>
+<p><img alt="사람이 열쇠로 문을 여는 동안, 노트북을 든 작은 로봇이 옆에서 얌전히 기다리는 장면 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-human-unlocks-door.DJJL8-lY_ZCbw0p.webp" ></p>
+<p>브라우저 자동화를 처음 접하면 “코드가 아이디와 비밀번호로 로그인하게 하면 되겠네”라고 생각하기 쉽습니다. 저는 <strong>한 번도 그렇게 하지 않았어요.</strong> 이유는 둘입니다.</p>
+<ul>
+<li><strong>비밀번호를 코드에 두면 안 됩니다.</strong> 파일이 새는 순간 계정이 새요. 제 저장소 어디에도 네이버·인스타 비밀번호는 없습니다</li>
+<li><strong>로그인 자동화는 봇으로 감지됩니다.</strong> 네이버도 인스타도 자동 로그인 패턴을 잡아내고, 걸리면 글 하나가 아니라 계정이 위험해져요</li>
+</ul>
+<p>대신 이렇게 합니다. 엣지 브라우저를 <strong>‘원격 조종 문(포트)‘을 열어둔 채</strong> 띄우고, 그 창에서 <strong>사람이 직접 한 번 로그인</strong>합니다. Playwright는 새 브라우저를 여는 게 아니라 그 창에 <strong>붙어서</strong> 일해요. 브라우저 입장에서는 사람이 쓰던 창에서 사람이 계속 뭔가 하는 것과 구분이 안 됩니다. 계정이 둘이면(AI 블로그·세차 블로그) 창도 둘. 각 창에 한 번씩 로그인해두면 전환 없이 둘 다 다룹니다.</p>
 <p><img alt="두 가지 방식 — 봇 로그인 vs 사람이 로그인한 창에 붙기 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1120" src="/_astro/diagram-attach-vs-bot.BQvmA5yO_NrQwG.webp" ></p>
-<p>여기가 제일 중요합니다. 브라우저 자동화를 처음 접하면 “코드가 아이디·비밀번호로 로그인하게 하면 되겠네”라고 생각하기 쉬운데, 저는 <strong>한 번도 그렇게 하지 않았습니다.</strong> 두 가지 이유예요.</p>
-<ul>
-<li><strong>비밀번호를 코드에 두면 안 됩니다.</strong> 파일이 새면 계정이 새요. 제 저장소 어디에도 네이버·인스타 비밀번호는 없습니다</li>
-<li><strong>로그인 자동화는 봇으로 감지됩니다.</strong> 네이버·인스타 모두 자동 로그인 패턴을 잡아내고, 걸리면 계정 자체가 위험해져요</li>
-</ul>
-<p>대신 이렇게 합니다. 엣지 브라우저를 <strong>“원격 조종 문(포트)을 열어둔 채”</strong> 띄우고, 그 창에서 <strong>사람이 한 번 로그인</strong>합니다. Playwright는 새 브라우저를 여는 게 아니라 <strong>그 창에 붙어서</strong>(<code>connect_over_cdp</code>) 이미 로그인된 상태로 일을 해요. 브라우저 입장에선 사람이 쓰던 창에 사람이 계속 뭔가 하는 것과 구분이 안 됩니다. 제 스크립트에서 이 방식이 39번, 새 브라우저를 여는 방식은 1번(화면 캡처용)이에요.</p>
-<p>계정이 두 개(AI 블로그·세차 블로그)면 창도 두 개입니다. 각 창에 한 번씩 로그인해두면 전환 없이 둘 다 다룹니다.</p>
 <h2 id="-5-배운-것--정확하지만-순진합니다">💥 5. 배운 것 — 정확하지만 순진합니다</h2>
-<p>55번 발행하며 세 번 넘어졌고, 세 번 다 같은 교훈이었어요.</p>
+<p><img alt="투명한 유령 버튼을 자신 있게 누르는 작은 로봇과, 그걸 보며 고개를 갸웃하는 사람 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-robot-hidden-button.DMIqMZc7_Z10tW99.webp" ></p>
+<p>쓰면서 넘어진 날이 몇 번 있었는데, 교훈은 전부 같았습니다. 배우는 대본을 <strong>너무 곧이곧대로</strong> 연기해요.</p>
 <ul>
-<li><strong>숨은 버튼을 먼저 잡습니다.</strong> “발행”이라는 글자가 든 버튼을 찾으라고 했더니, 화면엔 안 보이는 ‘예약 발행 0건’ 버튼을 먼저 잡고 30초를 기다리다 실패했어요. 사람은 보이는 버튼만 누르지만 코드는 안 보이는 것도 찾습니다 → <strong>“보이는 것 중에서”</strong> 라는 조건을 넣어야 합니다</li>
-<li><strong>보이지 않는 공백에 걸립니다.</strong> 카테고리 이름 ‘세차 장비·용품’을 찾으라고 했는데 못 찾았어요. 화면엔 똑같이 보이는데 글자 사이에 특수 공백이 섞여 있었죠. 사람 눈엔 같지만 코드엔 다른 글자입니다 → 비교 전에 공백을 정리하는 한 줄이 필요했습니다</li>
-<li><strong>파일 선택창이 가끔 안 열립니다.</strong> GIF를 올린 직후 다음 사진의 파일 선택창이 안 떠서 멈췄어요. 원인은 에디터가 GIF를 처리하느라 바쁜 상태 → <strong>재시도 3회</strong>를 기본으로 넣었습니다</li>
+<li><strong>숨은 버튼을 먼저 잡습니다.</strong> “‘발행’이라는 글자가 든 버튼을 눌러라”라고 했더니, 화면엔 안 보이는 ‘예약 발행 0건’ 버튼을 먼저 잡고 30초를 기다리다 실패했어요. 사람은 보이는 버튼만 누르지만 코드는 안 보이는 것도 찾습니다. <strong>“보이는 것 중에서”</strong> 라는 조건이 필요했어요</li>
+<li><strong>보이지 않는 공백에 걸립니다.</strong> 카테고리 ‘세차 장비·용품’을 찾으라고 했는데 못 찾았어요. 화면엔 똑같이 보이는데 글자 사이에 특수 공백이 섞여 있었죠. 사람 눈엔 같아도 코드엔 다른 글자입니다</li>
+<li><strong>버튼 이름이 바뀌면 멈춥니다.</strong> 바로 이 글을 올리던 날 아침, 네이버가 발행 버튼의 내부 이름을 바꿨어요. 사람 눈엔 똑같은 초록색 ‘발행’ 버튼인데 코드는 이름으로 찾다가 멈췄습니다. 이름 대신 <strong>역할</strong>로 찾도록 고치니 바로 됐어요</li>
 </ul>
-<p>공통점은 “사람이면 당연히 알아서 할 일”이 코드엔 규칙으로 적혀 있어야 한다는 거예요. 그래서 실패할 때마다 문서에 한 줄씩 추가했고, 그 문서가 <a href="/posts/20260909-llm-wiki-explained/">LLM 위키</a>의 한 페이지가 됐습니다.</p>
+<p>공통점은 “사람이면 당연히 알아서 할 일”이 코드엔 규칙으로 적혀 있어야 한다는 것. 그래서 넘어질 때마다 문서에 한 줄씩 적었고, 그 문서가 <a href="/posts/20260909-llm-wiki-explained/">LLM 위키</a>의 한 페이지가 됐습니다.</p>
 <h2 id="️-6-주의--시작-전에-알아둘-것">⚠️ 6. 주의 — 시작 전에 알아둘 것</h2>
 <ul>
-<li><strong>내 계정, 내 콘텐츠, 사람의 속도.</strong> 자동화라고 해서 하루에 열 편씩 올리면 플랫폼이 어뷰징으로 봅니다. 저도 닷새에 40편을 내보낸 뒤 네이버 검색에서 글이 안 잡히는 걸 확인하고 <strong>하루 1편 상한</strong>을 걸었어요. 도구가 빠른 것과 빨라도 되는 건 다릅니다</li>
-<li><strong>남의 사이트를 긁는 용도라면 약관부터.</strong> 브라우저 자동화는 강력해서, 허용되지 않은 수집이나 대량 요청은 법·약관 문제가 됩니다. 이 글의 용도는 “내 계정으로 내 글 올리기”에 한정돼요</li>
-<li><strong>화면이 바뀌면 깨집니다.</strong> 버튼 이름이나 구조가 바뀌면 스크립트가 멈춰요. 그래서 발행 후 결과를 다시 읽는 검증 단계가 필수입니다 — <a href="/posts/20260907-ai-review-automation/">AI 산출물은 검증까지가 한 세트</a></li>
-<li><strong>눈에 보이는 창으로 시작하세요.</strong> 화면 없이 도는 헤드리스 모드는 나중 일이고, 처음엔 브라우저가 실제로 움직이는 걸 보면서 만드는 게 훨씬 빠릅니다</li>
+<li><strong>내 계정, 내 콘텐츠, 사람의 속도.</strong> 도구가 빠르다고 하루에 열 편씩 올리면 플랫폼이 어뷰징으로 봅니다. 저도 닷새에 40편을 내보낸 뒤 네이버 검색에서 글이 안 잡히는 걸 확인하고 <strong>하루 1편 상한</strong>을 걸었어요. 빠른 것과 빨라도 되는 건 다릅니다</li>
+<li><strong>남의 사이트를 긁는 용도라면 약관부터.</strong> 허용되지 않은 수집이나 대량 요청은 법과 약관 문제가 됩니다. 이 글의 범위는 “내 계정으로 내 글 올리기”예요</li>
+<li><strong>화면이 바뀌면 깨집니다.</strong> 그래서 발행 후 결과를 다시 읽는 검증이 필수예요. <a href="/posts/20260907-ai-review-automation/">AI 산출물은 검증까지가 한 세트</a></li>
+<li><strong>눈에 보이는 창으로 시작하세요.</strong> 화면 없이 도는 모드는 나중 일이고, 처음엔 브라우저가 실제로 움직이는 걸 보면서 만드는 게 훨씬 빠릅니다</li>
 </ul>
 <h2 id="-시작-코스--코드-10줄">🎯 시작 코스 — 코드 10줄</h2>
-<p>파이썬이 깔려 있다면 이걸로 시작합니다. 첫 줄은 설치, 둘째 줄은 <strong>녹화기</strong> — 브라우저에서 내가 클릭한 걸 코드로 받아 적어줍니다. 코딩을 몰라도 여기서 출발할 수 있어요.</p>
+<p>파이썬이 깔려 있다면 두 줄로 시작합니다. 첫 줄은 설치, 둘째 줄은 <strong>녹화기</strong>예요. 브라우저에서 내가 클릭한 걸 코드로 받아 적어주기 때문에 코딩을 몰라도 여기서 출발할 수 있습니다.</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>pip install playwright &#x26;&#x26; playwright install</span></span>
 <span class="line"><span>playwright codegen https://blog.naver.com</span></span></code></pre>
 <p>그리고 “사람이 로그인한 창에 붙기”는 이게 전부입니다.</p>
@@ -86,9 +88,9 @@
 <span class="line"><span style="color:#E1E4E8">    page.goto(</span><span style="color:#9ECBFF">"https://blog.naver.com/&#x3C;아이디>/postwrite"</span><span style="color:#E1E4E8">)</span></span>
 <span class="line"><span style="color:#E1E4E8">    page.keyboard.type(</span><span style="color:#9ECBFF">"안녕하세요"</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">delay</span><span style="color:#F97583">=</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">)                        </span><span style="color:#6A737D"># 사람처럼 한 글자씩</span></span>
 <span class="line"><span style="color:#E1E4E8">    page.screenshot(</span><span style="color:#FFAB70">path</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"확인.png"</span><span style="color:#E1E4E8">)                                  </span><span style="color:#6A737D"># 결과를 눈으로 검증</span></span></code></pre>
-<p>엣지는 <code>msedge.exe --remote-debugging-port=9223 --user-data-dir=&#x3C;전용 폴더></code>로 띄우고, 그 창에서 직접 로그인하면 준비 끝입니다. <a href="/posts/20260906-claude-code-usage/">Claude Code</a>에 “이 대본대로 네이버에 올리는 스크립트 만들어줘”라고 하면 위 코드의 나머지는 AI가 채웁니다 — 제 스크립트 37개가 그렇게 만들어졌어요.</p>
-<p>브라우저는 세상 대부분의 일이 벌어지는 곳이고, Playwright는 그 문을 AI에게 열어주는 열쇠입니다. 다만 열쇠를 어디까지 맡길지는 사람이 정해야 해요 — 제 답은 “로그인은 사람이, 조종은 코드가”였습니다.</p>
+<p>엣지는 <code>msedge.exe --remote-debugging-port=9223 --user-data-dir=&#x3C;전용 폴더></code>로 띄우고, 그 창에서 직접 로그인하면 준비 끝입니다. <a href="/posts/20260906-claude-code-usage/">Claude Code</a>에 “이 대본대로 네이버에 올리는 스크립트 만들어줘”라고 하면 위 코드의 나머지는 AI가 채워요. 제 발행 스크립트도 그렇게 만들어졌습니다.</p>
+<p>브라우저는 세상 대부분의 일이 벌어지는 무대이고, Playwright는 AI에게 그 무대에 오를 배우를 붙여주는 도구입니다. 다만 대본을 어디까지 맡길지는 사람이 정해야 해요. 제 답은 “로그인은 사람이, 조종은 코드가”였습니다.</p>
 <hr>
-<p><em>기준: 2026-09-10. Playwright 버전·개발사·MCP 정보는 공식 문서와 2026년 릴리스 노트 해설을 확인했습니다. 발행 건수(네이버 39·인스타 16), 스크립트 수(저장소 10·세션 27), 접속 방식 비율(붙기 39회·새 창 1회)은 이 저장소에서 직접 셌습니다. 화면은 직접 캡처, 다이어그램은 직접 제작입니다.</em></p> </article> </main> <footer class="site">
+<p><em>기준: 2026-09-10. Playwright 버전·개발사·MCP 정보는 공식 문서와 2026년 릴리스 노트 해설을 확인했습니다. 발행 건수(네이버 39·인스타 16)와 넘어진 사례들은 이 저장소의 기록에서 직접 셌습니다. 삽화는 GPT 이미지 생성, 화면은 직접 캡처, 다이어그램은 직접 제작입니다.</em></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 </footer> </body></html>
