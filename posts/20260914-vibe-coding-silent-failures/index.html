@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>바이브 코딩의 한계 — AI가 짠 자동화가 실전에서 깨진 다섯 장면, 전부 &#39;성공&#39;이라고 말하고 있었다</title><meta name="description" content="AI에게 짜게 한 자동화가 일주일 사이 다섯 번 깨졌다. 공통점은 하나 — 코드는 매번 '됐다'고 보고했고, 결과물은 없었다. 이 블로그의 발행 시스템에서 실제로 일어난 사건 다섯 개를 날짜·원인·고친 코드와 함께 적고, 바이브 코딩이 잘 못 하는 것과 그걸 메우는 원칙 세 가지를 정리했다."><meta property="og:title" content="바이브 코딩의 한계 — AI가 짠 자동화가 실전에서 깨진 다섯 장면, 전부 '성공'이라고 말하고 있었다"><meta property="og:description" content="AI에게 짜게 한 자동화가 일주일 사이 다섯 번 깨졌다. 공통점은 하나 — 코드는 매번 '됐다'고 보고했고, 결과물은 없었다. 이 블로그의 발행 시스템에서 실제로 일어난 사건 다섯 개를 날짜·원인·고친 코드와 함께 적고, 바이브 코딩이 잘 못 하는 것과 그걸 메우는 원칙 세 가지를 정리했다."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 14일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. 삽화는 GPT 이미지 생성, 표는 직접 제작했습니다.</blockquote> <h1 id="바이브-코딩의-한계--ai가-짠-자동화가-실전에서-깨진-다섯-장면">바이브 코딩의 한계 — AI가 짠 자동화가 실전에서 깨진 다섯 장면</h1>
+<p>택배 앱에 <strong>“배송 완료”</strong> 문자가 왔습니다. 현관에 나가 보니 상자가 없어요. 기사님은 거짓말을 한 게 아닙니다. 자기 화면에서는 완료였으니까요. 문제는 그 화면과 내 현관 사이에 아무도 서 있지 않았다는 것입니다.</p>
+<p>이번 주 제 블로그 자동화가 <strong>정확히 이 방식으로 다섯 번 깨졌습니다.</strong> 코드는 매번 “완료”라고 말했고, 결과물은 없었어요. 이 시스템은 전부 AI에게 짜게 한 것이라 — 이른바 바이브 코딩 — 그 한계가 어디에 있는지 몸으로 배운 한 주였습니다. 다섯 장면을 날짜와 함께 그대로 적습니다.</p>
+<p><img alt="배송 완료 문자를 자신 있게 보내는 로봇과, 비어 있는 상자 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-thumbs-up-empty-box.CwK-avBJ_4mDzo.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li>바이브 코딩의 한계는 **“안 돌아간다”가 아니라 “돌아가는 것처럼 보인다”**입니다. 다섯 건 모두 오류 없이 끝났고, 결과가 없었습니다</li>
+<li>깨지는 자리는 늘 같았습니다 — <strong>어제의 잔재, 바뀐 화면, 한 번의 실패.</strong> AI는 정상 경로를 잘 짜고, 그 바깥은 비워 둡니다</li>
+<li>대비법은 셋입니다. <strong>결과물로 검증하고, 시작 전에 치우고, 실패를 내일로 넘기게</strong> 만드는 것</li>
+</ul>
+<h2 id="장면-1--카드뉴스가-다섯-장-완료됐는데-한-장도-안-그렸다-9월-10일">장면 1 — 카드뉴스가 다섯 장 “완료”됐는데 한 장도 안 그렸다 (9월 10일)</h2>
+<p>인스타용 카드뉴스를 만드는 스크립트가 있습니다. HTML을 그려서 브라우저로 스크린샷을 찍죠. 이날 결과는 <code>완료: 5장</code>. 그런데 카드가 이전 글 것이었습니다.</p>
+<p>원인은 두 겹이었습니다. 브라우저에 다른 창이 떠 있으면 스크린샷 명령이 <strong>그 창에 주소만 넘기고 조용히 끝납니다</strong> — 오류 코드 0. 그리고 스크립트는 “PNG 파일이 있으면 성공”으로 판단했는데, <strong>지난번 실행의 PNG가 그대로 남아 있었어요.</strong> 그리지 않은 카드를 성공으로 센 겁니다.</p>
+<p>고친 건 한 줄입니다. 찍기 전에 기존 파일을 지웁니다.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">out.unlink(</span><span style="color:#FFAB70">missing_ok</span><span style="color:#F97583">=</span><span style="color:#79B8FF">True</span><span style="color:#E1E4E8">)   </span><span style="color:#6A737D"># 이전 실행의 PNG를 남겨두면 실패가 성공으로 보인다</span></span></code></pre>
+<p><strong>“파일이 있다”와 “이번에 만들었다”는 다른 말</strong>입니다. AI는 전자를 검사했고, 제가 원한 건 후자였어요.</p>
+<h2 id="장면-2--실패한-글이-영영-재시도되지-않았다-9월-11일">장면 2 — 실패한 글이 영영 재시도되지 않았다 (9월 11일)</h2>
+<p>매일 아침 9시에 예약된 글을 내보내는 릴리스 큐가 있습니다. 문서에는 이렇게 적혀 있었습니다. <em>“실패한 항목은 건너뛰고 다음 날 다시 시도한다.”</em></p>
+<p>코드는 반대로 돼 있었습니다. 예정일을 <code>== 오늘</code>로 비교하고 있었거든요. 어제 실패한 글은 예정일이 어제니까 오늘은 대상이 아닙니다. 내일도, 모레도요. <strong>한 번 실패하면 영영 묶이는 구조</strong>였고, 실제로 인스타 게시 하나가 그렇게 이틀을 묶여 있었습니다.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># 전: str(sched.get("instagram", ""))[:10] == today</span></span>
+<span class="line"><span style="color:#6A737D"># 후: 예정일이 오늘이거나 이미 지났으면 대상</span></span>
+<span class="line"><span style="color:#F97583">return</span><span style="color:#79B8FF"> bool</span><span style="color:#E1E4E8">(d) </span><span style="color:#F97583">and</span><span style="color:#E1E4E8"> d </span><span style="color:#F97583">&#x3C;=</span><span style="color:#E1E4E8"> today</span></span></code></pre>
+<p>문서와 코드가 다를 때 <strong>믿어야 하는 건 코드</strong>입니다. AI가 쓴 문서는 의도를 적고, AI가 쓴 코드는 정상 경로를 적습니다. 그 둘 사이가 벌어진 자리에 실패가 고입니다.</p>
+<h2 id="장면-3--어제-열어둔-탭-때문에-오늘-글이-죽었다-9월-12일">장면 3 — 어제 열어둔 탭 때문에 오늘 글이 죽었다 (9월 12일)</h2>
+<p>네이버 블로그 발행은 브라우저의 에디터 탭에 글을 타이핑하는 방식입니다. 스크립트는 “이미 열린 에디터 탭이 있으면 그걸 쓴다”고 돼 있었어요. 합리적이죠.</p>
+<p>그런데 그 탭은 <strong>어제부터 로딩 스피너에서 멈춰 있었고, 그 위에 네트워크 오류 팝업까지 쌓여 있었습니다.</strong> 스크립트는 상태를 보지 않고 탭을 집었고, 문단이 하나도 없는 화면에서 첫 문단을 클릭하려다 죽었습니다. 글 하나가 하루 밀렸습니다.</p>
+<p><img alt="거울 속 어제 풍경을 보며 오늘 날씨를 보고하는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-stale-mirror.qtr7JXzi_Z2iw8ak.webp" ></p>
+<p>고친 방식은 “열려 있는가”가 아니라 <strong>“쓸 수 있는가”를 확인하는 것</strong>이었습니다. 문단이 보이고, 클릭을 가로채는 반투명 막이 없을 때만 준비 완료로 칩니다. 아니면 새로고침, 그래도 안 되면 닫고 새로 엽니다.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">page.wait_for_selector(</span><span style="color:#9ECBFF">".se-text-paragraph"</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">timeout</span><span style="color:#F97583">=</span><span style="color:#79B8FF">15000</span><span style="color:#E1E4E8">)   </span><span style="color:#6A737D"># 문단이 실제로 보일 때까지</span></span>
+<span class="line"><span style="color:#F97583">return</span><span style="color:#F97583"> not</span><span style="color:#E1E4E8"> page.query_selector(</span><span style="color:#9ECBFF">".se-popup-dim"</span><span style="color:#E1E4E8">)               </span><span style="color:#6A737D"># 막이 덮여 있으면 아직 아니다</span></span></code></pre>
+<h2 id="장면-4--같은-사진을-두-번-받았다-9월-13일">장면 4 — 같은 사진을 두 번 받았다 (9월 13일)</h2>
+<p>구글 포토에서 사진을 내려받는 수집기를 만들었습니다. 사진 주소로 이동한 뒤 화면에 뜬 이미지를 받는 구조인데, 첫 시험에서 <strong>여섯 장 중 두 쌍이 똑같은 파일</strong>이었습니다.</p>
+<p>구글 포토는 주소를 바꿔도 <strong>이전 사진이 화면에 잠깐 남아 있습니다.</strong> 그 틈에 읽으면 앞 사진을 그대로 집습니다. 주소는 바뀌었으니 코드 입장에선 “이동 완료”예요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> _ </span><span style="color:#F97583">in</span><span style="color:#79B8FF"> range</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">):                      </span><span style="color:#6A737D"># 이전과 다른 이미지가 나타날 때까지 기다린다</span></span>
+<span class="line"><span style="color:#E1E4E8">    fife </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> page.evaluate(</span><span style="color:#79B8FF">BIGGEST_FIFE</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> fife </span><span style="color:#F97583">and</span><span style="color:#E1E4E8"> fife.split(</span><span style="color:#9ECBFF">"="</span><span style="color:#E1E4E8">)[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">!=</span><span style="color:#E1E4E8"> prev_base:</span></span>
+<span class="line"><span style="color:#F97583">        break</span></span>
+<span class="line"><span style="color:#E1E4E8">    page.wait_for_timeout(</span><span style="color:#79B8FF">600</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<p><strong>주소가 바뀌었다고 화면이 바뀐 건 아닙니다.</strong> 화면이 바뀌었는지는 내용으로 확인해야 했어요.</p>
+<h2 id="장면-5--아이콘은-눌렸는데-메뉴가-안-열렸다-9월-14일">장면 5 — 아이콘은 눌렸는데 메뉴가 안 열렸다 (9월 14일)</h2>
+<p>인스타그램 게시 스크립트는 계정을 바꿀 때 설정 아이콘을 누르고 “계정 전환”을 찾습니다. 이날 아이콘은 정상적으로 눌렸습니다 — 클릭 명령은 성공 — 그런데 <strong>메뉴가 열리지 않았어요.</strong> 화면이 바뀐 겁니다. 스크립트는 열리지 않은 메뉴에서 “계정 전환”을 찾다가 시간을 다 썼습니다.</p>
+<p>고친 건 “눌렀는가”가 아니라 <strong>“열렸는가”를 확인하는 것</strong>이었습니다. 대화상자가 실제로 화면에 있는지 보고, 없으면 다른 경로로 한 번 더 시도합니다.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">page.get_by_role(</span><span style="color:#9ECBFF">"button"</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">name</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"전환"</span><span style="color:#E1E4E8">).first.click()</span></span>
+<span class="line"><span style="color:#E1E4E8">page.wait_for_timeout(</span><span style="color:#79B8FF">3500</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> page.locator(</span><span style="color:#9ECBFF">'div[role="dialog"]'</span><span style="color:#E1E4E8">).count():   </span><span style="color:#6A737D"># 대화상자가 떴을 때만 성공</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#79B8FF"> True</span></span></code></pre>
+<h2 id="다섯-장면의-공통점">다섯 장면의 공통점</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>날짜</th><th>코드가 말한 것</th><th>실제로 있던 것</th></tr></thead><tbody><tr><td>9/10</td><td>카드 5장 완료</td><td>지난번 카드 5장</td></tr><tr><td>9/11</td><td>오늘 몫 없음</td><td>어제 실패한 글 1건</td></tr><tr><td>9/12</td><td>에디터 탭 있음</td><td>멈춘 탭 + 오류 팝업</td></tr><tr><td>9/13</td><td>사진 6장 저장</td><td>4장 + 중복 2장</td></tr><tr><td>9/14</td><td>아이콘 클릭 성공</td><td>열리지 않은 메뉴</td></tr></tbody></table>
+<p><img alt="다섯 장면 — 코드가 말한 것과 실제로 있던 것 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1280" src="/_astro/diagram-said-vs-was.ByAf2b2l_Z2nEbEu.webp" ></p>
+<p>전부 <strong>오류 없이 끝났습니다.</strong> 그래서 무섭습니다. 오류가 나면 고치면 되는데, 오류가 안 나면 며칠 뒤에 “어, 이거 왜 안 올라갔지”로 발견하거든요.</p>
+<p>깨진 자리도 같습니다. <strong>어제의 잔재</strong>(남은 파일, 멈춘 탭, 지난 예정일), <strong>바뀐 화면</strong>(SPA의 잔상, 달라진 메뉴), <strong>한 번의 실패 이후</strong>. AI는 “처음 실행, 깨끗한 상태, 화면은 그대로”를 전제로 코드를 짭니다. 그 전제가 무너지는 건 둘째 날부터예요.</p>
+<h2 id="그래서-바이브-코딩은-쓰면-안-되나">그래서 바이브 코딩은 쓰면 안 되나</h2>
+<p>아니요. 이 다섯 건이 깨진 시스템 자체가 <strong>전부 바이브 코딩으로 만든 것</strong>입니다. 네이버·인스타 발행, 사진 수집, 매일 아침 릴리스까지 사람이 코드를 한 줄도 안 쳤어요. 그게 돌아갑니다.</p>
+<p>한계는 “못 만든다”가 아니라 **“만들고 난 뒤 깨지는 방식이 사람 코드와 다르다”**는 데 있습니다. 사람은 삽질을 겪은 자리에 방어 코드를 넣습니다. AI는 삽질을 겪지 않았으니 넣을 이유가 없어요. 낙관적으로 짭니다. 그 낙관을 메우는 게 쓰는 사람 몫입니다.</p>
+<p><img alt="체크리스트 대신 선반을 직접 만져 확인하는 사람과 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-check-the-shelf.BQdU8arh_16Az3r.webp" ></p>
+<h2 id="대비법-셋--코드를-못-읽어도-시킬-수-있는-것">대비법 셋 — 코드를 못 읽어도 시킬 수 있는 것</h2>
+<p>AI에게 자동화를 시킬 때 아래 세 문장을 같이 넣으세요. 다섯 장면이 전부 이 셋 중 하나로 막힙니다.</p>
+<ul>
+<li><strong>“결과물이 실제로 생겼는지 확인하고 성공으로 쳐.”</strong> 파일이 새로 생겼는지, 대화상자가 떴는지, 게시 URL이 돌아왔는지. 명령이 성공했는지가 아니라</li>
+<li><strong>“시작하기 전에 지난번 실행의 잔재를 지워.”</strong> 남은 파일, 열린 탭, 이전 상태. 매번 처음처럼 시작하게</li>
+<li><strong>“실패한 건 버리지 말고 다음 실행에서 다시 잡게 해.”</strong> 오늘 못 한 일은 내일의 일. 예정일이 지났다고 사라지면 안 됩니다</li>
+</ul>
+<p>이 셋은 코드를 읽을 줄 몰라도 시킬 수 있는 말입니다. 그리고 AI는 이런 요구를 받으면 꽤 잘 넣어요. <strong>문제는 시키지 않으면 안 넣는다는 것</strong>뿐입니다.</p>
+<h2 id="정리">정리</h2>
+<ul>
+<li>바이브 코딩의 실패는 조용합니다. 오류 대신 <strong>빈 상자</strong>가 옵니다</li>
+<li>깨지는 자리는 <strong>어제의 잔재·바뀐 화면·한 번의 실패 이후</strong> — AI가 전제로 삼지 않는 곳</li>
+<li><strong>결과물 확인·시작 전 청소·실패 재시도</strong> 세 가지를 처음부터 시키면 대부분 막힙니다</li>
+</ul>
+<p>바이브 코딩이 무엇인지부터 보시려면 <a href="https://waneekim.github.io/posts/20260905-vibe-coding-guide/">바이브 코딩이 뭐길래</a>를, 이 시스템에 검증을 넣게 된 첫 사고는 <a href="https://waneekim.github.io/posts/20260907-ai-review-automation/">AI 검증 자동화 — 사고 한 번 나고 배운 것</a>에서 이어 볼 수 있습니다.</p>
+<p>이 글에는 제휴 링크가 없습니다. 삽화는 GPT 이미지 생성, 표는 직접 제작했습니다. 다섯 장면은 2026년 9월 10일~14일 이 블로그 저장소의 커밋 기록 기준입니다.</p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
