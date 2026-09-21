@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>n8n vs Zapier 비교 — 소포마다 돈을 내느냐, 트럭 한 번에 내느냐 (요금표보다 셈법이 먼저)</title><meta name="description" content="n8n과 Zapier의 차이는 요금표 숫자보다 '무엇을 세는가'에 있다. Zapier는 성공한 액션 단계마다 태스크 하나, n8n은 워크플로가 한 번 돌면 단계가 몇 개든 실행 하나. 2026년 9월 21일 공식 요금표를 확인해 표로 정리하고, 제 블로그 자동화(하루 1번, 4단계)를 두 도구로 옮기면 한 달에 얼마가 되는지 계산했다. 직접 설치(셀프호스팅)의 조건과 라이선스, 그리고 누구에게 뭐가 맞는지까지."><meta property="og:title" content="n8n vs Zapier 비교 — 소포마다 돈을 내느냐, 트럭 한 번에 내느냐 (요금표보다 셈법이 먼저)"><meta property="og:description" content="n8n과 Zapier의 차이는 요금표 숫자보다 '무엇을 세는가'에 있다. Zapier는 성공한 액션 단계마다 태스크 하나, n8n은 워크플로가 한 번 돌면 단계가 몇 개든 실행 하나. 2026년 9월 21일 공식 요금표를 확인해 표로 정리하고, 제 블로그 자동화(하루 1번, 4단계)를 두 도구로 옮기면 한 달에 얼마가 되는지 계산했다. 직접 설치(셀프호스팅)의 조건과 라이선스, 그리고 누구에게 뭐가 맞는지까지."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 21일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. 두 회사 어느 쪽과도 관계가 없고, 요금은 2026년 9월 21일 공식 페이지 기준입니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="n8n-vs-zapier-비교--소포마다-돈을-내느냐-트럭-한-번에-내느냐">n8n vs Zapier 비교 — 소포마다 돈을 내느냐, 트럭 한 번에 내느냐</h1>
+<p>택배 회사가 둘 있습니다. 한 곳은 <strong>소포 하나를 옮길 때마다</strong> 돈을 받아요. 트럭에 소포가 네 개 실렸으면 네 번 계산합니다. 다른 곳은 <strong>트럭이 한 번 왕복하면</strong> 한 번 계산해요. 소포가 네 개든 열네 개든 같은 값입니다. 어느 쪽이 싼지는 요금표만 봐서는 모릅니다. <strong>내 소포가 하루에 몇 개인지</strong>를 먼저 세어야 하죠.</p>
+<p>Zapier와 n8n의 차이가 정확히 이겁니다. 둘 다 “A에서 일이 생기면 B, C, D를 자동으로 한다”를 만드는 도구인데, <strong>세는 단위가 다릅니다.</strong> 이 글은 요금표를 옮겨 적는 대신 셈법부터 설명하고, 제 블로그 자동화를 두 도구로 옮기면 얼마가 되는지 실제로 계산해 봅니다.</p>
+<p><img alt="소포를 하나씩 세는 로봇과 트럭 한 번에 나르는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-counter-vs-truck.D-71WiMy_Z28KNFP.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li><strong>Zapier는 태스크, n8n은 실행을 셉니다.</strong> 태스크 = 성공한 액션 단계 하나. 실행 = 워크플로 한 바퀴, 단계 수 무관</li>
+<li>단계가 많은 자동화일수록 n8n이 유리하고, 단계가 한두 개인 단순 연결은 Zapier 무료(월 100 태스크)로도 됩니다</li>
+<li>n8n은 <strong>직접 설치하면 무료</strong>(Community Edition)입니다. 대신 서버와 유지보수가 내 몫이고, 회사 밖에 서비스로 팔 수는 없습니다</li>
+<li>제 자동화(하루 1번, 4단계)를 옮기면 Zapier는 월 120 태스크로 무료 한도를 넘고, n8n은 월 30 실행으로 가장 싼 요금제의 1.2%입니다</li>
+</ul>
+<h2 id="-1-둘-다-뭐-하는-물건인가--30초-설명">🧩 1. 둘 다 뭐 하는 물건인가 — 30초 설명</h2>
+<p>둘 다 구조는 같습니다. <strong>트리거</strong>(폼이 제출됐다, 메일이 왔다, 이슈가 올라왔다) 하나에 <strong>액션</strong>(시트에 적어라, 슬랙에 보내라, 글을 발행해라)을 줄줄이 붙입니다. 코드 없이 화면에서 상자를 잇는 방식이에요. <a href="/posts/20260907-ai-automation-start/">AI 업무 자동화 시작법</a>에서 “반복되는 일의 순서를 적어두는 게 시작”이라고 했는데, 그 순서를 실제로 돌리는 도구가 이 둘입니다.</p>
+<p>차이는 세 가지로 요약됩니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Zapier</th><th>n8n</th></tr></thead><tbody><tr><td>어디서 도나</td><td>Zapier 서버에서만</td><td>n8n 클라우드 <strong>또는 내 서버에 직접 설치</strong></td></tr><tr><td>세는 단위</td><td>태스크(액션 단계)</td><td>실행(워크플로 한 바퀴)</td></tr><tr><td>성격</td><td>연결 서비스 (가장 쉬움)</td><td>연결 + 코드 노드 + 자체 호스팅 (더 열려 있음)</td></tr></tbody></table>
+<h2 id="-2-셈법--이게-요금표보다-먼저입니다">📦 2. 셈법 — 이게 요금표보다 먼저입니다</h2>
+<p><strong>Zapier의 태스크.</strong> 공식 도움말 기준으로, <strong>성공한 액션 단계 하나가 태스크 하나</strong>입니다. 트리거는 세지 않고, 필터·경로(Paths)·포매터·지연·루프 같은 보조 단계도 세지 않아요. 오류로 멈춘 액션도 세지 않습니다. 도움말의 예시가 명확합니다 — 액션이 두 개인 자동화가 열 번 돌면 <strong>20 태스크.</strong></p>
+<p><strong>n8n의 실행.</strong> 요금 페이지 FAQ의 문장 그대로입니다. “실행은 워크플로 전체가 한 번 도는 것이다. 단계가 몇 개든, 데이터를 얼마나 처리하든 상관없이 실행 하나다.”</p>
+<p><img alt="같은 자동화 한 달 — Zapier는 4 × 30 = 120 태스크, n8n은 30 실행 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1280" src="/_astro/diagram-task-vs-execution.CEtqzBo4_Z2cKyH8.webp" ></p>
+<p>그림의 예가 제 블로그 공장입니다. 이슈가 올라오면 글을 만들고 사이트·네이버·인스타에 내보내는 흐름 — 트리거 하나에 액션 넷. 하루 한 번, 한 달 30번 돌면 <strong>Zapier는 120 태스크, n8n은 30 실행</strong>이에요. 여기에 “썸네일 만들기”, “대시보드 갱신” 같은 단계를 하나 더 붙일 때마다 Zapier는 한 달 30 태스크가 늘고, n8n은 그대로입니다.</p>
+<h2 id="-3-요금표--2026년-9월-21일-공식-페이지-기준">💰 3. 요금표 — 2026년 9월 21일 공식 페이지 기준</h2>
+<p>두 회사 모두 요금과 한도를 자주 바꿉니다. 아래는 이 글을 쓰는 날 공식 페이지에서 직접 확인한 값이고, <strong>연간 결제 기준</strong>의 월 환산가입니다. 통화가 달라요 — Zapier는 달러, n8n은 유로.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Zapier</th><th>n8n 클라우드</th></tr></thead><tbody><tr><td>무료</td><td><strong>$0</strong> — 월 100 태스크, 자동화 개수 무제한, <strong>2단계까지만</strong></td><td>무료 요금제 없음. 대신 Starter·Pro <strong>체험은 카드 없이</strong> 가능</td></tr><tr><td>입문 유료</td><td><strong>Professional $19.99/월</strong>(연간) · 월간 결제 시 $29.99 — 월 750 태스크부터, 다단계 가능</td><td><strong>Starter €20/월</strong>(연간) — 월 2,500 실행, 동시 실행 5개</td></tr><tr><td>중간</td><td><strong>Team $69/월</strong>(연간) · 월간 $103.50 — 월 2,000 태스크부터, 25명</td><td><strong>Pro €50/월</strong>(연간) — 월 10,000 실행, 동시 실행 20개</td></tr><tr><td>상위</td><td>Enterprise (문의)</td><td>Business €667/월(연간) — 40,000 실행 · Enterprise (문의)</td></tr><tr><td>직접 설치</td><td>없음</td><td><strong>Community Edition 무료</strong> — 실행 한도 없음</td></tr></tbody></table>
+<p>두 가지를 덧붙입니다. Zapier 유료는 태스크 양에 따라 같은 플랜 안에서도 값이 계단식으로 올라갑니다(Professional 750 태스크부터 200만 태스크까지). n8n은 월간 결제 가격을 페이지에 따로 표시하지 않아서 연간 기준만 적었어요.</p>
+<p><img alt="두 개의 가격표를 들고 비교하는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-price-tags.B_C92cPs_vRbsn.webp" ></p>
+<h2 id="-4-내-자동화를-옮기면-얼마인가--세-가지-경우">🔢 4. 내 자동화를 옮기면 얼마인가 — 세 가지 경우</h2>
+<p>제가 실제로 셈해 본 순서입니다. 여러분 것도 같은 순서로 하면 됩니다.</p>
+<p><strong>경우 1 — 지금 제 공장 그대로 (하루 1번, 액션 4개)</strong></p>
+<ul>
+<li>Zapier: 월 120 태스크. 무료 100을 넘고, 4단계라 무료 플랜(2단계 제한)은 애초에 안 됩니다 → <strong>Professional $19.99/월</strong></li>
+<li>n8n 클라우드: 월 30 실행 → <strong>Starter €20/월</strong>의 1.2%. 사실상 최저 요금제에서 놀 만큼 남습니다</li>
+<li>n8n 직접 설치: <strong>0원</strong> + 서버</li>
+</ul>
+<p><strong>경우 2 — 단계가 12개로 늘면 (썸네일, 카드뉴스, 릴스, 대시보드…)</strong></p>
+<ul>
+<li>Zapier: 월 360 태스크 → 여전히 Professional 750 안. 하지만 단계를 더 붙일수록 빠르게 750에 닿습니다</li>
+<li>n8n: 월 30 실행, 변화 없음</li>
+</ul>
+<p><strong>경우 3 — 실행이 하루 100번으로 늘면 (댓글마다, 주문마다 도는 흐름)</strong></p>
+<ul>
+<li>Zapier: 4단계 × 3,000번 = 월 12,000 태스크 → 태스크 계단을 여러 단 올라가야 합니다</li>
+<li>n8n 클라우드: 월 3,000 실행 → Starter 2,500을 넘어 <strong>Pro €50/월</strong></li>
+<li>n8n 직접 설치: 여전히 0원. 서버가 버티는지만 문제</li>
+</ul>
+<p>정리하면 <strong>“단계 수 × 횟수”가 큰 사람일수록 n8n, “횟수는 적고 연결만 몇 개”인 사람일수록 Zapier</strong>가 편합니다. <a href="/posts/20260906-openai-api-cost/">OpenAI API 비용 글</a>에서도 결론이 같았어요. 비용 폭탄은 요금표가 아니라 <strong>곱셈</strong>에서 나옵니다.</p>
+<h2 id="-5-직접-설치--무료의-조건">🏠 5. 직접 설치 — “무료”의 조건</h2>
+<p>n8n 문서는 셀프호스팅 Community Edition을 <strong>무료</strong>라고 명시하고, “거의 전체 기능”이 들어 있다고 합니다. 대신 세 가지가 붙어요.</p>
+<ul>
+<li><strong>서버는 내가 마련하고, 설치·업데이트·보안도 내 책임입니다.</strong> 문서 표현 그대로 “npm, Docker 또는 서버 설정이 필요”하고 “유지보수는 당신의 책임”입니다</li>
+<li><strong>유료 전용 기능이 있습니다.</strong> SSO(SAML·LDAP), 프로젝트, 환경 분리, 외부 비밀 저장소, 로그 스트리밍, Git 버전 관리, 워크플로·자격증명 공유 등은 클라우드 유료 플랜이나 기업용에 있습니다. 혼자 쓰면 대부분 필요 없는 것들이에요</li>
+<li><strong>라이선스는 “Sustainable Use License”입니다.</strong> 오픈소스가 아니라 소스 공개형 라이선스예요. 회사 내부 업무, 개인 용도, 비영리 용도로는 자유롭게 쓰고 고칠 수 있지만, <strong>다른 사람에게 돈을 받고 제공하는 것</strong>(예: n8n을 호스팅해서 파는 서비스)은 안 됩니다</li>
+</ul>
+<p>서버 비용은 사람마다 다릅니다. 저는 <a href="/posts/20260913-macmini-agent-machine/">24시간 도는 맥미니</a>가 이미 있어서, 그 글에서 계산한 대기 전력(4W × 24시간 × 30일 ≈ 2.9kWh) 위에 얹히는 셈이에요. 서버가 없는 분은 작은 클라우드 서버 한 대 값이 붙고, 그 값과 n8n Starter €20을 비교하시면 됩니다.</p>
+<p><img alt="집 창고에서 자기 트럭을 직접 조립하는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-garage-self-host.XOtn3Q9X_6Li9B.webp" ></p>
+<h2 id="-6-그래서-누구에게-뭐가-맞나">🎯 6. 그래서 누구에게 뭐가 맞나</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>이런 사람</th><th>권하는 쪽</th><th>이유</th></tr></thead><tbody><tr><td>연결 한두 개, 한 달 100번 이하 (폼 → 시트, 메일 → 슬랙)</td><td><strong>Zapier 무료</strong></td><td>5분이면 되고 서버가 없어도 됨</td></tr><tr><td>단계가 셋 이상인 흐름을 매일 돌림</td><td><strong>n8n</strong> (클라우드든 설치든)</td><td>단계를 늘려도 요금이 안 늘어남</td></tr><tr><td>서버를 만질 줄 알고, 이미 켜둔 기계가 있음</td><td><strong>n8n 직접 설치</strong></td><td>실행 한도 없이 0원</td></tr><tr><td>팀 여럿이 같이 만들고 SSO·권한이 필요</td><td>둘 다 <strong>유료 상위 플랜</strong></td><td>협업 기능은 양쪽 다 위 등급에 있음</td></tr><tr><td>데이터가 회사 밖으로 나가면 안 됨</td><td><strong>n8n 직접 설치</strong></td><td>내 서버 안에서 돎</td></tr></tbody></table>
+<h2 id="-7-제-답--저는-둘-다-안-씁니다-그리고-그-이유">💬 7. 제 답 — 저는 둘 다 안 씁니다, 그리고 그 이유</h2>
+<p>솔직히 적겠습니다. 제 블로그 공장은 n8n도 Zapier도 아니고 <strong>파이썬 스크립트와 윈도우 작업 스케줄러</strong>로 돌아갑니다. 이유는 하나예요. 제 자동화의 핵심 단계인 “네이버 에디터에 글을 타이핑해서 발행”은 <strong>브라우저를 직접 조작하는 일</strong>이라, 두 도구의 기본 노드로는 안 되고 결국 코드를 써야 했습니다. 코드를 써야 한다면 도구를 하나 더 얹을 이유가 없었어요. (그 코드는 전부 AI에게 시켰고, 그 한계는 <a href="/posts/20260914-vibe-coding-silent-failures/">바이브 코딩의 한계 글</a>에 적었습니다.)</p>
+<p>만약 코드 없이 시작해야 했다면 — 이미 켜둔 기계가 있으니 <strong>n8n 직접 설치</strong>를 골랐을 겁니다. 단계가 매주 늘어나는 자동화라서요. 반대로 “폼 제출되면 시트에 적고 슬랙에 알려라” 정도라면 Zapier 무료로 오늘 끝냈을 거고요.</p>
+<h2 id="-시작-코스--결정까지-10분">🎯 시작 코스 — 결정까지 10분</h2>
+<ol>
+<li>자동화할 흐름을 <strong>한 줄로</strong> 적습니다. “○○가 생기면 → A, B, C를 한다”</li>
+<li>한 달에 <strong>몇 번</strong> 도는지 셉니다 (하루 1번이면 30)</li>
+<li>화살표 뒤의 <strong>액션 수</strong>를 셉니다 (필터·지연은 빼고)</li>
+<li><strong>횟수 × 액션 수 = Zapier 태스크</strong>, <strong>횟수 = n8n 실행.</strong> 위 요금표의 한도와 비교합니다</li>
+<li>100 태스크 안이면 Zapier 무료로 시작, 넘으면 n8n 체험(카드 불필요)으로 같은 흐름을 만들어 봅니다. 서버가 있으면 공식 문서의 설치 안내대로 Community Edition을 올려 봅니다</li>
+</ol>
+<p>요금표는 다음 달에 바뀔 수 있지만 셈법은 잘 안 바뀝니다. <strong>소포마다 세느냐, 트럭마다 세느냐</strong> — 이것만 기억하면 요금표가 바뀌어도 다시 계산할 수 있어요.</p>
+<hr>
+<p><em>기준: 2026-09-21. 요금·한도는 Zapier 요금 페이지와 n8n 요금 페이지, 태스크 셈법은 Zapier 도움말 “How tasks are counted”, 실행 정의는 n8n 요금 페이지 FAQ, 셀프호스팅 조건과 유료 전용 기능은 n8n 문서 “Choose how to use n8n”, 라이선스는 n8n 저장소의 LICENSE.md를 이날 직접 확인했습니다. 두 도구를 유료로 운영한 경험은 없으며, 4절의 계산은 제 파이프라인의 실행 횟수와 단계 수를 대입한 것입니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>

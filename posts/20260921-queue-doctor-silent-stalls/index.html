@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>자동화 건강검진이란 — 매일 초록불이던 공장에서 멈춘 소포 넷을 찾은 이야기 (실물 기준)</title><meta name="description" content="제 블로그의 자동 발행 큐는 12일 내내 '정상 종료'였다. 그 아래에서 글 넷이 멈춰 있었다 — 예약일이 비어서, 대본 파일이 옛 형식이라서, 올라갔는데 기록이 없어서, 브라우저에 엉뚱한 계정이 로그인돼 있어서. 넷 다 실패 로그가 없었고 사람이 우연히 찾았다. 자동화가 '오류'가 아니라 '해당 없음'으로 멈추는 이유와, 그래서 매일 릴리스 직후 돌리게 된 여섯 가지 건강검진을 그대로 적었다."><meta property="og:title" content="자동화 건강검진이란 — 매일 초록불이던 공장에서 멈춘 소포 넷을 찾은 이야기 (실물 기준)"><meta property="og:description" content="제 블로그의 자동 발행 큐는 12일 내내 '정상 종료'였다. 그 아래에서 글 넷이 멈춰 있었다 — 예약일이 비어서, 대본 파일이 옛 형식이라서, 올라갔는데 기록이 없어서, 브라우저에 엉뚱한 계정이 로그인돼 있어서. 넷 다 실패 로그가 없었고 사람이 우연히 찾았다. 자동화가 '오류'가 아니라 '해당 없음'으로 멈추는 이유와, 그래서 매일 릴리스 직후 돌리게 된 여섯 가지 건강검진을 그대로 적었다."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 21일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="자동화-건강검진이란--매일-초록불이던-공장에서-멈춘-소포-넷을-찾은-이야기">자동화 건강검진이란 — 매일 초록불이던 공장에서 멈춘 소포 넷을 찾은 이야기</h1>
+<p>택배 물류센터를 상상해 보세요. 컨베이어는 잘 돌고, 출구의 검수원은 지나가는 소포마다 손을 흔들고, 저녁 보고서에는 매일 “이상 없음”이 찍힙니다. 그런데 벨트 옆 보조 트랙에 소포 하나가 열흘째 놓여 있어요. 거미줄까지 쳤습니다. 검수원이 게을렀던 게 아닙니다. <strong>그 소포는 검수원 앞을 지나간 적이 없으니까요.</strong></p>
+<p>이번 달 제 블로그의 자동 발행 큐에서 정확히 이 일이 있었습니다. 매일 아침 릴리스는 12일 내내 정상 종료했고, 그 아래에서 글 넷이 멈춰 있었어요. 넷 다 실패 로그가 없었고, 넷 다 제가 “어, 이거 왜 아직도 안 올라갔지?” 하고 열어 봐서 찾았습니다. <a href="/posts/20260914-vibe-coding-silent-failures/">지난 글</a>에서 “AI가 짠 자동화는 오류 대신 빈 상자를 보낸다”고 썼는데, 이번엔 그보다 한 겹 더 조용한 형태였어요. 빈 상자조차 안 오는 경우입니다.</p>
+<p><img alt="컨베이어 위 소포들은 흘러가고, 옆 트랙의 소포 하나는 거미줄을 친 채 잠들어 있는 장면 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-stuck-parcel.BLnd5PF1_Zb0yWB.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li>자동화가 멈추는 가장 흔한 형태는 **오류가 아니라 “해당 없음”**입니다. 후보에서 빠지거나, 이미 끝난 것으로 셈해지거나, 정상 분기로 건너뛰어집니다. 로그는 초록불이에요</li>
+<li>그래서 실행 로그를 보는 것으로는 못 잡습니다. <strong>“실패도 성공도 아닌 상태”를 세는 별도 점검</strong>이 필요합니다</li>
+<li>제 경우 여섯 항목을 매일 릴리스 직후 스크립트로 봅니다 — 예약일 없음, 기한 초과, 대본 없음, 카드 없음, 릴스 누락, 로그인 계정. 보고서는 파일 한 장, 0건이어도 남깁니다</li>
+</ul>
+<h2 id="-1-멈춰-있던-넷--9월-6일부터-17일까지">🔍 1. 멈춰 있던 넷 — 9월 6일부터 17일까지</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>무엇이</th><th>얼마나</th><th>왜 조용했나</th></tr></thead><tbody><tr><td>인스타 게시 2건</td><td><strong>10일</strong> 대기</td><td>예약일 칸이 비어 있었다. 릴리스는 “오늘이 예약일인 것”만 보니 후보에 오른 적이 없다</td></tr><tr><td>네이버 글 1건</td><td><strong>12일</strong> 건너뜀</td><td>대본이 옛 형식 파일(naver.md)로 있었다. 새 형식(naver.yml)이 없으면 “대본 없음”으로 정상 건너뜀</td></tr><tr><td>사이트 글 1건</td><td>매일 재계산</td><td>배포는 됐는데 발행 기록을 안 남겼다. 매일 “아직 안 올라간 글”로 다시 세어지고, 다시 배포되고, 여전히 기록은 없었다</td></tr><tr><td>네이버 글 1건 (다른 블로그)</td><td><strong>3번</strong> 실패</td><td>자동화 브라우저가 다른 블로그 계정으로 로그인돼 있었다. 이건 로그에 실패가 남았지만, 아무도 그 로그를 읽지 않았다</td></tr></tbody></table>
+<p>세 번째가 제일 오래 저를 헷갈리게 했습니다. 큐 대시보드에는 “대기 중”인데 사이트에는 이미 올라와 있고, 다음 날도 같은 상태. 배포 스크립트는 매일 성공했으니 실패가 없었고, 기록 스크립트는 애초에 사이트 채널을 기록하도록 만들어지지 않았던 겁니다. <strong>“됐다”와 “됐다고 적었다”는 다른 일</strong>이더라고요.</p>
+<p><img alt="9/6~9/17 매일 릴리스는 초록불, 그 아래 멈춰 있던 항목 넷의 막대 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1200" src="/_astro/diagram-green-light-stalls.tJQwSPji_Z238g4g.webp" ></p>
+<h2 id="-2-왜-로그에-안-나오나--큐가-후보를-고르는-방식">🧩 2. 왜 로그에 안 나오나 — 큐가 후보를 고르는 방식</h2>
+<p>릴리스 스크립트는 매일 아침 이렇게 후보를 고릅니다. <strong>예약일이 오늘이거나 지났고, 그 채널에 아직 발행 기록이 없고, 대본이 있는 글.</strong> 세 조건을 다 만족해야 후보예요. 넷을 이 조건에 대 보면 왜 조용했는지 바로 보입니다.</p>
+<ul>
+<li>예약일이 비어 있으면 <strong>첫 조건에서 탈락</strong>합니다. 후보가 아니니 시도도 실패도 없어요</li>
+<li>대본이 없으면 <strong>세 번째 조건에서 정상 건너뜀</strong>입니다. 코드 입장에선 “아직 준비 안 된 글”이라 오류가 아닙니다</li>
+<li>기록이 없으면 두 번째 조건을 <strong>매일 통과</strong>합니다. 그래서 매일 다시 배포되고 매일 성공합니다</li>
+<li>계정이 다르면 <strong>시도는 하고 실패는 합니다.</strong> 유일하게 로그에 남은 경우인데, 로그는 파일에 쌓일 뿐 아무도 안 열었어요</li>
+</ul>
+<p>지난 글의 대비법 세 번째가 “실패한 건 다음 실행에서 다시 잡게 하라”였습니다. 그건 지켰어요. 그런데 <strong>실패조차 하지 않는 항목</strong>은 그 규칙이 못 잡습니다. 후보에 오르지 못한 소포는 재시도 대상도 아니니까요.</p>
+<p><img alt="청진기를 든 로봇 의사가 컨베이어 위 소포를 진찰하는 장면 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-doctor-conveyor.D1fOxuPf_2oJPGq.webp" ></p>
+<h2 id="-3-큐-닥터--릴리스-직후-여섯-가지를-본다">🩺 3. 큐 닥터 — 릴리스 직후 여섯 가지를 본다</h2>
+<p>그래서 9월 17일부터 릴리스 스크립트 바로 뒤에 점검 스크립트를 하나 붙였습니다. 이름은 큐 닥터. 아침 6시 자동 실행 파일의 핵심은 두 줄이에요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bat"><code><span class="line"><span style="color:#E1E4E8">.venv\Scripts\python.exe automations\publish\release_queue.py  </span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> dashboards\daily-release.log</span></span>
+<span class="line"><span style="color:#E1E4E8">.venv\Scripts\python.exe automations\publish\queue_doctor.py --deep </span><span style="color:#F97583">>></span><span style="color:#E1E4E8"> dashboards\daily-release.log</span></span></code></pre>
+<p>닥터가 보는 여섯 항목은 넷의 사고에서 그대로 나왔습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>#</th><th>점검</th><th>어떤 사고에서 왔나</th></tr></thead><tbody><tr><td>1</td><td><strong>예약일 없음</strong> — 채널 목록에는 있는데 발행 기록에도 예약에도 없다</td><td>인스타 2건</td></tr><tr><td>2</td><td><strong>기한 초과</strong> — 예약일이 지났는데 미발행. 이틀 이상이면 실패가 반복되는 중</td><td>계정 불일치로 3번 실패한 건</td></tr><tr><td>3</td><td><strong>대본 없음</strong> — 네이버 채널인데 새 형식 대본 파일이 없다 (옛 형식만 있는 경우 포함)</td><td>네이버 12일</td></tr><tr><td>4</td><td><strong>카드 없음</strong> — 인스타 채널인데 카드뉴스 캡션 파일이 없다 (릴리스가 건너뛴다)</td><td>같은 유형의 예방</td></tr><tr><td>5</td><td><strong>릴스 누락</strong> — 인스타 채널인데 영상은 있고 릴스 파일이 없다 (경고)</td><td>“영상이 있으면 릴스로” 규칙이 조용히 잊히는 것 방지</td></tr><tr><td>6</td><td><strong>로그인 계정</strong> — 자동화 브라우저 두 개에 각각 맞는 블로그 계정이 로그인돼 있는가</td><td>엉뚱한 계정 3번 실패</td></tr></tbody></table>
+<p>사이트 기록 누락(세 번째 사고)은 점검 항목이 아니라 <strong>릴리스 쪽을 고쳐서</strong> 막았습니다. 배포가 성공했을 때만 공개 주소와 함께 기록을 남기게요. 닥터는 그 기록이 없으면 2번 항목으로 잡습니다.</p>
+<p>결과는 <code>dashboards/queue-doctor.md</code> 한 장으로 남고, 조치가 필요한 항목이 있으면 종료 코드 1로 끝나서 로그에 표시됩니다. 여섯 번째 항목은 실제로 브라우저를 열어 블로그 첫 화면으로 가 보고 어느 계정인지 확인하는 방식이라, <code>--deep</code> 옵션일 때만 돕니다.</p>
+<h2 id="-4-오늘-아침-보고서">📋 4. 오늘 아침 보고서</h2>
+<p>9월 21일 6시 보고서의 첫 줄입니다.</p>
+<blockquote>
+<p>조치 필요 <strong>0건</strong> · 경고 0건 · 정상 대기 60건 — 멈춘 항목 없음. 큐에 남은 것은 전부 예정일이 오늘 이후다.</p>
+</blockquote>
+<p>그 아래에 예정일·글·채널 표가 60줄 이어집니다. 9월 22일 인스타 2건과 네이버 2건, 23일…, 10월 중순까지요. <strong>0건이어도 씁니다.</strong> “안 봤다”와 “봤는데 없었다”를 구분하려면 없었다는 기록이 있어야 하니까요.</p>
+<p><img alt="해 뜨는 창가에서 체크 여섯 개가 모두 초록인 점검표를 든 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-morning-checklist.BI8XyWlh_Z1XheeV.webp" ></p>
+<h2 id="-5-원칙-셋--어떤-자동화에든-옮길-수-있는-것">💡 5. 원칙 셋 — 어떤 자동화에든 옮길 수 있는 것</h2>
+<ul>
+<li><strong>“해당 없음”을 세세요.</strong> 실행 로그는 시도한 것만 보여줍니다. 시도되지 않은 것 — 날짜가 빈 항목, 필요한 파일이 없는 항목, 결과는 있는데 기록이 없는 항목 — 은 목록을 처음부터 훑어야 보입니다</li>
+<li><strong>점검은 실행 직후, 같은 스케줄에 붙이세요.</strong> 따로 돌리면 잊습니다. 릴리스 다음 줄에 있으면 잊을 수가 없어요</li>
+<li><strong>보고서는 사람이 읽는 파일로, 0건도 남기세요.</strong> 그리고 사고가 날 때마다 항목을 하나 추가하세요. 여섯 항목은 설계한 게 아니라 사고 넷이 만든 겁니다</li>
+</ul>
+<h2 id="️-6-한계--닥터도-코드입니다">⚠️ 6. 한계 — 닥터도 코드입니다</h2>
+<ul>
+<li>닥터는 <strong>닥터가 아는 형태만</strong> 잡습니다. 다음 사고는 여섯 항목 중 어디에도 없는 모양일 가능성이 높아요. 그때 일곱 번째 항목이 생깁니다</li>
+<li>여섯 번째(로그인 계정)는 자동화 브라우저가 떠 있어야 봅니다. 브라우저가 꺼져 있으면 “확인 불가”로 적고 넘어가요</li>
+<li>점검이 “이상 없음”이라고 해서 글이 좋다는 뜻은 아닙니다. 닥터는 큐의 상태만 봅니다 — <a href="/posts/20260907-ai-review-automation/">내용 검증은 별개의 세트</a>예요</li>
+</ul>
+<h2 id="-시작-코스--내-자동화에-청진기-대기">🎯 시작 코스 — 내 자동화에 청진기 대기</h2>
+<ol>
+<li>자동화가 다루는 <strong>항목 목록</strong>을 처음부터 끝까지 출력해 봅니다 (큐, 예약, 대기열, 뭐든)</li>
+<li>각 항목에 대해 세 질문: <strong>날짜가 있나? 필요한 재료 파일이 다 있나? 끝났으면 끝났다는 기록이 있나?</strong></li>
+<li>셋 중 하나라도 “아니오”인 항목을 세는 스크립트를 씁니다. AI에게 “이 목록에서 날짜가 비었거나 파일이 없거나 결과가 있는데 기록이 없는 항목을 찾아 표로 만들어줘”라고 시키면 초안은 금방 나옵니다</li>
+<li>실행 스크립트 <strong>바로 다음 줄</strong>에 붙입니다</li>
+<li>결과를 파일 한 장에 씁니다. 0건이어도요. 사고가 나면 그 사고의 모양을 항목으로 추가합니다</li>
+</ol>
+<p>물류센터의 검수원은 잘못이 없었습니다. 잘못은 <strong>검수원 앞을 지나지 않는 트랙이 있다는 걸 아무도 몰랐던 것</strong>이에요. 건강검진은 그 트랙을 매일 아침 한 번 걸어 보는 일입니다.</p>
+<hr>
+<p><em>기준: 2026-09-21. 네 건의 멈춤과 기간은 저장소 커밋(9/16~17 “queue: unstick the three items that had no scheduled date”, “playwright post: record the site publication that was never written down”, “bucket dolly: naver ddakman published after three failed queue attempts”)과 점검 스크립트의 기록 기준입니다. 여섯 항목과 아침 6시 실행 파일은 실제 파일에서 발췌했고, 보고서 문장은 이날 생성된 dashboards/queue-doctor.md 첫 줄입니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
