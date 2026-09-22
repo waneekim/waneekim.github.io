@@ -1,0 +1,115 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>System One 모델 Jev란 — 생각하지 않고 고르기만 하는 AI, 왜 0.5초면 되나 (5분 설명)</title><meta name="description" content="2026년 9월 15일 TypeSafe AI가 발표한 Jev는 글을 쓰지 않는 AI다. 상태(state)와 미리 정한 질문표를 보내면 '어느 것', '몇 단계', '예/아니오'를 확률과 함께 0.07~0.5초에 돌려준다. 카너먼의 '빠른 생각(System 1)'에서 이름을 딴 System One 모델이 뭔지, 챗봇형 LLM과 무엇이 다른지, 세 가지 질문 유형과 '보정된 확률'이 왜 핵심인지, 그리고 못 하는 것은 무엇인지 공식 발표문과 문서 기준으로 비개발자 눈높이에 맞춰 정리했다. Jev 3부작의 1편."><meta property="og:title" content="System One 모델 Jev란 — 생각하지 않고 고르기만 하는 AI, 왜 0.5초면 되나 (5분 설명)"><meta property="og:description" content="2026년 9월 15일 TypeSafe AI가 발표한 Jev는 글을 쓰지 않는 AI다. 상태(state)와 미리 정한 질문표를 보내면 '어느 것', '몇 단계', '예/아니오'를 확률과 함께 0.07~0.5초에 돌려준다. 카너먼의 '빠른 생각(System 1)'에서 이름을 딴 System One 모델이 뭔지, 챗봇형 LLM과 무엇이 다른지, 세 가지 질문 유형과 '보정된 확률'이 왜 핵심인지, 그리고 못 하는 것은 무엇인지 공식 발표문과 문서 기준으로 비개발자 눈높이에 맞춰 정리했다. Jev 3부작의 1편."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 22일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. TypeSafe AI와 아무 관계가 없고, 내용은 2026년 9월 22일 공식 발표문과 문서를 확인해 쓴 것입니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="system-one-모델-jev란--생각하지-않고-고르기만-하는-ai-왜-05초면-되나">System One 모델 Jev란 — 생각하지 않고 고르기만 하는 AI, 왜 0.5초면 되나</h1>
+<p>친구 얼굴을 보면 화가 났는지 <strong>보자마자</strong> 압니다. 근거를 따지지 않아요. 반대로 “왜 화났는지 설명하는 편지”를 쓰려면 한참 걸립니다. 심리학자 대니얼 카너먼은 앞의 것을 <strong>빠른 생각(System 1)</strong>, 뒤의 것을 **느린 생각(System 2)**이라고 불렀어요.</p>
+<p>우리가 쓰는 챗봇형 AI(GPT·Claude·Gemini)는 전부 편지를 쓰는 쪽입니다. 한 글자씩 생각하며 글을 만들죠. 2026년 9월 15일, TypeSafe AI라는 회사가 <strong>표정을 읽는 쪽</strong>의 AI를 내놨습니다. 이름은 <strong>Jev</strong>, 부류 이름은 <strong>System One 모델</strong>. 글을 전혀 쓰지 않고, 보기 중에서 고르고, 단계를 매기고, 예/아니오를 확률로 답하는 것만 합니다. 대신 0.5초 안에요. 이 글은 그 부류가 뭔지, 왜 필요한지, 뭘 못 하는지를 공식 문서 기준으로 정리한 3부작의 1편입니다.</p>
+<p><img alt="표정 카드를 보자마자 고르는 로봇과 긴 편지를 천천히 쓰는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-fast-vs-slow.w7l8Pdsw_MFfFX.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li><strong>System One 모델</strong> = TypeSafe의 정의로 “소프트웨어가 바로 쓸 수 있는 <strong>빠르고 구조화된 결정</strong>을 내리도록 만든 새 부류의 모델.” Jev가 그 첫 번째</li>
+<li>넣는 것은 <strong>상태 + 미리 정한 질문표</strong>, 나오는 것은 <strong>타입이 정해진 답 + 확률.</strong> 글은 한 글자도 안 씁니다</li>
+<li>질문은 셋뿐 — <strong>하나 고르기(Choice)</strong>, <strong>단계 매기기(Score)</strong>, <strong>예/아니오(Noul)</strong></li>
+<li>발표 기준 0.07<del>0.5초(챗봇형 모델 비교치 3</del>329초), 입력 100만 토큰당 $0.042, 출력은 무료</li>
+<li>못 하는 것도 분명합니다. 글쓰기, 계산, 날짜 비교, 애매한 질문. <strong>“환각이 없다”는 “보기 밖의 답을 못 낸다”는 뜻이지 “안 틀린다”가 아닙니다</strong></li>
+</ul>
+<h2 id="-1-system-one-모델이란--카너먼에서-따온-이름">🧠 1. System One 모델이란 — 카너먼에서 따온 이름</h2>
+<p>TypeSafe의 발표문은 카너먼의 『생각에 관한 생각』을 직접 인용합니다. <strong>빠르고 직관적인 System 1과 느리고 숙고하는 System 2의 구분</strong>에서 이름을 땄다고요. 그리고 System One 모델을 이렇게 정의합니다.</p>
+<blockquote>
+<p>“소프트웨어가 바로 쓸 수 있는, 빠르고 구조화된 결정을 내리도록 만들어진 새로운 부류의 프런티어 모델”</p>
+</blockquote>
+<p>핵심은 **“소프트웨어가 바로 쓸 수 있는”**입니다. 챗봇의 답은 사람이 읽는 글이라, 프로그램이 쓰려면 글에서 값을 다시 파내야 해요. “이 문의는 기술팀으로 보내야 할 것 같습니다”라는 문장에서 ‘기술팀’을 뽑아내는 식이죠. System One 모델은 처음부터 <code>기술팀</code>이라는 <strong>값</strong>과 <code>0.78</code>이라는 <strong>확률</strong>을 돌려줍니다. 공식 문서의 표현대로 “글 생성도 없고, 파싱도 없습니다.”</p>
+<h2 id="-2-넣는-것과-나오는-것--질문표가-먼저다">🔀 2. 넣는 것과 나오는 것 — 질문표가 먼저다</h2>
+<p>챗봇은 질문을 던지면 뭐든 답합니다. Jev는 다릅니다. <strong>먼저 질문표(schema)를 정하고, 답은 그 안에서만 나옵니다.</strong> 객관식 시험과 같아요. 보기 ①②③ 중에서만 고르니 ④가 나올 수 없습니다.</p>
+<p>넣는 것은 두 가지예요.</p>
+<ul>
+<li><strong>상태(state)</strong> — 판단할 재료. 고객 문의 한 통, 문서 한 장, 주문 내역 같은 것. 문자열이든 JSON이든 됩니다. 단, <strong>글자만</strong> 받습니다(이미지·음성 불가)</li>
+<li><strong>질문표(questions)</strong> — “이 문의는 어느 팀?”, “고객이 얼마나 화났나?”, “급한가?” 같은 질문 여러 개를 <strong>한 번에</strong> 보냅니다. 문서 표현으로 “독립적인 질문들을 함께” 평가해요</li>
+</ul>
+<p>나오는 것은 질문마다 <strong>답 + 확률 + 확신도</strong>입니다. “기술팀 0.78, 결제팀 0.15, 영업팀 0.07”처럼 보기마다 확률이 붙고, 그게 한쪽에 얼마나 몰렸는지가 확신도(confidence)로 따로 옵니다. 이 확신도가 2편의 주인공이에요.</p>
+<p><img alt="세 장의 카드 — 갈림길(하나 고르기), 사다리(단계 매기기), 동전(예/아니오)을 든 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-three-cards.C2fvZk2W_16m1up.webp" ></p>
+<h2 id="-3-질문은-딱-셋--choice--score--noul">🃏 3. 질문은 딱 셋 — Choice · Score · Noul</h2>
+<p>공식 문서가 “세 가지 질문 유형(primitives)“이라고 부르는 것입니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>유형</th><th>묻는 것</th><th>돌아오는 것</th><th>예시</th><th>한도</th></tr></thead><tbody><tr><td><strong>Choice</strong> (하나 고르기)</td><td>정해진 보기 중 하나</td><td>고른 보기 + 보기별 확률 + 확신도</td><td>“어느 팀이 맡아야 하나: 결제·기술·영업”</td><td>보기 최대 255개</td></tr><tr><td><strong>Score</strong> (단계 매기기)</td><td>순서가 있는 단계 중 어디</td><td>가중 평균 점수 + 단계별 확률 + 확신도</td><td>“얼마나 화났나: 차분함·짜증·격분”</td><td>단계 2~10개</td></tr><tr><td><strong>Noul</strong> (예/아니오)</td><td>문장이 참인가</td><td>0~1 확률 하나</td><td>“급하다고 말하고 있나”</td><td>—</td></tr></tbody></table>
+<p>문서의 조언이 재미있습니다. Score의 단계는 “매우 심각” 같은 <strong>정도 표현이 아니라 구체적 상황</strong>으로 적으라고요(“깨졌지만 우회 방법 있음”, “막혔고 우회 없음”). Noul은 “화났고 <strong>그리고</strong> 환불 요구하나?”처럼 두 조건을 한 질문에 넣지 말고 둘로 나누라고 합니다. 질문을 잘게 쪼갤수록 답이 정확해지는 구조예요.</p>
+<h2 id="-4-왜-빠르고-싼가--한-글자씩이-아니라-한-번에">⚡ 4. 왜 빠르고 싼가 — 한 글자씩이 아니라 한 번에</h2>
+<p>챗봇형 LLM은 답을 <strong>한 글자(토큰)씩</strong> 만듭니다. 문장이 길수록 오래 걸리고 비쌉니다. Jev는 발표문 표현으로 “<strong>한 번의 병렬 처리(single parallel pass)</strong>“로 모든 답을 동시에 냅니다. 애초에 글을 안 만드니까요.</p>
+<p>발표문의 수치입니다(TypeSafe 자체 비교).</p>
+<ul>
+<li>응답 시간 <strong>70ms~500ms</strong> — 비교 대상 프런티어 모델은 3초~329초, 그래서 <strong>40~200배 빠르다</strong>고 주장</li>
+<li>요금 <strong>입력 100만 토큰당 $0.042, 출력은 무료</strong> — 문서 표현으로 “너무 싸서 계량하지 않음(too cheap to meter)”. 글을 안 만드니 출력 요금이 붙을 게 없는 구조</li>
+<li>비교 대상은 GPT-5.6 Terra, GPT-6 Astra, Fable 5.1</li>
+</ul>
+<p>수치는 회사 발표이니 그대로 믿기보다 <strong>구조</strong>를 보면 됩니다. 글을 안 쓰는 모델은 글 길이만큼의 시간과 돈이 원리적으로 안 듭니다. 그게 System One이 빠른 이유예요.</p>
+<p><img alt="같은 &quot;AI&quot;인데 하는 일이 다르다 — LLM과 System One 모델 비교 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1240" src="/_astro/diagram-llm-vs-system-one.BwvBPbDJ_Z7AQOx.webp" ></p>
+<h2 id="-5-보정된-확률이-진짜-차이--90라고-하면-90-맞아야">🎯 5. “보정된 확률”이 진짜 차이 — 90%라고 하면 90% 맞아야</h2>
+<p>Jev가 확률을 돌려주는 것 자체는 새롭지 않습니다. 새로운 건 그 확률이 **보정(calibrated)**돼 있다는 주장이에요. TypeSafe 문서의 정의는 이렇습니다.</p>
+<blockquote>
+<p>“0.2의 확률을 받은 결과는 약 20%의 빈도로 일어나야 하고, 0.8의 확률을 받은 결과는 약 80%의 빈도로 일어나야 한다.”</p>
+</blockquote>
+<p>이걸 위해 **RLCD(Reinforcement Learning for Calibrated Decisions)**라는 학습법을 새로 만들었다고 합니다. 챗봇형 모델의 학습(RLHF)은 “사람이 선호하는 답”을 향해 조정되기 때문에, 문서 표현으로 “자신만만하게 들리는 환각”이 생길 수 있다는 게 그들의 진단이에요. 반면 결정 모델은 확률을 <strong>실제 맞은 빈도</strong>에 맞춰 조정합니다.</p>
+<p>왜 이게 중요할까요. 확률이 믿을 만해야 <strong>프로그램이 그 숫자로 갈림길을 만들 수 있기</strong> 때문입니다. “0.9 넘으면 자동, 그 아래면 사람에게” 같은 규칙은 0.9가 진짜 90%일 때만 의미가 있어요.</p>
+<p><img alt="바늘이 90 근처를 가리키는 계기판과, 열 개 중 아홉 개가 켜진 전구를 든 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-calibration-bulbs.BUmCD0MZ_Z2uxFbA.webp" ></p>
+<h2 id="️-6-못-하는-것--문서가-스스로-적어둔-약점">⚠️ 6. 못 하는 것 — 문서가 스스로 적어둔 약점</h2>
+<p>TypeSafe는 문서에 “Jev 1.13의 들쭉날쭉함(jaggedness)“이라는 페이지를 따로 두고 약점을 적어뒀습니다. 비개발자에게 중요한 것만 옮깁니다.</p>
+<ul>
+<li><strong>글을 못 씁니다.</strong> 발표문 그대로 “글 생성을 포기했다.” 요약·번역·답장 작성은 LLM의 일</li>
+<li><strong>계산기가 아닙니다.</strong> 글자 수 세기, 단어 등장 횟수, 긴 목록의 항목 수가 불안정하고, 색상값 같은 숫자의 가까움도 못 잽니다</li>
+<li><strong>날짜를 글자로 읽습니다.</strong> 순서 비교, 기간 계산, “분기”나 “정산 기간” 같은 경계 판단이 약합니다</li>
+<li><strong>적힌 그대로 답합니다.</strong> 문서 표현으로 “당신이 쓴 질문에 답하지, 당신이 의도한 질문에 답하지 않는다.” 이중 부정, 여러 단계 추론, 암묵적 조건이 약합니다</li>
+<li><strong>관계없는 재료가 많으면 정확도가 떨어집니다.</strong> 상태에 결정과 무관한 내용이 늘수록 방해가 됩니다</li>
+<li><strong>상태 안의 지시문을 의심하지 않습니다.</strong> 입력을 “적대적으로 보지 않는다”고 명시돼 있어요. 누가 문의 글에 “이건 급한 거야”라고 써 넣으면 영향을 받을 수 있습니다</li>
+<li><strong>언어는 영어가 기본.</strong> 한국어를 포함한 다른 언어도 지원하지만 “같은 수준은 아니다”라고 문서가 밝힙니다</li>
+</ul>
+<p>그래서 “환각이 없다”는 말을 정확히 읽어야 합니다. <strong>보기 밖의 답이나 형식이 깨진 답은 나올 수 없다</strong>는 뜻이지, 고른 답이 항상 옳다는 뜻이 아닙니다. 틀릴 수 있고, 틀릴 때 확률이 낮게 나오도록 만든 것뿐이에요.</p>
+<h2 id="-7-그래서-어디에-쓰나--글은-llm이-갈림길은-system-one이">🧩 7. 그래서 어디에 쓰나 — 글은 LLM이, 갈림길은 System One이</h2>
+<p>TypeSafe 문서의 원칙 한 줄이 이 모델의 자리를 정확히 말해줍니다.</p>
+<blockquote>
+<p>“코드가 결정론적인 일을 처리하고 흐름을 소유한다. 모델은 시스템에 ‘프로그래밍 가능한 상식’이 필요한 곳에만 나타난다.”</p>
+</blockquote>
+<p>즉 Jev는 자율 에이전트가 아니라, 프로그램 흐름 속의 <strong>갈림길 하나</strong>입니다. 문서의 사용처 지도에서 몇 개만 옮기면 — 고객 문의를 팀별로 분류하고 급한 것을 먼저 올리기, 검색 결과의 순위 다시 매기기, LLM의 입력·출력·도구 호출마다 안전 검사 넣기(문서 표현으로 “훨씬 낮은 비용으로”), 어떤 LLM에 보낼지 고르는 라우터 만들기, 채용 서류를 기준에 맞춰 점수 매기기.</p>
+<p>공통점이 보이시죠. <strong>전부 “고르기·매기기·판정하기”이고, 글을 만드는 일은 하나도 없습니다.</strong> 글이 필요한 단계는 그 뒤에서 LLM이 맡습니다. 둘은 경쟁이 아니라 역할 분담이에요. 코딩 에이전트 문서도 같은 말을 합니다 — “Jev는 코딩 에이전트의 LLM을 대체하지 않는다. 에이전트가 만드는 앱 안에서 구조화된 결정을 맡는다.”</p>
+<h2 id="-시작-코스--개념만-잡고-싶다면">🎯 시작 코스 — 개념만 잡고 싶다면</h2>
+<ol>
+<li>내 업무에서 <strong>“어느 것 / 몇 점 / 예·아니오”로 끝나는 판단</strong>을 세 개만 적어 봅니다. 문의 분류, 우선순위, 규정 위반 여부 같은 것</li>
+<li>각 판단에 <strong>보기나 단계를 구체적 상황으로</strong> 적어 봅니다. “심각함”이 아니라 “막혔고 우회 없음”처럼</li>
+<li>그 판단이 틀렸을 때의 비용을 생각해 봅니다. 클수록 확신도 문턱을 높여야 합니다 — 이게 <a href="/posts/20260922-jev-confidence-routing/">2편</a>의 내용</li>
+<li>판단 뒤에 글이 필요한지 봅니다. 필요하면 그 부분은 LLM 몫으로 남겨 둡니다</li>
+</ol>
+<p>표정을 읽는 사람과 편지를 쓰는 사람이 다르듯, 고르는 AI와 쓰는 AI가 다릅니다. Jev는 앞의 것만 하기로 한 모델이고, 그래서 0.5초면 됩니다.</p>
+<p>다음 편: <a href="/posts/20260922-jev-confidence-routing/">Jev 사용법 — 상태와 질문표를 보내면 확신도가 돌아온다</a> · 3편: <a href="/posts/20260922-llm-gateway-fast-decisions/">LLM 게이트웨이에 판정 창구를 더 낸 기록</a></p>
+<hr>
+<p><em>기준: 2026-09-22. 정의·인용·수치는 TypeSafe AI 공식 발표문 “Introducing System One Models &#x26; Jev”(2026-09-15)와 공식 문서(docs.typesafe.ai — 소개, System One 개념, 질문 유형 Choice·Score·Noul, 확신도, AI 입문서, 모델 페이지, Jev 1.13 들쭉날쭉함, 코딩 에이전트, 사용처 지도)를 이날 직접 확인했습니다. 발표 당시 얼리액세스였고, 모델 문서 페이지는 이날 기준 jev-1.13.0을 정식 제공으로 표기합니다. 속도·비용 비교는 TypeSafe 자체 수치입니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Jev 사용법 — 상태와 질문표를 보내면 확신도가 돌아온다, 확신도로 세 갈래 나누기 (공식 문서 기준)</title><meta name="description" content="TypeSafe AI의 Jev를 실제로 어떻게 부르는지 공식 문서의 예제 그대로 따라간다. 고객 문의 한 통을 보내 '어느 팀·얼마나 화났나·급한가'를 한 번에 받고, 돌아온 확신도로 자동 처리·확인 후 진행·사람에게 넘기기 세 갈래를 만드는 법. 확신도가 어떻게 계산되는지, 문서가 권하는 문턱값, 네 가지 설계 패턴, 한도와 오류 코드, 그리고 질문을 잘못 쓰는 흔한 실수까지. Jev 3부작의 2편."><meta property="og:title" content="Jev 사용법 — 상태와 질문표를 보내면 확신도가 돌아온다, 확신도로 세 갈래 나누기 (공식 문서 기준)"><meta property="og:description" content="TypeSafe AI의 Jev를 실제로 어떻게 부르는지 공식 문서의 예제 그대로 따라간다. 고객 문의 한 통을 보내 '어느 팀·얼마나 화났나·급한가'를 한 번에 받고, 돌아온 확신도로 자동 처리·확인 후 진행·사람에게 넘기기 세 갈래를 만드는 법. 확신도가 어떻게 계산되는지, 문서가 권하는 문턱값, 네 가지 설계 패턴, 한도와 오류 코드, 그리고 질문을 잘못 쓰는 흔한 실수까지. Jev 3부작의 2편."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 22일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. TypeSafe AI와 아무 관계가 없고, 예제와 수치는 2026년 9월 22일 공식 문서 기준입니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="jev-사용법--상태와-질문표를-보내면-확신도가-돌아온다-확신도로-세-갈래-나누기">Jev 사용법 — 상태와 질문표를 보내면 확신도가 돌아온다, 확신도로 세 갈래 나누기</h1>
+<p>콜센터 접수 창구를 떠올려 보세요. 접수원은 문의를 읽고 <strong>도장 세 개</strong>를 찍습니다. 어느 팀, 얼마나 화남, 급한가. 그리고 자신 없는 건 팀장에게 넘깁니다. 이 접수원이 하루 10만 건을 0.5초씩에 처리하고, “자신 없다”를 숫자로 말해준다면 어떨까요.</p>
+<p><a href="/posts/20260922-system-one-model-jev/">1편</a>에서 Jev가 ‘고르기만 하는 AI’라는 걸 봤습니다. 이 글은 그 접수원을 <strong>실제로 어떻게 부르고, 돌아온 숫자로 무엇을 하는지</strong>를 공식 문서의 예제 그대로 따라갑니다. 코드는 최소한만 보여드리고, 각 줄이 사람 말로 무엇인지 옆에 적을게요.</p>
+<p><img alt="편지를 세 바구니(자동·확인·사람)로 나누는 접수 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-three-trays.BaRFjVPC_Z2syzYj.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li>부르는 법은 하나입니다. **상태(state) + 질문표(questions)**를 보내면 질문마다 <strong>답 + 확률 + 확신도</strong>가 옵니다. 주소는 <code>POST https://api.typesafe.ai/v1/systemone</code>, 모델은 <code>jev-latest</code></li>
+<li>**확신도(confidence)**는 확률이 한쪽에 얼마나 몰렸는지를 0~1로 접은 숫자. 문서가 권하는 세 갈래는 <strong>0.9 초과 자동 · 0.5~0.9 확인 후 · 0.5 미만 사람에게</strong></li>
+<li>잘 쓰는 법은 <strong>질문을 잘게, 상태는 관련 있는 것만, 판단은 코드가.</strong> 문서의 표현으로 “코드가 흐름을 소유한다”</li>
+<li>한도: 질문당 상태 32k 토큰(요청 전체 64k), 보기 255개, 단계 2~10개. 오류는 401(키)·422(형식)·429(속도)·529(과부하)</li>
+</ul>
+<h2 id="-1-한-번-불러-보기--공식-빠른-시작-예제">📮 1. 한 번 불러 보기 — 공식 빠른 시작 예제</h2>
+<p>공식 문서의 빠른 시작은 고객 문의 한 통으로 시작합니다. 파이썬 SDK를 설치하고(<code>pip install typesafe-sdk</code>), API 키를 환경변수 <code>TYPESAFE_API_KEY</code>에 두고, 이렇게 부릅니다.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> typesafe_sdk </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Choice, Noul, Score, TypeSafeClient</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">client </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> TypeSafeClient()</span></span>
+<span class="line"><span style="color:#E1E4E8">ticket </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "3일째 Stripe 연동이 계속 실패해요. 매출이 빠지고 있어요. 빨리 도와주세요."</span><span style="color:#6A737D">  # 상태(state)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">response </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> client.system_one(</span></span>
+<span class="line"><span style="color:#FFAB70">    state</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">ticket,</span></span>
+<span class="line"><span style="color:#FFAB70">    questions</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#9ECBFF">        "department"</span><span style="color:#E1E4E8">: Choice(                       </span><span style="color:#6A737D"># 하나 고르기</span></span>
+<span class="line"><span style="color:#FFAB70">            instructions</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"어느 팀이 맡아야 하나"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">            criteria</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#9ECBFF">"billing"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"결제·구독 문제"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"technical"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"버그·연동 문제"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"sales"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"가격·계정 문의"</span><span style="color:#E1E4E8">},</span></span>
+<span class="line"><span style="color:#E1E4E8">        ),</span></span>
+<span class="line"><span style="color:#9ECBFF">        "frustration"</span><span style="color:#E1E4E8">: Score(                       </span><span style="color:#6A737D"># 단계 매기기 (낮은 단계 → 높은 단계 순서)</span></span>
+<span class="line"><span style="color:#FFAB70">            instructions</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"고객이 얼마나 화나 보이나"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">            criteria</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">[</span><span style="color:#9ECBFF">"차분히 사실만 말함"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"화났지만 정중함"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"매우 화남, 거친 표현"</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#E1E4E8">        ),</span></span>
+<span class="line"><span style="color:#9ECBFF">        "is_urgent"</span><span style="color:#E1E4E8">: Noul(                          </span><span style="color:#6A737D"># 예/아니오</span></span>
+<span class="line"><span style="color:#FFAB70">            instructions</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"급하다거나 시간이 촉박하다고 말하고 있나"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        ),</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">)</span></span></code></pre>
+<p>(원문 예제는 영어 문의이고, 여기서는 뜻만 한국어로 옮겼습니다. 문서가 밝히듯 영어가 기본 언어이고 다른 언어는 정확도가 같지 않습니다.)</p>
+<p>돌아오는 것은 질문 이름별 답입니다. 문서의 예시 값 그대로입니다.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">response.answers[</span><span style="color:#9ECBFF">"department"</span><span style="color:#E1E4E8">].choice        </span><span style="color:#6A737D"># "technical"  ← 고른 팀</span></span>
+<span class="line"><span style="color:#E1E4E8">response.answers[</span><span style="color:#9ECBFF">"department"</span><span style="color:#E1E4E8">].confidence    </span><span style="color:#6A737D"># 0.78         ← 얼마나 확신하나</span></span>
+<span class="line"><span style="color:#E1E4E8">response.answers[</span><span style="color:#9ECBFF">"department"</span><span style="color:#E1E4E8">].probabilities </span><span style="color:#6A737D"># {"technical": …, "billing": …, "sales": …}  보기별 확률, 합은 1</span></span>
+<span class="line"><span style="color:#E1E4E8">response.answers[</span><span style="color:#9ECBFF">"frustration"</span><span style="color:#E1E4E8">].score        </span><span style="color:#6A737D"># 1.0          ← 0(차분)~2(격분) 중 1 = "화났지만 정중함"</span></span>
+<span class="line"><span style="color:#E1E4E8">response.answers[</span><span style="color:#9ECBFF">"is_urgent"</span><span style="color:#E1E4E8">].noul           </span><span style="color:#6A737D"># 1.0          ← 급하다 100%</span></span></code></pre>
+<p>질문 셋을 <strong>한 번에</strong> 보냈고 답 셋이 <strong>한 번에</strong> 왔습니다. 문서 표현으로 “질문들은 독립적으로, 병렬로 평가”됩니다. 질문을 하나씩 세 번 보낼 이유가 없어요.</p>
+<h2 id="-2-sdk-없이-보면--요청과-응답의-실제-모양">🔧 2. SDK 없이 보면 — 요청과 응답의 실제 모양</h2>
+<p>프로그램이 실제로 주고받는 것은 JSON 한 덩어리입니다. 공식 API 문서의 예시입니다.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#6A737D">// 요청  POST https://api.typesafe.ai/v1/systemone   (헤더 Authorization: Bearer &#x3C;API 키>)</span></span>
+<span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "state"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Help! My payouts have been failing for 3 days."</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "model"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"jev-latest"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "questions"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "is_urgent"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"noul"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"instructions"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Does this convey urgency?"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">                   "criteria"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"true"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Explicitly time-sensitive"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"false"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"No urgency expressed"</span><span style="color:#E1E4E8"> } }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#6A737D">// 응답</span></span>
+<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"model"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"jev-1.13.0"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "answers"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"is_urgent"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"noul"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"noul"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0.95</span><span style="color:#E1E4E8"> } },</span></span>
+<span class="line"><span style="color:#79B8FF">  "usage"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"input_tokens"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">296</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"output_tokens"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8"> } }</span></span></code></pre>
+<p>세 가지가 눈에 들어옵니다. 첫째, <code>model</code>은 별명 <code>jev-latest</code>로 보내고 실제 버전 <code>jev-1.13.0</code>이 돌아옵니다. 둘째, 응답에 <strong>글이 한 줄도 없습니다.</strong> 숫자와 이름뿐이에요. 셋째, <code>usage</code>에 출력 토큰이 20으로 찍히지만 모델 문서상 <strong>출력 요금은 없습니다.</strong> 입력 100만 토큰당 $0.042만 냅니다.</p>
+<h2 id="️-3-확신도--확률의-모양을-숫자-하나로">🎚️ 3. 확신도 — 확률의 모양을 숫자 하나로</h2>
+<p>Choice와 Score에는 확률 목록 외에 **확신도(confidence)**가 따로 옵니다. 문서의 정의는 “확률 분포에서 계산한 통계”로, <strong>확률이 한쪽에 얼마나 몰렸는가</strong>를 0~1로 접은 것입니다. 보기가 셋일 때 계산식은 <code>(3 × 가장 큰 확률 − 1) ÷ 2</code>예요.</p>
+<ul>
+<li>기술팀 1.0, 나머지 0 → 확신도 <strong>1.0</strong> (한 곳에 다 몰림)</li>
+<li>기술팀 0.78, 결제 0.15, 영업 0.07 → 확신도 <strong>0.67</strong></li>
+<li>셋이 0.33씩 → 확신도 <strong>0</strong> (완전히 갈림)</li>
+</ul>
+<p>Score의 확신도도 같은 뜻입니다. 문서 예시에서 “심각도” 세 단계의 확률이 0 · 0.57 · 0.43으로 갈리면 점수는 가중 평균 1.43, 확신도는 0.35로 낮게 나옵니다. <strong>점수가 애매하면 확신도가 낮다</strong> — 이 두 숫자를 같이 봐야 합니다.</p>
+<p><img alt="감정 구름의 높이를 세 구간 자로 재는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-ruler-levels.C7A_rBAk_Z2rcfYG.webp" ></p>
+<h2 id="-4-세-갈래--자동으로-확인받고-사람에게">🚦 4. 세 갈래 — 자동으로, 확인받고, 사람에게</h2>
+<p>확신도가 있으니 코드가 갈림길을 만들 수 있습니다. 공식 문서 “확신도” 페이지가 권하는 세 구간입니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>확신도</th><th>문서의 지침</th><th>접수 창구로 치면</th></tr></thead><tbody><tr><td><strong>0.9 초과</strong></td><td>사람 없이 자동으로 실행</td><td>도장 찍고 바로 전달</td></tr><tr><td><strong>0.5 ~ 0.9</strong></td><td>“조심해서 진행” — 확인 요청, 검토 표시, 정보 더 모으기</td><td>“기술팀 맞나요?” 한 번 묻기</td></tr><tr><td><strong>0.5 미만</strong></td><td>실행하지 않는다 — 사람에게, 다시 묻기, 다른 시스템으로</td><td>팀장에게</td></tr></tbody></table>
+<p>문턱값은 <strong>일의 무게에 따라 다르게</strong> 두라는 게 문서의 핵심 조언입니다. “확신도 기반 라우팅” 패턴 페이지의 예제는 은행 앱인데, 잔액 조회는 0.6만 넘어도 실행하고(틀려봐야 잔액을 한 번 더 듣는 정도), 송금 승인은 0.85를 넘어야 자동 실행하고 그 아래면 “확인하시겠어요?”를 띄웁니다. 문서의 코드 골격은 이렇습니다.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">action </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> response.answers[</span><span style="color:#9ECBFF">"intent"</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> action.confidence </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 0.6</span><span style="color:#E1E4E8">:                 </span><span style="color:#6A737D"># 갈리면 사람에게</span></span>
+<span class="line"><span style="color:#E1E4E8">    route_to_support_agent(account_id)</span></span>
+<span class="line"><span style="color:#F97583">elif</span><span style="color:#E1E4E8"> action.choice </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "check_balance"</span><span style="color:#E1E4E8">:      </span><span style="color:#6A737D"># 가벼운 일은 그냥</span></span>
+<span class="line"><span style="color:#E1E4E8">    show_balance(account_id)</span></span>
+<span class="line"><span style="color:#F97583">elif</span><span style="color:#E1E4E8"> action.choice </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "approve_transfer"</span><span style="color:#E1E4E8">:   </span><span style="color:#6A737D"># 무거운 일은 문턱 높게</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> action.confidence </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0.85</span><span style="color:#E1E4E8">: approve_transfer(account_id)</span></span>
+<span class="line"><span style="color:#F97583">    else</span><span style="color:#E1E4E8">: ask_user_to_confirm(</span><span style="color:#9ECBFF">"확인해 주세요…"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<p>문서는 이렇게 못 박습니다. “<strong>올바른 문턱값은 당신의 도메인과, 당신 용도에서의 모델 성능에 달려 있다.</strong>” 0.9와 0.5는 출발점이지 정답이 아니에요.</p>
+<p><img alt="상태와 질문표 → Jev → 답·확률·확신도 → 코드가 세 갈래로 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1280" src="/_astro/diagram-confidence-three-ways.CaYIlkBG_z3mr4.webp" ></p>
+<h2 id="-5-잘-쓰는-법--문서의-네-가지-패턴">🧩 5. 잘 쓰는 법 — 문서의 네 가지 패턴</h2>
+<p>TypeSafe 문서의 “패턴” 절은 넷을 권합니다. 비개발자용으로 한 줄씩 옮깁니다.</p>
+<ul>
+<li><strong>미리 넓게 묻기(Speculative Fan-Out)</strong> — 한 번 부를 때 나중에 필요할지도 모르는 질문까지 같이 보내고, 코드가 필요한 답만 골라 씁니다. 한 번에 여러 질문이 같은 값이니 아끼지 말라는 것</li>
+<li><strong>확신도로 가르기(Confidence-Gated Routing)</strong> — 위 4절. 답뿐 아니라 확신도를 <strong>두 번째 축</strong>으로 써서 안전한 시스템을 만듭니다</li>
+<li><strong>점수 합치기(Composite Scoring)</strong> — “이 지원자는 좋은가” 한 번에 묻지 말고 경력·기술·소통을 각각 Score로 묻고 코드가 합칩니다</li>
+<li><strong>의도 분류로 보내기(Intent Routing)</strong> — 사용자 요청의 의도를 Choice로 분류해 맞는 처리기로 보냅니다</li>
+</ul>
+<p>넷의 공통 원칙이 문서의 이 문장입니다. “<strong>넓은 판단을 좁고 타입이 정해진 질문들로 쪼개고, 지시와 기준을 명시하라.</strong>” 그리고 “코드가 결정론적인 일을 처리하고 흐름을 소유한다”— 판단은 Jev가, 결정은 코드가.</p>
+<h2 id="-6-한도와-오류--알고-시작할-것">📏 6. 한도와 오류 — 알고 시작할 것</h2>
+<p>모델 문서와 API 문서에 적힌 값입니다(2026-09-22 기준).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>상태 크기</td><td>요청 전체 64k 토큰, 그중 상태 + 가장 긴 질문이 32k 토큰</td></tr><tr><td>입력 형식</td><td>글자만 — 문자열, JSON 객체, 문자열 배열. 이미지·음성·영상 불가</td></tr><tr><td>Choice 보기</td><td>최대 255개</td></tr><tr><td>Score 단계</td><td>2~10개</td></tr><tr><td>속도 한도</td><td>초당 25만 토큰, 분당 1,200 요청 (수요에 따라 조정 중이라고 명시)</td></tr><tr><td>오류</td><td>401 키 없음/잘못됨 · 422 요청 형식 오류 · 429 속도 초과 · 529 과부하</td></tr></tbody></table>
+<p>429와 529는 “바로 재시도하지 말고 <strong>지수 백오프</strong>로” 재시도하라는 게 문서 지침입니다. 잠깐 쉬고, 다음엔 두 배 쉬고.</p>
+<h2 id="️-7-흔한-실수--문서의-안티패턴-그대로">⚠️ 7. 흔한 실수 — 문서의 안티패턴 그대로</h2>
+<p><img alt="수학 문제지 앞에서는 어깨를 으쓱하고, 편지 앞에서는 엄지를 드는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-not-calculator.CjHs8F2n_2nO1TF.webp" ></p>
+<ul>
+<li><strong>두 조건을 한 Noul에</strong> — “화났고 그리고 환불 요구하나?” → 둘로 나눕니다</li>
+<li><strong>거꾸로 된 문장</strong> — “개인정보가 <strong>없는가</strong>?”처럼 부정형으로 물으면 뒤의 코드가 꼬입니다. “개인정보가 있는가?”로</li>
+<li><strong>Score 단계를 정도 표현으로</strong> — “약간·보통·매우” 대신 “우회 방법 있음 / 없음”처럼 <strong>상황</strong>으로. 단계 설명이 서로 겹쳐도 안 됩니다</li>
+<li><strong>순서 없는 것을 Score로</strong> — 팀 이름처럼 순서가 없으면 Choice, 예/아니오면 Noul</li>
+<li><strong>한 질문에 여러 차원</strong> — “품질이 좋은가”에 정확성·문체·길이가 섞여 있으면 각각 Score로</li>
+<li><strong>상태에 아무거나 다 넣기</strong> — 문서 표현으로 “무관한 세부가 방해물이 된다.” 결정에 필요한 것만</li>
+<li><strong>계산·날짜·개수를 맡기기</strong> — <a href="/posts/20260922-system-one-model-jev/">1편</a>의 약점 목록. 그건 코드가 합니다</li>
+</ul>
+<h2 id="-시작-코스--문의-분류기-하나">🎯 시작 코스 — 문의 분류기 하나</h2>
+<ol>
+<li>최근 문의 10건을 모읍니다. 그게 <strong>상태</strong>입니다</li>
+<li>질문 셋을 적습니다 — 어느 팀(Choice, 보기 3~5개, 각 보기에 한 줄 설명), 얼마나 급한가(Score 3단계, 상황으로), 환불 요구인가(Noul)</li>
+<li>공식 빠른 시작대로 SDK를 설치하고 API 키를 받아(문서 기준 발표 당시 얼리액세스 대기열, 이날 모델 문서는 정식 제공 표기) 10건을 돌려 봅니다</li>
+<li>답과 확신도를 표로 놓고 <strong>사람이 매긴 것과 비교</strong>합니다. 확신도가 낮았던 건이 실제로 애매했는지 봅니다</li>
+<li>그 표를 보고 문턱값 둘을 정합니다. 자동 처리 문턱과 사람에게 넘길 문턱. 그다음 코드에 넣습니다</li>
+</ol>
+<p>접수원이 유능한지보다 중요한 건 <strong>접수원이 “모르겠다”를 숫자로 말해주느냐</strong>입니다. Jev의 확신도가 그 숫자이고, 그 숫자로 갈림길을 만드는 건 여러분의 코드입니다.</p>
+<p>이전 편: <a href="/posts/20260922-system-one-model-jev/">System One 모델 Jev란</a> · 다음 편: <a href="/posts/20260922-llm-gateway-fast-decisions/">LLM 게이트웨이에 판정 창구를 더 낸 기록</a></p>
+<hr>
+<p><em>기준: 2026-09-22. 예제 코드·응답 값·계산식·문턱값·패턴·한도·오류 코드는 TypeSafe AI 공식 문서(docs.typesafe.ai — 빠른 시작, HTTP API 레퍼런스, Choice·Score·Noul, 확신도, 확신도 기반 라우팅 패턴, 패턴 개요, 상태 개념, 모델 페이지)를 이날 직접 확인했습니다. 빠른 시작 예제의 문의 문장과 보기 설명은 뜻만 한국어로 옮겼고, 응답 값(technical·0.78·1.0·1.0)은 문서 그대로입니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
