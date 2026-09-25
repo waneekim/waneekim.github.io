@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Claude Opus 5.5 출시 — Fable 5.1급 성능을 60% 싼 값에? 벤치마크로 본 이전 버전·경쟁 모델과의 차이</title><meta name="description" content="2026년 9월 22일 앤트로픽이 Claude Opus 5.5를 내놨다. '대부분의 작업에서 Fable 5.1 수준, 운영 비용은 Opus 5보다 40% 적다'는 게 회사 설명이다. 공식 발표 표의 벤치마크 9개를 그대로 옮겨 이전 버전 Opus 5, 상위 모델 Fable 5.1, 경쟁 모델 GPT-6 Astra·GPT-5.6 Sol과 비교하고, 가격·속도·안전성 평가까지 정리했다. Opus 5.5가 지는 항목과 회사 스스로 밝힌 한계도 함께."><meta property="og:title" content="Claude Opus 5.5 출시 — Fable 5.1급 성능을 60% 싼 값에? 벤치마크로 본 이전 버전·경쟁 모델과의 차이"><meta property="og:description" content="2026년 9월 22일 앤트로픽이 Claude Opus 5.5를 내놨다. '대부분의 작업에서 Fable 5.1 수준, 운영 비용은 Opus 5보다 40% 적다'는 게 회사 설명이다. 공식 발표 표의 벤치마크 9개를 그대로 옮겨 이전 버전 Opus 5, 상위 모델 Fable 5.1, 경쟁 모델 GPT-6 Astra·GPT-5.6 Sol과 비교하고, 가격·속도·안전성 평가까지 정리했다. Opus 5.5가 지는 항목과 회사 스스로 밝힌 한계도 함께."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 25일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. 성능·가격 수치는 앤트로픽 공식 발표(2026-09-22) 기준이며 독립 검증 전입니다. 삽화는 GPT 이미지 생성, 차트는 직접 제작했습니다.</blockquote> <h1 id="claude-opus-55-출시--fable-51급-성능을-60-싼-값에-벤치마크로-본-이전-버전경쟁-모델과의-차이">Claude Opus 5.5 출시 — Fable 5.1급 성능을 60% 싼 값에? 벤치마크로 본 이전 버전·경쟁 모델과의 차이</h1>
+<p>휴대폰을 살 때 흔히 이런 일이 있습니다. 올해 나온 일반 모델이 작년 최고급 모델만큼 빠른데, 값은 훨씬 싸요. 그러면 고민이 시작됩니다. “비싼 거 살 이유가 남았나?”</p>
+<p>2026년 9월 22일 앤트로픽이 내놓은 <strong>Claude Opus 5.5</strong>가 딱 그 모양입니다. 회사의 한 줄 설명은 이렇습니다. <strong>“대부분의 작업에서 Claude Fable 5.1 수준으로 작동하고, 운영 비용은 Opus 5보다 40% 적다.”</strong> Fable 5.1은 3주 전인 9월 1일에 나온, 일반 사용자가 쓸 수 있는 앤트로픽 최상위 모델이에요. 그보다 아래 등급 이름을 단 모델이 성능표에서 Fable 5.1을 앞섰다는 게 이번 발표의 핵심입니다.</p>
+<blockquote>
+<p>⚠️ 이 글의 성능·가격 수치는 2026-09-25 기준 앤트로픽 공식 발표를 옮긴 것입니다. 회사가 직접 잰 값이라 독립 검증 전이고, 모델마다 측정 설정이 다른 항목은 따로 표시했습니다.</p>
+</blockquote>
+<p><img alt="두 휴대폰을 들고 놀라는 로봇 — 비싼 모델과 새 모델의 칩이 똑같이 빛난다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-two-phones._HRJOO9s_ZivxkP.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li><strong>무엇</strong>: 앤트로픽의 새 5.5 세대 첫 모델. API 이름은 <code>claude-opus-5-5</code>, AWS·구글 클라우드·마이크로소프트 애저를 포함한 모든 플랫폼에서 바로 쓸 수 있습니다</li>
+<li><strong>이전 버전(Opus 5) 대비</strong>: 공식 표의 벤치마크 9개 모두 점수가 올랐고, 토큰 단가는 20% 내렸고(입력 $5→$4, 출력 $25→$20), 출력 속도는 30% 이상 빨라졌다고 합니다</li>
+<li><strong>Fable 5.1 대비</strong>: 표의 9개 항목 모두 Opus 5.5가 앞서고, 토큰 단가는 60% 쌉니다(입력 $10 vs $4, 출력 $50 vs $20)</li>
+<li><strong>경쟁 모델 대비</strong>: GPT-6 Astra와 수치가 나란히 있는 6개 중 4개에서 앞서고, <strong>업무 자동화와 과학 연구 작업 2개에서는 Astra가 높습니다</strong></li>
+<li>앤트로픽 스스로 “이 수준에서는 <strong>벤치마크 차이가 실제 차이를 알려주는 지표로서 덜 믿을 만해졌다</strong>”고 적었습니다. 점수만 보고 판단하지 말라는 뜻이에요</li>
+</ul>
+<h2 id="-1-성능-지표--공식-표-그대로">📊 1. 성능 지표 — 공식 표 그대로</h2>
+<p>앤트로픽 발표문에 실린 표입니다. 네 모델이 모두 점수를 가진 다섯 개 항목을 먼저 그림으로 보면 이렇습니다.</p>
+<p><img alt="Opus 5.5·Fable 5.1·Opus 5·GPT-6 Astra의 벤치마크 5개 점수 비교 막대 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1540" src="/_astro/chart-benchmarks.CHGGKgo6_Z18v7sD.webp" ></p>
+<p>전체 표는 이렇습니다. 칸이 비어 있는 곳은 발표문에도 값이 없는 곳이에요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>벤치마크</th><th>무엇을 재나</th><th>Opus 5.5</th><th>Fable 5.1</th><th>Opus 5</th><th>GPT-6 Astra</th><th>GPT-5.6 Sol</th></tr></thead><tbody><tr><td>Terminal-Bench 4.0</td><td>터미널에서 일하는 에이전트 코딩</td><td><strong>66.4%</strong></td><td>55.8%</td><td>52.3%</td><td>57.9%</td><td>37.3%</td></tr><tr><td>FrontierCode v1.1 (Main)</td><td>어려운 코딩 과제</td><td><strong>54.4%</strong></td><td>50.3%</td><td>48.0%</td><td>53.3%</td><td>47.5%</td></tr><tr><td>CursorBench 4.0</td><td>코딩 도구 Cursor 안의 작업</td><td><strong>57.8%</strong></td><td>51.8%</td><td>46.6%</td><td>—</td><td>41.7%</td></tr><tr><td>GDPval-AA v2.1</td><td>44개 직업의 실무 (Elo 점수)</td><td><strong>1846</strong></td><td>1735</td><td>1708</td><td>1542</td><td>1588</td></tr><tr><td>AutomationBench</td><td>업무 자동화 (Zapier 측정)</td><td>40.0%</td><td>31.4%</td><td>26.9%</td><td><strong>41.4%</strong></td><td>28.8%</td></tr><tr><td>Humanity’s Last Exam</td><td>고난도 지식 문제 (도구 사용)</td><td><strong>67.7%</strong></td><td>65.6%</td><td>63.6%</td><td>57.2%</td><td>—</td></tr><tr><td>Terminal-Bench-Science 0.1</td><td>과학 연구 작업</td><td>58.7%</td><td>52.6%</td><td>29.0%</td><td><strong>64.6%</strong></td><td>22.4%</td></tr><tr><td>OSWorld 2.0 (partial)</td><td>컴퓨터 화면 조작</td><td><strong>81.8%</strong></td><td>80.7%</td><td>74.0%</td><td>—</td><td>—</td></tr><tr><td>Chartography</td><td>차트 읽기 (도구 사용)</td><td><strong>89.0%</strong></td><td>88.4%</td><td>83.4%</td><td>—</td><td>—</td></tr></tbody></table>
+<p>표를 읽을 때 알아둘 각주 세 가지입니다.</p>
+<ul>
+<li><strong>설정이 같지 않습니다.</strong> Opus 5.5는 별도 표시가 없으면 ‘적응형 사고 최대 노력’ 설정이고, Terminal-Bench 4.0은 Opus 5.5가 xhigh, GPT-6 Astra가 high 설정으로 잰 값입니다</li>
+<li><strong>AutomationBench는 측정 경로가 다릅니다.</strong> Opus 5.5는 Zapier가 얼리 액세스 기간에 직접 잰 값이고, 나머지 모델은 Zapier 공개 리더보드 값이에요. 대체 모델 없이 돌려서 안전장치가 개입한 경우는 실패로 셌다고 합니다</li>
+<li><strong>오차가 있습니다.</strong> Terminal-Bench 4.0 표준오차는 Opus 5.5 ±2.6점, 다른 Claude 모델 ±1.6<del>2점, Terminal-Bench-Science는 모델마다 ±3.5</del>5점입니다. 1~2점 차이는 사실상 같은 수준으로 보는 게 맞아요</li>
+</ul>
+<h2 id="-2-이전-버전-opus-5와-무엇이-달라졌나">🔁 2. 이전 버전 Opus 5와 무엇이 달라졌나</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>Opus 5</th><th>Opus 5.5</th><th>변화</th></tr></thead><tbody><tr><td>입력 토큰 (100만 개당)</td><td>$5</td><td>$4</td><td>20% ↓</td></tr><tr><td>출력 토큰 (100만 개당)</td><td>$25</td><td>$20</td><td>20% ↓</td></tr><tr><td>캐시 읽기 (100만 개당)</td><td>$0.50</td><td>$0.20</td><td>60% ↓</td></tr><tr><td>캐시 쓰기 (100만 개당)</td><td>$6.25</td><td>$5</td><td>20% ↓</td></tr><tr><td>출력 속도</td><td>—</td><td>Opus 5보다 30% 이상 빠름</td><td></td></tr><tr><td>일반적인 작업 비용</td><td>—</td><td>약 40% 감소 (앤트로픽 추산)</td><td></td></tr></tbody></table>
+<p>성능은 표의 9개 항목이 전부 올랐는데, 오름폭이 고르지 않습니다. 가장 크게 뛴 건 <strong>과학 연구 작업</strong>(Terminal-Bench-Science)으로 29.0%에서 58.7%로 두 배가 됐어요. 에이전트 코딩(Terminal-Bench 4.0)은 14.1점, 업무 자동화(AutomationBench)는 13.1점, Cursor 작업은 11.2점 올랐습니다. 반면 차트 읽기(+5.6점)나 고난도 지식 문제(+4.1점)는 오름폭이 작습니다. <strong>코딩과 ‘일을 끝까지 해내는’ 에이전트 작업 쪽이 크게 좋아진 세대</strong>라고 읽을 수 있어요.</p>
+<p>빠른 응답이 필요한 경우를 위한 <strong>Fast 모드</strong>도 있습니다. Claude Code와 Claude Platform에서 최대 2.5배 속도로 쓸 수 있고, 값은 입력 $8·출력 $40으로 두 배예요.</p>
+<h2 id="️-3-fable-51과의-비교--윗급-모델을-넘었나">⚖️ 3. Fable 5.1과의 비교 — 윗급 모델을 넘었나</h2>
+<p>Fable 5.1은 앤트로픽 설명으로 “미토스(Mythos)급 모델”이고, 일반에 공개된 최상위 모델입니다. <a href="/posts/20260908-ai-cyber-models-gated/">사이버보안 모델 글</a>에서 다뤘듯, Fable 5.1과 Mythos 5.1은 같은 모델에 안전장치만 다르게 건 것이에요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>Fable 5.1</th><th>Opus 5.5</th><th>차이</th></tr></thead><tbody><tr><td>입력 / 출력 (100만 토큰당)</td><td>$10 / $50</td><td>$4 / $20</td><td>Opus 5.5가 60% 쌈</td></tr><tr><td>Terminal-Bench 4.0</td><td>55.8%</td><td>66.4%</td><td>+10.6</td></tr><tr><td>AutomationBench</td><td>31.4%</td><td>40.0%</td><td>+8.6</td></tr><tr><td>Terminal-Bench-Science 0.1</td><td>52.6%</td><td>58.7%</td><td>+6.1</td></tr><tr><td>CursorBench 4.0</td><td>51.8%</td><td>57.8%</td><td>+6.0</td></tr><tr><td>FrontierCode v1.1</td><td>50.3%</td><td>54.4%</td><td>+4.1</td></tr><tr><td>Humanity’s Last Exam</td><td>65.6%</td><td>67.7%</td><td>+2.1</td></tr><tr><td>OSWorld 2.0 (partial)</td><td>80.7%</td><td>81.8%</td><td>+1.1</td></tr><tr><td>Chartography</td><td>88.4%</td><td>89.0%</td><td>+0.6</td></tr><tr><td>GDPval-AA v2.1 (Elo)</td><td>1735</td><td>1846</td><td>+111</td></tr></tbody></table>
+<p>9개 모두 Opus 5.5가 높지만, <strong>아래쪽 세 줄은 1~2점 차이</strong>라 오차 범위를 생각하면 사실상 비슷합니다. 차이가 뚜렷한 건 에이전트 코딩, 업무 자동화, 과학 연구, 실무 과제(GDPval) 쪽이에요.</p>
+<p>예를 들어 입력 100만 토큰에 출력 20만 토큰을 쓰는 작업이라면, 공식 단가로 계산한 값은 이렇습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>모델</th><th>계산</th><th>비용</th></tr></thead><tbody><tr><td>Fable 5.1</td><td>$10 + 0.2 × $50</td><td><strong>$20</strong></td></tr><tr><td>Opus 5</td><td>$5 + 0.2 × $25</td><td>$10</td></tr><tr><td>Opus 5.5</td><td>$4 + 0.2 × $20</td><td><strong>$8</strong></td></tr></tbody></table>
+<p>직접 계산해 보고 싶다면 <a href="/posts/20260906-openai-api-cost/">API 비용 계산기 글</a>의 방식과 같습니다.</p>
+<p><img alt="막대 점수판 옆에서 어깨를 으쓱하는 로봇 — 대부분 이겼지만 두 칸은 옆 로봇이 높다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-scoreboard.CYGFw01K_Z1woleQ.webp" ></p>
+<h2 id="-4-경쟁-모델--어디서-이기고-어디서-지나">🥊 4. 경쟁 모델 — 어디서 이기고 어디서 지나</h2>
+<p>발표 표에 나란히 실린 경쟁 모델은 OpenAI의 <strong>GPT-6 Astra</strong>와 <strong>GPT-5.6 Sol</strong> 둘입니다. <a href="/posts/20260907-gpt6-astra-agi/">아스트라 글</a>에서 다룬 그 모델이에요.</p>
+<ul>
+<li><strong>Opus 5.5가 앞서는 곳</strong>: 에이전트 코딩(66.4 vs 57.9), 어려운 코딩(54.4 vs 53.3), 실무 과제 GDPval(1846 vs 1542), 고난도 지식 문제(67.7 vs 57.2)</li>
+<li><strong>GPT-6 Astra가 앞서는 곳</strong>: <strong>과학 연구 작업(64.6 vs 58.7)</strong>, <strong>업무 자동화(41.4 vs 40.0)</strong></li>
+<li><strong>비교 불가</strong>: Cursor 작업·컴퓨터 조작·차트 읽기는 Astra 값이 표에 없습니다</li>
+</ul>
+<p>두 가지를 조심해서 보세요. 어려운 코딩(+1.1)과 업무 자동화(−1.4)는 차이가 작아서 오차 범위 안이에요. 그리고 업무 자동화는 앞에서 말했듯 두 모델의 측정 경로가 다릅니다. GPT-5.6 Sol은 값이 있는 모든 항목에서 Opus 5.5보다 낮습니다.</p>
+<h2 id="️-5-안전성--발표문이-밝힌-것">🛡️ 5. 안전성 — 발표문이 밝힌 것</h2>
+<p>앤트로픽은 이번에도 출시 전 외부 기관(Frontier Design, METR)에게 평가를 받았다고 밝혔습니다. 주요 문장을 옮기면:</p>
+<ul>
+<li>자사의 가장 포괄적인 정렬 테스트인 자동 행동 감사에서 “<strong>지금까지 시험한 모델 중 가장 좋은 성적</strong>”</li>
+<li>경계를 우회하려는 시도가 <strong>Opus 5나 Claude Mythos 5.1보다 약 85% 적었다</strong></li>
+<li>“Opus 5.5는 <strong>생물학과 사이버보안에서 Claude Mythos 5.1과 비슷한 수준</strong>이라, <strong>Fable 5.1과 비슷한 안전장치를 걸고</strong> 배포한다”</li>
+</ul>
+<p>즉 능력이 올라간 만큼 문도 Fable 5.1 수준으로 잠갔다는 이야기예요. 동시에 회사는 “배포 전에 모든 실패를 확실히 잡아내는 평가를 만드는 건 <strong>아직 풀리지 않은 문제</strong>”라고도 적었습니다.</p>
+<p><img alt="유리 시험실 안의 로봇을 돋보기로 살피는 검사 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-safety-lab.DgGPRlIW_1wNex9.webp" ></p>
+<h2 id="-6-그래서-누구에게-무슨-뜻인가">🎯 6. 그래서 누구에게 무슨 뜻인가</h2>
+<ul>
+<li><strong>API로 Fable 5.1을 쓰던 팀</strong>: 같은 일을 Opus 5.5로 돌려 결과를 비교해 볼 이유가 생겼습니다. 공식 단가로는 60% 싸요. 다만 벤치마크 차이가 작은 영역(차트 읽기, 컴퓨터 조작)은 직접 비교가 필요합니다</li>
+<li><strong>Opus 5를 쓰던 팀</strong>: 모델 이름만 바꿔도 단가가 20% 내려갑니다. 캐시를 많이 쓰는 작업이면 캐시 읽기가 60% 싸져 차이가 더 커요</li>
+<li><strong>과학 연구·업무 자동화가 주력인 팀</strong>: 이 두 영역은 GPT-6 Astra가 표에서 앞섭니다. 한쪽으로 정하기 전에 자기 작업으로 둘 다 돌려 보세요</li>
+<li><strong>다음 소식</strong>: 앤트로픽은 <strong>Sonnet 5.5와 Haiku 5.5가 몇 주 안에</strong> 같은 개선을 담아 나온다고 예고했습니다</li>
+</ul>
+<h2 id="한-줄-정리">한 줄 정리</h2>
+<p>올해 일반 모델이 작년 최고급 모델을 따라잡은 경우와 비슷합니다. 공식 표에서 Opus 5.5는 윗급 Fable 5.1을 9개 항목 모두 넘었고 값은 60% 쌉니다. 다만 과학 연구·업무 자동화에서는 GPT-6 Astra가 앞서고, 회사 스스로도 “이제 점수 차이로는 실제 차이를 알기 어렵다”고 말합니다. 결국 <strong>내 일로 직접 돌려 보는 게 가장 정확한 벤치마크</strong>예요.</p>
+<hr>
+<p><em>출처: 앤트로픽 공식 발표 “Introducing Claude Opus 5.5”(2026-09-22)의 벤치마크 표·각주·가격·안전성 문장, 앤트로픽 Claude Fable 페이지의 Fable 5.1 가격($10/$50). 출시일·가격은 TechCrunch·VentureBeat 보도(2026-09-22)와 교차 확인했습니다. 모든 성능 수치는 앤트로픽이 직접 측정·발표한 것으로 독립 검증 전이며, 모델마다 측정 설정이 다를 수 있습니다. 이 글은 특정 회사의 입장을 대변하지 않습니다. 삽화는 GPT 이미지 생성, 차트는 직접 제작했습니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
