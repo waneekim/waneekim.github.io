@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>오픈클로·헤르메스·그록봇·메타 뮤즈 — &#39;일을 대신 해주는 AI&#39; 네 갈래의 히스토리와 기술 차이, 그리고 뮤즈가 다른 점</title><meta name="description" content="10개월 사이에 '대화만 하는 AI'가 아니라 '일을 끝내주는 AI 에이전트'가 네 갈래로 쏟아졌다. 개인 개발자가 만든 오픈소스 오픈클로, 쓸수록 스스로 배우는 헤르메스 에이전트, 봇마다 클라우드 컴퓨터를 주는 xAI의 그록봇, 그리고 9월 8일 나온 메타 뮤즈. 비서를 두는 네 가지 방법에 빗대 히스토리와 기술 차이를 표로 정리하고, 뮤즈가 앞의 셋과 무엇이 다른지 — 설치 없는 일반인용, 모델부터 컴퓨터까지 메타가 소유, 안전장치를 전면에, 거래 수수료로 버는 구조 — 를 공식 자료 기준으로 짚었다."><meta property="og:title" content="오픈클로·헤르메스·그록봇·메타 뮤즈 — '일을 대신 해주는 AI' 네 갈래의 히스토리와 기술 차이, 그리고 뮤즈가 다른 점"><meta property="og:description" content="10개월 사이에 '대화만 하는 AI'가 아니라 '일을 끝내주는 AI 에이전트'가 네 갈래로 쏟아졌다. 개인 개발자가 만든 오픈소스 오픈클로, 쓸수록 스스로 배우는 헤르메스 에이전트, 봇마다 클라우드 컴퓨터를 주는 xAI의 그록봇, 그리고 9월 8일 나온 메타 뮤즈. 비서를 두는 네 가지 방법에 빗대 히스토리와 기술 차이를 표로 정리하고, 뮤즈가 앞의 셋과 무엇이 다른지 — 설치 없는 일반인용, 모델부터 컴퓨터까지 메타가 소유, 안전장치를 전면에, 거래 수수료로 버는 구조 — 를 공식 자료 기준으로 짚었다."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 9월 27일 기준</p> <blockquote>이 글에는 제휴 링크가 없습니다. 네 회사·프로젝트와 아무 관계가 없고, 내용은 2026년 9월 27일까지의 공식 자료와 보도를 확인해 정리했습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="오픈클로헤르메스그록봇메타-뮤즈--일을-대신-해주는-ai-네-갈래">오픈클로·헤르메스·그록봇·메타 뮤즈 — ‘일을 대신 해주는 AI’ 네 갈래</h1>
+<p>비서를 두는 방법은 크게 넷입니다.</p>
+<ul>
+<li><strong>직접 뽑아서 우리 집에 들인다.</strong> 일하는 방식도, 열쇠 관리도 내가 정합니다. 대신 사고가 나면 내 책임이에요</li>
+<li><strong>일하면서 요령을 스스로 늘려가는 비서를 들인다.</strong> 처음엔 서툴러도 같은 일을 할수록 손이 빨라집니다</li>
+<li><strong>파견 회사가 사무실과 컴퓨터까지 딸려 보내는 비서 팀을 쓴다.</strong> 비서끼리 알아서 일을 나누고, 결재가 필요한 것만 나에게 올립니다</li>
+<li><strong>대기업 컨시어지 서비스에 가입한다.</strong> 설치도 관리도 필요 없고, 금고와 경비원까지 붙어 있어요. 대신 그 회사를 믿어야 합니다</li>
+</ul>
+<p>2025년 11월부터 2026년 9월까지 10개월 사이, <strong>대화만 하는 AI가 아니라 “일을 끝내주는” AI 에이전트</strong>가 정확히 이 네 갈래로 나왔습니다. 차례대로 **오픈클로(OpenClaw), 헤르메스 에이전트(Hermes Agent), 그록봇(Grok Bot), 메타 뮤즈(Muse)**예요. 저는 이 중 오픈클로를 <a href="/posts/20260913-macmini-agent-machine/">맥미니에 올려 24시간 돌리고</a> 있어서, 마지막 주자인 뮤즈가 무엇을 다르게 들고 나왔는지 특히 궁금했습니다.</p>
+<blockquote>
+<p>⚠️ 2026-09-27 기준 각사 공식 발표·저장소·보도를 종합한 글입니다. 베타·신제품이 대부분이라 요금과 기능은 바뀔 수 있어요.</p>
+</blockquote>
+<p><img alt="집 컴퓨터 위의 가재 로봇, 날개 투구와 노트, 구름 위 노트북 로봇, 쇼핑백 든 컨시어지 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-four-helpers.C5dNIhQp_ZeKvk5.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li><strong>오픈클로</strong> — 개인 개발자가 만든 오픈소스. <strong>내 컴퓨터에서, 내 API 키로</strong> 돌리고 메신저로 지시합니다. 통제권은 전부 내 것이고, 보안도 내 몫입니다</li>
+<li><strong>헤르메스 에이전트</strong> — 역시 오픈소스로 내 컴퓨터에서 돌리지만, <strong>쓰면서 스스로 스킬을 만들고 고칩니다.</strong> 올해 5월 사용량에서 오픈클로를 앞질렀어요</li>
+<li><strong>그록봇</strong> — xAI가 <strong>봇마다 클라우드 컴퓨터 한 대</strong>를 줍니다. 노트북을 꺼도 계속 일하고, 봇끼리 그룹챗으로 일을 나눕니다</li>
+<li><strong>메타 뮤즈</strong> — <strong>설치 없이</strong> 앱·웹·왓츠앱으로 쓰는 일반인용. 모델(Muse Spark)부터 가상컴퓨터까지 메타가 다 소유하고, <strong>안전장치를 제품 앞에 내세운</strong> 첫 대형 서비스입니다. 대신 미국에서만, 그리고 “메타를 믿을 수 있나”가 숙제예요</li>
+</ul>
+<h2 id="️-1-히스토리--10개월-사이-네-갈래">🕰️ 1. 히스토리 — 10개월 사이 네 갈래</h2>
+<p><img alt="히스토리 시간축과, 어디서 도나 × 누구를 향하나 지도 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="2020" src="/_astro/diagram-agent-map.D_OhydH__ZXVtXf.webp" ></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>날짜</th><th>무슨 일</th></tr></thead><tbody><tr><td>2025.11.24</td><td>오스트리아 개발자 피터 슈타인베르거가 <strong>Warelay</strong>라는 이름으로 첫 공개 (이후 12월 CLAWDIS)</td></tr><tr><td>2026.1.2</td><td><strong>Clawdbot</strong>으로 이름 변경</td></tr><tr><td>2026.1.27</td><td>앤트로픽의 상표 문제 제기로 <strong>Moltbot</strong>으로 변경</td></tr><tr><td>2026.1.30</td><td>사흘 만에 <strong>OpenClaw</strong>로 다시 변경</td></tr><tr><td>2026.2.14</td><td>슈타인베르거가 OpenAI 합류를 발표, 프로젝트는 <strong>오픈클로 재단</strong>이 맡음</td></tr><tr><td>2026.2.25</td><td>Nous Research가 <strong>헤르메스 에이전트</strong> 공개 — “당신과 함께 자라는 오픈소스 에이전트”</td></tr><tr><td>2026.3</td><td>오픈클로 GitHub 별 <strong>24만 7천 개</strong>(3/2 기준). 같은 달 중국이 국가기관의 오픈클로 사용을 보안 우려로 제한</td></tr><tr><td>2026.5.10</td><td>MarkTechPost 보도: OpenRouter 일간 사용량 순위에서 <strong>헤르메스가 1위</strong> (하루 2,240억 토큰, 오픈클로 1,860억)</td></tr><tr><td>2026.8.11</td><td>xAI가 <strong>그록봇</strong> 베타 공개</td></tr><tr><td>2026.8.26</td><td>그록봇을 SuperGrok 전 요금제와 Cursor Pro·Teams로 확대</td></tr><tr><td>2026.9.8</td><td>메타가 <strong>뮤즈</strong> 공개</td></tr><tr><td>2026.9.23</td><td>메타 Connect에서 뮤즈의 Mac 앱·AI 안경·아바타·전용 이메일 발표</td></tr></tbody></table>
+<p>흐름을 한 줄로 요약하면 이렇습니다. <strong>개인이 만든 오픈소스가 불을 붙였고(오픈클로), 오픈소스 안에서 “스스로 배우는” 방향으로 진화했고(헤르메스), 그다음 대형 AI 회사들이 “설치 없이 빌려 쓰는” 서비스로 가져갔습니다(그록봇, 뮤즈).</strong></p>
+<h2 id="️-2-기술-차이--여섯-가지-축">⚙️ 2. 기술 차이 — 여섯 가지 축</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th></th><th>오픈클로</th><th>헤르메스 에이전트</th><th>그록봇</th><th>메타 뮤즈</th></tr></thead><tbody><tr><td><strong>어디서 도나</strong></td><td>내 컴퓨터 (로컬)</td><td>내 컴퓨터·Docker·SSH 등 7가지 실행 환경</td><td>봇마다 xAI 클라우드 컴퓨터 한 대, 상시 가동</td><td>메타의 보안 가상컴퓨터(Muse Secure VM), 자체 브라우저</td></tr><tr><td><strong>머리(모델)</strong></td><td>외부 모델 붙여 씀 (Claude·GPT·DeepSeek 등), 내 API 키</td><td>아무 모델 (OpenRouter·OpenAI·Anthropic·자체 엔드포인트)</td><td>발표문에 모델명 명시 없음</td><td>메타 자체 모델 <strong>Muse Spark</strong></td></tr><tr><td><strong>어디로 말 거나</strong></td><td>메신저 (Signal·Telegram·Discord·WhatsApp 등)</td><td>메신저 게이트웨이 (Telegram·Discord·Slack·WhatsApp·Signal·이메일)</td><td>그록봇 앱 (데스크톱·모바일), 봇끼리 그룹챗</td><td>앱(iOS·Android)·웹(muse.ai)·왓츠앱, 안경·Mac 예정</td></tr><tr><td><strong>어떻게 배우나</strong></td><td>사람이 쓴 설명서(SKILL.md)를 스킬로</td><td><strong>복잡한 일을 끝내면 스스로 스킬을 만들고, 쓰면서 고침</strong></td><td>한 번 시범을 보이면 그 단계를 루틴으로 저장 (보도)</td><td>중요한 걸 기억, “잊어줘”로 지우기</td></tr><tr><td><strong>안전장치</strong></td><td>사용자가 설정. 제3자 스킬의 데이터 유출 사례(Cisco 연구)</td><td>격리된 실행 환경(Docker 등)을 고를 수 있음</td><td>판단이 필요한 일만 사람에게 올림 (예: 영업 메일은 발송마다 승인)</td><td>메일·결제 전 확인, 전 과정 기록, 인터넷 접속은 별도 감시 에이전트가 승인</td></tr><tr><td><strong>값</strong></td><td>무료(MIT) + 모델 API 비용</td><td>무료(MIT) + 모델 비용</td><td>SuperGrok·Cursor 구독에 포함, 별도 사용량</td><td>대부분 무료, Power $20·Maximum $100</td></tr></tbody></table>
+<p>오픈클로와 헤르메스는 같은 칸(내 컴퓨터, 오픈소스)에 있지만 설계 철학이 다릅니다. MarkTechPost의 정리로는 오픈클로가 **“중앙 게이트웨이로 메신저를 최대한 넓게 잇는 쪽”**이라면, 헤르메스는 **“하고, 배우고, 고치는 반복 고리”**로 스킬 파일을 스스로 쌓는 쪽이에요. <a href="/posts/20260909-llm-wiki-explained/">LLM 위키 글</a>의 “누적되는 기억”을 에이전트 단위로 옮긴 셈입니다.</p>
+<p><img alt="뒷마당에서 집을 직접 짓는 로봇과, 도어맨이 문을 열어주는 서비스 아파트로 들어가는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-own-vs-rent.YWgVwv3h_Z2qWug1.webp" ></p>
+<h2 id="-3-네-가지를-하나씩">🧩 3. 네 가지를 하나씩</h2>
+<p><strong>오픈클로 — 직접 들인 비서.</strong> TypeScript와 Swift로 만든 MIT 라이선스 오픈소스입니다. 내 컴퓨터에서 돌면서 명령을 실행하고, 파일을 읽고 쓰고, 메신저로 지시를 받아요. 외부 모델에 내 API 키를 붙여 쓰는 구조라, 24시간 켜둘 기계가 필요해 맥미니를 사는 사람이 늘었다는 이야기가 이 때문입니다. 대가는 보안이에요. Cisco 연구팀은 제3자 스킬이 <strong>사용자 모르게 데이터를 빼내고 프롬프트를 주입</strong>한 사례를 찾았습니다. 만든 사람은 2월에 OpenAI로 갔고, 지금은 재단이 관리합니다.</p>
+<p><strong>헤르메스 에이전트 — 요령이 느는 비서.</strong> Nous Research가 파이썬으로 만든 MIT 오픈소스예요. 저장소 소개대로 “경험에서 스킬을 만들고, 쓰는 동안 개선하고, 자기 과거 대화를 검색”합니다. 40개 넘는 도구, 예약 실행(cron), 병렬 작업용 하위 에이전트를 기본으로 갖췄고, 모델은 아무거나 바꿔 끼울 수 있어요. 공개 석 달도 안 돼 OpenRouter 사용량에서 오픈클로를 앞질렀습니다.</p>
+<p><strong>그록봇 — 사무실째 딸려 오는 비서 팀.</strong> xAI 공식 설명으로 “각자 클라우드에 자기 컴퓨터가 있고, 늘 켜져 있으며, 브라우저와 터미널을 쓴다”. 내 계정으로 내가 쓰는 도구에 로그인해 일하고, 노트북을 꺼도 계속합니다. 여러 봇이 그룹챗에서 서로 메시지를 주고받으며 일을 나누는 게 특징이에요. 사람은 <strong>판단이 필요한 순간에만</strong> 불려 나옵니다. 아직 베타이고, SuperGrok·Cursor 구독에 딸려 오며 사용량은 따로 계산됩니다.</p>
+<p><strong>메타 뮤즈 — 컨시어지 서비스.</strong> 메타 발표문의 정의는 “사람들의 목표를 먼저 나서서 돕고 아이디어를 제안하는, 안전하고 사적인 개인 AI 에이전트”. 메일 보내기, 여행 예약, 양식 채우기, 결제까지 합니다. 설치 없이 앱·웹·왓츠앱으로 바로 쓰고, 미국에서 먼저 시작했어요.</p>
+<h2 id="-4-메타-뮤즈는-무엇이-다른가">🆕 4. 메타 뮤즈는 무엇이 다른가</h2>
+<p>앞의 셋과 비교하면 다섯 가지가 새롭습니다.</p>
+<p><strong>① 설치가 없는 ‘일반인용’이다.</strong> 오픈클로·헤르메스는 설치와 API 키, 서버가 필요하고, 그록봇은 개발자 도구(Cursor)·고급 구독과 묶여 있습니다. 뮤즈는 앱을 받거나 왓츠앱에서 말을 거는 것으로 끝나요. 메타 발표문 제목부터 “모두를 위한 개인 AI 에이전트”입니다.</p>
+<p><strong>② 머리부터 몸까지 메타가 다 가졌다.</strong> 모델은 자체 <strong>Muse Spark</strong>(“실제 에이전트 작업을 위해 만든 메타의 가장 뛰어난 모델”), 일하는 컴퓨터는 메타의 <strong>Muse Secure VM</strong>, 쓰는 창구는 메타의 앱과 왓츠앱, 앞으로 기기는 메타의 AI 안경입니다. 오픈클로·헤르메스가 “모델은 네가 골라”라면 뮤즈는 한 회사가 전부를 책임지는 구조예요.</p>
+<p><strong>③ 안전장치를 제품 앞에 세웠다.</strong> 발표문이 가장 길게 설명한 부분입니다.</p>
+<ul>
+<li>에이전트와 사용자 데이터는 <strong>전용 가상컴퓨터 안에만</strong> 있습니다</li>
+<li>인터넷에 나갈 때마다 **별도 감시 에이전트(Sentinel)**가 승인합니다</li>
+<li>비밀번호와 결제수단은 <strong>뮤즈가 볼 수 없고</strong>, 자격증명은 암호화됩니다</li>
+<li>메일 발송·구매 같은 <strong>민감한 행동 전에는 반드시 물어보고</strong>, 한 일과 할 일을 <strong>전부 기록</strong>으로 보여줍니다</li>
+<li>앱마다 <strong>얼마나 접근할지 사용자가 고릅니다</strong></li>
+<li>대화는 <strong>광고 시스템과 분리</strong>되고, 나중엔 사용자가 암호 키를 쥐는 ‘Muse Confidential VM’도 나온다고 합니다</li>
+</ul>
+<p>오픈클로가 보안 사고로 홍역을 치른 직후라, 이 부분이 뮤즈의 가장 큰 차별점이에요.</p>
+<p><img alt="작업실과 인터넷 사이 유리문에서 종이비행기를 검사하는 경비 로봇, 선반엔 잠긴 지갑과 열쇠 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-sentinel.DkR9znyf_1MfrhR.webp" ></p>
+<p><strong>④ 돈 버는 방식이 다르다.</strong> 오픈소스 둘은 무료(모델비만 듦), 그록봇은 구독에 포함입니다. 뮤즈는 대부분 무료로 풀고, 저커버그의 말로는 “많은 토큰을 무료로 주고, 시간이 지나면 <strong>거래에서 작은 수수료를 받아</strong> 이익을 낼 것”이라고 했어요. 그래서 Connect에서 Best Buy·Gap·Sephora·Walmart·Wayfair 같은 소매 파트너와 Shopify·Stripe·PayPal·Expedia·Instacart 연동을 함께 발표했습니다. 개발자 커넥터 신청은 1주일 만에 1,500개가 넘었다고 해요. <strong>쇼핑과 결제가 사업의 중심</strong>이라는 뜻입니다.</p>
+<p><strong>⑤ 기기로 나간다.</strong> 9월 23일 Connect에서 AI 안경(깨우는 말로 호출), Mac 앱(자리를 비운 사이 데스크톱 앱을 조작), 실시간 영상통화 아바타 ‘Jolly’, 뮤즈 전용 이메일 주소가 발표됐습니다. 화면 안의 에이전트를 생활 속 기기로 넓히는 건 메타만의 방향이에요.</p>
+<p><strong>그리고 숙제.</strong> TechCrunch는 뮤즈 출시 기사에서 메타의 개인정보 이력(2011·2019·2023년 FTC 합의, 케임브리지 애널리티카)을 짚으며 “소비자가 믿을까”를 물었습니다. 메일·결제·건강·스마트홈까지 연결하는 에이전트라, <strong>안전장치가 약속대로 작동하는지는 지켜봐야 할 부분</strong>입니다. 그리고 지금은 <strong>미국에서만</strong> 쓸 수 있어요.</p>
+<h2 id="-5-누구에게-무엇이-맞나">🎯 5. 누구에게 무엇이 맞나</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>이런 사람</th><th>맞는 쪽</th><th>이유</th></tr></thead><tbody><tr><td>내 기계에서, 내 규칙대로, 데이터를 밖에 안 내보내고 싶다</td><td><strong>오픈클로</strong></td><td>통제권이 전부 나에게. 대신 보안 설정도 내 몫</td></tr><tr><td>같은 일을 반복시키고, 쓸수록 나아지길 원한다</td><td><strong>헤르메스</strong></td><td>스스로 스킬을 쌓는 구조</td></tr><tr><td>팀 업무를 여러 봇에게 나눠 맡기고 싶다, 서버 관리는 싫다</td><td><strong>그록봇</strong></td><td>봇마다 클라우드 컴퓨터, 봇끼리 협업 (베타·구독 필요)</td></tr><tr><td>설치 없이 생활 속 일(메일·예약·쇼핑)을 맡기고 싶다</td><td><strong>메타 뮤즈</strong></td><td>앱·왓츠앱으로 끝. 단 미국만, 메타에 데이터를 맡겨야 함</td></tr></tbody></table>
+<h2 id="️-6-넷-모두에-해당하는-주의">⚠️ 6. 넷 모두에 해당하는 주의</h2>
+<ul>
+<li><strong>에이전트에 준 권한이 곧 위험의 크기입니다.</strong> 메일을 보낼 수 있게 하면 잘못 보낼 수도 있어요. <a href="/posts/20260922-mcp-vs-api-vs-cli/">MCP·API·CLI 글</a>에서 “통합 리모컨은 권한도 통합한다”고 쓴 이야기가 그대로 적용됩니다</li>
+<li><strong>“확인받고 하기”를 기본으로 두세요.</strong> 그록봇의 판단 순간 승인, 뮤즈의 민감 행동 전 확인이 괜히 있는 게 아닙니다. 오픈클로·헤르메스는 이걸 직접 설정해야 해요</li>
+<li><strong>“완료”를 결과물로 확인하세요.</strong> 에이전트가 “했다”고 말하는 것과 실제로 된 것은 다릅니다 — <a href="/posts/20260914-vibe-coding-silent-failures/">바이브 코딩의 한계 글</a>에서 겪은 그대로예요</li>
+</ul>
+<h2 id="-시작-코스">🚀 시작 코스</h2>
+<ol>
+<li><strong>맡길 일 하나를 적습니다.</strong> “매일 아침 받은편지함에서 답장 필요한 메일만 골라 요약” 같은 것</li>
+<li><strong>그 일에 필요한 권한을 적습니다.</strong> 읽기만인지, 보내기까지인지</li>
+<li><strong>권한 크기에 맞춰 고릅니다.</strong> 읽기만이면 어느 쪽이든 괜찮고, 보내기·결제까지면 승인 장치가 기본인 쪽부터</li>
+<li><strong>일주일은 “확인받고 하기”로 돌립니다.</strong> 틀린 판단이 몇 번 나오는지 세어 보고, 그다음에 자동으로 넘깁니다</li>
+<li>에이전트가 뭔지부터 궁금하다면 <a href="/posts/20260908-ai-agent-intro/">AI 에이전트 입문 글</a>부터 보세요</li>
+</ol>
+<p>비서를 들이는 방법이 넷으로 갈렸을 뿐, 좋은 비서를 쓰는 요령은 같습니다. <strong>무엇을 맡길지 정하고, 얼마나 맡길지 정하고, 처음엔 확인받게 하는 것.</strong> 뮤즈는 그 마지막 부분을 제품 안에 넣어 온 첫 대형 서비스예요.</p>
+<hr>
+<p><em>출처: 오픈클로 — 위키백과 ‘OpenClaw’(이름 변경 일자·만든이·라이선스·언어·재단·Cisco 연구·중국 제한·GitHub 별 수). 헤르메스 — NousResearch/hermes-agent 저장소 README(기능·라이선스·모델·메신저·실행 환경), 공개일 2026-02-25, MarkTechPost(2026-05-10, OpenRouter 순위와 설계 차이). 그록봇 — x.ai 공식 뉴스 ‘Grok Bot is now included with more plans’(2026-08-26), 베타 공개일·루틴·그룹챗은 Unite.AI 보도. 메타 뮤즈 — 메타 뉴스룸 ‘Introducing Muse’(2026-09-08), TechCrunch(2026-09-08 출시·요금제·신뢰 문제, 2026-09-23 Connect 발표). 이 글은 특정 회사의 입장을 대변하지 않습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
