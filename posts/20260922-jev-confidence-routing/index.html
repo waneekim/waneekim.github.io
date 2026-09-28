@@ -5,8 +5,8 @@
 <p><img alt="편지를 세 바구니(자동·확인·사람)로 나누는 접수 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-three-trays.BaRFjVPC_Z2syzYj.webp" ></p>
 <h2 id="결론-요약">결론 요약</h2>
 <ul>
-<li>부르는 법은 하나입니다. **상태(state) + 질문표(questions)**를 보내면 질문마다 <strong>답 + 확률 + 확신도</strong>가 옵니다. 주소는 <code>POST https://api.typesafe.ai/v1/systemone</code>, 모델은 <code>jev-latest</code></li>
-<li>**확신도(confidence)**는 확률이 한쪽에 얼마나 몰렸는지를 0~1로 접은 숫자. 문서가 권하는 세 갈래는 <strong>0.9 초과 자동 · 0.5~0.9 확인 후 · 0.5 미만 사람에게</strong></li>
+<li>부르는 법은 하나입니다. <strong>상태(state) + 질문표(questions)</strong>를 보내면 질문마다 <strong>답 + 확률 + 확신도</strong>가 옵니다. 주소는 <code>POST https://api.typesafe.ai/v1/systemone</code>, 모델은 <code>jev-latest</code></li>
+<li><strong>확신도(confidence)</strong>는 확률이 한쪽에 얼마나 몰렸는지를 0~1로 접은 숫자. 문서가 권하는 세 갈래는 <strong>0.9 초과 자동 · 0.5~0.9 확인 후 · 0.5 미만 사람에게</strong></li>
 <li>잘 쓰는 법은 <strong>질문을 잘게, 상태는 관련 있는 것만, 판단은 코드가.</strong> 문서의 표현으로 “코드가 흐름을 소유한다”</li>
 <li>한도: 질문당 상태 32k 토큰(요청 전체 64k), 보기 255개, 단계 2~10개. 오류는 401(키)·422(형식)·429(속도)·529(과부하)</li>
 </ul>
@@ -58,7 +58,7 @@
 <span class="line"><span style="color:#79B8FF">  "usage"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"input_tokens"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">296</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"output_tokens"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8"> } }</span></span></code></pre>
 <p>세 가지가 눈에 들어옵니다. 첫째, <code>model</code>은 별명 <code>jev-latest</code>로 보내고 실제 버전 <code>jev-1.13.0</code>이 돌아옵니다. 둘째, 응답에 <strong>글이 한 줄도 없습니다.</strong> 숫자와 이름뿐이에요. 셋째, <code>usage</code>에 출력 토큰이 20으로 찍히지만 모델 문서상 <strong>출력 요금은 없습니다.</strong> 입력 100만 토큰당 $0.042만 냅니다.</p>
 <h2 id="️-3-확신도--확률의-모양을-숫자-하나로">🎚️ 3. 확신도 — 확률의 모양을 숫자 하나로</h2>
-<p>Choice와 Score에는 확률 목록 외에 **확신도(confidence)**가 따로 옵니다. 문서의 정의는 “확률 분포에서 계산한 통계”로, <strong>확률이 한쪽에 얼마나 몰렸는가</strong>를 0~1로 접은 것입니다. 보기가 셋일 때 계산식은 <code>(3 × 가장 큰 확률 − 1) ÷ 2</code>예요.</p>
+<p>Choice와 Score에는 확률 목록 외에 <strong>확신도(confidence)</strong>가 따로 옵니다. 문서의 정의는 “확률 분포에서 계산한 통계”로, <strong>확률이 한쪽에 얼마나 몰렸는가</strong>를 0~1로 접은 것입니다. 보기가 셋일 때 계산식은 <code>(3 × 가장 큰 확률 − 1) ÷ 2</code>예요.</p>
 <ul>
 <li>기술팀 1.0, 나머지 0 → 확신도 <strong>1.0</strong> (한 곳에 다 몰림)</li>
 <li>기술팀 0.78, 결제 0.15, 영업 0.07 → 확신도 <strong>0.67</strong></li>

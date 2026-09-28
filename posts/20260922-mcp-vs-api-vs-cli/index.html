@@ -19,7 +19,7 @@
 <p>API(Application Programming Interface)는 <strong>프로그램이 다른 프로그램(대개 인터넷 너머의 서비스)에게 일을 시키는 약속</strong>입니다. “이 주소로, 이 항목을 채워서, 이 열쇠(키)를 붙여 보내면, 이런 답을 준다”가 정해져 있어요.</p>
 <p>제 공장의 예를 들면 이렇습니다. 이 글의 삽화는 파이썬 스크립트가 OpenAI 이미지 API에 “이런 장면을 그려줘”를 정해진 양식으로 보내서 받아 온 것이고, 여행 글의 재료는 GitHub API로 이슈를 읽어 옵니다. 두 API의 주소도, 항목 이름도, 인증 방식도 서로 달라요. <strong>리모컨이 기기마다 다른 것과 같습니다.</strong> 그래서 API는 사람이 직접 누르는 게 아니라 개발자가 코드에 미리 적어 두고, 프로그램이 정해진 순서로 누릅니다.</p>
 <h2 id="️-3-mcp--통합-리모컨-규격">🎛️ 3. MCP — 통합 리모컨 규격</h2>
-<p>MCP(Model Context Protocol)는 공식 문서의 정의로 **“AI 애플리케이션을 외부 시스템에 연결하는 오픈소스 표준”**입니다. 문서 자체가 “AI 앱을 위한 USB-C 포트”라고 비유하고, <a href="/posts/20260906-mcp-explained/">MCP 뜻 글</a>에서 그 비유를 그대로 썼어요. 이 글에선 리모컨 비유로 한 겹 더 들어갑니다.</p>
+<p>MCP(Model Context Protocol)는 공식 문서의 정의로 <strong>“AI 애플리케이션을 외부 시스템에 연결하는 오픈소스 표준”</strong>입니다. 문서 자체가 “AI 앱을 위한 USB-C 포트”라고 비유하고, <a href="/posts/20260906-mcp-explained/">MCP 뜻 글</a>에서 그 비유를 그대로 썼어요. 이 글에선 리모컨 비유로 한 겹 더 들어갑니다.</p>
 <p>API와 뭐가 다르냐면, <strong>AI가 목록을 받아 스스로 고른다</strong>는 점입니다. 구조는 이렇습니다.</p>
 <ul>
 <li><strong>호스트</strong>(Claude Code 같은 AI 앱)가 <strong>서버</strong>(도구를 내놓는 프로그램)마다 <strong>클라이언트</strong> 하나를 만들어 연결합니다</li>
