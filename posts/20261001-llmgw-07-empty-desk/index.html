@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>AI가 엉뚱한 메모를 읽고 왔다 — 빈 책상이 필요했던 이유 (LLM 중계기 개발기)</title><meta name="description" content="Codex와 Claude의 명령어 도구는 켜진 폴더의 안내문과 기억을 먼저 읽고 일을 시작합니다. 코딩할 때는 고마운 기능인데, 제가 만든 중계기가 이 AI들을 자기 폴더에서 켜는 바람에 평범한 채팅 질문에도 중계기 개발 메모가 덤으로 실렸어요. 같은 질문인데 켠 폴더에 따라 답이 달라진 증상, 원인, 아무것도 없는 전용 폴더로 자리를 옮긴 해결, 그리고 '채팅은 빈 책상, 일은 내가 고른 폴더'라는 규칙을 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="AI가 엉뚱한 메모를 읽고 왔다 — 빈 책상이 필요했던 이유 (LLM 중계기 개발기)"><meta property="og:description" content="Codex와 Claude의 명령어 도구는 켜진 폴더의 안내문과 기억을 먼저 읽고 일을 시작합니다. 코딩할 때는 고마운 기능인데, 제가 만든 중계기가 이 AI들을 자기 폴더에서 켜는 바람에 평범한 채팅 질문에도 중계기 개발 메모가 덤으로 실렸어요. 같은 질문인데 켠 폴더에 따라 답이 달라진 증상, 원인, 아무것도 없는 전용 폴더로 자리를 옮긴 해결, 그리고 '채팅은 빈 책상, 일은 내가 고른 폴더'라는 규칙을 비개발자 눈높이로 정리했습니다."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 10월 1일 기준</p> <blockquote>이 글에는 제휴 링크가 없고 OpenAI·앤트로픽과 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="ai가-엉뚱한-메모를-읽고-왔다--빈-책상이-필요했던-이유-llm-중계기-개발기">AI가 엉뚱한 메모를 읽고 왔다 — 빈 책상이 필요했던 이유 (LLM 중계기 개발기)</h1>
+<p>통역사를 한 분 모셨다고 해 볼게요. 원래라면 회의실의 깨끗한 테이블에 앉아, 상대가 하는 말만 듣고 옮겨 주면 됩니다.</p>
+<p>그런데 마땅한 자리가 없어서 제 <strong>서재</strong>에 앉혔어요. 책상 위에는 제가 써 둔 메모가 잔뜩 있고, 책장 곳곳에도 쪽지가 꽂혀 있습니다. 성실한 통역사는 일을 시작하기 전에 책상 위 자료부터 훑어봐요. 좋은 통역사라면 원래 그렇게 하죠. 그러다 보니 통역에 제 메모 내용이 슬쩍 섞여 들어갑니다. 통역사는 잘못한 게 없어요. 앉힌 자리가 문제였을 뿐이에요.</p>
+<p>제가 만든 LLM 중계기에서 AI가 바로 이런 일을 겪었습니다.</p>
+<blockquote>
+<p>이 글은 <strong>LLM 중계기 개발기</strong>의 7편입니다. 지난 <a href="/posts/20261001-llmgw-06-spawn-vs-resident/">6편 「부를 때마다 새로 켤까, 켜 둔 채 쓸까」</a>에서는 AI 프로그램을 언제 켜고 언제 끄는지를 다뤘어요. 이번에는 그렇게 켠 AI를 <strong>어디에 앉히는지</strong>의 이야기입니다.</p>
+</blockquote>
+<p><img alt="서재의 어지러운 책상에 앉아 책장의 쪽지를 읽으며 통역하는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-cluttered-study.Bl_4WV2K_21E9Er.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li><strong>원래 성질</strong> — Codex와 Claude의 명령어 도구는 켜진 폴더의 <strong>안내문과 기억</strong>을 먼저 읽고 일을 시작합니다. 코딩할 때는 고마운 기능이에요</li>
+<li><strong>사고</strong> — 중계기가 이 AI들을 자기 폴더에서 켜는 바람에, 평범한 채팅 질문에도 <strong>중계기 개발 메모</strong>가 매번 덤으로 실렸어요. 같은 질문인데 켠 폴더에 따라 답이 달라졌고, AI가 읽을 양도 늘었습니다</li>
+<li><strong>해결</strong> — 채팅용 AI는 이제 <strong>아무것도 없는 전용 폴더</strong>에서 켭니다. 규칙은 “채팅은 빈 책상, 일은 내가 고른 폴더”예요</li>
+</ul>
+<h2 id="-1-명령어-도구-ai는-폴더에서-일을-시작한다">📂 1. 명령어 도구 AI는 ‘폴더’에서 일을 시작한다</h2>
+<p>Codex와 Claude의 명령어 도구(CLI)는 원래 <strong>코딩을 돕는 도구</strong>예요. 개발자는 보통 프로젝트 폴더에 들어가서 이 도구를 켜고, “이 코드 고쳐 줘”처럼 일을 맡깁니다.</p>
+<p>그래서 이 도구들은 켜지자마자 그 폴더부터 살핍니다.</p>
+<ul>
+<li><strong>안내문 읽기</strong> — 폴더에 “이 프로젝트는 이렇게 일한다”는 안내 파일이 있으면 먼저 읽어요. Claude는 CLAUDE.md, Codex는 AGENTS.md라는 이름의 파일이에요</li>
+<li><strong>기억 불러오기</strong> — Claude는 폴더마다 따로 쌓아 두는 기억(자동 메모리)도 불러옵니다. 폴더 위치를 이름표 삼아 그 폴더용 메모를 찾아오는 방식이에요</li>
+</ul>
+<p>새 직원이 첫 출근 날 인수인계 문서부터 읽는 것과 같아요. 매번 같은 설명을 되풀이하지 않아도 되니, 코딩할 때는 아주 고마운 기능입니다.</p>
+<p>여기서 짚어 둘 것이 하나 있어요. 프로그램은 켜질 때 <strong>어느 폴더에서 일하는지</strong>를 하나 정하고 시작합니다. 개발자들은 이걸 ‘현재 작업 디렉터리(cwd)‘라고 부르는데, 이 글에서는 쉽게 <strong>앉은 자리</strong>라고 부를게요. 앉을 자리를 따로 정해 주지 않으면, 프로그램은 <strong>자기를 켠 프로그램의 자리</strong>를 그대로 물려받습니다.</p>
+<h2 id="-2-증상--같은-질문인데-켠-폴더에-따라-답이-달랐다">📝 2. 증상 — 같은 질문인데 켠 폴더에 따라 답이 달랐다</h2>
+<p>중계기는 사람이 직접 쓰는 채팅창이라기보다 <strong>다른 프로그램이 부르는 AI 창구</strong>예요. 중계기를 쓰던 다른 도구 하나는 사람 없이 혼자 돌아가면서, 중계기를 순수한 ‘대답 기계’로 썼습니다. 질문을 보내고 답만 받는 거죠.</p>
+<p>그 도구 쪽에서 실제로 재 보니 이상한 점이 두 가지 드러났어요.</p>
+<ul>
+<li><strong>같은 질문, 다른 답</strong> — 같은 요청을 보내도, 중계기를 어느 폴더에서 켰느냐에 따라 결과가 달라졌습니다</li>
+<li><strong>부르지도 않은 덤</strong> — 중계기를 개발 폴더에서 켜 둔 상태에서, 질문과 상관없는 그 폴더의 안내문과 기억이 매 요청에 실려 있었어요. Claude 쪽은 약 2,400토큰, Codex 쪽은 1만 7천~2만 토큰 분량이었습니다</li>
+</ul>
+<p><strong>토큰</strong>(token)은 AI가 글을 읽고 쓰는 단위예요. 글을 잘게 자른 조각이라고 보면 됩니다. AI는 답하기 전에 받은 글을 토큰 단위로 전부 읽어요. 읽을 양이 늘면 보통 답이 늦어지고, 쓴 만큼 돈을 내는 방식이면 비용이, 구독이면 사용 한도가 그만큼 더 줄어듭니다.</p>
+<p>질문을 보낸 쪽은 메모를 붙인 적이 없는데, AI는 매번 두툼한 메모 뭉치를 함께 받아 읽고 있었던 셈이에요.</p>
+<h2 id="-3-원인--ai가-중계기의-서재에-앉아-있었다">🔍 3. 원인 — AI가 중계기의 서재에 앉아 있었다</h2>
+<p>원인을 따라가 보니 1절의 ‘앉은 자리’였어요.</p>
+<p>중계기는 질문을 전하려고 Codex와 Claude 프로그램을 켭니다. 그런데 켤 때 일반 채팅용 AI의 자리를 따로 정해 주지 않았어요. 그러면 두 AI는 중계기의 자리, 그러니까 <strong>중계기가 켜진 폴더</strong>를 물려받습니다.</p>
+<p>중계기를 개발 폴더에서 켜면 그 자리는 중계기의 <strong>서재</strong>예요. 거기에는 중계기 자신의 개발 메모(안내 파일)가 있고, 그 폴더 이름으로 찾아오는 기억도 있을 수 있습니다. AI는 원래 성질대로 그걸 먼저 읽었어요. 중계기를 다른 폴더에서 켜면 AI도 다른 책상에 앉게 되니, 같은 질문에도 답이 달라질 수 있었던 거죠.</p>
+<p>사실 Claude 쪽은 첫 버전부터 “설정 파일은 읽지 마”라고 일러 둔 상태였어요. 중계기의 채팅은 순수한 대답 기계여야 하니까요. 그런데 폴더 위치를 이름표 삼아 찾아오는 <strong>기억</strong>은 그 설정으로 막히지 않았습니다. Codex 쪽은 앉은 자리의 안내문을 막는 장치가 아예 없었고요.</p>
+<p><img alt="중계기 폴더에서 켜진 AI는 질문과 함께 개발 메모·기억을 읽고, 빈 전용 폴더에서 켜진 AI는 질문만 읽는다 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1460" src="/_astro/diagram-empty-desk.S9hC9vXf_ZgC6fx.webp" ></p>
+<h2 id="-4-해결--아무것도-없는-빈-책상">🧹 4. 해결 — 아무것도 없는 빈 책상</h2>
+<p>고친 방법은 단순해요. 채팅용 AI를 켤 때마다 <strong>앉을 자리를 직접 정해 줍니다</strong>.</p>
+<ul>
+<li><strong>빈 전용 폴더</strong> — 중계기 데이터 폴더 안에 ‘chat-cwd’라는 빈 폴더를 만들어 두고, 일반 채팅용 Codex와 Claude는 늘 그 폴더에서 켭니다. 비어 있으니 읽을 안내문도, 그 폴더 이름으로 쌓인 기억도 없어요</li>
+<li><strong>어디서 켜든 같은 자리</strong> — 중계기를 어느 폴더에서 켜든 AI가 앉는 자리는 같아요. 같은 질문은 같은 조건에서 답을 받습니다</li>
+<li><strong>Codex는 한 겹 더</strong> — Codex에는 대화방을 열 때 “프로젝트 안내문은 0바이트까지만 읽어라”, 그러니까 아예 읽지 말라는 설정을 함께 넘깁니다</li>
+</ul>
+<p>이 변경은 9월 21일 업데이트에 들어갔어요.</p>
+<p><img alt="깨끗하게 비운 하얀 책상에 편지 한 통만 들고 앉은 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-empty-desk.ClIK3yiB_Z2n7KcH.webp" ></p>
+<p>다 막은 건 아니에요. Codex를 쓰는 사람이 Codex 설정 폴더에 ‘모든 폴더 공통’으로 넣어 둔 안내문은 중계기 폴더가 아니라 그 사람의 Codex 설정에 속해 있어서, 설정에 따라서는 여전히 읽힐 수 있습니다. 사용자 본인이 쓴 파일이라 이 부분은 예외로 문서에 적어 두었어요.</p>
+<h2 id="-5-책상-위-도구-상자도-치웠다">🧰 5. 책상 위 도구 상자도 치웠다</h2>
+<p>같은 업데이트에서 하나를 더 치웠어요. 이번엔 메모가 아니라 <strong>도구 상자</strong>예요.</p>
+<p>Codex는 웹 검색, 이미지 보기·만들기, 명령 실행 같은 도구를 쓸 줄 알아요. AI에게 “이런 도구를 쓸 수 있다”고 알려 주려면 도구마다 설명서를 질문과 함께 건네야 합니다. 그 설명서도 AI가 읽는 글이에요.</p>
+<p>중계기의 일반 채팅은 질문에 답만 하면 되니, 이 도구들을 Codex에게 보여 주지 않게 했어요. 개발 컴퓨터에서 재 보니 요청 하나에 AI가 읽는 양이 약 <strong>1만 8,900토큰에서 1만 3,100토큰</strong>으로, 30%쯤 줄었습니다.</p>
+<p><img alt="책상 위 쪽지들을 작은 빗자루로 서랍에 쓸어 담는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-sweep-notes.DPkCvloO_Z1xmRBm.webp" ></p>
+<p>치운 이유가 하나 더 있어요. 사람 없이 돌아가는 도구는 남이 쓴 글을 질문에 그대로 실어 보내기도 합니다. 그 글 속에 “이 명령을 실행해” 같은 문장이 숨어 있어도, 실행할 도구가 없으면 따를 수가 없죠. 혹시 AI가 지침을 어기고 명령을 시도하면 중계기가 그 승인 요청을 자동으로 거절하게도 해 두었어요.</p>
+<ul>
+<li>Claude 쪽은 쓰는 프로그램이 요청에 ‘도구 없음’이라고 표시하면 도구를 빼고 답합니다</li>
+<li>예전처럼 Codex가 도구를 다 쓰게 하는 설정도 남겨 두었어요</li>
+</ul>
+<h2 id="-6-남긴-규칙--채팅은-빈-책상-일은-내가-고른-폴더">🪑 6. 남긴 규칙 — 채팅은 빈 책상, 일은 내가 고른 폴더</h2>
+<p>그렇다고 AI가 폴더를 읽는 게 나쁜 건 아니에요. 중계기에는 <strong>작업 폴더 모드</strong>도 있습니다. AI에게 내 프로젝트 폴더를 맡겨 파일을 읽고 고치게 하는 기능이에요. 미리 등록해 둔 폴더만 쓸 수 있고, 이때는 AI를 <strong>그 폴더에</strong> 앉히고 그 폴더의 안내문도 읽게 합니다. 일을 하려면 그 폴더의 사정을 알아야 하니까요. 작업 폴더 모드 이야기는 6부에서 자세히 할게요.</p>
+<p>그래서 규칙은 이렇게 정리됐어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>쓰임</th><th>AI가 앉는 자리</th><th>폴더의 안내문·기억</th></tr></thead><tbody><tr><td>일반 채팅 (질문하고 답 받기)</td><td>아무것도 없는 전용 폴더</td><td>읽지 않는다</td></tr><tr><td>작업 폴더 모드 (내 프로젝트 맡기기)</td><td>내가 등록한 폴더</td><td>읽는다</td></tr></tbody></table>
+<p>이번 일에서 배운 건 이거예요. <strong>도구의 친절한 기본값이, 다른 자리에서는 새는 구멍이 된다.</strong> 코딩 도구가 ‘지금 폴더’를 읽는 건 코딩할 때는 장점인데, 대답 기계로 쓸 때는 엉뚱한 메모가 끼어드는 통로가 됐어요. 그래서 AI 프로그램을 켤 때는 앉을 자리를 물려받게 두지 않고 <strong>직접 정해 줘야</strong> 합니다.</p>
+<h2 id="정리">정리</h2>
+<p>① Codex와 Claude의 명령어 도구는 켜진 폴더의 안내문과 기억을 먼저 읽어요. 코딩할 땐 고마운 기능이에요
+② 중계기가 AI를 자기 폴더에서 켜는 바람에 채팅 질문마다 개발 메모가 덤으로 실렸고, 켠 폴더에 따라 답이 달라졌어요
+③ 이제 채팅은 아무것도 없는 전용 폴더에서, 일은 내가 등록한 폴더에서 해요 — 다음 편은 “로그인했는데 401 — 서랍 속 옛 열쇠가 문을 막다”입니다</p>
+<hr>
+<p><em>2026년 10월 1일 기준입니다. 제가 만든 중계기의 개발 기록을 바탕으로 썼고, 특정 기업·서비스의 공식 입장이 아닙니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
