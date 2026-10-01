@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>AI마다 다른 플러그를 같은 어댑터로 — 서랍 속 충전기 젠더 이야기 (LLM 중계기 개발기)</title><meta name="description" content="어떤 AI는 웹 주소로, 어떤 AI는 내 컴퓨터의 명령어 도구로, 또 어떤 AI는 로컬 서버로 불러야 합니다. 플러그 모양이 다 다른 셈이에요. 제가 만든 LLM 중계기는 AI마다 작은 어댑터를 하나씩 끼우고, 모든 어댑터가 확인·목록·특성·대화라는 네 가지 약속을 같은 모양으로 지키게 했습니다. 그 덕분에 바깥 프로그램은 메뉴판 한 장만 보면 되고, 새 AI는 어댑터 파일 하나와 등록 한 줄로 들어옵니다. 첫 버전 닷새 뒤 NVIDIA를 붙인 날의 기록까지 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="AI마다 다른 플러그를 같은 어댑터로 — 서랍 속 충전기 젠더 이야기 (LLM 중계기 개발기)"><meta property="og:description" content="어떤 AI는 웹 주소로, 어떤 AI는 내 컴퓨터의 명령어 도구로, 또 어떤 AI는 로컬 서버로 불러야 합니다. 플러그 모양이 다 다른 셈이에요. 제가 만든 LLM 중계기는 AI마다 작은 어댑터를 하나씩 끼우고, 모든 어댑터가 확인·목록·특성·대화라는 네 가지 약속을 같은 모양으로 지키게 했습니다. 그 덕분에 바깥 프로그램은 메뉴판 한 장만 보면 되고, 새 AI는 어댑터 파일 하나와 등록 한 줄로 들어옵니다. 첫 버전 닷새 뒤 NVIDIA를 붙인 날의 기록까지 비개발자 눈높이로 정리했습니다."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 10월 1일 기준</p> <blockquote>이 글에는 제휴 링크가 없고 글에 나오는 AI 서비스들(OpenAI·앤트로픽·구글·NVIDIA·LM Studio·fal)과 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="ai마다-다른-플러그를-같은-어댑터로--서랍-속-충전기-젠더-이야기-llm-중계기-개발기">AI마다 다른 플러그를 같은 어댑터로 — 서랍 속 충전기 젠더 이야기 (LLM 중계기 개발기)</h1>
+<p>집집마다 충전 케이블을 모아 둔 서랍이 하나씩 있죠. 예전 휴대폰은 5핀, 요즘 휴대폰은 USB-C, 무선 이어폰은 또 다른 모양이에요. 기기마다 충전기를 따로 꽂으면 콘센트 앞이 금세 충전기 밭이 됩니다.</p>
+<p>그런데 손톱만 한 <strong>변환 젠더</strong>를 하나씩 끼우면 이야기가 달라져요. 케이블 끝이 전부 같은 모양이 되니 충전기 하나로 다 충전할 수 있습니다. 충전기는 젠더 너머에 어떤 기기가 있는지 몰라도 되고요.</p>
+<blockquote>
+<p>이 글은 <strong>LLM 중계기 개발기</strong>의 5편입니다. <a href="/posts/20261001-llmgw-04-first-day/">지난 편</a>에서는 첫 버전을 만든 첫날 이야기를 했어요. 이번 편부터 2부 ‘여러 AI를 한 줄로’가 시작됩니다.</p>
+</blockquote>
+<p><img alt="여러 모양의 변환 젠더가 담긴 상자를 열고, 케이블 끝에 젠더를 끼워 충전기 하나에 맞추는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-gender-box.BAMtZXV0_y4TRz.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li><strong>문제</strong> — AI마다 부르는 길이 달라요. 웹 주소, 내 컴퓨터의 명령어 도구, 로컬 AI 서버. 공통 모양이 없으면 프로그램마다 AI별 연결 코드를 따로 짜야 합니다</li>
+<li><strong>해법</strong> — 중계기 안에서 AI마다 <strong>어댑터</strong>를 하나씩 붙이고, 모든 어댑터가 <strong>확인·목록·특성·대화</strong> 네 가지 약속을 같은 모양으로 지키게 했어요</li>
+<li><strong>결과</strong> — 바깥 프로그램은 <strong>메뉴판 한 장</strong>만 봅니다. 새 AI는 어댑터 파일 하나와 등록 한 줄로 들어오고, 쓰는 쪽은 메뉴판에 새 이름이 생긴 것만 알면 돼요</li>
+</ul>
+<h2 id="-1-ai마다-부르는-길이-다르다">🔌 1. AI마다 부르는 길이 다르다</h2>
+<p>제 중계기에 연결하는 AI들은 부르는 길이 크게 세 갈래예요.</p>
+<ul>
+<li><strong>웹 주소로 부르는 AI</strong> — NVIDIA의 클라우드 AI, 구글 Gemini API, OpenAI 이미지 생성, fal 영상 생성. 인터넷 너머의 주소로 요청을 보내고, 열쇠(API 키)로 누구인지 밝힙니다. 웹 페이지를 주고받을 때 쓰는 HTTP라는 방식이에요</li>
+<li><strong>내 컴퓨터의 명령어 도구</strong> — Codex, Claude, Gemini. 원래 사람이 검은 화면(터미널)에 글자를 쳐서 쓰는 도구라, 프로그램이 도구를 대신 켜고 말을 걸어야 합니다. 로그인도 이 컴퓨터에 해 둔 각 도구의 로그인을 그대로 써요</li>
+<li><strong>내 컴퓨터 안의 AI 서버</strong> — LM Studio. 인터넷이 아니라 내 컴퓨터 안의 주소로 부르고, 열쇠가 필요 없어요. 계정 없이 중계기 안에서 바로 도는 작은 로컬 임베딩 모델(문장을 숫자 묶음으로 바꿔 비슷한 글을 찾게 해 주는 모델)도 여기에 가깝습니다</li>
+</ul>
+<p>다른 건 부르는 길만이 아니에요. 답을 한 조각씩 흘려보내는 방식, “다 했다”는 표시, 실패를 알리는 문장까지 AI마다 제각각입니다.</p>
+<p>공통 모양이 없으면 어떻게 될까요? <a href="/posts/20261001-llmgw-01-idle-subscriptions/">1편</a>에서 본 것처럼 프로그램 수 × AI 수만큼 연결 코드가 생깁니다. 충전기를 기기마다 하나씩 사는 것과 같아요.</p>
+<h2 id="-2-어댑터--ai마다-끼우는-변환-젠더">🧩 2. 어댑터 — AI마다 끼우는 변환 젠더</h2>
+<p>그래서 중계기 안에서 AI마다 <strong>어댑터</strong>(adapter)를 하나씩 붙였습니다. 코드로는 AI 하나에 파일 하나예요.</p>
+<p>어댑터는 두 얼굴을 가진 변환 젠더입니다.</p>
+<ul>
+<li><strong>한쪽 면</strong>은 자기 AI의 플러그 모양만 압니다. Codex 어댑터는 Codex 도구를 켜고 말을 거는 법을, LM Studio 어댑터는 내 컴퓨터 안의 주소로 요청하는 법을 알아요</li>
+<li><strong>다른 쪽 면</strong>은 모든 어댑터가 똑같은 모양입니다. 중계기의 나머지 부분은 이 면만 보고 일해요</li>
+</ul>
+<p>덕분에 중계기의 다른 부분은 “이 AI가 웹으로 부르는 건지, 명령어 도구인지”를 몰라도 됩니다. 연결 화면의 입력 칸(열쇠를 넣는 칸, 주소를 적는 칸)도 어댑터가 적어 둔 자기소개를 보고 저절로 그려져요.</p>
+<h2 id="-3-같은-모양의-네-가지-약속--확인목록특성대화">🤝 3. 같은 모양의 네 가지 약속 — 확인·목록·특성·대화</h2>
+<p>‘똑같은 모양의 면’이란 구체적으로 네 가지 약속이에요. 어떤 AI의 어댑터든 같은 이름, 같은 방식으로 대답합니다.</p>
+<p><img alt="돋보기, 체크리스트, 이름표, 말풍선을 하나씩 들고 나란히 선 네 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1536" height="1024" src="/_astro/char-four-promises.D56tElIP_Z2qwUiu.webp" ></p>
+<p>① <strong>확인</strong>(probe) — “지금 쓸 수 있나요?”
+설치돼 있는지, 로그인돼 있는지, 실제로 대답하는지 확인합니다. 명령어 도구라면 설치, 준비, 로그인, 사용 한도, 실제 응답 중 <strong>어느 단계에서 막혔는지</strong>까지 알려 줘요. 실패하면 사람이 할 일을 한 문장으로 돌려줍니다. LM Studio라면 LM Studio를 켜고 서버를 시작한 뒤 다시 해 보라는 안내가 돌아와요.</p>
+<p>② <strong>목록</strong>(listModels) — “어떤 모델을 부를 수 있나요?”
+지금 이 AI로 부를 수 있는 모델 이름들을 내놓습니다. LM Studio라면 내 컴퓨터의 LM Studio에 들어 있는 모델들이고, 대화용이 아닌 모델에는 ‘임베딩용’처럼 종류 표시를 붙여요.</p>
+<p>③ <strong>특성</strong>(modelTraits) — “각 모델은 어떤 성격인가요?”
+한 번에 읽을 수 있는 분량, 대화를 어떻게 기억하는지 같은 스펙을 적어 냅니다. 사실 이 약속은 첫날에는 없었어요. 일주일 뒤, 중계기를 쓰던 다른 도구가 모델이 얼마나 긴 글을 읽을 수 있는지 몰라서 글을 잘게만 쪼개 하나씩 보내는 바람에 왕복이 크게 늘었고, 그걸 고치려고 생긴 칸이에요. 그래서 다른 셋과 달리 <strong>아는 만큼 적어 내는</strong> 약속입니다. 이 스펙 카드 이야기는 2부 뒤쪽에서 따로 할게요.</p>
+<p>④ <strong>대화</strong>(chat) — “이 대화에 답해 주세요”
+대화 내용을 받아 답을 한 조각씩 흘려보내고, 마지막 조각에 ‘끝’ 표시와 쓴 양을 붙입니다. 이 약속에는 규칙이 하나 붙어 있어요. ‘그만’ 신호가 오면 <strong>어디서든 바로 멈출 것</strong>. 이걸 어기면 무슨 일이 생기는지는 3부에서 따로 이야기할게요.</p>
+<p>네 가지 말고 <strong>필요한 AI만 갖는 추가 칸</strong>도 있어요. 켜는 데 시간이 걸리는 명령어 도구는 미리 데워 두는 칸을, 문장을 숫자 묶음으로 바꾸는 임베딩이 되는 AI는 그 칸을 더 갖습니다. 재미있는 건 그림·영상·빠른 판정처럼 <strong>대화를 하지 않는 AI도 대화 칸은 갖고 있다</strong>는 점이에요. 그 칸에 말을 걸면 ‘이 AI는 대화를 지원하지 않는다’는 정해진 오류로 답합니다. 모양을 끝까지 맞춰 둔 거죠.</p>
+<p><img alt="세 갈래 플러그가 각자의 어댑터를 지나 같은 네 칸의 면으로 바뀌고, 바깥에는 메뉴판 한 장만 보인다 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1520" src="/_astro/diagram-adapters.NFVO3Z5v_Z24xAHQ.webp" ></p>
+<h2 id="-4-바깥에서-보면-메뉴판-한-장">📋 4. 바깥에서 보면 메뉴판 한 장</h2>
+<p>중계기를 쓰는 프로그램 쪽에서 보이는 건 <strong>모델 목록 한 장</strong>뿐이에요. 식당 메뉴판처럼요. 항목 이름은 ‘어느 AI/어떤 모델’ 꼴입니다.</p>
+<ul>
+<li>claude/opus</li>
+<li>claude/haiku</li>
+<li>codex/gpt-5.5</li>
+<li>lmstudio/(내 컴퓨터의 모델 이름)</li>
+</ul>
+<p>프로그램은 메뉴판에서 이름을 골라 늘 같은 주소로 주문합니다. 중계기는 이름의 앞부분(claude, codex…)을 보고 어느 어댑터에 넘길지 정해요. 이 주문 하나가 Claude 도구를 켜는 일이 되든, 인터넷 너머에 요청을 보내는 일이 되든 프로그램은 몰라도 됩니다.</p>
+<p>메뉴판은 저절로 관리돼요.</p>
+<ul>
+<li>연결이 끊긴 AI의 모델은 메뉴판에서 조용히 빠집니다</li>
+<li>대화용이 아닌 모델에는 ‘임베딩용’, ‘영상용’ 같은 표시가 붙어서 프로그램이 잘못 주문하지 않아요</li>
+<li>새 AI를 연결하면 그 AI의 모델이 새 줄로 올라옵니다</li>
+</ul>
+<p>중계기 설명서에도 이렇게 적어 뒀어요. 쓰는 쪽 프로그램에는 AI별 연결 코드가 전혀 필요 없다고요.</p>
+<h2 id="-5-약속이-값을-한-날--닷새-만에-들어온-nvidia">🧪 5. 약속이 값을 한 날 — 닷새 만에 들어온 NVIDIA</h2>
+<p>중계기 설명서에는 규칙이 한 줄 있습니다. <strong>새 AI는 어댑터 파일 하나와 등록 한 줄</strong>. 정말 그런지는 첫 버전을 만든 지 닷새 뒤에 확인할 수 있었어요. NVIDIA의 클라우드 AI를 붙인 날입니다.</p>
+<p>그날 바뀐 것을 세어 보면 이랬어요.</p>
+<ul>
+<li><strong>69줄짜리 어댑터 파일</strong> 하나 — 확인·목록·대화 약속을 NVIDIA 방식으로 채운 것</li>
+<li><strong>등록부</strong>에 이름 올리기</li>
+<li><strong>교통정리 설정 한 줄</strong> — 이 AI는 동시에 몇 건까지 받을지</li>
+<li>설명서 표에 한 칸, 그리고 이 어댑터를 지키는 검사 9개</li>
+</ul>
+<p>연결 화면의 NVIDIA 카드는 어댑터의 자기소개를 보고 저절로 생겼습니다. 그리고 중계기를 쓰는 프로그램 쪽은 <strong>한 줄도 고치지 않았어요</strong>. 메뉴판에 nvidia로 시작하는 이름이 새로 올라왔을 뿐이니까요.</p>
+<p><img alt="같은 모양의 퍼즐 조각 줄 끝에 새 조각을 끼워 넣는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-new-piece.CK7xCikS_2se8O6.webp" ></p>
+<p>이 모양은 두 달 넘게 버텼습니다. 9월 22일부터 25일까지 나흘 동안 빠른 판정, 이미지 생성, 영상 생성, 구글 Gemini API, 로컬 임베딩까지 어댑터 다섯 개가 더 들어왔어요. 지금은 연결 칸이 열 개가 넘습니다. 물론 그림이나 영상처럼 아예 새로운 종류의 일은 중계기에 주문 창구가 하나씩 더 생겼어요. 그래도 확인·목록·대화라는 기본 면은 처음 모양 그대로입니다.</p>
+<p>한 가지는 솔직히 적어 둘게요. 위 목록의 ‘교통정리 설정 한 줄’은 규칙의 ‘등록 한 줄’과 별개라 빠뜨리기 쉽습니다. 실제로 이 한 줄이 빠져서 생긴 사고가 있었는데, 그 이야기는 3부에서 할게요.</p>
+<h2 id="정리">정리</h2>
+<p>① AI마다 부르는 길(웹 주소·명령어 도구·로컬 서버)이 달라서, 공통 모양이 없으면 프로그램마다 AI별 연결 코드가 필요해요
+② 중계기는 AI마다 어댑터를 하나씩 끼우고, 모든 어댑터가 확인·목록·특성·대화 네 가지 약속을 같은 모양으로 지키게 했어요
+③ 그래서 바깥 프로그램은 메뉴판 한 장만 보고, 새 AI는 어댑터 파일 하나와 등록 한 줄로 들어와요</p>
+<p>다음 편은 “<strong>부를 때마다 새로 켤까, 켜 둔 채 쓸까</strong>”입니다. 명령어 도구로 된 AI를 질문할 때마다 새로 켤지, 한 번 켜 둔 채 계속 쓸지 고민한 이야기예요.</p>
+<hr>
+<p><em>2026년 10월 1일 기준입니다. 제가 만든 중계기의 개발 기록을 바탕으로 썼고, 특정 기업·서비스의 공식 입장이 아닙니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
