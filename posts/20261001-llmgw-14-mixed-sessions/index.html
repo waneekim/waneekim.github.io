@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>&#39;저는 Claude예요&#39;라고 말한 다른 AI — 공용 메모장을 같이 쓴 두 팀 (LLM 중계기 개발기)</title><meta name="description" content="켜 둔 AI 세션 하나를 서로 다른 두 프로그램이 같이 쓰면, 한 프로그램의 대화가 다른 프로그램 요청을 받는 AI의 기억에 남을 수 있습니다. 게다가 대화를 한 덩어리로 합칠 때 '누가 한 말인지' 이름표를 빼 버리자, AI가 다른 AI의 답('저는 Claude입니다')을 자기 말로 받아들이기도 했어요. 공용 메모장을 같이 쓴 두 팀에 빗대어, 두 증상이 모두 '누가'를 잃어버린 데서 왔다는 원인, 프로그램 이름표·프로그램별 세션·요청마다 새 대화방·말마다 이름표라는 해결, '세션은 속도를 위한 준비물'이라는 원칙을 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="'저는 Claude예요'라고 말한 다른 AI — 공용 메모장을 같이 쓴 두 팀 (LLM 중계기 개발기)"><meta property="og:description" content="켜 둔 AI 세션 하나를 서로 다른 두 프로그램이 같이 쓰면, 한 프로그램의 대화가 다른 프로그램 요청을 받는 AI의 기억에 남을 수 있습니다. 게다가 대화를 한 덩어리로 합칠 때 '누가 한 말인지' 이름표를 빼 버리자, AI가 다른 AI의 답('저는 Claude입니다')을 자기 말로 받아들이기도 했어요. 공용 메모장을 같이 쓴 두 팀에 빗대어, 두 증상이 모두 '누가'를 잃어버린 데서 왔다는 원인, 프로그램 이름표·프로그램별 세션·요청마다 새 대화방·말마다 이름표라는 해결, '세션은 속도를 위한 준비물'이라는 원칙을 비개발자 눈높이로 정리했습니다."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:18px 20px}header.site a{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site a b{color:var(--accent)}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+</style></head> <body> <header class="site"> <a href="/">happy_various <b>AI 실전 기록</b></a> </header> <main> <article> <p class="meta">2026년 10월 1일 기준</p> <blockquote>이 글에는 제휴 링크가 없고 OpenAI·앤트로픽과 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="저는-claude예요라고-말한-다른-ai--공용-메모장을-같이-쓴-두-팀-llm-중계기-개발기">‘저는 Claude예요’라고 말한 다른 AI — 공용 메모장을 같이 쓴 두 팀 (LLM 중계기 개발기)</h1>
+<p>회의실에 <strong>공용 메모장</strong>이 한 권 놓여 있다고 해 볼게요. A팀이 회의하며 메모를 적고 나가자마자 B팀이 들어와 같은 메모장에 이어서 적습니다. B팀 사람은 회의를 시작하기 전에 메모장을 처음부터 훑어보는데, 거기에는 A팀 이야기가 섞여 있어요.</p>
+<p>게다가 이 메모에는 <strong>말한 사람 이름</strong>이 없습니다. “그 일은 제가 맡을게요”라는 줄을 읽은 사람은 그게 누구의 말이었는지 알 수 없어요. 자기 팀이 한 말인 줄 알고 그대로 이어 갈 수도 있죠.</p>
+<p>제가 만든 LLM 중계기 안에서도 이런 일이 있었습니다. 메모장은 켜 둔 AI의 대화 기억이었고, 두 팀은 중계기를 같이 쓰던 두 프로그램이었어요.</p>
+<blockquote>
+<p>이 글은 <strong>LLM 중계기 개발기</strong>의 14편이자 3부 ‘교통정리’의 마지막 편입니다. 지난 <a href="/posts/20261001-llmgw-13-missing-lane/">13편 「설정 한 줄 빠졌을 뿐인데 전멸」</a>까지 차선과 줄을 정리하는 이야기를 했다면, 이번에는 줄을 통과한 요청들이 <strong>같은 기억을 나눠 쓰던</strong> 문제를 다룹니다. <a href="/posts/20261001-llmgw-06-spawn-vs-resident/">6편</a>에서 “3부에서 따로 다룬다”고 예고했던 이야기예요.</p>
+</blockquote>
+<p><img alt="두 팀의 로봇이 큰 공책 한 권에 동시에 적다가 낙서가 뒤엉켜 고개를 갸웃한다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-shared-notebook.D2YS0HN2_1b07w2.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li><strong>증상</strong> — 켜 둔 Claude 세션과 Codex 대화방을 서로 다른 프로그램들이 <strong>같이 쓰고</strong> 있었어요. 한 프로그램의 질문과 답이 다른 프로그램 요청을 받는 AI의 기억에 남을 수 있었고, 이름표 없이 합친 대화에서는 AI가 다른 AI의 답(“저는 Claude입니다”)을 <strong>자기 말</strong>로 받아들였어요</li>
+<li><strong>해결</strong> — 요청마다 <strong>어느 프로그램인지</strong> 이름을 받습니다. Claude는 ‘프로그램 × 모델 × 생각 강도’마다 세션을 따로 두고, Codex는 요청마다 새 대화방을 열어요. 대화를 합칠 때는 말마다 <strong>누가 한 말인지</strong> 이름표를 붙입니다</li>
+<li><strong>원칙</strong> — 중계기는 요청마다 대화 전체를 다시 보내요. 그래서 켜 둔 세션은 빨리 가기 위한 준비물일 뿐이고, 잘게 나눠도 잃는 건 <strong>시동 시간</strong>뿐입니다</li>
+</ul>
+<h2 id="-1-증상---두-프로그램이-공책-한-권을-같이-썼다">📒 1. 증상 ① — 두 프로그램이 공책 한 권을 같이 썼다</h2>
+<p>중계기는 한 사람만 쓰는 채팅 창이 아니에요. 여러 프로그램이 동시에 붙어서 AI를 부릅니다. 이 글에서는 그중 두 개를 <strong>프로그램 A</strong>와 <strong>프로그램 B</strong>라고 부를게요. 둘 다 중계기를 거쳐 Claude와 Codex를 쓰던 도구예요.</p>
+<p>6편에서 본 것처럼 중계기는 Claude와 Codex를 <strong>켜 둔 채</strong> 씁니다. 켜 둔 AI는 앞에서 오간 대화를 기억해요. 공책 한 권에 대화를 계속 이어 적는 셈이죠. 그런데 8월 19일 업데이트 전까지는 이 공책을 나누는 기준에 <strong>프로그램</strong>이 없었어요.</p>
+<ul>
+<li><strong>Claude</strong> — ‘모델 × 생각 강도’마다 세션이 하나였어요. 어느 프로그램이 부르든 모델과 생각 강도가 같으면 같은 세션에 들어갔습니다</li>
+<li><strong>Codex</strong> — 모델마다 대화방을 하나 열어 두고, 모든 요청이 그 방에 차례로 쌓였어요</li>
+</ul>
+<p>물론 방어책은 있었어요. 첫날 정한 규칙대로, <strong>90초</strong> 동안 아무도 안 쓰면 새 공책을 폈습니다. 그런데 이 규칙은 <strong>쉬는 틈</strong>이 있어야 작동해요. A와 B가 함께 일하면서 90초 안에 번갈아 요청을 보내면 틈이 생기지 않으니, 두 프로그램이 계속 같은 공책에 적게 됩니다.</p>
+<p>그러면 B의 요청을 받은 AI는 B가 보낸 대화만 보고 답하는 게 아니에요. 공책에 먼저 적혀 있던 <strong>A의 질문과 답</strong>까지 기억에 둔 채 답합니다. 이 문제를 고치며 남긴 설계 기록은 이 구조를, 한 프로그램의 질문과 답이 다른 프로그램 요청의 AI 기억에 남는 <strong>실제 누출 통로</strong>라고 적었어요.</p>
+<h2 id="-2-증상---저는-claude예요라고-말한-다른-ai">🤖 2. 증상 ② — “저는 Claude예요”라고 말한 다른 AI</h2>
+<p>두 번째 증상은 프로그램 하나 안에서도 생겼어요.</p>
+<p>OpenAI 호환 방식에서 프로그램은 대화를 <strong>말 목록</strong>으로 보냅니다(<a href="/posts/20261001-llmgw-03-openai-compatible/">3편</a>에서 본 편지 모양이에요). 말마다 누가 했는지 꼬리표가 달려 있어요. 사용자(user)가 한 말인지, AI(assistant)가 한 말인지요.</p>
+<p>그런데 명령어 도구 AI는 이 목록을 그대로 받지 못하고 <strong>한 덩어리 글</strong>로 받습니다. 그래서 중계기가 목록을 이어 붙여서 넘겨요. 8월 19일 전까지는 말 사이에 빈 줄만 넣고 이어 붙였어요. 누가 한 말인지는 거기서 사라졌죠.</p>
+<p>평소에는 티가 나지 않았어요. 대부분의 요청은 사용자의 말 하나만 담고 있으니까요. 문제는 <strong>한 대화 안에서 AI를 바꿔 가며</strong> 쓰는 채팅 프로그램이었어요. 쓰는 쪽이 앞 대화를 함께 보내는 건 원래 정상적인 사용법이에요. 그러면 이런 대화가 생깁니다.</p>
+<blockquote>
+<p>사용자: 자기소개해</p>
+<p>AI(Claude): 저는 Claude입니다</p>
+<p>사용자: 너는 누구야? ← 여기서 다른 AI로 바꿔서 물음</p>
+</blockquote>
+<p>이름표를 떼고 이어 붙이면, 새로 불린 AI가 받는 글은 이렇게 돼요.</p>
+<blockquote>
+<p>자기소개해</p>
+<p>저는 Claude입니다</p>
+<p>너는 누구야?</p>
+</blockquote>
+<p>새 AI는 “저는 Claude입니다”를 누가 했는지 알 수 없어요. 기록에는 그 결과가 이렇게 남아 있습니다. 이름표가 없으면 AI가 앞선 AI의 답을 <strong>자기가 한 말로 받아들이고</strong>, 그 정체를 흉내 낸다. 다른 AI가 “저는 Claude예요”라는 쪽으로 끌려가는 거예요.</p>
+<h2 id="-3-원인--두-증상-모두-누가를-잃어버렸다">🔍 3. 원인 — 두 증상 모두 ‘누가’를 잃어버렸다</h2>
+<p>두 증상은 달라 보여도 뿌리가 같았어요. 중계기가 <strong>‘누가’라는 정보를 중간에 버리고</strong> 있었습니다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>잃어버린 ‘누가’</th><th>그래서 생긴 일</th></tr></thead><tbody><tr><td>누가 <strong>보낸</strong> 요청인가 (어느 프로그램)</td><td>다른 프로그램의 대화가 같은 기억에 쌓였다</td></tr><tr><td>누가 <strong>한</strong> 말인가 (사용자인지 AI인지)</td><td>AI가 다른 AI의 답을 자기 말로 받아들였다</td></tr></tbody></table>
+<p>첫 번째는 사실 알 길이 없었어요. 중계기는 요청을 보낸 프로그램이 누구인지 물은 적이 없었거든요. 모르는 것을 기준으로 공책을 나눌 수는 없죠. 첫날 넣은 방어책(쉬면 새 공책, 손으로 누르는 세션 리셋)도 한 프로그램의 <strong>앞 작업과 다음 작업 사이</strong>를 지키려던 장치라, 여러 프로그램이 동시에 쓰는 경우는 막지 못했어요.</p>
+<p>두 번째는 번역하다 생긴 손실이에요. 목록 모양을 한 덩어리 글로 바꾸면서, 말한 사람 칸을 같이 지워 버린 거예요.</p>
+<h2 id="️-4-해결---요청마다-어느-프로그램인지-묻는다">🏷️ 4. 해결 ① — 요청마다 ‘어느 프로그램’인지 묻는다</h2>
+<p>8월 19일 업데이트의 첫 단계는 <strong>묻는 것</strong>이었어요. 요청마다 어느 프로그램이 보냈는지 이름을 받습니다. 순서는 이래요.</p>
+<p>① 요청에 중계기가 정해 둔 <strong>프로그램 이름표 칸</strong>(헤더)이 있으면 그 이름을 씁니다
+② 없으면 OpenAI 형식에 원래 있는 <strong>사용자 칸</strong>(user)을 봐요
+③ 그것도 없으면 프로그램이 요청마다 붙여 보내는 <strong>자기소개 문구</strong>(User-Agent)로 구분해요
+④ 아무것도 없으면 ‘이름 없음’(anonymous)으로 묶습니다</p>
+<p>중계기는 이렇게 판정한 이름을 답장에 다시 적어 돌려줘요. 쓰는 쪽은 “중계기가 나를 누구로 알아들었나”를 바로 확인할 수 있습니다. 중계기 화면 안의 채팅 창도 자기 이름표를 따로 달아요.</p>
+<p>한계도 문서에 적어 두었어요. 이름표를 안 단 두 프로그램이 자기소개 문구까지 똑같으면, 중계기 눈에는 <strong>한 손님</strong>으로 보입니다. 그래서 여러 프로그램이 함께 쓰는 환경이라면 이름표를 꼭 달라고 안내해요.</p>
+<p><img alt="보라색 로봇이 민트색과 복숭아색 말풍선마다 같은 색 이름표를 하나씩 붙인다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-name-tags.CmWfcpKx_ZMPeri.webp" ></p>
+<h2 id="-5-해결---공책은-따로-말에는-이름표">📚 5. 해결 ② — 공책은 따로, 말에는 이름표</h2>
+<p>이름을 알게 되자 나머지는 공책을 나누는 일이었어요.</p>
+<ul>
+<li><strong>Claude — 프로그램별 공책.</strong> 세션을 나누는 기준을 ‘모델 × 생각 강도’에서 ‘<strong>프로그램 × 모델 × 생각 강도</strong>’로 넓혔어요. 같은 프로그램이 이어서 부르면 데워 둔 세션을 그대로 다시 쓰고, 다른 프로그램이 오면 세션을 따로 켭니다. 공책이 다르니 서로의 기억이 남을 자리가 없어요</li>
+<li><strong>Codex — 요청마다 새 대화방.</strong> 앱 서버는 켜 둔 채로 두고, 요청이 올 때마다 그 안에 새 대화방을 엽니다. 6편에서 말한 ‘Codex의 8월 업데이트’가 바로 이 날이에요. 대화방을 여는 건 이미 켜진 앱 서버에 부탁 한 번이라 시동 비용이 다시 들지 않아요. 예전처럼 모델마다 대화방 하나를 같이 쓰는 방식은 설정으로 되돌릴 수 있게 남겨 두었습니다</li>
+<li><strong>말마다 이름표.</strong> 대화에 AI가 한 말이 섞여 있으면, 한 덩어리로 합칠 때 말마다 ‘user:’, ‘assistant:’ 이름표를 붙여요. 사용자 말만 있는 요청은 예전처럼 이름표 없이 합쳐서, 원래 쓰던 프로그램이 보내는 글은 <strong>한 글자도 달라지지 않게</strong> 했습니다</li>
+</ul>
+<p><img alt="전에는 프로그램 A와 B가 Claude 세션 하나에 차례로 쌓이고 대화를 이름표 없이 합쳤다. 후에는 프로그램마다 공책이 따로 있고 말마다 user·assistant 이름표가 붙는다 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1500" src="/_astro/diagram-mixed-sessions.dCxu4sRi_1uKxI2.webp" ></p>
+<p>Claude 쪽에는 손볼 곳이 하나 더 있었어요. 중계기는 연결하자마자 세션을 하나 데워 두는데(6편의 워밍업), 그때는 아직 어느 프로그램이 올지 몰라요. 그래서 데운 세션은 <strong>주인 없는</strong> 상태로 두고, 처음 요청을 보낸 프로그램이 가져가게 했어요. 아직 아무 대화도 적히지 않은 빈 공책이라 누가 가져가도 섞일 게 없고, 첫 답이 빨리 오는 장점도 그대로예요.</p>
+<p>공책이 늘어나는 만큼 규칙도 정했습니다.</p>
+<ul>
+<li><strong>최대 6개</strong> — 한꺼번에 켜 두는 Claude 세션은 6개까지예요. 프로그램 세 개가 자주 쓰는 모델을 두 개씩 써도 서로 밀어내지 않는 크기로 잡았어요. 넘치면 쉬고 있는 세션 중 가장 오래 안 쓴 것부터 정리해요</li>
+<li><strong>90초에서 5분으로</strong> — ‘쉬면 새 공책’ 시간을 늘렸어요. 다른 프로그램과 섞일 걱정이 사라졌으니, 이제 이 규칙은 같은 프로그램 안에서 주제가 바뀌는 경계만 지키면 되거든요. 가끔 부르는 프로그램이 올 때마다 세션을 다시 데우는 일도 줄었어요</li>
+</ul>
+<p>이 약속은 <a href="/posts/20261001-llmgw-09-spec-cards/">9편</a>의 모델 스펙 카드에도 적혀 있어요. ‘대화 기억 방식’ 줄에 Codex는 ‘요청마다 새로’, Claude는 ‘같은 프로그램끼리 이어서’라고 나오는 게 이날 생긴 거예요.</p>
+<h2 id="-6-남긴-규칙--세션은-속도를-위한-준비물">🧭 6. 남긴 규칙 — 세션은 속도를 위한 준비물</h2>
+<p>이렇게 과감하게 나눌 수 있었던 건 전제 하나 덕분이에요. 중계기는 요청마다 쓰는 쪽이 보낸 <strong>대화 전체</strong>를 AI에 다시 넘깁니다. 켜 둔 세션이 기억해 주지 않아도, 필요한 내용은 매번 다 들어 있어요. 그래서 세션은 순수하게 <strong>속도를 위한 준비물</strong>이에요. 언제 버리거나 나눠도 잃는 건 다시 켜는 시간뿐, 답에 필요한 내용은 잃지 않습니다.</p>
+<p>이 전제 위에서 다른 방법들도 저울질했어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>검토한 방법</th><th>고르지 않은 이유</th></tr></thead><tbody><tr><td>Claude도 요청마다 새로 켜기</td><td>가장 깔끔하지만 요청마다 시동 시간이 든다</td></tr><tr><td>주인이 바뀔 때마다 공책 비우기</td><td>A와 B가 번갈아 쓰면 바뀔 때마다 다시 데워야 한다 — 탁구공처럼 헛수고만 오간다</td></tr><tr><td>프로그램마다 세션 무제한</td><td>세션 하나가 켜 둔 프로그램 하나라서 메모리가 끝없이 늘 수 있다</td></tr><tr><td>이름표 대신 어느 프로그램인지 직접 찾아내기</td><td>운영체제마다 따로 만들어야 해서 들이는 품에 비해 얻는 게 적다</td></tr></tbody></table>
+<p><img alt="로봇이 색깔이 다른 책상마다 같은 색 공책을 한 권씩 올려놓고, 책상 앞에서 작은 로봇들이 기다린다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-separate-notebooks.BoBUmAsb_Z1lLS2g.webp" ></p>
+<p>그래서 남은 규칙은 세 가지예요.</p>
+<ul>
+<li><strong>켜 둔 기억은 손님끼리 나눠 쓰지 않는다</strong> — 손님이 누군지 모르면 먼저 묻는다</li>
+<li><strong>대화를 합칠 때 누가 한 말인지 지우지 않는다</strong> — 번역하면서 정보를 버리지 않는다</li>
+<li><strong>세션은 언제 버려도 되게 만든다</strong> — 대화는 매번 통째로 다시 보내고, 세션은 속도에만 쓴다</li>
+</ul>
+<p>같은 방향으로 한 걸음 더 간 것도 있어요. 9월에는 같은 프로그램 안에서도 “이번 요청은 기억 없이 따로 처리해 줘”라는 표시를 붙일 수 있게 했습니다. 6편에서 짧게 소개한 그 기능이에요.</p>
+<h2 id="정리">정리</h2>
+<p>① 켜 둔 AI 세션을 프로그램끼리 같이 쓰면, 한 프로그램의 대화가 다른 프로그램 요청의 기억에 남을 수 있어요. 이름표 없이 합친 대화에서는 AI가 다른 AI의 말을 자기 말로 받아들였고요
+② 두 증상 모두 ‘누가’를 잃어버린 데서 왔어요 — 누가 보낸 요청인지, 누가 한 말인지
+③ 그래서 프로그램 이름을 묻고, Claude는 프로그램별 세션, Codex는 요청마다 새 대화방, 대화에는 말마다 이름표를 붙였어요 — 다음 편부터는 4부 ‘AI가 이상하게 굴 때’이고, 첫 이야기는 “생각만 하다 답을 못 한 AI”입니다</p>
+<hr>
+<p><em>2026년 10월 1일 기준입니다. 제가 만든 중계기의 개발 기록을 바탕으로 썼고, 특정 기업·서비스의 공식 입장이 아닙니다.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html>
