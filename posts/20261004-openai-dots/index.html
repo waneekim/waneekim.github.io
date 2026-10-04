@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>OpenAI dots(닷츠) 발표 — 내 대신 쉬지 않고 일하는 AI &#39;dot&#39;, 무엇을 혼자 하고 무엇을 물어보나</title><meta name="description" content="2026년 9월 29일 OpenAI가 DevDay에서 'dots'를 발표했다. GPT-6 Astra로 움직이는 상시 작동 에이전트로, 각자 클라우드 컴퓨터를 갖고 사용자가 연결한 앱에서 24시간 일한다. 대화가 끝나도 일을 이어 가고, 계정에 영향을 주는 행동은 자동 검토를 거쳐 바로 하거나 승인을 받거나 사용자에게 넘긴다. 무엇이 새로운지, 실제로 무슨 일을 맡길 수 있는지, 안전장치와 학습 데이터 정책, 누가 언제부터 쓸 수 있는지까지 OpenAI 공식 발표 기준으로 정리했다."><meta property="og:title" content="OpenAI dots(닷츠) 발표 — 내 대신 쉬지 않고 일하는 AI 'dot', 무엇을 혼자 하고 무엇을 물어보나"><meta property="og:description" content="2026년 9월 29일 OpenAI가 DevDay에서 'dots'를 발표했다. GPT-6 Astra로 움직이는 상시 작동 에이전트로, 각자 클라우드 컴퓨터를 갖고 사용자가 연결한 앱에서 24시간 일한다. 대화가 끝나도 일을 이어 가고, 계정에 영향을 주는 행동은 자동 검토를 거쳐 바로 하거나 승인을 받거나 사용자에게 넘긴다. 무엇이 새로운지, 실제로 무슨 일을 맡길 수 있는지, 안전장치와 학습 데이터 정책, 누가 언제부터 쓸 수 있는지까지 OpenAI 공식 발표 기준으로 정리했다."><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap}header.site .brand{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site .brand b{color:var(--accent)}nav.sites{display:flex;gap:6px;flex-wrap:wrap;font-size:.86rem}nav.sites a{padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--sub);text-decoration:none;font-weight:600;background:#fff;white-space:nowrap}nav.sites a:hover{color:var(--ink);border-color:#c9d4d8}nav.sites a.on{color:#fff;background:var(--accent);border-color:var(--accent)}nav.sites a.t:hover{color:#d97730;border-color:#ecc9a8}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}
+.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
+</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 4일 기준</p> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 OpenAI와 아무 관계가 없습니다. 내용은 OpenAI 공식 발표(2026-09-29)와 ChatGPT의 dots 소개 페이지 기준이며, 직접 써 본 후기는 아닙니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="openai-dots닷츠-발표--내-대신-쉬지-않고-일하는-ai-dot-무엇을-혼자-하고-무엇을-물어보나">OpenAI dots(닷츠) 발표 — 내 대신 쉬지 않고 일하는 AI ‘dot’, 무엇을 혼자 하고 무엇을 물어보나</h1>
+<p>신입 직원이 첫 출근을 했다고 해 볼게요. 회사는 자리와 컴퓨터, 사원증을 내주고, 쓸 수 있는 시스템 권한을 정해 줍니다. 처음 며칠은 일하는 방식을 배우고, 익숙해지면 시키지 않은 일도 알아서 챙깁니다. 다만 돈이 나가거나 밖으로 나가는 일은 결재를 받고요.</p>
+<p>2026년 9월 29일 OpenAI가 개발자 행사 DevDay에서 발표한 <strong>dots</strong>가 바로 이런 모습을 노린 서비스예요. OpenAI 소개 글에도 “dots는 신입 직원에게 제공할 거의 모든 것을 갖추고 업무를 시작합니다”라는 문장이 있어요. 하나하나를 <strong>dot</strong>(닷)이라고 부르고, 내 dot을 만들어 이름도 붙일 수 있어요.</p>
+<blockquote>
+<p>⚠️ 이 글은 2026-09-29 OpenAI 공식 발표 ‘dots를 소개합니다’와 ChatGPT의 dots 소개 페이지를 옮긴 것입니다. 직접 써 본 후기가 아니고, 발표에 나온 사례는 OpenAI가 든 예시예요.</p>
+</blockquote>
+<p><img alt="밤에 비어 있는 의자 옆에서 노트북으로 조용히 일하는 로봇 비서 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-desk-buddy.Cukd9G7A_1z6UMN.webp" ></p>
+<h2 id="결론-요약">결론 요약</h2>
+<ul>
+<li><strong>무엇</strong> — GPT-6 Astra로 움직이는 <strong>상시 작동 에이전트</strong>예요. 각자 <strong>클라우드 컴퓨터와 브라우저</strong>를 갖고, 내가 연결한 앱에서 24시간 일하며, 대화가 끝나도 일을 이어 가요</li>
+<li><strong>통제</strong> — 계정에 영향을 주거나 정보를 공유하는 행동은 <strong>자동 검토</strong>를 거쳐 바로 하거나, 승인을 받거나, 나에게 넘겨요. 비밀번호 변경 같은 일은 늘 내가 직접 해요</li>
+<li><strong>누가</strong> — 지원 지역의 <strong>Pro·Business Premium</strong> 사용자에게 순차 제공되고, 첫 dot은 추가 비용 없이 요금제에 포함돼요. Enterprise는 관리자가 베타를 켜면 써 볼 수 있어요</li>
+</ul>
+<h2 id="-1-chatgpt와-무엇이-다른가">🧭 1. ChatGPT와 무엇이 다른가</h2>
+<p>지금까지의 ChatGPT는 <strong>물어보면 답하는</strong> 쪽이었어요. 대화창을 닫으면 일도 멈췄죠. dots는 방향이 반대예요. OpenAI는 dots를 “늘 여러분을 대신해 일하는” 에이전트라고 소개해요.</p>
+<ul>
+<li><strong>스스로 시작한다</strong> — 목표와 할 수 있는 범위를 정해 주면, 다음 단계를 스스로 파악하고 대화가 끝나도 일을 이어 가요</li>
+<li><strong>자기 컴퓨터가 있다</strong> — 각 dot은 자체 클라우드 컴퓨터와 브라우저를 쓰고, 필요하면 코드를 짜고 테스트해요. 언제든 dot의 컴퓨터를 열어 무엇을 하는지 볼 수 있어요</li>
+<li><strong>앱에 연결된다</strong> — OpenAI 플러그인 생태계로 <strong>4,000개가 넘는 앱</strong>에 연결할 수 있대요. 어떤 앱을 쓰게 할지는 내가 골라요</li>
+<li><strong>나를 배워 간다</strong> — ChatGPT 메모리에 담긴 맥락으로 시작하고, 함께 일할수록 내 선호와 기준을 배워 간다고 해요</li>
+<li><strong>여러 일을 동시에</strong> — 여러 프로젝트를 한꺼번에 진행하면서 새 일도 맡을 수 있어요. 대화방을 여러 개 오가며 관리할 필요가 없대요</li>
+</ul>
+<p>OpenAI가 꼽은 dots의 진가는 이 문장에 있어요. “미처 부탁할 생각도 하기 전에, 여러분이 직접 했을 법한 방식으로 완성된 결과물을 가져다줄 때.”</p>
+<h2 id="-2-어디서-대화하나">💬 2. 어디서 대화하나</h2>
+<p>dot과는 <strong>ChatGPT 웹·모바일·데스크톱</strong>에서 메시지를 주고받거나 <strong>전화</strong>(음성 통화)를 걸 수 있어요. dot도 진행 상황이나 질문, 내 판단이 필요한 일을 먼저 메시지로 보내요.</p>
+<p><img alt="말풍선 세 개를 띄우고 휴대폰·노트북·채팅창과 이어진 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-chat-places.BXxopg7D_Z3tMRh.webp" ></p>
+<p>Slack과 Teams는 안내가 조금 엇갈려요. OpenAI 소개 글에는 “Slack과 Teams에서도 dot에게 메시지를 보낼 수 있으며, 문자 메시지 기능도 곧 제공됩니다”라고 돼 있고, ChatGPT의 소개 페이지에는 “곧 문자 메시지, Slack, Teams에서도”라고 돼 있어요. <strong>문자 메시지</strong>는 두 곳 모두 ‘곧’이에요. 어느 채널에서 말을 걸든 dot은 전체 맥락을 이어서 일한다고 해요.</p>
+<h2 id="️-3-무슨-일을-맡길-수-있나--openai가-든-예">🛠️ 3. 무슨 일을 맡길 수 있나 — OpenAI가 든 예</h2>
+<p>OpenAI가 공식 발표에서 든 예시를 직업별로 옮기면 이래요.</p>
+<ul>
+<li><strong>앱 개발자</strong> — 고객 피드백에서 반복되는 요청을 찾아 작은 개선과 버그 수정의 범위를 정하고, 구현·테스트한 뒤 변경 영상을 붙인 PR(코드 변경 요청)로 가져와요</li>
+<li><strong>제품 출시 담당</strong> — 제품 범위가 바뀌면 스토리에 미치는 영향을 검토하고, 출시 자료와 문서의 변경 초안을 준비해요</li>
+<li><strong>과학자</strong> — 새 데이터가 들어오면 분석을 다시 돌리고, 예상 밖 결과를 조사하고, 논문 도표를 업데이트해요</li>
+<li><strong>영업 책임자</strong> — 고객 요구사항을 제품 문서와 대조하고, 추가 테스트가 필요한 곳을 찾고, 제안서와 테스트 계획을 업데이트해요</li>
+<li><strong>콘텐츠 크리에이터</strong> — 인터뷰 녹취록에서 클립으로 만들 부분을 찾고, 방송 요약과 소셜 게시물 초안을 만들어 승인을 받아요</li>
+<li><strong>재무 책임자</strong> — 사용량과 매출을 추적해 변화를 표시하고, 승인하면 최신 수치를 팀에 공유해요</li>
+</ul>
+<p>실제 사례도 몇 개 소개했어요. OpenAI 안에서는 Slack에 버그가 올라오면 dots가 조사를 시작하고, 새 디자인이 오면 실제로 작동하는 앱으로 만든대요. 외부 초기 테스터의 dot은 <strong>테스터가 한 매체에 청구서를 보내는 걸 잊은 걸 알아차리고, 청구서를 작성한 뒤 승인을 받아 발송</strong>했다고 해요.</p>
+<h2 id="️-4-통제권과-안전장치">🛡️ 4. 통제권과 안전장치</h2>
+<p>혼자 일하는 AI라서, 발표의 상당 부분이 ‘어디까지 혼자 하느냐’에 쓰였어요.</p>
+<p><img alt="dot의 작업 공간, 자동 검토, 그리고 바로 진행·승인 후 진행·내가 직접의 세 갈래 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1520" src="/_astro/diagram-dots-control.DhcltNF0_ZSGb1Q.webp" ></p>
+<p><strong>내 컴퓨터와 분리된 작업 공간</strong></p>
+<ul>
+<li>각 dot은 <strong>자체 클라우드 컴퓨터</strong>에서 일해요. 내 컴퓨터와 그 안의 파일은 내가 직접 연결하기로 하지 않는 한 따로 떨어져 있어요</li>
+<li>지원되는 웹사이트에 로그인할 때 <strong>저장된 비밀번호를 모델에 보여 주지 않고</strong> 쓸 수 있대요</li>
+</ul>
+<p><strong>선제적 조사 — 읽기만 한다</strong></p>
+<p>내가 dot과 대화하지 않는 동안에도 dot은 뒤에서 도울 일을 찾아요. OpenAI는 이를 <strong>선제적 조사</strong>라고 불러요. 이때는 내가 연결한 앱을 <strong>읽기 전용</strong> 도구로만 봐요. 메시지를 보내거나, 앱 내용을 바꾸거나, 브라우저·컴퓨터를 조작할 수 없어요.</p>
+<p><strong>규칙과 자동 검토</strong></p>
+<ul>
+<li>dot에는 언제 혼자 하고 언제 승인을 받을지 기본 규칙이 들어 있고, <strong>맞춤 규칙</strong>으로 특정 행동을 허용·승인 필요·차단으로 정할 수 있어요. 기본 안전 요건은 항상 적용돼요</li>
+<li>계정에 영향을 주거나 정보를 공유할 수 있는 행동은 <strong>자동 검토</strong>로 내 지시·맞춤 규칙·안전 요건에 맞는지 확인한 뒤, 바로 할지, 승인이 필요한지, 내가 직접 해야 하는지 나눠요</li>
+<li><strong>비밀번호 변경</strong> 같은 민감한 작업은 항상 사용자가 직접 해요</li>
+<li>악의적인 지시를 막고 유해할 수 있는 행동을 감시하는 장치가 있고, 우려가 감지되면 dot의 작업을 일시 중지하거나 중단할 수 있어요</li>
+<li><strong>활동 보기</strong>에서 뒤에서 하는 일까지 확인하고 방향을 바꿀 수 있어요</li>
+</ul>
+<p><img alt="완성한 문서를 들어 보이는 로봇과, 초록 승인 버튼을 누르려는 사람 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-approval-bell.CQUz9H-N_1cmCFi.webp" ></p>
+<p>OpenAI도 이렇게 덧붙였어요. <strong>“dot도 실수할 수 있으므로, 중요한 결과를 가져오는 작업은 항상 검토하세요.”</strong></p>
+<p><strong>내 데이터가 학습에 쓰이나</strong></p>
+<ul>
+<li>ChatGPT <strong>Business·Enterprise·Edu</strong> 워크스페이스의 콘텐츠는 기본적으로 모델 개선에 쓰지 않아요</li>
+<li><strong>개인 요금제</strong>에서는 dot과의 대화와 dot의 작업을 모델 개선에 쓸지 내가 설정할 수 있어요</li>
+<li>선제적 조사 내용이나 dot이 혼자 적은 메모는 직접 학습에 쓰지 않는대요. 다만 그 정보가 학습 대상인 대화나 작업에 참고 자료로 쓰였다면, 설정에 따라 학습에 쓰일 수 있다고 밝혀 두었어요</li>
+</ul>
+<h2 id="-5-조직용-전문-dot과-microsoft">🏢 5. 조직용 ‘전문 dot’과 Microsoft</h2>
+<p>개인용 dot이 ‘나’를 대신한다면, <strong>전문 dot</strong>은 조직 안의 특정 업무를 맡아요. 회사가 각 dot에 고유한 ID와 인증 정보를 주고, 필요한 시스템에 접근하게 설정해요. OpenAI는 내부의 조달, 청구서 처리, 이메일 마케팅, 고객 지원, 상업 계약 업무에서 해 본 초기 테스트를 바탕으로 만들고 있다고 해요.</p>
+<ul>
+<li>처음에는 <strong>기업 파일럿</strong>으로 시작해요. OpenAI 엔지니어링 팀이 조직과 함께 dot의 담당 업무, 쓸 도구, 사람이 검토·승인하는 방식을 정한대요</li>
+<li><strong>Microsoft Agent 365</strong>와 통합해서, 기업이 이미 쓰는 Microsoft 도구로 dot을 관리할 수 있게 하는 게 목표래요</li>
+</ul>
+<h2 id="️-6-누가-언제부터-얼마에">🎟️ 6. 누가, 언제부터, 얼마에</h2>
+<ul>
+<li><strong>제공 대상</strong> — 9월 29일부터 <strong>지원 지역의 Pro·Business Premium</strong> 사용자에게 ChatGPT에서 순차 제공돼요. <strong>Enterprise</strong>(Edu·Healthcare 포함)는 워크스페이스 관리자가 베타 기능을 켜면 써 볼 수 있어요. 한국이 지원 지역에 들어 있는지는 OpenAI의 지원 지역 안내에서 확인해야 해요</li>
+<li><strong>비용</strong> — <strong>첫 번째 dot은 Pro·Business Premium 요금제에 추가 비용 없이 포함</strong>돼요. 깊은 작업을 위한 사용량도 들어 있고, 출시 후 첫 한 달은 한도가 늘어나요. 앞으로는 dot을 더 추가하거나, 속도나 한 달 작업량을 늘릴 수 있게 된대요</li>
+<li><strong>사용 한도</strong> — dot과의 대화는 ChatGPT 사용 한도에 들어가지 않아요. 다만 dot에게 Codex나 ChatGPT Work에서 작업을 시작하게 하면, 그 작업은 평소처럼 한도에 들어가요</li>
+<li><strong>시작 방법</strong> — ChatGPT <strong>데스크톱 앱이나 데스크톱 브라우저</strong>에서 첫 dot을 만들고, 앱을 연결하고, dot의 자기소개를 들으면 돼요. 처음 설정을 마치면 모바일 앱에서도 메시지를 보낼 수 있어요</li>
+</ul>
+<h2 id="-7-그래서-무슨-뜻인가">🎯 7. 그래서 무슨 뜻인가</h2>
+<p>dots는 ‘AI에게 물어보기’보다 ‘AI에게 맡기기’에 가까운 서비스예요. 비슷한 방향의 ‘일을 대신 해 주는 AI’들은 <a href="/posts/20260927-personal-ai-agents-four/">지난 글</a>에서 정리했었는데, dots는 ChatGPT 안에 들어가고 GPT-6 Astra를 쓴다는 점이 달라요. Astra가 어떤 모델인지는 <a href="/posts/20260907-gpt6-astra-agi/">GPT-6 Astra 글</a>에 있어요.</p>
+<p>써 보기 전에 알아 둘 점을 발표 내용에서 꼽으면 이래요.</p>
+<ul>
+<li><strong>연결할 앱은 꼭 필요한 것만</strong> — dot이 볼 수 있는 범위가 곧 dot이 일할 수 있는 범위예요. 앱 선택과 맞춤 규칙이 내가 쥔 통제권이에요</li>
+<li><strong>승인 요청은 꼼꼼히</strong> — OpenAI 스스로 dot도 실수할 수 있다고 했어요. 중요한 결과가 걸린 일은 검토하라는 게 공식 안내예요</li>
+<li><strong>학습 설정 확인</strong> — 개인 요금제라면 dot과의 대화·작업을 모델 개선에 쓸지 설정에서 정할 수 있어요</li>
+</ul>
+<h2 id="한-줄-정리">한 줄 정리</h2>
+<p>dots는 각자 컴퓨터를 가진 채 24시간 내 일을 챙기는 ChatGPT의 상시 작동 에이전트예요. 혼자 할 수 있는 일, 승인받을 일, 내가 직접 할 일이 나뉘어 있고, 지금은 지원 지역의 Pro·Business Premium부터 순차 제공돼요.</p>
+<p>DevDay에서 함께 나온 모델 소식은 <a href="/posts/20261001-gpt-6-1-sol/">GPT-6.1 Sol 발표 글</a>에 있어요.</p>
+<hr>
+<p><em>2026년 10월 4일 기준입니다. OpenAI ‘dots를 소개합니다’(2026-09-29), ‘DevDay 2026 주요 발표’(2026-09-29), ChatGPT의 dots 소개 페이지에서 옮겼고, 직접 써 본 내용은 아닙니다. 제공 지역과 요금제 조건은 바뀔 수 있으니 쓰기 전에 공식 안내를 확인하세요.</em></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+</footer> </body></html> 
