@@ -1,60 +1,86 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>AI 에이전트를 24시간 돌릴 기계 — 맥미니 M4를 자동화 전용으로 뒀습니다</title><meta name="description" content="AI 에이전트는 내가 노트북을 닫으면 멈춥니다. 그래서 자동화 전용 기계를 따로 뒀습니다. 맥미니 M4를 오픈클로 전용으로 구축해 한 달 굴려본 기록 — 역할을 분리하는 이유, 애플 공식 수치로 따져본 24시간 전기값, 그리고 세팅에 드는 품까지."><meta property="og:title" content="AI 에이전트를 24시간 돌릴 기계 — 맥미니 M4를 자동화 전용으로 뒀습니다"><meta property="og:description" content="AI 에이전트는 내가 노트북을 닫으면 멈춥니다. 그래서 자동화 전용 기계를 따로 뒀습니다. 맥미니 M4를 오픈클로 전용으로 구축해 한 달 굴려본 기록 — 역할을 분리하는 이유, 애플 공식 수치로 따져본 24시간 전기값, 그리고 세팅에 드는 품까지."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>맥미니 M4 AI 에이전트 서버, 24시간 전기와 장단점 정리</title><meta name="description" content="AI 에이전트는 내가 노트북을 닫으면 멈춥니다. 그래서 자동화 전용 기계를 따로 뒀습니다. 맥미니 M4를 오픈클로 전용으로 구축해 한 달 굴려본 기록 — 역할을 분리하는 이유, 애플 공식 수치로 따져본 24시간 전기값, 그리고 세팅에 드는 품까지."><meta property="og:title" content="맥미니 M4 AI 에이전트 서버, 24시간 전기와 장단점 정리"><meta property="og:description" content="AI 에이전트는 내가 노트북을 닫으면 멈춥니다. 그래서 자동화 전용 기계를 따로 뒀습니다. 맥미니 M4를 오픈클로 전용으로 구축해 한 달 굴려본 기록 — 역할을 분리하는 이유, 애플 공식 수치로 따져본 24시간 전기값, 그리고 세팅에 드는 품까지."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 13일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>기기는 제 돈 주고 구매했으며 협찬이 아닙니다. 삽화는 GPT 이미지 생성, 그림은 직접 제작했습니다.</blockquote> <h1 id="ai-에이전트를-24시간-돌릴-기계--맥미니-m4를-자동화-전용으로-뒀습니다">AI 에이전트를 24시간 돌릴 기계 — 맥미니 M4를 자동화 전용으로 뒀습니다</h1>
-<p>AI 에이전트를 써보면 금방 부딪히는 벽이 있습니다. <strong>내가 노트북을 닫으면 에이전트도 멈춘다</strong>는 것입니다.</p>
-<p>에이전트의 값어치는 “내가 안 보고 있을 때도 일이 돌아간다”에서 나옵니다. 그런데 그 일이 내 작업용 노트북 위에서 돌고 있으면, 퇴근할 때 같이 퇴근해버려요. <strong>당직을 설 기계가 따로 필요하다</strong>는 뜻입니다.</p>
-<p>그래서 맥미니 M4를 자동화 전용으로 뒀습니다. 한 달 굴려본 기록입니다.</p>
-<p><img alt="노트북은 닫혀 잠들고, 작은 기계가 불을 켜고 밤새 당직을 섭니다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-night-shift.DGMTGsVZ_1SH1d1.webp" ></p>
-<h2 id="결론-요약">결론 요약</h2>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 7개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-노트북에서-돌리면-생기는-일" data-astro-cid-lvjzyg5v>1. 노트북에서 돌리면 생기는 일</a></li><li data-astro-cid-lvjzyg5v><a href="#2-전용-기계로-옮긴-뒤-달라진-것" data-astro-cid-lvjzyg5v>2. 전용 기계로 옮긴 뒤 달라진 것</a></li><li data-astro-cid-lvjzyg5v><a href="#3-24시간-켜-두면-드는-전기" data-astro-cid-lvjzyg5v>3. 24시간 켜 두면 드는 전기</a></li><li data-astro-cid-lvjzyg5v><a href="#4-맥미니에-올린-에이전트-오픈클로" data-astro-cid-lvjzyg5v>4. 맥미니에 올린 에이전트, 오픈클로</a></li><li data-astro-cid-lvjzyg5v><a href="#5-단점-첫-세팅에는-품이-들어요" data-astro-cid-lvjzyg5v>5. 단점, 첫 세팅에는 품이 들어요</a></li><li data-astro-cid-lvjzyg5v><a href="#6-이런-분께-맞아요" data-astro-cid-lvjzyg5v>6. 이런 분께 맞아요</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>기기는 제 돈 주고 구매했으며 협찬이 아닙니다. 삽화는 GPT 이미지 생성, 그림은 직접 제작했습니다.</blockquote> <h1 id="맥미니-m4-ai-에이전트-서버-24시간-전기와-장단점-정리">맥미니 M4 AI 에이전트 서버, 24시간 전기와 장단점 정리</h1>
+<p><img alt="맥미니 M4 AI 에이전트 서버 — 24시간 전기와 장단점 정리 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.CGpLXxN4_XRUnI.webp" ></p>
+<p class="cap">맥미니 M4 AI 에이전트 서버 — 24시간 전기와 장단점 정리 (캐릭터는 GPT 이미지 생성)</p>
+<p>AI 에이전트를 써 보면 금방 이 질문에 닿아요. “노트북을 닫으면 에이전트도 멈추는데, 어떡하지?” 에이전트의 값어치는 내가 안 보고 있을 때도 일이 돌아가는 데서 나와요.</p>
+<p>그런데 그 일이 작업용 노트북 위에서 돌면, 퇴근할 때 같이 퇴근해 버려요. 회사에 밤새 당직을 서는 사람이 있듯, 에이전트에게도 당직을 설 기계가 필요했어요.<br>
+<strong>그래서 맥미니 M4를 AI 에이전트 전용 기계로 따로 뒀어요.</strong></p>
+<p><img alt="노트북은 닫혀 잠들고 작은 기계가 밤새 당직을 서는 장면 — 맥미니 AI 에이전트 서버 비유 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-night-shift.DGMTGsVZ_1SH1d1.webp" ></p>
+<p class="cap">노트북은 닫혀 잠들고 작은 기계가 밤새 당직을 서는 장면 — 맥미니 AI 에이전트 서버 비유 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 에이전트를 24시간 돌리고 싶은 분<br>① 작업용 기기와 역할을 나누는 이유<br>② 애플 공식 수치로 본 24시간 전기<br>③ 오픈클로와 첫 세팅에 드는 품<br>2026년 10월 기준 · 맥미니 M4(2024)</div>
+<hr>
+<h2 id="1-노트북에서-돌리면-생기는-일">1. 노트북에서 돌리면 생기는 일</h2>
+<p><strong>자동화를 노트북에서 돌리면 세 가지가 계속 걸려요.</strong></p>
+<p><strong>닫으면 멈춰요</strong> — 덮개를 덮거나 절전으로 들어가면 예약한 작업이 그 시간에 돌지 않아요.<br>
+<strong>들고 다녀요</strong> — 네트워크가 바뀌고, 가방에 들어가고, 배터리로 버텨요.<br>
+<strong>내 작업과 뒤섞여요</strong> — 무거운 작업 중에 에이전트가 뭔가 하면 둘 다 느려져요.</p>
+<h2 id="2-전용-기계로-옮긴-뒤-달라진-것">2. 전용 기계로 옮긴 뒤 달라진 것</h2>
+<p><strong>가장 크게 달라진 건, 신경을 안 쓰게 됐다는 점이에요.</strong> 반복해서 확인하던 일들이 알아서 돌고, 따로 돌려 두고 싶은 작업은 그냥 던져 두게 됐어요.</p>
+<p><mark>메인 작업 기기와 역할을 나누니</mark> 양쪽 다 편해졌어요.</p>
+<p><img alt="작업용 책상과 자동화 전용 기계를 칸막이로 나눈 장면 — 에이전트 전용 PC로 역할 분리 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-role-split.Gniw-D-q_19ulVd.webp" ></p>
+<p class="cap">작업용 책상과 자동화 전용 기계를 칸막이로 나눈 장면 — 에이전트 전용 PC로 역할 분리 (GPT 이미지 생성)</p>
+<p>크기도 한몫해요. 책상이나 선반 한쪽에 두면 자리를 거의 차지하지 않아요. 조용하게 돌아가서 켜져 있다는 걸 잊게 되는데, 상시 운용 장비에서는 이게 꽤 중요한 성질이에요.</p>
+<h2 id="3-24시간-켜-두면-드는-전기">3. 24시간 켜 두면 드는 전기</h2>
+<p><strong>맥미니 M4(2024)는 애플 공식 수치로 대기 4W, 최대 65W예요.</strong> 상시 운용에서 가장 많이 받는 질문이라 애플 지원 문서에서 확인했어요(2026년 10월 7일).</p>
+<p>‘대기’는 파인더만 열어 둔 기본 전원 설정 상태이고, 16GB·256GB 구성 기준이에요. 한 달(30일) 내내 켜 두면 이렇게 계산돼요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>구분</th><th>한 달 전력량</th></tr></thead><tbody><tr><td>애플 공식 전력</td><td>대기 4W · 최대 65W</td></tr><tr><td>대기로만 켜 둘 때</td><td>4W × 24시간 × 30일 = 약 2.9kWh</td></tr><tr><td>계속 최대로 돌릴 때</td><td>65W × 24시간 × 30일 = 약 47kWh</td></tr></tbody></table>
+<p><img alt="맥미니 M4를 24시간 켜 두면 드는 전기 — 애플 공식 수치로 계산한 한 달 전력량 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="2520" src="/_astro/diagram-power-band.BrdnrSoa_a2K1Y.webp" ></p>
+<p class="cap">맥미니 M4를 24시간 켜 두면 드는 전기 — 애플 공식 수치로 계산한 한 달 전력량 (직접 제작)</p>
+<p>자동화 기계는 대부분 놀다가 작업이 있을 때만 올라가요. <strong>실제 사용량은 두 숫자 사이, 바닥 쪽에 가까워요.</strong> 가정용 전기는 누진 구간에 따라 단가가 달라서 요금은 집집마다 달라요. 그래도 한 달 내내 켜 둔다는 결정을 망설일 만한 크기는 아니었어요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>24시간 켜 둘 기계는 최대 전력보다 대기 전력을 보세요. 대부분의 시간을 놀고 있어서예요.</div>
+<h2 id="4-맥미니에-올린-에이전트-오픈클로">4. 맥미니에 올린 에이전트, 오픈클로</h2>
+<p><strong>이 기계에 올려 둔 건 오픈소스 AI 에이전트 오픈클로(OpenClaw)예요.</strong> 메신저로 일을 시키면, 설명만 하는 게 아니라 실제로 작업을 실행해요.</p>
+<p>피터 슈타인베르거가 만들었고, 지금은 비영리 재단(OpenClaw Foundation)이 관리해요. MIT 라이선스예요.</p>
+<p>중요한 성질이 둘 있어요.<br>
+<strong>내 기계에서 돌아요</strong> — 남의 서버가 아니라 내 컴퓨터에서 돌고, 기억과 연결 정보도 내 기계에 남아요. 그래서 24시간 켜 둘 기계가 필요해졌어요.<br>
+<strong>모델은 내가 붙여요</strong> — 오픈클로 자체에는 구독이 없고, 클로드 같은 외부 모델이나 로컬 모델을 골라 연결해요.</p>
+<p>‘상시 켜 둘 작은 기계’와 ‘내 컴퓨터에서 도는 에이전트’는 이렇게 한 쌍이에요. 하나만 있으면 반쪽이에요.</p>
+<h2 id="5-단점-첫-세팅에는-품이-들어요">5. 단점, 첫 세팅에는 품이 들어요</h2>
+<p><strong>기계를 사서 꽂는다고 바로 되는 일은 아니에요.</strong> 무엇을 자동으로 돌릴지 정하고, 권한과 계정을 붙이고, 실패했을 때 어떻게 알지까지 만들어야 해요.</p>
+<p>다만 이건 한 번 드는 비용이에요. 자리를 잡고 나면 손이 거의 안 가요. 처음 며칠의 품과 그 뒤 한 달을 놓고 보면 확실히 남는 쪽이었어요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>오픈클로의 도구는 따로 격리하지 않으면 그 기계에서 바로 실행돼요. 처음엔 꼭 필요한 계정만 연결하세요.</div>
+<h2 id="6-이런-분께-맞아요">6. 이런 분께 맞아요</h2>
+<p><strong>에이전트를 이미 써 봤고, 자리를 비운 사이에도 돌리고 싶은 분께 맞아요.</strong> 작업용 기기와 자동화를 섞어 쓰다 지친 분은 역할 분리 효과를 가장 크게 느껴요.</p>
+<p>반대로 아직 자동화할 거리가 정해지지 않았다면 기계부터 살 필요는 없어요. 들이기 전에 이 순서로 해 보세요.</p>
+<ol class="steps"><li>지금 쓰는 노트북에서 에이전트로 한두 가지 일을 돌려 보세요.<span class="then">→ 자리를 비우면 멈춰서 아쉬운 일이 무엇인지 보여요.</span></li><li>‘이건 계속 돌았으면 좋겠다’ 싶은 일이 생기면, 그때 전용 기계를 들이세요.</li><li>전용 기계에는 그 일에 필요한 계정만 연결하세요.<span class="then">→ 처음 며칠의 세팅이 끝나면 손이 거의 안 가요.</span></li></ol>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 에이전트의 값어치는 내가 안 보는 시간<br>② 그래서 안 꺼지는 전용 기계를 따로<br>③ 맥미니 M4는 대기 4W, 작고 조용해요<br>④ 첫 세팅의 품만 한 번 각오하면 돼요</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 꼭 맥미니여야 하나요?</summary><p>아니요. 오픈클로는 macOS·Windows·Linux를 모두 지원해요(공식 저장소). 써 보니 맥미니는 작고 조용하고 대기 전력이 4W로 낮아 상시 운용에 잘 맞았어요.</p></details>
+<details class="faq"><summary>Q. 한 달 전기 요금은 얼마인가요?</summary><p>가정용 전기는 누진 구간에 따라 단가가 달라 원 단위로는 적지 않았어요. 애플 공식 수치로 계산하면 대기로만 한 달 약 2.9kWh예요.</p></details>
+<details class="faq"><summary>Q. 노트북에서 먼저 해 봐도 되나요?</summary><p>네, 그게 순서예요. 노트북에서 한두 가지를 돌려 보고 ‘계속 돌았으면’ 싶을 때 전용 기계를 들이면 돼요.</p></details>
+<p>에이전트가 무엇이고 어떻게 짜는지는 입문 글에 정리해 뒀어요.</p>
+<p class="nextpost">→ <a href="/posts/20260908-ai-agent-intro/">AI 에이전트 만들기 입문 — 폰에서 이슈 하나 올리면 11분 뒤 블로그 3채널에 발행되는 구조 (실물 기준)</a></p>
+<p><strong>참고 자료</strong></p>
 <ul>
-<li>에이전트를 <strong>상시 돌리려면 작업용 기기와 역할을 나누는 편</strong>이 낫습니다. 노트북은 닫히고, 재부팅되고, 이동하니까요</li>
-<li>맥미니 M4는 <strong>대기 4W, 최대 65W</strong>(애플 공식). 24시간 켜두는 부담이 생각보다 작습니다</li>
-<li>대신 <strong>처음 세팅에는 품이 듭니다.</strong> 전용 환경을 잡는 일이 한 번은 필요해요</li>
+<li>애플 지원 — Mac mini 전력 소모량 및 열 출력 · <a href="https://support.apple.com/en-us/103253">support.apple.com/en-us/103253</a></li>
+<li>오픈클로 공식 저장소 · <a href="https://github.com/openclaw/openclaw">github.com/openclaw/openclaw</a></li>
+<li>오픈클로 공식 사이트 · openclaw.ai</li>
 </ul>
-<h2 id="왜-전용-기계인가--노트북은-닫힙니다">왜 전용 기계인가 — 노트북은 닫힙니다</h2>
-<p>자동화를 노트북에서 돌리면 세 가지가 계속 걸립니다.</p>
-<ul>
-<li><strong>닫으면 멈춥니다</strong> — 덮개를 덮거나 절전으로 들어가면 예약해둔 작업이 그 시간에 안 돕니다</li>
-<li><strong>들고 다닙니다</strong> — 네트워크가 바뀌고, 가방에 들어가고, 배터리로 버팁니다</li>
-<li><strong>내 작업과 뒤섞입니다</strong> — 무거운 작업을 돌리는 중에 에이전트가 뭔가를 하면 둘 다 느려집니다</li>
-</ul>
-<p>전용 기계로 옮기고 나서 제일 크게 달라진 건 <strong>신경을 안 쓰게 됐다</strong>는 점입니다. 반복적으로 확인하던 것들이 알아서 돌고, 따로 돌려두고 싶은 작업을 그냥 던져두게 됩니다. <strong>메인 작업 기기와 역할을 분리하니 양쪽 다 편해졌어요.</strong></p>
-<p><img alt="작업용 책상과 자동화 전용 기계 — 역할을 나눠두면 서로 방해하지 않습니다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-role-split.Gniw-D-q_19ulVd.webp" ></p>
-<h2 id="24시간-켜두면-전기값이-얼마나-드나">24시간 켜두면 전기값이 얼마나 드나</h2>
-<p>상시 운용에서 제일 많이 받는 질문입니다. 애플이 공식 지원 문서에 수치를 공개해 두었습니다. <strong>맥미니 M4(2024)는 대기 4W, 최대 65W</strong>입니다. 여기서 “대기”는 파인더만 열어둔 기본 전원 설정 상태를 말합니다.</p>
-<p><img alt="24시간 켜두면 전기는 얼마나 드나 — 애플 공식 수치 기준 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1120" src="/_astro/diagram-power-band.Be9843_w_4no3p.webp" ></p>
-<ul>
-<li><strong>대기로만 한 달</strong>: 4W × 24시간 × 30일 = <strong>약 2.9kWh</strong></li>
-<li><strong>계속 최대로 한 달</strong>: 65W × 24시간 × 30일 = 약 47kWh — 현실에서 이렇게 돌아가지는 않습니다</li>
-</ul>
-<p>자동화 머신은 대부분 시간을 놀고 있다가 작업이 있을 때만 올라갑니다. <strong>실제 소비는 두 숫자 사이 어딘가, 바닥 쪽에 가깝습니다.</strong> 요금으로 환산하면 가정용 전기는 누진 구간에 따라 단가가 달라서 집집마다 다르지만, <strong>한 달 내내 켜둔다는 결정을 망설일 만한 크기는 아니었습니다.</strong></p>
-<p>크기도 한몫합니다. 책상이나 선반 한쪽에 두면 자리를 거의 안 차지하고, 조용하게 돌아가서 <strong>켜져 있다는 걸 잊게 됩니다.</strong> 상시 운용 장비에서는 이게 꽤 중요한 성질이에요.</p>
-<p><img alt="큰 본체를 둘 자리도, 그만한 전기도 필요하지 않습니다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-small-power.DjXepo-E_1ATwPk.webp" ></p>
-<h2 id="무엇을-돌리고-있나--오픈클로">무엇을 돌리고 있나 — 오픈클로</h2>
-<p>이 기계에 올려둔 건 <strong>오픈클로(OpenClaw)</strong>입니다. 오스트리아 개발자 피터 슈타인베르거가 만든 <strong>오픈소스 자율 AI 에이전트</strong>로, MIT 라이선스입니다. 메신저를 주 인터페이스로 삼아 명령을 받고, <strong>설명만 하는 게 아니라 실제로 작업을 실행합니다.</strong></p>
-<p>중요한 성질이 둘 있습니다.</p>
-<ul>
-<li><strong>직접 돌립니다(셀프 호스팅)</strong> — 남의 서버가 아니라 내 기계에서 돕니다. 그래서 24시간 켜둘 기계가 필요해진 거예요</li>
-<li><strong>API 키는 내가 준비합니다</strong> — 클로드나 GPT 같은 모델을 붙여서 쓰는 구조라, 구독료 대신 내 API 키로 굴러갑니다</li>
-</ul>
-<p>“상시 켜둘 작은 기계”와 “내 컴퓨터에서 도는 에이전트”는 이렇게 한 쌍입니다. 둘 중 하나만 있으면 반쪽이에요.</p>
-<h2 id="단점--첫-세팅에는-품이-듭니다">단점 — 첫 세팅에는 품이 듭니다</h2>
-<p>솔직하게 적자면, <strong>자동화 전용 환경을 잡는 데는 손이 갑니다.</strong> 기계를 사서 꽂는다고 바로 되는 일이 아니에요. 무엇을 자동으로 돌릴지 정하고, 권한과 계정을 붙이고, 실패했을 때 어떻게 알 것인지까지 만들어야 합니다.</p>
-<p>다만 이건 <strong>한 번 드는 비용</strong>입니다. 자리를 잡고 나면 이후로는 손이 거의 안 갑니다. 처음 며칠의 품과 이후 한 달을 놓고 보면 확실히 남는 쪽이었습니다.</p>
-<h2 id="이런-분께-맞습니다">이런 분께 맞습니다</h2>
-<ul>
-<li><strong>에이전트를 이미 써봤고, 자리를 비운 사이에도 돌리고 싶은 분</strong> — 이 글의 출발점입니다</li>
-<li><strong>작업용 기기와 자동화를 섞어 쓰다 지친 분</strong> — 역할 분리의 효과가 제일 큽니다</li>
-<li>반대로 <strong>아직 자동화할 거리가 정해지지 않았다면</strong> 기계부터 살 필요는 없습니다. 노트북에서 한두 개 돌려보고 “이게 계속 돌았으면 좋겠다” 싶을 때가 살 때예요</li>
-</ul>
-<h2 id="정리">정리</h2>
-<ul>
-<li>에이전트의 값어치는 <strong>내가 안 보는 시간</strong>에서 나옵니다. 그러려면 안 꺼지는 기계가 필요합니다</li>
-<li>맥미니 M4는 <strong>대기 4W</strong>라 24시간 운용의 문턱이 낮고, 작고 조용해서 잊고 지낼 수 있습니다</li>
-<li><strong>첫 세팅의 품</strong>만 각오하면 됩니다. 그 뒤로는 손이 안 갑니다</li>
-</ul>
-<p>에이전트가 무엇인지부터 보고 싶다면 <a href="https://happyvarious.com/posts/20260908-ai-agent-intro/">AI 에이전트 만들기 입문</a>을, 브라우저를 다루는 손이 어떻게 붙는지는 <a href="https://happyvarious.com/posts/20260910-playwright-explained/">Playwright 뜻</a>에서 이어 볼 수 있습니다.</p>
-<p>기기는 제 돈 주고 구매했으며 협찬이 아닙니다. 삽화는 GPT 이미지 생성, 전력 그림은 직접 만들었습니다. 전력 수치는 2026년 9월 애플 지원 문서 기준입니다.</p> </article> </main> <footer class="site">
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 발행 2026년 9월 13일<br>다시 확인·수정 2026년 10월 7일<br>맥미니 M4를 자동화 전용으로 한 달 써 본 경험<br>전력은 애플 문서, 오픈클로는 공식 저장소 기준<br>내 돈으로 산 기기 · 협찬 없음 · 캐릭터는 GPT 생성</div>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260908-ai-agent-intro/">AI 에이전트 만들기 입문</a> · <a href="/posts/20260910-playwright-explained/">Playwright 뜻</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

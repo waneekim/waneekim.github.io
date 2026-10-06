@@ -1,62 +1,141 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Claude Code 훅(hooks) 활용법 — AI에게 부탁하지 말고 규칙으로 거세요</title><meta name="description" content="Claude Code 훅 설정 방법과 실전 레시피 3가지. 파일 수정 후 자동 포맷, 위험 명령 차단, 작업 완료 알림까지 — 매번 부탁하는 대신 무조건 실행되는 규칙을 만드는 법."><meta property="og:title" content="Claude Code 훅(hooks) 활용법 — AI에게 부탁하지 말고 규칙으로 거세요"><meta property="og:description" content="Claude Code 훅 설정 방법과 실전 레시피 3가지. 파일 수정 후 자동 포맷, 위험 명령 차단, 작업 완료 알림까지 — 매번 부탁하는 대신 무조건 실행되는 규칙을 만드는 법."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>클로드 코드 훅(hooks) 활용법, 부탁 대신 규칙으로 거는 법</title><meta name="description" content="Claude Code 훅 설정 방법과 실전 레시피 3가지. 파일 수정 후 자동 포맷, 위험 명령 차단, 작업 완료 알림까지 — 매번 부탁하는 대신 무조건 실행되는 규칙을 만드는 법."><meta property="og:title" content="클로드 코드 훅(hooks) 활용법, 부탁 대신 규칙으로 거는 법"><meta property="og:description" content="Claude Code 훅 설정 방법과 실전 레시피 3가지. 파일 수정 후 자동 포맷, 위험 명령 차단, 작업 완료 알림까지 — 매번 부탁하는 대신 무조건 실행되는 규칙을 만드는 법."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 7일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="claude-code-훅hooks-활용법--ai에게-부탁하지-말고-규칙으로-거세요">Claude Code 훅(hooks) 활용법 — AI에게 부탁하지 말고 규칙으로 거세요</h1>
-<p>“파일 고치면 꼭 포맷터 돌려줘”라고 AI에게 부탁해 본 적 있으신가요? 처음엔 잘 지키다가 대화가 길어지면 잊습니다. AI의 기억에 맡긴 부탁이기 때문이에요. <strong>훅(hook)은 이걸 부탁이 아니라 규칙으로 바꾸는 장치</strong>입니다 — 정해진 시점이 오면 AI의 판단과 무관하게 무조건 실행됩니다.</p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li>훅 = Claude Code의 <strong>특정 시점(도구 실행 전후, 작업 종료 등)에 자동 실행되는 셸 명령</strong></li>
-<li>설정은 <code>/hooks</code> 명령 또는 <code>settings.json</code> 파일 — 프로젝트별·계정 전역 둘 다 가능</li>
-<li>대표 용도 3가지: <strong>자동 포맷 · 위험 명령 차단 · 완료 알림</strong></li>
-<li>강력한 만큼 조심: 훅은 내 컴퓨터에서 그대로 실행되니 <strong>신뢰할 수 있는 명령만</strong></li>
-</ul>
-<h2 id="-1-훅이-뭔가--무조건-실행이라는-게-핵심">🪝 1. 훅이 뭔가 — “무조건 실행”이라는 게 핵심</h2>
-<p>Claude Code는 작업 중에 여러 시점을 지납니다. 도구(파일 수정, 터미널 명령)를 실행하기 직전과 직후, 세션이 시작될 때, 응답이 끝날 때. 훅은 이 시점들에 <strong>내가 정한 명령을 걸어두는 것</strong>입니다.</p>
-<p>CLAUDE.md에 적은 지침이나 채팅으로 한 부탁은 AI가 “따르려고 노력”하는 것이고, 훅은 시스템이 “반드시 실행”하는 것 — 이 차이가 전부입니다. 일관성이 생명인 일(포맷, 검사, 기록)은 훅에 맡기는 게 맞습니다.</p>
-<p><img alt="훅이 끼어드는 시점 — 도구 실행 전·후, 작업 종료 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="1200" height="560" src="/_astro/diagram-hooks-timeline.D_O_93oE_1JVMIf.webp" ></p>
-<h2 id="-2-어느-시점에-걸-수-있나">📍 2. 어느 시점에 걸 수 있나</h2>
-<p>자주 쓰는 이벤트만 추리면:</p>
-<ul>
-<li><strong>PreToolUse</strong> — 도구 실행 <em>직전</em>. 검사하고, 조건에 안 맞으면 <strong>차단</strong>할 수 있습니다</li>
-<li><strong>PostToolUse</strong> — 도구 실행 <em>직후</em>. 파일을 고쳤으면 포맷터를 돌리는 식의 후처리</li>
-<li><strong>Stop</strong> — Claude가 응답을 마쳤을 때. “작업 끝났다” 알림에 제격</li>
-<li><strong>SessionStart</strong> — 세션 시작 시. 환경 준비나 상태 출력</li>
-<li><strong>Notification</strong> — Claude가 승인을 기다리거나 알림을 보낼 때</li>
-</ul>
-<h2 id="️-3-설정하는-법--파일-수정-후-자동-포맷-예시">⚙️ 3. 설정하는 법 — 파일 수정 후 자동 포맷 예시</h2>
-<p>Claude Code 안에서 <code>/hooks</code>를 치면 설정 UI가 열립니다. 직접 파일로 관리하려면 프로젝트의 <code>.claude/settings.json</code>에 이렇게 적습니다:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "hooks"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "PostToolUse"</span><span style="color:#E1E4E8">: [</span></span>
-<span class="line"><span style="color:#E1E4E8">      {</span></span>
-<span class="line"><span style="color:#79B8FF">        "matcher"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Edit|Write"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">        "hooks"</span><span style="color:#E1E4E8">: [</span></span>
-<span class="line"><span style="color:#E1E4E8">          { </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"command"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"command"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"npx prettier --write ."</span><span style="color:#E1E4E8"> }</span></span>
-<span class="line"><span style="color:#E1E4E8">        ]</span></span>
-<span class="line"><span style="color:#E1E4E8">      }</span></span>
-<span class="line"><span style="color:#E1E4E8">    ]</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
-<p>읽는 법은 간단합니다. <strong>“Edit이나 Write 도구가 실행된 후에(PostToolUse), 이 명령을 돌려라.”</strong> 이제 Claude가 파일을 고칠 때마다 포맷터가 무조건 따라 돕니다 — 부탁도, 확인도 필요 없이요.</p>
-<h2 id="-4-실전-레시피-3가지">🧰 4. 실전 레시피 3가지</h2>
-<p><strong>① 수정 후 자동 포맷·검사</strong> — 위 예시 그대로. 포맷터 대신 린터·테스트를 걸어도 됩니다. “AI가 고친 코드가 규칙에 맞나”를 사람이 아니라 도구가 확인하게 되죠.</p>
-<p><strong>② 위험 명령 가드</strong> — <code>PreToolUse</code>에 검사 스크립트를 걸고, 스크립트가 <strong>종료 코드 2</strong>로 끝나면 그 도구 실행 자체가 차단됩니다. 예를 들어 “프로덕션 DB 주소가 명령에 들어 있으면 무조건 막기” 같은 안전장치를 만들 수 있습니다.</p>
-<p><strong>③ 작업 완료 알림</strong> — <code>Stop</code> 이벤트에 알림 명령을 걸면, 긴 작업을 시켜두고 다른 일을 하다가 끝나는 순간을 알 수 있습니다. 저처럼 AI에게 <a href="/posts/20260907-ai-review-automation/">검증 루프</a>를 맡겨두는 사용이라면 체감이 큽니다.</p>
-<h2 id="️-5-주의--강력한-만큼-위험도-같이-옵니다">⚠️ 5. 주의 — 강력한 만큼 위험도 같이 옵니다</h2>
-<p>훅은 내 컴퓨터에서 셸 명령을 그대로 실행합니다. 그래서 두 가지만 기억하세요.</p>
-<ul>
-<li><strong>인터넷에서 복사한 훅 설정을 그대로 붙여넣지 마세요.</strong> 어떤 명령인지 이해한 것만</li>
-<li>훅에 넣는 스크립트는 <strong>내가 만들었거나 신뢰하는 것만</strong> — AI 응답을 그대로 훅에 넣는 건 금물</li>
-</ul>
-<p>그리고 구분 하나: 매번 실행할 필요가 없는 “필요할 때 부르는 절차”는 훅이 아니라 커스텀 커맨드(스킬)가 맞습니다. <strong>강제해야 하면 훅, 부르고 싶으면 커맨드.</strong></p>
-<h2 id="-시작-코스">🎯 시작 코스</h2>
-<ol>
-<li><code>/hooks</code>를 열어 구조 구경 (1분)</li>
-<li>첫 훅은 부담 없는 것부터 — <strong>Stop에 완료 알림</strong> 걸기</li>
-<li>익숙해지면 PostToolUse 자동 포맷 → PreToolUse 가드 순으로 확장</li>
-</ol>
-<p><a href="/posts/20260906-claude-code-usage/">Claude Code 기본 사용법</a>과 <a href="/posts/20260907-claude-code-mcp/">MCP 연결</a>까지 되어 있다면, 훅은 여러분의 AI 작업 환경을 “매번 시키는 도구”에서 “알아서 지켜지는 시스템”으로 바꿔주는 마지막 조각입니다.</p>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 9개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-훅이란-부탁이-아니라-규칙" data-astro-cid-lvjzyg5v>1. 훅이란: 부탁이 아니라 규칙</a></li><li data-astro-cid-lvjzyg5v><a href="#2-걸-수-있는-시점-5가지" data-astro-cid-lvjzyg5v>2. 걸 수 있는 시점 5가지</a></li><li data-astro-cid-lvjzyg5v><a href="#3-훅을-넣는-곳과-확인하는-법" data-astro-cid-lvjzyg5v>3. 훅을 넣는 곳과 확인하는 법</a></li><li data-astro-cid-lvjzyg5v><a href="#4-예시--고친-뒤-자동-포맷" data-astro-cid-lvjzyg5v>4. 예시 ① 고친 뒤 자동 포맷</a></li><li data-astro-cid-lvjzyg5v><a href="#5-예시--위험-명령-막기" data-astro-cid-lvjzyg5v>5. 예시 ② 위험 명령 막기</a></li><li data-astro-cid-lvjzyg5v><a href="#6-예시--작업이-끝나면-알림" data-astro-cid-lvjzyg5v>6. 예시 ③ 작업이 끝나면 알림</a></li><li data-astro-cid-lvjzyg5v><a href="#7-훅을-쓰기-전-주의할-점" data-astro-cid-lvjzyg5v>7. 훅을 쓰기 전 주의할 점</a></li><li data-astro-cid-lvjzyg5v><a href="#막힐-때" data-astro-cid-lvjzyg5v>막힐 때</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="클로드-코드-훅hooks-활용법-부탁-대신-규칙으로-거는-법">클로드 코드 훅(hooks) 활용법, 부탁 대신 규칙으로 거는 법</h1>
+<p><img alt="클로드 코드 훅 활용법 — 부탁 대신 규칙으로 거는 법 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.CdNvu0Zp_X5tFN.webp" ></p>
+<p class="cap">클로드 코드 훅 활용법 — 부탁 대신 규칙으로 거는 법 (캐릭터는 GPT 이미지 생성)</p>
+<p>“파일 고치면 꼭 포맷터 돌려줘.” AI에게 이렇게 부탁해 본 적 있나요? 처음엔 잘 지키다가 대화가 길어지면 잊어요. AI의 기억에 맡긴 부탁이라서 그래요.</p>
+<p>퇴근할 때 ‘불 끄고 가세요’라는 메모를 붙여 두면, 바쁜 날엔 다들 잊고 나가요. 센서 등은 사람이 나가면 누가 기억하든 말든 저절로 꺼지고요. 클로드 코드에서 CLAUDE.md가 메모라면, 훅(hooks)은 센서예요.<br>
+<strong>훅은 정해진 시점이 오면 AI의 판단과 상관없이 무조건 실행되는 규칙이에요.</strong></p>
+<p><img alt="벽의 메모는 그대로 두고 천장의 센서 등이 알아서 움직이는 장면 — 훅을 센서 등에 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-sensor-light.D_neEDVg_jYvBi.webp" ></p>
+<p class="cap">벽의 메모는 그대로 두고 천장의 센서 등이 알아서 움직이는 장면 — 훅을 센서 등에 빗댄 그림 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 클로드 코드를 쓰기 시작한 분<br>① 훅이 CLAUDE.md 부탁과 다른 점<br>② 걸 수 있는 시점과 설정 파일 위치<br>③ 자동 포맷 · 위험 명령 차단 · 완료 알림<br>준비물: 설치한 클로드 코드 · 작업할 폴더<br>2026년 10월 기준 · Windows 11 · 2.1.268</div>
 <hr>
-<p><em>기준: 2026-09-07. 이벤트 이름·설정 스키마는 버전에 따라 달라질 수 있으니 공식 문서(code.claude.com/docs)를 함께 확인하세요. 다이어그램은 직접 제작했습니다.</em></p> </article> </main> <footer class="site">
+<h2 id="1-훅이란-부탁이-아니라-규칙">1. 훅이란: 부탁이 아니라 규칙</h2>
+<p><strong>훅은 클로드 코드가 일하는 특정 시점에, 내가 정한 명령을 자동으로 실행하는 장치예요.</strong> 도구를 실행하기 직전과 직후, 응답을 마쳤을 때, 세션을 시작할 때처럼 정해진 순간에 끼어들어요.</p>
+<p>CLAUDE.md에 적은 지침이나 채팅으로 한 부탁은 AI가 따르려고 노력하는 것이고, 훅은 시스템이 반드시 실행하는 것이에요. 공식 문서도 훅을 ‘AI가 실행하기로 고르기를 기대하는 대신, 늘 일어나게 만드는’ 확정적인 제어라고 설명해요.</p>
+<p><img alt="클로드 코드 훅이 끼어드는 시점 — 도구 실행 직전(PreToolUse), 직후(PostToolUse), 응답 완료(Stop) (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="1200" height="560" src="/_astro/diagram-hooks-timeline.D_O_93oE_1JVMIf.webp" ></p>
+<p class="cap">클로드 코드 훅이 끼어드는 시점 — 도구 실행 직전(PreToolUse), 직후(PostToolUse), 응답 완료(Stop) (직접 제작)</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>반드시 일어나야 하는 일은 훅에, 알려 주면 되는 일은 CLAUDE.md에 맡기세요.</div>
+<h2 id="2-걸-수-있는-시점-5가지">2. 걸 수 있는 시점 5가지</h2>
+<p><strong>처음엔 아래 다섯 시점이면 충분해요.</strong> 공식 문서의 이벤트 목록은 2026년 10월 7일 기준 <strong>33개</strong>인데, 자주 쓰는 건 이 다섯 개예요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>이벤트</th><th>실행되는 때</th></tr></thead><tbody><tr><td><code>PreToolUse</code></td><td>도구 실행 직전 — 막을 수 있음</td></tr><tr><td><code>PostToolUse</code></td><td>도구 실행이 성공한 직후</td></tr><tr><td><code>Stop</code></td><td>클로드가 응답을 마쳤을 때</td></tr><tr><td><code>SessionStart</code></td><td>세션을 시작하거나 다시 열 때</td></tr><tr><td><code>Notification</code></td><td>입력·승인을 기다리며 알릴 때</td></tr></tbody></table>
+<p>여기서 도구는 파일 읽기·고치기, 터미널 명령처럼 클로드 코드가 쓰는 손발이에요. <mark>막을 수 있는 건 실행 직전(PreToolUse)뿐</mark>이에요. 실행 뒤(PostToolUse)에는 이미 일어난 일을 되돌리지 못해요.</p>
+<h2 id="3-훅을-넣는-곳과-확인하는-법">3. 훅을 넣는 곳과 확인하는 법</h2>
+<p><strong>훅은 설정 파일(settings.json)의 hooks 항목에 적어요. 어느 파일에 적느냐로 적용 범위가 정해져요.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>설정 파일</th><th>적용 범위</th></tr></thead><tbody><tr><td><code>~/.claude/settings.json</code></td><td>내 모든 프로젝트</td></tr><tr><td><code>.claude/settings.json</code></td><td>이 프로젝트 — 저장소에 올려 함께 씀</td></tr><tr><td><code>.claude/settings.local.json</code></td><td>이 프로젝트 — 내 컴퓨터에서만</td></tr></tbody></table>
+<p>설정 파일 문법이 낯설다면 클로드 코드에게 말로 시켜도 돼요. 공식 문서도 원하는 훅을 설명하면 클로드가 대신 써 준다고 안내해요.</p>
+<p class="plabel">📋 그대로 복사해 쓰세요</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>파일을 고친 뒤에 prettier로 포맷하는 PostToolUse 훅을 이 프로젝트의 .claude/settings.json에 추가해줘</span></span></code></pre>
+<ol class="steps"><li>클로드 코드 입력 칸에 위 요청을 붙여 넣으세요.<span class="then">→ 설정 파일의 hooks 항목에 새 훅이 들어가요.</span></li><li>입력 칸에 <code>/hooks</code>를 입력하세요.<span class="then">→ 설정된 훅이 이벤트별로 보여요. 하나를 고르면 실행할 명령과 적힌 파일이 나와요.</span></li></ol>
+<p>2026년 10월 문서 기준으로 <code>/hooks</code>는 보기 전용 목록이에요. 훅을 넣고 고치는 건 설정 파일에서 해요. 클로드 코드가 켜져 있는 동안 설정 파일을 고쳐도, 보통은 바로 반영돼요.</p>
+<h2 id="4-예시--고친-뒤-자동-포맷">4. 예시 ① 고친 뒤 자동 포맷</h2>
+<p><strong>파일을 고칠 때마다 포맷터가 따라 돌게 하려면 PostToolUse에 걸어요.</strong> 직접 적는다면 프로젝트의 .claude/settings.json에 이런 모양으로 넣어요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">"hooks"</span><span style="color:#E1E4E8">: {</span><span style="color:#79B8FF">"PostToolUse"</span><span style="color:#E1E4E8">: [{</span></span>
+<span class="line"><span style="color:#79B8FF">  "matcher"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Edit|Write"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "hooks"</span><span style="color:#E1E4E8">: [{</span></span>
+<span class="line"><span style="color:#79B8FF">    "type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"command"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">    "command"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"npx prettier --write ."</span></span>
+<span class="line"><span style="color:#E1E4E8">  }]</span></span>
+<span class="line"><span style="color:#E1E4E8">}]}}</span></span></code></pre>
+<p>→ 읽는 법: <code>Edit</code>이나 <code>Write</code> 도구가 성공한 뒤에(<code>PostToolUse</code>) 이 명령을 실행하라는 뜻이에요.<br>
+→ 이제 클로드가 파일을 고칠 때마다 포맷터가 무조건 따라 돌아요. 부탁도, 확인도 필요 없어요.</p>
+<p>이 명령은 폴더 전체를 포맷하는 가장 단순한 형태예요. 공식 문서 예시는 jq라는 도구로 방금 고친 파일 하나만 골라 포맷해요. 설정 파일에 이미 다른 내용이 있다면 통째로 바꾸지 말고, hooks 안에 PostToolUse 항목만 더하세요.</p>
+<p>포맷터 대신 린터나 테스트를 걸어도 돼요. AI가 고친 코드가 규칙에 맞는지를 사람이 아니라 도구가 확인하게 돼요.</p>
+<h2 id="5-예시--위험-명령-막기">5. 예시 ② 위험 명령 막기</h2>
+<p><strong>PreToolUse에 검사 스크립트를 걸고, 막아야 할 때 종료 코드 2로 끝내면 그 도구 실행이 막혀요.</strong> 센서 등 비유를 이어 가면, PreToolUse는 문 앞의 검문소예요. 예를 들어 운영 DB 주소가 들어간 명령은 무조건 막는 안전장치를 만들 수 있어요.</p>
+<p><img alt="위험 표시가 붙은 상자를 검문소 차단기가 세우는 장면 — 도구 실행 직전에 서는 PreToolUse 가드를 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-checkpoint.C3S98Av0_Z1SX6fm.webp" ></p>
+<p class="cap">위험 표시가 붙은 상자를 검문소 차단기가 세우는 장면 — 도구 실행 직전에 서는 PreToolUse 가드를 빗댄 그림 (GPT 이미지 생성)</p>
+<p>막을 때 스크립트가 남긴 이유는 클로드에게 전달돼요. 그래서 클로드가 막힌 이유를 보고 다른 방법을 찾아요. 검사 스크립트도 말로 시킬 수 있어요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>Bash 명령에 운영 DB 주소가 들어 있으면 실행을 막는 PreToolUse 훅을 만들어줘. 막을 때는 이유를 출력하고 종료 코드 2로 끝내줘</span></span></code></pre>
+<p>저는 클로드 코드를 자동 모드로 맡겨 써요. 공식 문서에 따르면 PreToolUse 훅은 권한 모드를 따지기 전에, 모든 권한 모드에서 먼저 실행돼요. <mark>자동 모드로 맡겨도 훅 가드는 먼저 선다</mark>고 보면 돼요.</p>
+<h2 id="6-예시--작업이-끝나면-알림">6. 예시 ③ 작업이 끝나면 알림</h2>
+<p><strong>긴 작업을 맡겨 두고 다른 일을 하려면, 끝나는 순간을 알려 주는 훅을 걸어요.</strong> Stop은 클로드가 응답을 마칠 때마다 실행되고, Notification은 클로드가 승인을 기다리거나 응답을 마친 뒤 60초쯤 입력이 없을 때 실행돼요.</p>
+<p>공식 문서의 첫 따라 하기 예제도 입력을 기다릴 때 데스크톱 알림을 띄우는 Notification 훅이에요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>클로드가 응답을 마치면 윈도우 알림 창이 뜨는 Stop 훅을 내 사용자 설정에 추가해줘</span></span></code></pre>
+<p>알림 명령은 운영체제마다 달라요. 공식 문서에 macOS·리눅스·Windows(PowerShell) 예시가 따로 있어요.<br>
+<strong>Stop은 작업이 다 끝났을 때만이 아니라 응답을 마칠 때마다 실행돼요.</strong> 질문 하나에도 알림이 오는 게 번거롭다면 Notification 쪽이 맞아요.</p>
+<h2 id="7-훅을-쓰기-전-주의할-점">7. 훅을 쓰기 전 주의할 점</h2>
+<p><strong>훅은 내 컴퓨터에서, 클로드 코드와 같은 환경으로 셸 명령을 그대로 실행해요.</strong> 프로젝트 설정 파일(.claude/settings.json)에 든 훅은 그 폴더에서 클로드 코드를 쓰면 함께 실행돼요. 남이 만든 저장소를 받았다면 그 파일의 hooks 항목부터 열어 보세요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>인터넷에서 복사한 훅 설정을 그대로 붙여 넣지 마세요. 어떤 명령인지 이해한 것, 내가 만들었거나 믿을 수 있는 스크립트만 거세요.</div>
+<p>구분 하나만 더요. 매번 실행할 필요 없이 필요할 때 부르는 절차는 훅이 아니라 스킬(skills)이 맞아요. 예전의 커스텀 커맨드는 2026년 10월 문서 기준으로 스킬에 합쳐졌어요.<br>
+<strong>강제해야 하면 훅, 불러 쓰고 싶으면 스킬이에요.</strong></p>
+<h2 id="막힐-때">막힐 때</h2>
+<p><strong>/hooks에 훅이 보이지 않아요</strong><br>
+원인: 설정 파일의 문법이 틀렸거나 파일 위치가 다를 때가 많아요. JSON에는 끝 쉼표와 주석을 쓸 수 없어요.<br>
+해결: 위치를 3번 표와 대조하세요. 몇 초 뒤에도 안 보이면 세션을 다시 시작하세요.</p>
+<p><strong>훅이 있는데 실행되지 않아요</strong><br>
+원인: matcher의 도구 이름은 대소문자를 구분해요. edit|write처럼 쓰면 맞지 않아요.<br>
+해결: <code>Edit|Write</code>처럼 도구 이름을 정확히 쓰세요.</p>
+<p><strong>hook error라는 메시지가 떠요</strong><br>
+원인: 훅 명령이 0이 아닌 종료 코드로 끝났어요. 명령이 설치돼 있지 않거나 경로가 틀린 경우가 많아요.<br>
+해결: 그 명령을 터미널에서 직접 실행해 보고, 필요한 도구를 설치하거나 경로를 고치세요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 훅은 정해진 시점에 무조건 실행되는 규칙<br>② 설정 파일의 hooks에 적고 /hooks로 확인<br>③ 막기는 PreToolUse, 후처리는 PostToolUse<br>④ 이해한 명령, 믿을 수 있는 스크립트만</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 코딩을 몰라도 훅을 쓸 수 있나요?</summary><p>원하는 동작을 말로 설명하면 클로드 코드가 설정 파일에 훅을 써 줘요. 다만 무엇을 실행하는 명령인지는 /hooks로 열어 보고, 이해한 뒤에 두세요.</p></details>
+<details class="faq"><summary>Q. CLAUDE.md가 있는데 훅도 필요한가요?</summary><p>역할이 달라요. CLAUDE.md는 클로드가 따르려고 노력하는 지침이고, 훅은 시스템이 반드시 실행하는 규칙이에요. 꼭 지켜야 하는 것만 훅으로 옮기세요.</p></details>
+<details class="faq"><summary>Q. 자동 모드에서도 훅이 실행되나요?</summary><p>네. 공식 문서에 따르면 PreToolUse 훅은 모든 권한 모드에서, 권한을 따지기 전에 먼저 실행돼요.</p></details>
+<details class="faq"><summary>Q. 훅을 잠시 모두 끄려면요?</summary><p>설정 파일에 "disableAllHooks": true를 넣으면 돼요. 프로젝트 설정이 내 설정보다 앞설 수 있으니, 끈 뒤에 /hooks로 확인하세요.</p></details>
+<p>다음 글에서는 큰 작업을 여러 AI 일꾼에게 나눠 맡기는 서브에이전트를 다뤄요.</p>
+<p class="nextpost">→ <a href="/posts/20260907-claude-code-subagents/">클로드 코드 서브에이전트 사용법, 언제 쓰고 어떻게 만드나</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>Claude Code 공식 문서 — 훅 시작하기 · <a href="https://code.claude.com/docs/en/hooks-guide">code.claude.com/docs/en/hooks-guide</a></li>
+<li>Claude Code 공식 문서 — 훅 레퍼런스 · <a href="https://code.claude.com/docs/en/hooks">code.claude.com/docs/en/hooks</a></li>
+<li>Claude Code 공식 문서 — 권한 · <a href="https://code.claude.com/docs/en/permissions">code.claude.com/docs/en/permissions</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 발행 2026년 9월 7일<br>다시 확인·수정 2026년 10월 7일<br>공식 문서 기준 정리 · 설정 예시는 문서와 대조<br>Windows 11 · 클로드 코드 2.1.268<br>제휴 없음 · 캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260906-claude-code-usage/">클로드 코드 사용법</a> · <a href="/posts/20260907-claude-code-mcp/">Claude Code에 MCP 연결하기</a> · <a href="/posts/20260907-ai-review-automation/">AI 코드리뷰·검증 자동화</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

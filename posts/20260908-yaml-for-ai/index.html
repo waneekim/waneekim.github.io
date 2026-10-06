@@ -1,105 +1,115 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>yml 파일이란 — AI가 유독 이 형식을 좋아하는 이유 (실사용 51개로 설명)</title><meta name="description" content=".yml이 뭔지, AI 도구를 쓰면 왜 계속 마주치는지. 블로그 자동화에 실제로 쓰는 yml 파일 51개를 기준으로 역할·문법·함정 4가지를 정리했다."><meta property="og:title" content="yml 파일이란 — AI가 유독 이 형식을 좋아하는 이유 (실사용 51개로 설명)"><meta property="og:description" content=".yml이 뭔지, AI 도구를 쓰면 왜 계속 마주치는지. 블로그 자동화에 실제로 쓰는 yml 파일 51개를 기준으로 역할·문법·함정 4가지를 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>yml 파일이란, yaml 차이와 AI가 이 형식을 쓰는 이유</title><meta name="description" content="yml 파일이 무엇인지, .yaml과 무엇이 다른지, AI가 왜 이 형식으로 규칙과 기록을 남기는지 정리했다. 이 블로그 저장소의 PyYAML로 직접 돌려 본 문법 함정 4가지와 첫 yml 만드는 법까지."><meta property="og:title" content="yml 파일이란, yaml 차이와 AI가 이 형식을 쓰는 이유"><meta property="og:description" content="yml 파일이 무엇인지, .yaml과 무엇이 다른지, AI가 왜 이 형식으로 규칙과 기록을 남기는지 정리했다. 이 블로그 저장소의 PyYAML로 직접 돌려 본 문법 함정 4가지와 첫 yml 만드는 법까지."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 8일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="yml-파일이란--ai가-유독-이-형식을-좋아하는-이유">yml 파일이란 — AI가 유독 이 형식을 좋아하는 이유</h1>
-<p>AI 도구를 조금만 깊이 쓰기 시작하면 <code>.yml</code>이라는 확장자가 계속 나옵니다. Claude Code 설정도, 자동 배포도, MCP 서버 목록도 전부 이 파일이죠. 저도 처음엔 “개발자들이 쓰는 뭔가”로 넘겼습니다. 그런데 지금 이 블로그를 굴리는 저장소를 세어보니 <strong>yml 파일이 51개</strong>더군요. 글 한 편이 발행되는 데 최소 두 개가 관여합니다.</p>
-<h2 id="결론-요약">결론 요약</h2>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-뜻-괄호를-뺀-데이터-메모" data-astro-cid-lvjzyg5v>1. 뜻: 괄호를 뺀 데이터 메모</a></li><li data-astro-cid-lvjzyg5v><a href="#2-yml과-yaml은-같은-파일" data-astro-cid-lvjzyg5v>2. .yml과 .yaml은 같은 파일</a></li><li data-astro-cid-lvjzyg5v><a href="#3-ai가-yml을-쓰는-세-가지-방법" data-astro-cid-lvjzyg5v>3. AI가 yml을 쓰는 세 가지 방법</a></li><li data-astro-cid-lvjzyg5v><a href="#4-yml이-실제로-잡아낸-실수" data-astro-cid-lvjzyg5v>4. yml이 실제로 잡아낸 실수</a></li><li data-astro-cid-lvjzyg5v><a href="#5-문법-함정-4가지" data-astro-cid-lvjzyg5v>5. 문법 함정 4가지</a></li><li data-astro-cid-lvjzyg5v><a href="#6-오늘-만드는-첫-yml" data-astro-cid-lvjzyg5v>6. 오늘 만드는 첫 yml</a></li><li data-astro-cid-lvjzyg5v><a href="#헷갈리기-쉬운-것" data-astro-cid-lvjzyg5v>헷갈리기 쉬운 것</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다. 그림은 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="yml-파일이란-yaml-차이와-ai가-이-형식을-쓰는-이유">yml 파일이란, yaml 차이와 AI가 이 형식을 쓰는 이유</h1>
+<p><img alt="yml 파일이란 — yaml 차이와 AI가 이 형식을 쓰는 이유 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.IQvcD68f_VP6zL.webp" ></p>
+<p class="cap">yml 파일이란 — yaml 차이와 AI가 이 형식을 쓰는 이유 (캐릭터는 GPT 이미지 생성)</p>
+<p>AI 도구를 조금만 깊이 쓰다 보면 .yml이라는 확장자가 자꾸 보여요. 자동 배포 설정도, AI에게 주는 규칙 파일도 이 형식이에요. “그래서 yml이 뭔데? 개발자만 쓰는 거 아냐?” 저도 처음엔 그렇게 넘겼는데, 지금 이 블로그를 굴리는 저장소에는 yml 파일이 <strong>390개</strong> 있어요.</p>
+<p>장보기 메모를 떠올려 보세요. ‘과일’ 아래에 사과와 배를 한 칸 들여 쓰면, 누가 봐도 사과가 과일 항목이라는 걸 알죠. yml은 이 들여쓰기 메모를 프로그램도 알아듣게 규칙으로 정한 형식이에요.<br>
+<strong>YAML은 사람이 읽고 고치기 쉬우면서, 프로그램도 그대로 읽는 설정·데이터 형식이에요.</strong></p>
+<p><img alt="냉장고에 붙은 들여쓰기 메모를 사람과 로봇이 함께 읽는 장면 — yml을 메모에 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-shared-memo.0kqSyabj_Z2pVDzH.webp" ></p>
+<p class="cap">냉장고에 붙은 들여쓰기 메모를 사람과 로봇이 함께 읽는 장면 — yml을 메모에 빗댄 그림 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: AI 도구에서 .yml을 자꾸 만나는 분<br>① yml 뜻과 .yaml과의 차이<br>② AI가 yml을 규칙서·기록으로 쓰는 법<br>③ 문법 함정 4가지와 첫 yml 만들기<br>2026년 10월 기준 · YAML 1.2.2 · PyYAML 6.0.3</div>
+<hr>
+<h2 id="1-뜻-괄호를-뺀-데이터-메모">1. 뜻: 괄호를 뺀 데이터 메모</h2>
+<p><strong>YAML은 괄호·따옴표 대신 들여쓰기로 구조를 만드는 데이터 형식이에요.</strong> 이름부터 농담이에요. “YAML Ain’t Markup Language”, 우리말로 ‘YAML은 마크업 언어가 아니다’를 줄인 말이에요.</p>
+<p>공식 명세는 YAML을 ‘사람 친화적인 데이터 직렬화 언어’라고 소개해요. 직렬화는 데이터를 파일에 적을 수 있는 글자로 바꾸는 일이에요.</p>
+<p>같은 내용을 JSON으로 쓰면 <code>{"active": true, "tags": ["ai", "yml"]}</code>처럼 괄호·따옴표·쉼표가 붙어요. YAML로 쓰면 이렇게 돼요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">active</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#85E89D">tags</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">ai</span></span>
+<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">yml</span></span></code></pre>
+<p>괄호도 따옴표도 쉼표도 없어요. <mark>들여쓰기가 곧 구조</mark>이고, 나머지는 거의 그냥 글자예요. 그래서 개발을 모르는 사람도 파일을 열어 읽고 고칠 수 있어요. 이게 이 형식의 전부이자 핵심이에요.</p>
+<h2 id="2-yml과-yaml은-같은-파일">2. .yml과 .yaml은 같은 파일</h2>
+<p><strong>.yml과 .yaml은 내용도 문법도 같아요. 확장자 이름만 달라요.</strong> 공식 권장 확장자는 .yaml이고, 2006년 YAML FAQ부터 그렇게 안내했어요(위키백과 YAML 문서 기준). .yml은 한 글자 줄인 표기예요.</p>
+<p>GitHub 공식 문서도 자동 배포 설정(워크플로) 파일은 .yml이나 .yaml 둘 중 하나면 된다고 적어 두었어요.</p>
+<p>PyYAML 같은 읽기 도구는 확장자가 아니라 파일 안의 글자를 읽어요. 다만 정해진 파일 이름을 찾는 도구도 있으니, 그때는 그 도구 설명서의 이름을 따르세요.<br>
+<strong>실무 기준은 하나예요. 프로젝트가 이미 쓰는 쪽을 따라가세요.</strong> 한 저장소 안에서 섞이면 “왜 이 파일만 다르지?” 하고 매번 멈칫하게 돼요. 저는 저장소 전체를 .yml로 통일했어요.</p>
+<h2 id="3-ai가-yml을-쓰는-세-가지-방법">3. AI가 yml을 쓰는 세 가지 방법</h2>
+<p><strong>AI 작업에서 yml은 규칙서, 작업 기록, 프로그램과 잇는 다리로 쓰여요.</strong> 사람이 읽는 문서이면서 동시에 프로그램이 읽는 데이터라서 가능한 일이에요.</p>
+<p><img alt="yml 파일 하나를 사람·AI·스크립트가 함께 읽는 구조 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="2840" src="/_astro/diagram-yaml-roles.CScCrH6U_Z79F11.webp" ></p>
+<p class="cap">yml 파일 하나를 사람·AI·스크립트가 함께 읽는 구조 (직접 제작)</p>
+<p><strong>① AI에게 주는 규칙서</strong> — 이 블로그의 채널 규칙은 channels.yml에 적혀 있어요. 예를 들어 ‘네이버 리뷰 글에는 쿠팡 파트너스 링크 금지’가 한 줄로 들어 있어요. 매번 대화로 설명하는 대신 한 번 적어 두고, “channels.yml 규칙대로 바꿔줘”라고 말하면 돼요.</p>
+<p><strong>② AI가 남기는 작업 기록</strong> — 글마다 상태 파일(content.yml)이 하나씩 있고, 지금 <strong>159개</strong>예요. 어디에 언제 발행했는지가 문장이 아니라 칸으로 남아요. “그 글 네이버에도 올렸던가?”를 기억에 기대지 않아도 돼요.</p>
+<p><strong>③ AI와 프로그램을 잇는 다리</strong> — 대시보드를 만드는 파이썬 스크립트가 이 상태 파일을 전부 모아 읽어요. AI가 yml을 쓰고, 파이썬이 읽고, 사람은 브라우저로 봐요.</p>
+<p><img alt="규칙 바인더를 펴 놓고 작업 일지를 쓰는 로봇 — yml을 규칙서이자 기록으로 쓰는 장면 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-rulebook-log.oO3RNjva_Z1GmXa8.webp" ></p>
+<p class="cap">규칙 바인더를 펴 놓고 작업 일지를 쓰는 로봇 — yml을 규칙서이자 기록으로 쓰는 장면 (GPT 이미지 생성)</p>
+<p>이미 매일 보고 계실 수도 있어요. GitHub 자동 배포 설정이 이 형식이고, 클로드 코드 서브에이전트 정의 파일의 맨 위 칸(프론트매터)도 YAML이에요. 대화창에 적은 규칙은 그 대화가 끝나면 사라지지만, 파일은 남아요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>AI에게 두 번 넘게 한 설명은 yml 파일로 적어 두세요.</div>
+<h2 id="4-yml이-실제로-잡아낸-실수">4. yml이 실제로 잡아낸 실수</h2>
+<p><strong>9월 8일, AI가 yml 파일 두 종류를 대조해서 설정과 현실이 어긋난 걸 찾아냈어요.</strong> “지금 채널 몇 개 돌리고 있지?”라고 물었더니, AI가 설정 파일(channels.yml)과 글마다 붙은 발행 기록(content.yml)을 맞대 보고 이렇게 답했어요.</p>
+<p>“네이버 리뷰 채널이 설정에는 꺼짐(active: false)인데, 실제로는 7건이 발행됐어요.”</p>
+<p>채널을 만들고 글은 계속 올렸는데, 설정 파일만 안 고쳤던 거예요. 두 파일이 다른 폴더에 있고 기록 쪽은 그때도 32개로 흩어져 있어서, 눈으로는 못 잡는 실수였어요. 교훈은 둘이에요. yml로 적어 두면 <strong>AI가 점검을 대신 해 줘요.</strong> 그리고 yml은 스스로 바뀌지 않아요. 현실이 바뀌면 파일도 고치고, 가끔 대조를 시켜야 해요.</p>
+<p class="plabel">📋 그대로 복사해 쓰세요</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>설정 파일과 실제 기록 파일을 대조해서, 서로 안 맞는 항목을 찾아줘</span></span></code></pre>
+<h2 id="5-문법-함정-4가지">5. 문법 함정 4가지</h2>
+<p><strong>함정은 네 가지예요. 참·거짓으로 바뀌는 글자, 0이 사라지는 숫자, 값 안의 콜론, 탭 들여쓰기.</strong> 이 저장소의 PyYAML <code>6.0.3</code>으로 오늘 다시 돌려 본 결과예요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>내가 쓴 것</th><th>실제로 읽히는 값</th></tr></thead><tbody><tr><td><code>active: yes</code></td><td>True — yes·no·on·off는 참·거짓</td></tr><tr><td><code>country: NO</code></td><td>False — 국가 코드 NO도 거짓</td></tr><tr><td><code>version: 1.20</code></td><td>1.2 — 숫자로 읽혀 끝의 0이 사라짐</td></tr><tr><td>title: 제목: 부제</td><td>에러 — 값 속 콜론을 구조로 읽음</td></tr><tr><td>탭으로 들여쓰기</td><td>에러 — 들여쓰기는 스페이스만</td></tr></tbody></table>
+<p><strong>해결은 대부분 같아요. 헷갈리면 따옴표로 감싸세요.</strong> active: “yes”, version: “1.20”, title: “제목: 부제”처럼 감싸면 쓴 글자 그대로 읽혀요.</p>
+<p>참·거짓과 숫자 함정은 에러도 없이 조용히 다른 값이 돼서 더 위험해요.</p>
+<p>탭은 공식 명세가 못 박은 규칙이에요. ‘이식성을 위해 들여쓰기에 탭 문자를 쓰면 안 된다. 시스템마다 탭을 다르게 다루기 때문이다.’ 에디터에서 <code>Tab</code> 키가 스페이스로 들어가게 설정해 두는 게 가장 확실한 예방책이에요.</p>
+<h2 id="6-오늘-만드는-첫-yml">6. 오늘 만드는 첫 yml</h2>
+<p><strong>AI에게 매번 반복해서 설명하는 것을 파일로 빼면, 그게 첫 yml이에요.</strong></p>
+<ol class="steps"><li>메모장을 열고 아래 네 줄을 그대로 적으세요.</li></ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>톤: 존댓말, 과장 금지</span></span>
+<span class="line"><span>구조: 결론을 맨 앞에</span></span>
+<span class="line"><span>금지: 확인 안 된 수치를 확정해서 쓰기</span></span>
+<span class="line"><span>제목형식: "핵심 먼저: 설명은 뒤에"</span></span></code></pre>
+<ol class="steps" start="2"><li><code>my-rules.yml</code>이라는 이름으로 저장하세요.</li><li>AI와 대화를 시작할 때 파일을 건네고 아래 한 줄을 붙이세요.<span class="then">→ 클로드 코드처럼 파일을 읽는 도구라면 같은 폴더에 두기만 해도 돼요. 채팅 AI라면 파일을 첨부하세요.</span></li></ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>my-rules.yml 규칙을 지켜서 써줘</span></span></code></pre>
+<p>맨 아랫줄만 따옴표가 있죠? 값 안에 콜론이 들어 있어서예요. 만들 때 지킬 것은 세 가지예요. <strong>한 파일에는 한 주제만</strong>, <strong>항목 이름은 짧고 일관되게</strong>(값은 한글도 괜찮아요), <strong>날짜와 이유는 주석으로</strong>. 줄 맨 앞에 샵 기호와 띄어쓰기를 두면, 프로그램이 읽지 않는 메모가 돼요. 3주 뒤의 나는 왜 이렇게 정했는지 기억하지 못해요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>비밀번호·API 키는 yml에 적지 마세요. 규칙 파일은 AI도 사람도 다 읽어요. 이 블로그는 키를 별도 파일(.env)에 따로 둬요.</div>
+<h2 id="헷갈리기-쉬운-것">헷갈리기 쉬운 것</h2>
+<p><strong>yml은 프로그래밍 언어가 아니에요</strong> 계산하거나 실행하는 기능이 없어요. 데이터를 적어 두는 형식이고, 실행은 그걸 읽는 프로그램이 해요.</p>
+<p><strong>yml과 마크다운(md)은 다른 형식이에요</strong> 마크다운은 사람이 읽는 글을 꾸미는 형식이고, yml은 프로그램이 읽을 항목을 적는 형식이에요. 다만 마크다운 글 맨 위 ‘---’ 사이 칸(프론트매터)은 YAML로 써요. 이 글 사이트판의 제목과 키워드도 거기 적혀 있어요.</p>
+<p><strong>JSON으로 써도 되지만, 손으로 고치기는 yml이 편해요</strong> JSON은 프로그램끼리 주고받기 좋고, 사람이 직접 손보기엔 괄호와 쉼표가 번거로워요. 사람이 자주 고치는 규칙 파일이라면 yml이 편해요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① YAML은 들여쓰기로 구조를 만드는 형식<br>② .yml과 .yaml은 같은 파일<br>③ 반복하는 설명은 yml 규칙서로<br>④ 헷갈리는 값은 따옴표, 들여쓰기는 스페이스</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. yml 파일은 무엇으로 여나요?</summary><p>메모장 같은 글 편집기로 열고 고칠 수 있어요. 특별한 프로그램은 필요 없어요.</p></details>
+<details class="faq"><summary>Q. 들여쓰기는 몇 칸이어야 하나요?</summary><p>같은 단계끼리 칸 수만 맞으면 돼요. 이 블로그의 yml은 두 칸씩 써요. 탭은 쓰면 안 돼요.</p></details>
+<details class="faq"><summary>Q. 코딩을 몰라도 yml을 쓸 수 있나요?</summary><p>네. 6번처럼 ‘이름: 값’ 줄만 적어도 첫 yml이 돼요. 목록처럼 들여쓰는 구조는 AI에게 만들어 달라고 하고, 사람은 읽고 고치면 돼요.</p></details>
+<details class="faq"><summary>Q. .yml과 .yaml 중 무엇을 써야 하나요?</summary><p>공식 권장은 .yaml이지만 둘은 같은 형식이에요. 프로젝트가 이미 쓰는 쪽에 맞추세요.</p></details>
+<p>다음 글에서는 이런 규칙 파일과 기록이 쌓여 AI의 백과사전이 되는 방식, LLM 위키를 다뤄요.</p>
+<p class="nextpost">→ <a href="/posts/20260909-llm-wiki-explained/">LLM 위키 뜻, 카파시가 제안한 AI 지식 정리법과 RAG 차이</a></p>
+<p><strong>참고 자료</strong></p>
 <ul>
-<li>YAML은 <strong>사람이 읽고 쓰기 쉬운 설정·데이터 형식</strong>. 괄호 대신 들여쓰기로 구조를 만든다</li>
-<li><code>.yml</code>과 <code>.yaml</code>은 <strong>완전히 같다.</strong> 확장자를 3글자까지만 쓰던 시절의 흔적일 뿐</li>
-<li>AI가 이걸 쓰는 이유: <strong>사람이 읽는 문서인 동시에 기계가 파싱하는 데이터</strong>라서 — 규칙서와 작업기록을 한 파일로 겸한다</li>
-<li>초보자가 밟는 지뢰는 4개: <strong>탭 · yes/no · 소수점 끝의 0 · 콜론</strong></li>
+<li>YAML 공식 명세 1.2.2 · <a href="https://yaml.org/spec/1.2.2">yaml.org/spec/1.2.2</a></li>
+<li>위키백과 YAML 문서(확장자 권장 이력) · <a href="https://en.wikipedia.org/wiki/YAML">en.wikipedia.org/wiki/YAML</a></li>
+<li>GitHub 문서 — 워크플로 문법 · <a href="https://docs.github.com/en/actions">docs.github.com/en/actions</a></li>
 </ul>
-<h2 id="-1-yaml은-괄호를-뺀-데이터-메모지">🧩 1. YAML은 “괄호를 뺀 데이터 메모지”</h2>
-<p>이름부터 농담입니다. YAML은 “YAML Ain’t Markup Language”(YAML은 마크업 언어가 아니다)의 재귀 약자예요. 공식 명세는 스스로를 <strong>사람 친화적으로 설계된 데이터 직렬화 언어</strong>라고 소개합니다.</p>
-<p>같은 내용을 JSON과 나란히 놓으면 차이가 바로 보입니다.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"채널"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"네이버"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"활성"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"규칙"</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">"링크 금지"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"사진 필수"</span><span style="color:#E1E4E8">] }</span></span></code></pre>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">채널</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">네이버</span></span>
-<span class="line"><span style="color:#85E89D">활성</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
-<span class="line"><span style="color:#85E89D">규칙</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">링크 금지</span></span>
-<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">사진 필수</span></span></code></pre>
-<p>괄호도 따옴표도 쉼표도 없습니다. <strong>들여쓰기가 곧 구조</strong>고, 나머지는 거의 다 그냥 글자예요. 그래서 개발을 모르는 사람도 파일을 열어 읽고 고칠 수 있습니다. 이게 이 형식의 전부이자 핵심입니다.</p>
-<p><img alt="AI 규칙서와 작업기록을 사람·AI·스크립트가 함께 읽는 구조 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1240" src="/_astro/diagram-yaml-roles.CGxHHES1_Z2lXNo6.webp" ></p>
-<h2 id="-2-yml과-yaml-뭐가-다른가--다르지-않습니다">📄 2. <code>.yml</code>과 <code>.yaml</code>, 뭐가 다른가 — 다르지 않습니다</h2>
-<p>제가 가장 오래 헷갈렸던 부분이라 먼저 털고 갑니다. <strong>내용도 문법도 파서 동작도 완전히 동일합니다.</strong></p>
-<p>공식 권장 확장자는 <code>.yaml</code>이고 2006년부터 그랬습니다. <code>.yml</code>이 남아 있는 건 확장자를 3글자까지만 허용하던 옛 운영체제 시절의 관습 때문이에요. 지금은 어느 쪽을 써도 도구가 다 읽습니다.</p>
-<p><strong>실무 기준: 프로젝트가 이미 쓰는 쪽을 따라가세요.</strong> 한 저장소 안에서 섞이면 “왜 이 파일만 다르지?” 하고 매번 멈칫하게 됩니다. 저는 저장소 전체를 <code>.yml</code>로 통일했습니다.</p>
-<h2 id="-3-ai는-yml을-어떻게-쓰는가--세-가지-역할">🤖 3. AI는 yml을 어떻게 쓰는가 — 세 가지 역할</h2>
-<h3 id="-ai에게-주는-규칙서">① AI에게 주는 규칙서</h3>
-<p>제 저장소의 <code>config/channels.yml</code> 일부입니다.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">naver_review</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"><span style="color:#85E89D">  label</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">네이버 리뷰 블로그 (세차·클리닝 전문)</span></span>
-<span class="line"><span style="color:#85E89D">  active</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
-<span class="line"><span style="color:#85E89D">  source_relation</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">restructure</span><span style="color:#6A737D">   # 복제 금지, 새로 재구성</span></span>
-<span class="line"><span style="color:#85E89D">  rules</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#9ECBFF">쿠팡 파트너스 링크 금지 (저품질 위험 — 자체 사이트 전용)</span></span>
-<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#9ECBFF">협찬 글은 공정위 표기 필수</span></span>
-<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#9ECBFF">스토어 리뷰 복붙 금지 (유사문서)</span></span></code></pre>
-<p>이 파일은 <strong>AI가 작업 전에 읽는 규정집</strong>입니다. “네이버 리뷰 글에는 쿠팡 링크를 넣지 마라”를 매번 대화로 설명하는 대신, 한 번 적어두고 “channels.yml 규칙대로 변환해줘”라고 말하면 끝이죠.</p>
-<p>프롬프트에 매번 붙여넣는 것과 뭐가 다르냐면 — <strong>파일은 버전 관리가 되고, 사람도 고칠 수 있고, 스크립트도 읽을 수 있습니다.</strong> 대화창에 적은 규칙은 그 대화가 끝나면 사라지지만 파일은 남습니다. <a href="/posts/20260907-claude-code-hooks/">AI에게 부탁하지 말고 규칙으로 걸라</a>는 원칙의 가장 가벼운 버전이기도 하고요.</p>
-<h3 id="-ai가-남기는-작업-기록">② AI가 남기는 작업 기록</h3>
-<p>글 한 편당 하나씩 있는 상태 파일(<code>content.yml</code>)입니다. 지금 32개.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">id</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">20260907-claude-code-subagents</span></span>
-<span class="line"><span style="color:#85E89D">category</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">ai-automation</span></span>
-<span class="line"><span style="color:#85E89D">status</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">published</span></span>
-<span class="line"><span style="color:#85E89D">channels</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">site</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">naver</span><span style="color:#E1E4E8">]</span></span>
-<span class="line"><span style="color:#85E89D">published</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#85E89D">channel</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">site</span></span>
-<span class="line"><span style="color:#85E89D">    url</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">https://happyvarious.com/posts/20260907-claude-code-subagents/</span></span>
-<span class="line"><span style="color:#85E89D">    date</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2026-09-07</span></span></code></pre>
-<p>어디에 발행됐는지, 언제 승인됐는지가 <strong>문장이 아니라 필드</strong>로 들어갑니다. “그 글 네이버에도 올렸던가?”를 기억에 의존하지 않게 되는 지점이죠.</p>
-<h3 id="-ai와-스크립트가-함께-읽는-다리">③ AI와 스크립트가 함께 읽는 다리</h3>
-<p>가장 실용적인 쓰임은 여기입니다. 제 대시보드 생성기는 저 32개 파일을 전부 읽어 HTML을 자동으로 만듭니다.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> yaml</span></span>
-<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> f </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> glob.glob(</span><span style="color:#9ECBFF">"content/*/content.yml"</span><span style="color:#E1E4E8">):</span></span>
-<span class="line"><span style="color:#E1E4E8">    d </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> yaml.safe_load(</span><span style="color:#79B8FF">open</span><span style="color:#E1E4E8">(f, </span><span style="color:#FFAB70">encoding</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"utf-8"</span><span style="color:#E1E4E8">).read())</span></span></code></pre>
-<p>두 줄이면 끝입니다. <strong>AI가 yml을 쓰고, 파이썬이 그걸 읽고, 사람이 브라우저로 봅니다.</strong> 세 주체가 파일 하나를 공유하는 거죠. JSON도 되지만 사람이 직접 손보기엔 불편하고, 워드 문서는 기계가 못 읽습니다. YAML은 정확히 그 사이에 있습니다.</p>
-<p><strong>그리고 이미 매일 보고 계실 겁니다.</strong> <a href="/posts/20260907-claude-code-subagents/">Claude Code의 서브에이전트</a> 정의, GitHub 자동 배포 설정, <a href="/posts/20260906-mcp-explained/">MCP</a> 서버 구성이 전부 이 형식이에요. 마크다운 글 맨 위 <code>---</code> 사이 영역(프론트매터)도 YAML입니다 — 지금 읽고 계신 이 글의 제목과 키워드도 거기 적혀서 그대로 사이트 메타태그가 됩니다.</p>
-<h2 id="-4-실제로-이게-뭘-잡아냈나">💥 4. 실제로 이게 뭘 잡아냈나</h2>
-<p>이 글을 쓰기 직전에 있었던 일입니다. “지금 채널 라인 몇 개 굴리고 있지?”라고 물었더니, AI가 <code>config/channels.yml</code>(설정)과 <code>content/*/content.yml</code>(실제 발행 기록)을 대조하고 이렇게 답했습니다.</p>
-<blockquote>
-<p>네이버 리뷰 채널이 설정에는 <code>active: false</code>인데, 실제로는 7건이 발행됐습니다.</p>
-</blockquote>
-<p>설정이 현실보다 뒤처져 있었던 거죠. 채널을 만들고 글은 계속 올렸는데 설정 파일만 안 고친 겁니다. <strong>눈으로는 못 잡습니다</strong> — 두 파일이 다른 폴더에 있고, 한쪽은 32개로 흩어져 있으니까요. 구조화된 형식이었기 때문에 대조가 가능했습니다.</p>
-<p>교훈은 두 개입니다. yml로 적어두면 <strong>AI가 감사(監査)를 대신 해줍니다.</strong> 동시에 <strong>yml은 스스로 갱신되지 않습니다</strong> — 현실이 바뀌면 파일도 고쳐야 하고, 그 대조를 주기적으로 시켜야 합니다. <a href="/posts/20260907-ai-review-automation/">AI 산출물은 검증까지가 한 세트</a>라는 이야기의 연장이에요.</p>
-<h2 id="️-5-함정-4가지--직접-돌려본-결과">⚠️ 5. 함정 4가지 — 직접 돌려본 결과</h2>
-<p>말로만 하면 안 믿기니 이 저장소의 파이썬(PyYAML 6.0.3)으로 실제 실행한 결과입니다.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>내가 쓴 것</th><th>실제로 읽히는 값</th><th>왜</th></tr></thead><tbody><tr><td><code>active: yes</code></td><td><code>True</code> (참/거짓)</td><td>yes·no·on·off가 불리언으로 변환됨</td></tr><tr><td><code>country: NO</code></td><td><code>False</code></td><td>노르웨이 국가코드 NO가 “거짓”이 됨</td></tr><tr><td><code>version: 1.20</code></td><td><code>1.2</code></td><td>숫자로 읽혀 끝의 0이 사라짐</td></tr><tr><td><code>title: 제목: 부제</code></td><td><strong>에러</strong></td><td>값 안의 콜론을 구조로 해석</td></tr></tbody></table>
-<p><strong>해결은 전부 같습니다 — 헷갈릴 것 같으면 따옴표로 감싸세요.</strong> <code>active: "yes"</code>, <code>version: "1.20"</code>, <code>title: "제목: 부제"</code>. 이 넷 중 셋은 에러도 안 나고 조용히 다른 값이 되기 때문에 더 위험합니다.</p>
-<p>그리고 하나 더, <strong>탭(Tab)으로 들여쓰기하면 무조건 깨집니다.</strong> 공식 명세가 못 박아 둔 규칙이에요 — <em>“이식성을 위해, 탭 문자는 들여쓰기에 사용해서는 안 된다. 시스템마다 탭을 다르게 취급하기 때문이다.”</em> 실제로 탭을 넣고 돌려보니 <code>ScannerError</code>가 났습니다. 에디터에서 Tab 키가 스페이스로 들어가도록 설정해두는 게 유일한 예방책입니다.</p>
-<h2 id="-시작-코스--오늘-만들-수-있는-첫-yml">🎯 시작 코스 — 오늘 만들 수 있는 첫 yml</h2>
-<p>거창할 필요 없습니다. <strong>AI에게 매번 반복해서 설명하고 있는 것</strong>을 파일로 빼면 그게 첫 yml입니다. 이대로 복사해서 쓰세요.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#6A737D"># my-rules.yml — AI에게 매번 설명하던 것들 (2026-09-08 작성)</span></span>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 발행 2026년 9월 8일<br>다시 확인·수정 2026년 10월 7일<br>이 블로그 저장소의 yml로 직접 해 본 것만<br>PyYAML 6.0.3 실행 · 공식 명세와 대조<br>제휴 없음 · 그림은 GPT 생성, 도식은 직접 제작</div>
+<h3 id="부록-들여쓰기를-쓴-my-rulesyml">부록: 들여쓰기를 쓴 my-rules.yml</h3>
+<p>6절의 네 줄을 목록으로 늘린 모양이에요. 콜론이 든 값만 따옴표로 감쌌어요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#6A737D"># my-rules.yml — AI에게 매번 설명하던 것들 (작성 날짜를 적어 두세요)</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#85E89D">톤</span><span style="color:#E1E4E8">:</span></span>
 <span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">존댓말, 과장 금지</span></span>
@@ -110,18 +120,19 @@
 <span class="line"><span style="color:#E1E4E8">  - </span><span style="color:#9ECBFF">회사 이름·고객 정보 언급</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#85E89D">형식</span><span style="color:#E1E4E8">:</span></span>
-<span class="line"><span style="color:#85E89D">  분량</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"A4 1장 이내"</span><span style="color:#6A737D">      # 콜론이 있으니 따옴표</span></span>
-<span class="line"><span style="color:#85E89D">  마무리</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">실행 항목 3개</span></span></code></pre>
-<p>그리고 대화 시작할 때 한 줄이면 됩니다. <strong>“<code>my-rules.yml</code> 규칙을 지켜서 써줘.”</strong></p>
-<p>만들 때 지킬 것 세 가지:</p>
-<ol>
-<li><strong>한 파일에 한 가지 주제.</strong> 규칙과 기록을 한 파일에 섞지 않습니다</li>
-<li><strong>필드 이름은 짧고 일관되게, 값은 한글도 괜찮습니다.</strong> 위 예시처럼 키까지 한글로 써도 파서는 읽습니다</li>
-<li><strong>날짜와 이유를 주석(<code>#</code>)으로 남기세요.</strong> 3주 뒤의 나는 왜 이렇게 정했는지 기억 못 합니다</li>
-</ol>
-<p><a href="/posts/20260907-ai-automation-start/">AI 업무 자동화는 도구가 아니라 순서</a>라고 썼는데, yml은 그 순서의 두 번째 칸쯤에 있습니다. 반복되는 지시를 파일로 굳히는 순간부터 AI에게 시키는 일의 결과가 눈에 띄게 일정해집니다.</p>
-<hr>
-<p><em>기준: 2026-09-08. 문법 실험은 이 저장소의 PyYAML 6.0.3에서 직접 실행한 결과입니다. YAML 정의와 탭 규칙은 공식 명세 1.2.2(<a href="https://yaml.org/spec/1.2.2/">yaml.org/spec/1.2.2</a>, 2021-10-01 개정), 확장자 권장 이력은 <a href="https://en.wikipedia.org/wiki/YAML">위키백과 YAML 문서</a>를 확인했습니다. 다이어그램은 직접 제작했습니다.</em></p> </article> </main> <footer class="site">
+<span class="line"><span style="color:#85E89D">  분량</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"A4 1장 이내"</span></span>
+<span class="line"><span style="color:#85E89D">  제목형식</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"핵심 먼저: 설명은 뒤에"</span></span></code></pre>
+<h3 id="부록-이-블로그의-실제-파일-일부">부록: 이 블로그의 실제 파일 일부</h3>
+<p>규칙서 — <code>config/channels.yml</code>의 네이버 리뷰 채널 규칙(일부):</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="yaml"><code><span class="line"><span style="color:#85E89D">naver_review</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#85E89D">  active</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#85E89D">  rules</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#9ECBFF">쿠팡 파트너스 링크 금지 (저품질 위험 — 자체 사이트 전용)</span></span>
+<span class="line"><span style="color:#E1E4E8">    - </span><span style="color:#9ECBFF">협찬 글은 공정위 표기 필수</span></span></code></pre>
+<p>다리 — 상태 파일을 모아 읽는 파이썬(대시보드 생성기의 핵심 두 줄):</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> f </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> glob.glob(</span><span style="color:#9ECBFF">"content/*/content.yml"</span><span style="color:#E1E4E8">):</span></span>
+<span class="line"><span style="color:#E1E4E8">    d </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> yaml.safe_load(Path(f).read_text(</span><span style="color:#FFAB70">encoding</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"utf-8"</span><span style="color:#E1E4E8">))</span></span></code></pre>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260909-llm-wiki-explained/">LLM 위키 뜻</a> · <a href="/posts/20260907-claude-code-hooks/">Claude Code 훅 활용법</a> · <a href="/posts/20260907-claude-code-subagents/">Claude Code 서브에이전트 사용법</a> · <a href="/posts/20260907-ai-automation-start/">AI 업무 자동화 시작하는 법</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

@@ -1,374 +1,283 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Claude Sonnet 5.5 출시 — 가격은 그대로, 30% 빨라졌다. Sonnet 5·Opus 5.5와 벤치마크로 비교</title><meta name="description" content="2026년 9월 28일 앤트로픽이 Claude Sonnet 5.5를 내놨다. Claude 5.5 계열의 두 번째 모델로, 가격은 Sonnet 5와 같은 100만 토큰당 입력 2달러·출력 10달러인데 답을 내는 속도는 30% 이상 빨라졌다는 게 회사 설명이다. 공식 발표 표의 벤치마크 8개를 그대로 옮겨 이전 버전 Sonnet 5, 윗급 Opus 5.5, 경쟁 모델 GPT-6 Sol과 비교하고, 가격·스펙·안전 조치, 그리고 회사 스스로 밝힌 'Opus 5.5가 여전히 나은 일'까지 정리했다."><meta property="og:title" content="Claude Sonnet 5.5 출시 — 가격은 그대로, 30% 빨라졌다. Sonnet 5·Opus 5.5와 벤치마크로 비교"><meta property="og:description" content="2026년 9월 28일 앤트로픽이 Claude Sonnet 5.5를 내놨다. Claude 5.5 계열의 두 번째 모델로, 가격은 Sonnet 5와 같은 100만 토큰당 입력 2달러·출력 10달러인데 답을 내는 속도는 30% 이상 빨라졌다는 게 회사 설명이다. 공식 발표 표의 벤치마크 8개를 그대로 옮겨 이전 버전 Sonnet 5, 윗급 Opus 5.5, 경쟁 모델 GPT-6 Sol과 비교하고, 가격·스펙·안전 조치, 그리고 회사 스스로 밝힌 'Opus 5.5가 여전히 나은 일'까지 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Claude Sonnet 5.5 출시, 가격·성능과 Opus 5.5 비교</title><meta name="description" content="2026년 9월 28일 앤트로픽이 Claude Sonnet 5.5를 내놨다. Claude 5.5 계열의 두 번째 모델로, 가격은 Sonnet 5와 같은 100만 토큰당 입력 2달러·출력 10달러인데 답을 내는 속도는 30% 이상 빨라졌다는 게 회사 설명이다. 공식 발표 표의 벤치마크 8개를 그대로 옮겨 이전 버전 Sonnet 5, 윗급 Opus 5.5, 경쟁 모델 GPT-6 Sol과 비교하고, 가격·스펙·안전 조치, 그리고 회사 스스로 밝힌 'Opus 5.5가 여전히 나은 일'까지 정리했다."><meta property="og:title" content="Claude Sonnet 5.5 출시, 가격·성능과 Opus 5.5 비교"><meta property="og:description" content="2026년 9월 28일 앤트로픽이 Claude Sonnet 5.5를 내놨다. Claude 5.5 계열의 두 번째 모델로, 가격은 Sonnet 5와 같은 100만 토큰당 입력 2달러·출력 10달러인데 답을 내는 속도는 30% 이상 빨라졌다는 게 회사 설명이다. 공식 발표 표의 벤치마크 8개를 그대로 옮겨 이전 버전 Sonnet 5, 윗급 Opus 5.5, 경쟁 모델 GPT-6 Sol과 비교하고, 가격·스펙·안전 조치, 그리고 회사 스스로 밝힌 'Opus 5.5가 여전히 나은 일'까지 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 1일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 앤트로픽과 아무 관계가 없습니다. 성능·가격 수치는 앤트로픽 공식 발표(2026-09-28)와 공식 문서 기준이며 독립 검증 전입니다. 삽화는 GPT 이미지 생성, 차트는 직접 제작했습니다.</blockquote> <h1 id="claude-sonnet-55-출시--가격은-그대로-30-빨라졌다-sonnet-5opus-55와-벤치마크로-비교">Claude Sonnet 5.5 출시 — 가격은 그대로, 30% 빨라졌다. Sonnet 5·Opus 5.5와 벤치마크로 비교</h1>
-<p>자동차 신형이 나왔는데 가격표가 작년과 똑같다고 해 볼게요. 그런데 보닛을 열어 보니 엔진은 윗급 모델에 들어가던 것과 거의 같은 물건이에요. 그러면 고민이 생깁니다. “윗급을 살 이유가 남았나?”</p>
-<p>2026년 9월 28일 앤트로픽이 내놓은 <strong>Claude Sonnet 5.5</strong>가 그런 모양이에요. 사흘 전 <a href="/posts/20260925-claude-opus-5-5/">Opus 5.5 출시 글</a>에서 윗급 모델 이야기를 했는데, 이번에는 그 아랫급이 가격은 그대로 둔 채 성능을 끌어올렸습니다. 회사의 첫 문장은 이렇습니다. <strong>“Sonnet 5보다 확실히 나아졌고, 30% 이상 빠르며, 대부분의 일에서 비용이 최대 30% 적게 든다.”</strong></p>
-<blockquote>
-<p>⚠️ 이 글의 성능·가격 수치는 2026-09-28 앤트로픽 공식 발표와 공식 문서를 옮긴 것입니다. 회사가 직접 잰 값이라 독립 검증 전이고, 측정 설정이 다른 항목은 따로 표시했습니다.</p>
-</blockquote>
-<p><img alt="새 차 옆에서 뿌듯하게 선 로봇, 열린 보닛 안에서 엔진이 빛난다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-new-trim.QS2FvpBU_Z1OO3PN.webp" ></p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li><strong>무엇</strong> — Claude 5.5 계열의 두 번째 모델. API 이름은 <code>claude-sonnet-5-5</code>이고, Claude 앱과 API, AWS·구글 클라우드·마이크로소프트 애저에서 쓸 수 있습니다. 가볍고 많이 쓰는 용도의 <strong>Haiku 5.5는 “앞으로 몇 주 안에”</strong> 나온다고 예고했어요</li>
-<li><strong>이전 버전(Sonnet 5) 대비</strong> — 가격은 그대로(100만 토큰당 입력 $2, 출력 $10), 답을 내는 속도는 <strong>30% 이상</strong> 빨라졌고, 공식 표의 8개 지표가 모두 올랐습니다. 터미널 코딩 지표는 10.3%에서 <strong>70.6%로</strong> 뛰었어요</li>
-<li><strong>Opus 5.5 대비</strong> — 토큰 단가는 절반인데, 터미널 코딩 지표는 Sonnet 5.5가 앞서고 실무 지표(GDPval-AA)는 <strong>2점 차</strong>까지 따라붙었어요. 다만 나머지 6개는 Opus 5.5가 높고, 앤트로픽 스스로 “길게 판단해야 하는 복잡한 일은 Opus 5.5가 여전히 확실히 낫다”고 적었습니다</li>
-<li><strong>작업당 비용</strong> — 토큰 단가는 Sonnet 5와 같지만 같은 일을 더 적은 토큰으로 끝내서, 회사 시험에서 일 한 건당 비용이 <strong>최대 30%</strong> 줄었어요. Opus 5.5보다 토큰 단가는 절반이지만, Opus 5.5에 맞먹는 점수가 나오는 높은 설정에서는 건당 비용도 비슷해진다는 게 회사 설명입니다 (6절)</li>
-</ul>
-<h2 id="-1-어떤-자리의-모델인가">🧭 1. 어떤 자리의 모델인가</h2>
-<p>앤트로픽은 두 모델의 역할을 이렇게 나눴어요.</p>
-<ul>
-<li><strong>Opus 5.5</strong> — 신중한 판단이 필요한 복잡한 일</li>
-<li><strong>Sonnet 5.5</strong> — 범위가 정해진 <strong>일상 업무</strong>, <strong>버그 고치기</strong>, 깔끔한 <strong>문서·슬라이드·스프레드시트</strong> 만들기. “디자인 감각도 좋다”고 덧붙였어요</li>
-</ul>
-<p>공식 문서의 모델 비교표에서는 Sonnet 5.5를 <strong>속도와 지능의 가장 좋은 조합</strong>이라고 소개합니다. 응답 속도 칸에는 Opus 5.5가 ‘보통’, Sonnet 5.5가 ‘빠름’으로 적혀 있어요.</p>
-<h2 id="-2-가격과-스펙--이전-버전과-같은-값">💰 2. 가격과 스펙 — 이전 버전과 같은 값</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>항목</th><th>Sonnet 5</th><th><strong>Sonnet 5.5</strong></th><th>Opus 5.5</th></tr></thead><tbody><tr><td>입력 토큰 (100만 개당)</td><td>$2</td><td><strong>$2</strong></td><td>$4</td></tr><tr><td>출력 토큰 (100만 개당)</td><td>$10</td><td><strong>$10</strong></td><td>$20</td></tr><tr><td>캐시 읽기 (100만 개당)</td><td>$0.20</td><td><strong>$0.20</strong></td><td>$0.20</td></tr><tr><td>캐시 쓰기, 5분 (100만 개당)</td><td>$2.50</td><td><strong>$2.50</strong></td><td>$5</td></tr><tr><td>한 번에 읽는 분량 (컨텍스트)</td><td>—</td><td><strong>100만 토큰</strong></td><td>100만 토큰</td></tr><tr><td>한 번에 쓰는 최대 분량</td><td>—</td><td><strong>12만 8천 토큰</strong></td><td>12만 8천 토큰</td></tr><tr><td>기본 생각 강도 (API)</td><td>—</td><td><strong>high</strong></td><td>medium</td></tr></tbody></table>
-<p>몇 가지를 짚어 둘게요.</p>
-<ul>
-<li><strong>가격 동결</strong> — Sonnet 5의 $2/$10은 원래 8월 말까지의 출시 기념 가격이었고, 9월 1일부터 $3/$15로 오를 예정이었어요. 앤트로픽은 이 인상을 취소하고 $2/$10을 정식 가격으로 바꿨습니다. Sonnet 5.5도 같은 값이에요</li>
-<li><strong>일괄 처리</strong> — 급하지 않은 요청을 모아 보내는 배치 API는 절반 값(입력 $1, 출력 $5)입니다</li>
-<li><strong>생각 강도 기본값</strong> — Claude 앱과 Claude Code에서는 <strong>Medium</strong>, API(Claude Platform)에서는 <strong>High</strong>가 기본이에요</li>
-<li><strong>속도와 작업당 비용</strong> — “Sonnet 5보다 30% 이상 빠르게 답을 내는, 지금까지 가장 빠른 Sonnet”이고, 회사 측정으로는 같은 일을 맡겼을 때 비용이 <strong>최대 30% 적게</strong> 들었다고 합니다. 토큰 단가는 그대로이니, 같은 일을 더 적은 토큰으로 끝낸다는 뜻이에요 (6절에서 자세히 봅니다)</li>
-</ul>
-<h2 id="-3-성능-지표--공식-표-그대로">📊 3. 성능 지표 — 공식 표 그대로</h2>
-<p>앤트로픽 발표문에 실린 표입니다. 퍼센트로 된 6개 지표를 먼저 그림으로 보면 이렇습니다.</p>
-<p><img alt="Sonnet 5·Sonnet 5.5·Opus 5.5의 벤치마크 6개 비교 막대 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1520" src="/_astro/chart-benchmarks.BGAKtxwz_Z1mN3c1.webp" ></p>
-<p>전체 표예요. 칸이 비어 있는 곳은 발표문에도 값이 없는 곳입니다.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>벤치마크</th><th>무엇을 재나</th><th>Sonnet 5.5</th><th>Sonnet 5</th><th>Opus 5.5</th><th>GPT-6 Sol</th></tr></thead><tbody><tr><td>Terminal-Bench 4.0</td><td>터미널에서 일하는 에이전트 코딩</td><td><strong>70.6%</strong></td><td>10.3%</td><td>66.4% ¹</td><td>—</td></tr><tr><td>FrontierCode 1.1 (Main)</td><td>사람이 손대지 않고 합칠 수 있는 코드 수정</td><td>46.2% ²</td><td>42.4%</td><td><strong>54.4%</strong></td><td>49.3%</td></tr><tr><td>CursorBench 4.0</td><td>코딩 도구 Cursor 안의 작업</td><td>55.5%</td><td>34.1%</td><td><strong>57.8%</strong></td><td>—</td></tr><tr><td>GDPval-AA v2.1 ³</td><td>여러 직업의 실무 (Elo 점수)</td><td>1844</td><td>1449</td><td><strong>1846</strong></td><td>1487 ⁴</td></tr><tr><td>AA-Briefcase v1.1 ³</td><td>실무 과제 (Elo 점수, Artificial Analysis 측정)</td><td>1811</td><td>1359</td><td><strong>1822</strong></td><td>1483 ⁴</td></tr><tr><td>Humanity’s Last Exam</td><td>고난도 지식 문제 (도구 사용)</td><td>64.5%</td><td>54.9%</td><td><strong>67.7%</strong></td><td>—</td></tr><tr><td>OSWorld 2.1 (partial)</td><td>컴퓨터 화면 조작</td><td>80.1%</td><td>57.0%</td><td><strong>81.8%</strong></td><td>—</td></tr><tr><td>Chartography</td><td>차트 읽기 (도구 없음)</td><td>61.6%</td><td>15.6%</td><td><strong>64.4%</strong></td><td>53.6% ⁴</td></tr></tbody></table>
-<p>표 아래 각주가 중요해서 옮겨 둡니다.</p>
-<ul>
-<li>¹ Opus 5.5의 Terminal-Bench 값은 생각 강도를 <strong>Xhigh</strong>로 올렸을 때의 최고점이에요</li>
-<li>² Sonnet 5.5는 FrontierCode에서 <strong>Max</strong> 설정이 Xhigh보다 오히려 점수가 낮았대요. Max에서는 여러 하위 에이전트로 코드 검토를 쪼개 돌리는 일이 잦았고, 그 바람에 시간 초과가 나거나 과제 범위 밖까지 고친 경우가 있었다고 합니다. 이 지표는 범위 밖 수정을 감점하거든요</li>
-<li>³ 두 실무 지표는 출시 전 버전으로 잰 값인데, 그 버전에 정해진 형식으로 답하는 기능을 약하게 만드는 버그가 있었고 지금은 고쳤다고 해요. 회사는 “영향이 있더라도 작고, 실제보다 낮게 나왔을 것”이라고 봅니다</li>
-<li>⁴ GPT-6 Sol의 일부 점수는 OpenAI가 최근 고친 이미지 이해 버그가 반영되기 전 값일 수 있대요</li>
-</ul>
-<p><img alt="키를 재는 두 로봇 형제, 동생이 형과 거의 같은 키다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-siblings.CgCoLlGv_Z2x1eX9.webp" ></p>
-<h2 id="-4-이전-버전-sonnet-5와-무엇이-달라졌나">🔁 4. 이전 버전 Sonnet 5와 무엇이 달라졌나</h2>
-<p>8개 지표가 모두 올랐는데, 오른 폭이 고르지 않아요.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>지표</th><th>Sonnet 5 → Sonnet 5.5</th><th>차이</th></tr></thead><tbody><tr><td>Terminal-Bench 4.0</td><td>10.3% → 70.6%</td><td><strong>+60.3</strong></td></tr><tr><td>Chartography</td><td>15.6% → 61.6%</td><td><strong>+46.0</strong></td></tr><tr><td>OSWorld 2.1</td><td>57.0% → 80.1%</td><td>+23.1</td></tr><tr><td>CursorBench 4.0</td><td>34.1% → 55.5%</td><td>+21.4</td></tr><tr><td>Humanity’s Last Exam</td><td>54.9% → 64.5%</td><td>+9.6</td></tr><tr><td>FrontierCode 1.1</td><td>42.4% → 46.2%</td><td>+3.8</td></tr><tr><td>GDPval-AA v2.1 (Elo)</td><td>1449 → 1844</td><td>+395</td></tr><tr><td>AA-Briefcase v1.1 (Elo)</td><td>1359 → 1811</td><td>+452</td></tr></tbody></table>
-<p><strong>터미널에서 스스로 일하는 코딩</strong>과 <strong>차트 읽기</strong>가 크게 뛰었고, 컴퓨터 화면 조작과 두 실무 지표도 많이 올랐어요. 발표문에는 이런 문장도 있습니다. Sonnet 가운데 처음으로 <strong>화면만 보고 포켓몬 레드를 깼고</strong>, 글을 더 분명하게 쓰고, 도구를 쓸 때 거치는 단계와 토큰이 줄었다고요.</p>
-<h2 id="️-5-opus-55와-비교--반값-모델은-어디까지-왔나">⚖️ 5. Opus 5.5와 비교 — 반값 모델은 어디까지 왔나</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th></th><th>Opus 5.5</th><th>Sonnet 5.5</th><th></th></tr></thead><tbody><tr><td>입력 / 출력 (100만 토큰당)</td><td>$4 / $20</td><td>$2 / $10</td><td>Sonnet 5.5가 절반</td></tr><tr><td>Terminal-Bench 4.0</td><td>66.4% (Xhigh)</td><td><strong>70.6%</strong></td><td>Sonnet 5.5 +4.2</td></tr><tr><td>GDPval-AA v2.1 (Elo)</td><td>1846</td><td>1844</td><td>2점 차</td></tr><tr><td>AA-Briefcase v1.1 (Elo)</td><td>1822</td><td>1811</td><td>Opus 5.5 +11</td></tr><tr><td>OSWorld 2.1</td><td>81.8%</td><td>80.1%</td><td>Opus 5.5 +1.7</td></tr><tr><td>CursorBench 4.0</td><td>57.8%</td><td>55.5%</td><td>Opus 5.5 +2.3</td></tr><tr><td>Chartography</td><td>64.4%</td><td>61.6%</td><td>Opus 5.5 +2.8</td></tr><tr><td>Humanity’s Last Exam</td><td>67.7%</td><td>64.5%</td><td>Opus 5.5 +3.2</td></tr><tr><td>FrontierCode 1.1</td><td>54.4%</td><td>46.2% (Max)</td><td><strong>Opus 5.5 +8.2</strong></td></tr></tbody></table>
-<p>같은 일을 시켰을 때의 비용을 단순하게 계산해 보면, 입력 100만 토큰과 출력 20만 토큰짜리 일이 <strong>Opus 5.5는 $8</strong>($4 + 0.2 × $20), <strong>Sonnet 5.5는 $4</strong>($2 + 0.2 × $10)예요. 실제로는 모델마다 같은 일에 쓰는 토큰 수가 달라서 이 계산은 단가 비교일 뿐입니다.</p>
-<p>숫자만 보면 “이제 Opus 5.5는 필요 없나?” 싶지만, 앤트로픽은 발표문에 이렇게 선을 그었어요.</p>
-<blockquote>
-<p>“벤치마크 점수는 모델 능력의 한 면만 보여 줍니다. 우리 자체 시험과 외부 시험 모두에서, 오래 판단을 이어 가야 하는 복잡하고 열린 일에서는 Opus 5.5가 여전히 확실히 더 강합니다.”</p>
-</blockquote>
-<p>FrontierCode처럼 <strong>범위를 지키며 정확히 고치는 일</strong>에서 차이가 가장 큰 것도 같은 이야기로 읽혀요.</p>
-<h2 id="-6-작업당-비용--토큰-단가는-같아도-일-한-건-값은-다르다">💸 6. 작업당 비용 — 토큰 단가는 같아도 일 한 건 값은 다르다</h2>
-<p>택시 미터기 단가가 같아도, 길을 잘 아는 기사는 덜 돌아가니 요금이 덜 나오죠. 이번 발표에서 앤트로픽이 비용 이야기를 꺼낸 방식이 이 ‘덜 돌아가기’예요.</p>
-<p><strong>Sonnet 5와 비교 — 같은 단가, 더 적은 토큰.</strong> 발표문의 비용 항목은 이렇습니다. “Sonnet 5.5는 Sonnet 5와 같은 값(100만 토큰당 입력 $2, 출력 $10, 캐시 읽기 $0.20)이지만, 보통 같은 일을 훨씬 적은 토큰으로 해낸다. 우리 시험에서는 작업 한 건당 비용이 이전 모델보다 최대 30% 적었다.” 미리 써 본 사람들은 Sonnet 5.5가 도구 호출을 한데 묶어 보내는 일이 Sonnet 5보다 많아서, 단계가 줄고 비용이 낮아졌다고 했대요.</p>
-<p>발표문의 성능 그림 4개는 가로축이 모두 <strong>작업당 비용</strong>이에요. 생각 강도를 Low부터 Max까지 바꿔 가며 점수와 비용을 함께 찍었고, 왼쪽 위에 있을수록 1달러로 얻는 능력이 크다는 뜻입니다. 그림 설명에 적힌 비교를 옮기면 이래요.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>지표</th><th>Sonnet 5.5 설정</th><th>비교 상대</th><th>작업당 비용</th></tr></thead><tbody><tr><td>Terminal-Bench 4.0</td><td>Medium (앱 기본값)</td><td>Sonnet 5의 최고점을 크게 넘음</td><td>10분의 1 미만</td></tr><tr><td>CursorBench 4.0</td><td>Low</td><td>Sonnet 5의 최고점을 넘음</td><td>10분의 1 미만</td></tr><tr><td>AA-Briefcase v1.1</td><td>Medium</td><td>Sonnet 5의 최고점을 넘음</td><td>약 9분의 1</td></tr><tr><td>FrontierCode 1.1</td><td>High (API 기본값)</td><td>같은 High의 Sonnet 5보다 10점 높음</td><td>약 15분의 1</td></tr></tbody></table>
-<p>‘최대 30%‘와 ‘10분의 1’이 함께 나와 헷갈릴 수 있어요. 앞의 것은 회사가 같은 일을 맡겨 본 전반적인 수치이고, 표의 것은 지표 하나에서 정해진 설정끼리 맞대 본 값(대부분 Sonnet 5.5는 낮은 설정, Sonnet 5는 가장 잘 나온 설정)입니다. 둘 다 회사가 잰 값이에요.</p>
-<p><strong>Opus 5.5와 비교 — ‘반값에 Opus급’일까.</strong> 토큰 단가는 확실히 절반이에요. 입력 $2 대 $4, 출력 $10 대 $20, 5분 캐시 쓰기 $2.50 대 $5. 캐시 읽기만 둘 다 $0.20으로 같습니다. 그런데 ‘같은 성능을 반값에’라고 하기엔 회사 설명이 더 조심스러워요.</p>
-<ul>
-<li>“여러 평가에서 <strong>Max 설정</strong>의 Sonnet 5.5는 Opus 5.5와 비슷한 성적까지 낸다”</li>
-<li>“Sonnet 5.5는 <strong>낮은 설정</strong>으로 돌릴 때 Opus 5.5를 가장 잘 보완하고, 그때 작업당 비용이 적다. <strong>높은 설정에서는 비슷한 비용으로 비슷한 성능</strong>을 낼 수 있다”</li>
-</ul>
-<p>정리하면, Opus 5.5에 맞먹는 점수는 생각 강도를 끝까지 올렸을 때 나오고, 설정을 올릴수록 더 오래 일해서 건당 비용도 오르기 때문에 그 지점에서는 일 한 건 값이 Opus 5.5와 비슷해진다는 거예요. 반값 효과가 가장 큰 건 Low·Medium으로 충분한 일입니다. 시스템 카드 요약표를 보면 코딩 지표 SWE-Bench Pro처럼 아직 격차가 큰 항목(Sonnet 5.5 81.3%, Opus 5.5 89.9%)도 남아 있어요.</p>
-<h2 id="️-7-안전-조치--처음으로-윗급-수준을-단-sonnet">🛡️ 7. 안전 조치 — 처음으로 윗급 수준을 단 Sonnet</h2>
-<p>성능이 오르면서 안전 조치도 한 단계 올렸습니다.</p>
-<ul>
-<li><strong>사이버보안</strong> — 해킹 쪽 능력이 Opus 5와 비슷한 수준이라, 이전에는 최상위 모델에만 붙이던 제한을 달고 나왔어요. 평소처럼 내 코드의 버그를 찾고 고치는 건 되지만, <strong>위험도가 높은 사이버보안 작업은 눈에 보이게 Sonnet 5로 넘어가서</strong> 처리됩니다</li>
-<li><strong>생각 빼내기 방지</strong> — 모델의 생각 과정을 빼내 다른 모델 학습에 쓰는 시도를 막는 분류기를 단 <strong>첫 Sonnet</strong>이에요</li>
-<li><strong>생각 기록의 주인</strong> — ‘보존된 생각’ 기능을 넓혀서, Claude의 생각 기록을 그 기록을 만든 계정에서 떼어 쓸 수 없게 했대요</li>
-<li><strong>생명과학 쪽 안전 조치</strong>는 Sonnet 5와 같은 수준이라고 밝혔어요</li>
-</ul>
-<p><img alt="빛나는 생각 말풍선을 공책에 베끼려는 작은 로봇을 방패로 막는 경비 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-thought-guard.DaieYAwU_Z1QmJ39.webp" ></p>
-<h2 id="-8-그래서-누구에게-무슨-뜻인가">🎯 8. 그래서 누구에게 무슨 뜻인가</h2>
-<ul>
-<li><strong>Claude 앱을 쓰는 사람</strong> — 앱에서는 생각 강도 Medium이 기본이에요. 문서 정리, 슬라이드·표 만들기, 일상 질문은 Sonnet 5.5로 충분히 빠르고, 오래 고민해야 하는 기획·분석은 Opus 5.5를 고르는 식으로 나눠 쓰면 됩니다</li>
-<li><strong>Claude Code로 코딩하는 사람</strong> — Claude Code도 기본은 Medium이에요. 버그 고치기처럼 범위가 분명한 일은 Sonnet 5.5, 여러 파일을 오래 손보는 큰 작업은 Opus 5.5가 회사 설명과 맞는 선택입니다</li>
-<li><strong>API로 서비스를 만드는 사람</strong> — 모델 이름만 <code>claude-sonnet-5-5</code>로 바꾸면 되고, 단가가 Sonnet 5와 같아서 단가표는 그대로 두면 돼요(실제 청구액은 6절처럼 토큰이 줄어든 만큼 내려갈 수 있어요). 100만 토큰 컨텍스트도 추가 요금 없이 같은 단가입니다</li>
-</ul>
-<p><strong>모델 고르는 기준이 바뀌고 있다 — 필자의 생각.</strong> 이번 발표에서 가장 눈에 띈 건 성능 그림의 가로축이었어요. 점수 옆에 늘 ‘작업 한 건에 얼마’가 붙어 있었죠. 앤트로픽 개발자 문서(‘비용과 지능 최적화’)도 같은 말을 합니다. “가격표는 토큰 단위로 적혀 있지만, 돈은 끝낸 작업 단위로 낸다. 그러니 모델은 완료한 작업당 비용으로 비교하라.” 그리고 평범한 일 말고 <strong>가장 어려운 10%의 일</strong>로 비교하라고 덧붙여요. 값싼 모델이 실패한 일은 쓴 토큰값에 다시 돌리는 값까지 붙기 때문이래요.</p>
-<p>그래서 저는 회사나 팀이 AI를 들일 때, 그리고 실무 교육에서 모델 고르는 법을 가르칠 때도 기준이 <strong>‘가장 센 모델’에서 ‘일 한 건을 끝내는 데 드는 값’으로</strong> 옮겨 가고 있다고 봅니다. 해 볼 만한 방법은 단순해요. 자주 하는 일 몇 가지와 가장 까다로운 일 한두 가지를 골라 Sonnet 5.5(낮은 설정)와 Opus 5.5에 똑같이 맡기고, 결과가 쓸 만했는지와 건당 비용을 나란히 적어 보는 것. 숫자는 회사 발표보다 내 일에서 잰 값이 더 정확합니다.</p>
-<h2 id="한-줄-정리">한 줄 정리</h2>
-<p>Sonnet 5.5는 <strong>같은 값에 30% 빨라진 Sonnet</strong>이고, 코딩·화면 조작·실무 지표에서 Opus 5.5 바로 아래까지 올라왔어요. 다만 길게 판단해야 하는 일은 회사 스스로 Opus 5.5를 권합니다.</p>
-<p>윗급 모델 이야기는 <a href="/posts/20260925-claude-opus-5-5/">Opus 5.5 출시 글</a>에, Opus 5.5에 실제로 일을 맡겨 본 기록은 <a href="/posts/20261001-opus-5-5-hands-on/">실사용 후기</a>에 있어요.</p>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 1일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무엇이-나왔나" data-astro-cid-lvjzyg5v>1. 무엇이 나왔나</a></li><li data-astro-cid-lvjzyg5v><a href="#2-가격과-스펙" data-astro-cid-lvjzyg5v>2. 가격과 스펙</a></li><li data-astro-cid-lvjzyg5v><a href="#3-공식-지표-8개" data-astro-cid-lvjzyg5v>3. 공식 지표 8개</a></li><li data-astro-cid-lvjzyg5v><a href="#4-opus-55와-비교" data-astro-cid-lvjzyg5v>4. Opus 5.5와 비교</a></li><li data-astro-cid-lvjzyg5v><a href="#5-작업당-비용" data-astro-cid-lvjzyg5v>5. 작업당 비용</a></li><li data-astro-cid-lvjzyg5v><a href="#6-안전-조치" data-astro-cid-lvjzyg5v>6. 안전 조치</a></li><li data-astro-cid-lvjzyg5v><a href="#7-누구에게-무슨-뜻인가" data-astro-cid-lvjzyg5v>7. 누구에게 무슨 뜻인가</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-공식-발표-표-전체" data-astro-cid-lvjzyg5v>부록: 공식 발표 표 전체</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 앤트로픽과 아무 관계가 없습니다. 성능·가격 수치는 앤트로픽 공식 발표(2026-09-28)와 공식 문서 기준이며 독립 검증 전입니다. 삽화는 GPT 이미지 생성, 차트는 직접 제작했습니다.</blockquote> <h1 id="claude-sonnet-55-출시-가격성능과-opus-55-비교">Claude Sonnet 5.5 출시, 가격·성능과 Opus 5.5 비교</h1>
+<p><img alt="Claude Sonnet 5.5 출시 — 가격은 그대로, 30% 빨라진 소넷 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.DKywGCfZ_Md0QL.webp" ></p>
+<p class="cap">Claude Sonnet 5.5 출시 — 가격은 그대로, 30% 빨라진 소넷 (캐릭터는 GPT 이미지 생성)</p>
+<p>Claude Sonnet 5.5가 나왔다는 소식을 보면 이 질문부터 들어요. “그럼 이제 Opus는 안 써도 되나?” 가격·속도·공식 지표를 한자리에 놓고 보면 답이 보여요.</p>
+<p>자동차 신형이 나왔는데 가격표가 작년과 똑같다고 해 볼게요. 그런데 보닛을 열어 보니 엔진은 윗급 모델에 들어가던 것과 거의 같은 물건이에요. 2026년 9월 28일 앤트로픽이 내놓은 Claude Sonnet 5.5가 그런 모양이에요.<br>
+<strong>Claude Sonnet 5.5는 Sonnet 5와 같은 값에 30% 이상 빨라지고, 공식 지표 8개가 모두 오른 중간급 모델이에요.</strong></p>
+<div class="callout warn"><b class="ttl">⚠️ 출처 안내</b>성능·가격 수치는 2026년 9월 28일 앤트로픽 공식 발표와 공식 문서를 옮긴 거예요. 회사가 직접 잰 값이라 독립 검증 전이에요.</div>
+<p><img alt="가격표는 그대로, 엔진은 윗급 — 새 차 옆에 선 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-new-trim.QS2FvpBU_Z1OO3PN.webp" ></p>
+<p class="cap">가격표는 그대로, 엔진은 윗급 — 새 차 옆에 선 로봇 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: Claude 앱·Claude Code·API를 쓰는 분<br>① 가격·스펙과 Sonnet 5 대비 달라진 점<br>② 공식 지표 8개로 본 Opus 5.5와의 거리<br>③ 작업당 비용과 두 모델 고르는 기준<br>2026년 10월 1일 기준 · 9월 28일 발표</div>
 <hr>
-<p><em>2026년 10월 1일 기준이며, 10월 6일 ‘작업당 비용’(6절과 8절 끝) 내용을 덧붙였습니다. 성능·가격은 앤트로픽 공식 발표(2026-09-28), 시스템 카드, 공식 문서(모델 비교표·가격표·비용과 지능 최적화 안내)에서 옮겼고, 독립 검증 전 수치입니다. 가격은 바뀔 수 있으니 쓰기 전에 공식 가격표를 확인하세요.</em></p> </article> </main> <footer class="site">
+<h2 id="1-무엇이-나왔나">1. 무엇이 나왔나</h2>
+<p><strong>Sonnet 5.5는 Claude 5.5 계열의 두 번째 모델이고, 윗급은 Opus 5.5예요.</strong></p>
+<p>API 이름은 <code>claude-sonnet-5-5</code>이고, Claude 앱과 API, AWS·구글 클라우드·마이크로소프트 애저에서 쓸 수 있어요. 가볍고 많이 쓰는 용도의 Haiku 5.5는 ‘앞으로 몇 주 안에’ 나온다고 예고했어요.</p>
+<p>앤트로픽은 두 모델의 역할을 이렇게 나눴어요.<br>
+<strong>윗급 Opus 5.5</strong> — 신중한 판단이 필요한 복잡한 일<br>
+<strong>이번 Sonnet 5.5</strong> — 범위가 정해진 일상 업무, 버그 고치기, 깔끔한 문서·슬라이드·스프레드시트 만들기</p>
+<p>공식 모델 비교표는 Sonnet 5.5를 ‘속도와 지능의 가장 좋은 조합’이라고 소개해요. 응답 속도 칸에는 Sonnet 5.5가 ‘빠름’, Opus 5.5가 ‘보통’으로 적혀 있어요.</p>
+<h2 id="2-가격과-스펙">2. 가격과 스펙</h2>
+<p><strong>가격은 Sonnet 5와 같은 100만 토큰당 입력 2달러·출력 10달러예요.</strong> 공식 가격표와 모델 비교표의 값을 표로 옮겼어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>Sonnet 5.5</th></tr></thead><tbody><tr><td>입력 / 출력 (100만 토큰당)</td><td>$2 / $10 (Opus 5.5는 $4 / $20)</td></tr><tr><td>캐시 읽기 / 5분 캐시 쓰기</td><td>$0.20 / $2.50 (Opus 5.5는 $0.20 / $5)</td></tr><tr><td>배치 (모아 보내기)</td><td>입력 $1 · 출력 $5</td></tr><tr><td>한 번에 읽는 분량</td><td>100만 토큰</td></tr><tr><td>한 번에 쓰는 최대 분량</td><td>12만 8천 토큰</td></tr><tr><td>생각 강도 기본값</td><td>앱·Claude Code는 Medium, API는 High</td></tr></tbody></table>
+<p>Sonnet 5의 2달러·10달러는 원래 8월 말까지의 출시 기념 가격이었어요. 9월 1일부터 3달러·15달러로 오를 예정이었는데, 앤트로픽이 이 인상을 취소하고 정식 가격으로 바꿨어요. <mark>Sonnet 5.5도 Sonnet 5와 같은 값</mark>이에요.</p>
+<h2 id="3-공식-지표-8개">3. 공식 지표 8개</h2>
+<p><strong>공식 표의 지표 8개가 모두 올랐고, 터미널 코딩 지표는 10.3%에서 70.6%로 뛰었어요.</strong> 앤트로픽 발표 표에서 Sonnet 5, Sonnet 5.5, Opus 5.5 값을 옮겼어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>지표 (무엇을 재나)</th><th>Sonnet 5 → 5.5 (Opus 5.5)</th></tr></thead><tbody><tr><td>Terminal-Bench 4.0 (터미널 코딩)</td><td>10.3% → 70.6% (66.4%)</td></tr><tr><td>FrontierCode 1.1 (코드 수정)</td><td>42.4% → 46.2% (54.4%)</td></tr><tr><td>CursorBench 4.0 (Cursor 안 작업)</td><td>34.1% → 55.5% (57.8%)</td></tr><tr><td>GDPval-AA v2.1 (실무, Elo 점수)</td><td>1449 → 1844 (1846)</td></tr><tr><td>AA-Briefcase v1.1 (실무 과제, Elo 점수)</td><td>1359 → 1811 (1822)</td></tr><tr><td>Humanity’s Last Exam (도구 사용)</td><td>54.9% → 64.5% (67.7%)</td></tr><tr><td>OSWorld 2.1 (화면 조작)</td><td>57.0% → 80.1% (81.8%)</td></tr><tr><td>Chartography (차트 읽기)</td><td>15.6% → 61.6% (64.4%)</td></tr></tbody></table>
+<p><img alt="Claude Sonnet 5.5 벤치마크 — Sonnet 5·Sonnet 5.5·Opus 5.5의 공식 지표 6개 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="4084" src="/_astro/chart-benchmarks.Dzom4XI2_ZIXyTX.webp" ></p>
+<p class="cap">Claude Sonnet 5.5 벤치마크 — Sonnet 5·Sonnet 5.5·Opus 5.5의 공식 지표 6개 (직접 제작)</p>
+<p>표를 읽을 때 짚어 둘 점이 있어요.<br>
+<strong>측정 설정</strong> — Opus 5.5의 Terminal-Bench는 생각 강도 Xhigh, Sonnet 5.5의 FrontierCode는 Max에서 잰 값이에요. Sonnet 5.5는 이 지표에서 Max가 오히려 Xhigh보다 낮았대요. 하위 에이전트로 검토를 쪼개 돌리다 시간 초과가 나거나 과제 범위 밖까지 고친 경우가 있었다고 해요.<br>
+<strong>실무 지표 2개</strong> — 출시 전 버전으로 잰 값인데, 그 버전에 정해진 형식으로 답하는 기능을 약하게 만드는 버그가 있었고 지금은 고쳤대요. 회사는 실제보다 낮게 나왔을 거라고 봐요.</p>
+<p>Sonnet 가운데 처음으로 화면만 보고 포켓몬 레드를 깼다는 문장도 발표문에 있어요.</p>
+<h2 id="4-opus-55와-비교">4. Opus 5.5와 비교</h2>
+<p><strong>토큰 단가는 Opus 5.5의 절반인데, 터미널 코딩은 앞서고 실무 지표는 2점 차예요.</strong> 나머지 지표는 Opus 5.5가 조금씩 높아요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>Opus 5.5와 비교한 Sonnet 5.5</th></tr></thead><tbody><tr><td>토큰 단가</td><td>절반 ($2 / $10 대 $4 / $20)</td></tr><tr><td>앞선 지표</td><td>터미널 코딩 4.2%포인트</td></tr><tr><td>거의 같은 지표</td><td>실무(GDPval-AA) 2점, 화면 조작 1.7%포인트</td></tr><tr><td>조금 뒤진 지표</td><td>Cursor 2.3 · 차트 2.8 · 지식 3.2%포인트, 실무 과제 11점</td></tr><tr><td>가장 큰 차이</td><td>코드 수정(FrontierCode) 8.2%포인트</td></tr></tbody></table>
+<p><img alt="형과 거의 같은 키가 된 동생 — Opus 5.5와 Sonnet 5.5 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-siblings.CgCoLlGv_Z2x1eX9.webp" ></p>
+<p class="cap">형과 거의 같은 키가 된 동생 — Opus 5.5와 Sonnet 5.5 (GPT 이미지 생성)</p>
+<p>단가로만 계산하면 입력 100만·출력 20만 토큰짜리 일이 Opus 5.5는 <strong>8달러</strong>, Sonnet 5.5는 <strong>4달러</strong>예요. 실제로는 모델마다 같은 일에 쓰는 토큰 수가 달라서 단가 비교일 뿐이에요.</p>
+<p>그런데 앤트로픽은 발표문에 이렇게 선을 그었어요. “벤치마크 점수는 능력의 한 면만 보여 줍니다. 오래 판단을 이어 가야 하는 복잡하고 열린 일에서는 Opus 5.5가 여전히 확실히 더 강합니다.” 범위를 지키며 정확히 고치는 FrontierCode에서 차이가 가장 큰 것도 같은 이야기로 읽혀요.</p>
+<p><strong>이런 일은 Sonnet 5.5</strong> — 문서 정리, 슬라이드·표 만들기, 범위가 분명한 버그 고치기<br>
+<strong>이런 일은 Opus 5.5</strong> — 오래 고민해야 하는 기획·분석, 여러 파일을 오래 손보는 큰 작업</p>
+<h2 id="5-작업당-비용">5. 작업당 비용</h2>
+<p><strong>토큰 단가는 Sonnet 5와 같지만, 같은 일을 더 적은 토큰으로 끝내서 작업 한 건당 비용이 최대 30% 적었대요(회사 시험).</strong></p>
+<p>택시 미터기 단가가 같아도 길을 잘 아는 기사는 덜 돌아가니 요금이 덜 나오죠. 앤트로픽이 비용 이야기를 꺼낸 방식이 이 ‘덜 돌아가기’예요. 미리 써 본 사람들은 Sonnet 5.5가 도구 호출을 한데 묶어 보내는 일이 많아서 단계가 줄었다고 했대요.</p>
+<p>지표 하나씩 보면 차이가 더 큰 곳도 있어요. 발표문 그림 설명에 적힌 비교예요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>지표 · Sonnet 5.5 설정</th><th>Sonnet 5와 비교한 작업당 비용</th></tr></thead><tbody><tr><td>터미널 코딩 · Medium 설정</td><td>Sonnet 5 최고점을 넘고 10분의 1 미만</td></tr><tr><td>Cursor 안 작업 · Low 설정</td><td>Sonnet 5 최고점을 넘고 10분의 1 미만</td></tr><tr><td>실무 과제 · Medium 설정</td><td>Sonnet 5 최고점을 넘고 약 9분의 1</td></tr><tr><td>코드 수정 · High 설정</td><td>같은 High의 Sonnet 5보다 10점 높고 약 15분의 1</td></tr></tbody></table>
+<p>‘최대 30%’는 전반적인 수치이고, 표는 지표 하나에서 정해진 설정끼리 맞대 본 값이에요.</p>
+<p><strong>Opus 5.5와 견주면 회사 설명이 더 조심스러워요.</strong> 토큰 단가는 절반이지만(캐시 읽기만 둘 다 0.2달러), 회사 설명은 “낮은 설정에서 작업당 비용이 적고, 높은 설정에서는 비슷한 비용으로 비슷한 성능”이에요. Opus 5.5에 맞먹는 점수는 생각 강도를 끝까지 올렸을 때 나오고, 그때는 일 한 건 값도 비슷해진다는 뜻이에요. 시스템 카드에는 SWE-Bench Pro처럼 격차가 남은 지표(81.3% 대 89.9%)도 있어요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>반값 효과가 가장 큰 건 Low·Medium 설정으로 충분한 일이에요.</div>
+<h2 id="6-안전-조치">6. 안전 조치</h2>
+<p><strong>성능이 오르면서 안전 조치도 윗급 수준으로 올렸어요.</strong><br>
+<strong>사이버보안</strong> — 해킹 쪽 능력이 Opus 5와 비슷해서, 위험도가 높은 사이버보안 작업은 눈에 보이게 Sonnet 5로 넘어가 처리돼요. 내 코드의 버그를 찾고 고치는 건 평소처럼 돼요.<br>
+<strong>생각 빼내기 방지</strong> — 생각 과정을 빼내 다른 모델 학습에 쓰는 시도를 막는 분류기를 단 첫 Sonnet이에요.<br>
+<strong>생각 기록의 주인</strong> — 생각 기록을 그 기록을 만든 계정에서 떼어 쓸 수 없게 했어요.<br>
+<strong>생명과학</strong> — 안전 조치는 Sonnet 5와 같은 수준이래요.</p>
+<h2 id="7-누구에게-무슨-뜻인가">7. 누구에게 무슨 뜻인가</h2>
+<p><strong>쓰는 도구에 따라 이렇게 나눠 보면 돼요.</strong><br>
+<strong>Claude 앱 사용자</strong> — 기본 생각 강도가 Medium이에요. 문서 정리·슬라이드·일상 질문은 Sonnet 5.5, 오래 고민할 기획·분석은 Opus 5.5로 나눠 쓰면 돼요.<br>
+<strong>Claude Code 사용자</strong> — 기본은 Medium이에요. 범위가 분명한 버그는 Sonnet 5.5, 여러 파일을 오래 손보는 작업은 Opus 5.5가 회사 설명과 맞아요.<br>
+<strong>API 사용자</strong> — 모델 이름만 <code>claude-sonnet-5-5</code>로 바꾸면 되고 단가표는 Sonnet 5 그대로예요. 실제 청구액은 토큰이 줄어든 만큼 내려갈 수 있어요.</p>
+<p><strong>제 생각 — 모델 고르는 기준이 바뀌고 있어요.</strong> 이번 발표의 성능 그림은 가로축이 전부 ‘작업 한 건에 얼마’였어요. 앤트로픽 개발자 문서도 “돈은 끝낸 작업 단위로 내니, 완료한 작업당 비용으로 비교하라”고 하고, 가장 어려운 10%의 일로 비교하라고 덧붙여요.</p>
+<p>그래서 저는 기준이 ‘가장 센 모델’에서 <mark>일 한 건을 끝내는 데 드는 값</mark>으로 옮겨 가고 있다고 봐요. 자주 하는 일과 가장 까다로운 일을 Sonnet 5.5(낮은 설정)와 Opus 5.5에 똑같이 맡겨 보고, 결과와 건당 비용을 나란히 적어 보는 게 회사 발표 숫자보다 정확해요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 같은 값에 30% 이상 빨라진 Sonnet<br>② 지표 8개 모두 올라 Opus 5.5 바로 아래<br>③ 작업당 비용은 Sonnet 5보다 최대 30% 적게<br>④ 길게 판단할 일은 회사도 Opus 5.5 권장</div>
+<p>윗급 모델 이야기는 Opus 5.5 출시 글에 있어요.</p>
+<p class="nextpost">→ <a href="/posts/20260925-claude-opus-5-5/">Claude Opus 5.5 벤치마크·가격, Fable 5.1과 비교</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>앤트로픽 발표 — Claude Sonnet 5.5 소개 · <a href="https://anthropic.com/claude-sonnet-5-5">anthropic.com/claude-sonnet-5-5</a></li>
+<li>Claude 공식 문서 — 가격표 · <a href="https://platform.claude.com/docs/en/about-claude/pricing">platform.claude.com/docs/en/about-claude/pricing</a></li>
+<li>Claude 공식 문서 — 비용과 지능 최적화 · <a href="https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence">platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>2026년 10월 1일 기준 (발표 9월 28일)<br>10월 6일 작업당 비용 내용 추가<br>공식 발표·시스템 카드·공식 문서 기준<br>회사가 잰 값 · 독립 검증 전<br>제휴 없음 · 앤트로픽과 관계 없음<br>캐릭터는 GPT 생성, 차트는 직접 제작</div>
+<h2 id="부록-공식-발표-표-전체">부록: 공식 발표 표 전체</h2>
+<p>앤트로픽 발표문(2026-09-28)의 표를 그대로 옮겼어요. 칸이 빈 곳은 발표문에도 값이 없는 곳이에요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>벤치마크</th><th>Sonnet 5.5</th><th>Sonnet 5</th><th>Opus 5.5</th><th>GPT-6 Sol</th></tr></thead><tbody><tr><td>Terminal-Bench 4.0</td><td><strong>70.6%</strong></td><td>10.3%</td><td>66.4% ¹</td><td>—</td></tr><tr><td>FrontierCode 1.1 (Main)</td><td>46.2% ²</td><td>42.4%</td><td><strong>54.4%</strong></td><td>49.3%</td></tr><tr><td>CursorBench 4.0</td><td>55.5%</td><td>34.1%</td><td><strong>57.8%</strong></td><td>—</td></tr><tr><td>GDPval-AA v2.1 ³ (Elo)</td><td>1844</td><td>1449</td><td><strong>1846</strong></td><td>1487 ⁴</td></tr><tr><td>AA-Briefcase v1.1 ³ (Elo)</td><td>1811</td><td>1359</td><td><strong>1822</strong></td><td>1483 ⁴</td></tr><tr><td>Humanity’s Last Exam (도구 사용)</td><td>64.5%</td><td>54.9%</td><td><strong>67.7%</strong></td><td>—</td></tr><tr><td>OSWorld 2.1 (partial)</td><td>80.1%</td><td>57.0%</td><td><strong>81.8%</strong></td><td>—</td></tr><tr><td>Chartography (도구 없음)</td><td>61.6%</td><td>15.6%</td><td><strong>64.4%</strong></td><td>53.6% ⁴</td></tr></tbody></table>
+<ul>
+<li>¹ Opus 5.5의 Terminal-Bench 값은 생각 강도를 Xhigh로 올렸을 때의 최고점이에요</li>
+<li>² Sonnet 5.5는 FrontierCode에서 Max 설정이 Xhigh보다 오히려 낮았대요. Max에서는 여러 하위 에이전트로 코드 검토를 쪼개 돌리는 일이 잦았고, 그 바람에 시간 초과가 나거나 과제 범위 밖까지 고친 경우가 있었다고 해요. 이 지표는 범위 밖 수정을 감점해요</li>
+<li>³ 두 실무 지표는 출시 전 버전으로 잰 값인데, 그 버전에 정해진 형식으로 답하는 기능을 약하게 만드는 버그가 있었고 지금은 고쳤대요. 회사는 “영향이 있더라도 작고, 실제보다 낮게 나왔을 것”이라고 봐요</li>
+<li>⁴ GPT-6 Sol의 일부 점수는 OpenAI가 최근 고친 이미지 이해 버그가 반영되기 전 값일 수 있대요. AA-Briefcase는 Artificial Analysis가 잰 실무 과제 지표예요</li>
+</ul>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260925-claude-opus-5-5/">Opus 5.5 출시</a> · <a href="/posts/20261001-opus-5-5-hands-on/">Opus 5.5 실사용 후기</a> · <a href="/posts/20261001-gpt-6-1-sol/">GPT-6.1 Sol 발표</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

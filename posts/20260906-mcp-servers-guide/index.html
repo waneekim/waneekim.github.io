@@ -1,41 +1,122 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>MCP 서버 추천 — 매일 쓰는 6개와 연결 전 확인할 것</title><meta name="description" content="MCP 개념을 알았다면 다음은 '뭘 연결하나'다. 실제로 매일 쓰는 커넥터 6개를 용도별로 추천하고, 아무 서버나 연결하면 안 되는 이유와 안전 기준을 정리했다."><meta property="og:title" content="MCP 서버 추천 — 매일 쓰는 6개와 연결 전 확인할 것"><meta property="og:description" content="MCP 개념을 알았다면 다음은 '뭘 연결하나'다. 실제로 매일 쓰는 커넥터 6개를 용도별로 추천하고, 아무 서버나 연결하면 안 되는 이유와 안전 기준을 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>MCP 서버 추천, 실제로 연결해 쓰는 6개와 연결 전 확인할 것</title><meta name="description" content="MCP 개념을 알았다면 다음은 '뭘 연결하나'다. 실제로 연결해 쓰는 클로드 커넥터 6개(Gmail·캘린더·노션·드라이브·슬랙·피그마)와 요청 예시, 연결 전 확인할 3가지, 연결하고 확인하는 법까지 — 공식 문서와 대조해 정리했다."><meta property="og:title" content="MCP 서버 추천, 실제로 연결해 쓰는 6개와 연결 전 확인할 것"><meta property="og:description" content="MCP 개념을 알았다면 다음은 '뭘 연결하나'다. 실제로 연결해 쓰는 클로드 커넥터 6개(Gmail·캘린더·노션·드라이브·슬랙·피그마)와 요청 예시, 연결 전 확인할 3가지, 연결하고 확인하는 법까지 — 공식 문서와 대조해 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 6일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다. 언급된 어떤 서비스로부터도 대가를 받지 않았습니다.</blockquote> <h1 id="mcp-서버-추천--매일-쓰는-6개와-연결-전-확인할-것">MCP 서버 추천 — 매일 쓰는 6개와 연결 전 확인할 것</h1>
-<p><img alt="여러 케이블을 정리하는 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="720" height="720" src="/_astro/char-cables.B7KYdH_d_16DjwT.webp" ></p>
-<p><a href="/posts/20260906-mcp-explained/">MCP가 뭔지</a> 알았다면 다음 질문은 하나입니다 — “그래서 뭘 연결하죠?” 이 글은 서버 목록 나열이 아니라, <strong>제가 실제로 연결해 두고 매일 쓰는 것들</strong>을 용도별로 추천합니다. 그리고 그보다 중요한, 연결 전에 확인해야 할 안전 기준부터 말씀드립니다.</p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li>시작은 <strong>공식 커넥터</strong>부터 — 도구를 만든 회사가 직접 운영하는 서버만 연결해도 업무 자동화의 80%가 됩니다</li>
-<li>첫 3개 추천: <strong>메일(Gmail) + 캘린더 + 문서(노션 또는 드라이브)</strong> — 이 조합이 체감이 가장 큽니다</li>
-<li>출처 불분명한 서버는 연결하지 마세요. MCP는 AI에게 내 데이터의 <strong>실권한</strong>을 주는 기술입니다</li>
-</ul>
-<h2 id="️-0-연결-전-안전-기준--이것부터">⚠️ 0. 연결 전 안전 기준 — 이것부터</h2>
-<p>MCP 서버를 연결한다는 건 AI에게 그 서비스의 열쇠를 주는 일입니다. 제 기준은 세 가지입니다.</p>
-<p>① <strong>공식 제공처인가</strong> — 그 서비스를 만든 회사가 직접 운영하는 서버·커넥터인가
-② <strong>권한 범위가 보이는가</strong> — 연결 시 어떤 권한(읽기/쓰기/삭제)을 요구하는지 확인되는가
-③ <strong>없어도 되는 건 안 붙인다</strong> — 쓸 일 없는 연결은 그 자체가 리스크입니다</p>
-<p><img alt="MCP 연결 안전 체크 3단계 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1120" src="/_astro/diagram-mcp-safety.CET5zGWP_SS7MA.webp" ></p>
-<h2 id="-1-실사용-추천-6개-전부-공식-커넥터">🔌 1. 실사용 추천 6개 (전부 공식 커넥터)</h2>
-<p><strong>① Gmail — 체감 1위.</strong> “지난주 세금계산서 메일 찾아 요약해줘”, “이 내용으로 나에게 메일 보내줘”가 됩니다. 저는 폰으로 자료를 보낼 때도 AI에게 메일 발송을 시킵니다.</p>
-<p><strong>② 구글 캘린더.</strong> 일정 조회·생성·조정. “다음 주 비는 시간에 미팅 잡아줘”가 한 문장으로 끝납니다.</p>
-<p><strong>③ 노션.</strong> 회의록 정리, 문서 생성, 데이터베이스 조회. 개인 위키를 쓰는 분이라면 AI가 그 위키를 읽고 쓰게 되는 경험이 큽니다.</p>
-<p><strong>④ 구글 드라이브.</strong> 파일 검색·내용 읽기. “그 보고서 어디 있더라”를 AI가 대신 찾아줍니다.</p>
-<p><strong>⑤ 슬랙.</strong> 채널 요약, 메시지 검색·발송. 팀에서 일하는 분이라면 회의 전 “이 채널 이번 주 논의 요약해줘”가 유용합니다.</p>
-<p><strong>⑥ 피그마.</strong> 디자인 파일을 읽고 다이어그램을 생성합니다. 디자이너가 아니어도 문서용 도식을 만들 때 씁니다.</p>
-<p>공통점이 보이실 겁니다 — 전부 <strong>이미 쓰고 있는 서비스의 공식 연결</strong>입니다. 새 도구를 배우는 게 아니라, 쓰던 도구에 AI 손발이 달리는 것에 가깝습니다.</p>
-<h2 id="-2-개발자라면-조사-기반--생태계-표준으로-자리-잡은-것들">🧑‍💻 2. 개발자라면 (조사 기반 — 생태계 표준으로 자리 잡은 것들)</h2>
-<p>코딩 쪽에서는 GitHub(저장소·이슈·PR), 파일시스템, 브라우저 자동화(Playwright), 데이터베이스(PostgreSQL 등) 서버가 널리 쓰입니다. <a href="/posts/20260906-claude-code-usage/">Claude Code</a> 같은 코딩 에이전트에 붙이면 “이슈 확인 → 코드 수정 → PR 생성”이 한 흐름으로 이어집니다.</p>
-<h2 id="-3-시작-조합-추천">🎯 3. 시작 조합 추천</h2>
-<ul>
-<li><strong>직장인 기본</strong>: Gmail + 캘린더 + (노션 또는 드라이브)</li>
-<li><strong>팀 리더</strong>: 위 조합 + 슬랙</li>
-<li><strong>개발자</strong>: GitHub + 파일시스템 + 쓰는 DB</li>
-</ul>
-<p>한 번에 다 붙이지 말고, 하나 연결해서 일주일 써보고 다음을 붙이는 걸 권합니다. 연결 수가 늘수록 편해지지만, 관리해야 할 권한도 늘어납니다.</p>
-<h2 id="-다음-단계">🚀 다음 단계</h2>
-<p>MCP 개념이 아직 낯설다면: <a href="/posts/20260906-mcp-explained/">MCP 뜻 — 5분 설명</a> · 연결한 도구로 일을 시키는 방법은: <a href="/posts/20260906-claude-code-usage/">Claude Code 사용법</a></p>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-연결-전에-확인할-3가지" data-astro-cid-lvjzyg5v>1. 연결 전에 확인할 3가지</a></li><li data-astro-cid-lvjzyg5v><a href="#2-추천-6개-한눈에-보기" data-astro-cid-lvjzyg5v>2. 추천 6개 한눈에 보기</a></li><li data-astro-cid-lvjzyg5v><a href="#3-메일캘린더문서부터" data-astro-cid-lvjzyg5v>3. 메일·캘린더·문서부터</a></li><li data-astro-cid-lvjzyg5v><a href="#4-팀이라면-슬랙-도식은-피그마" data-astro-cid-lvjzyg5v>4. 팀이라면 슬랙, 도식은 피그마</a></li><li data-astro-cid-lvjzyg5v><a href="#5-개발자라면-github파일브라우저" data-astro-cid-lvjzyg5v>5. 개발자라면 GitHub·파일·브라우저</a></li><li data-astro-cid-lvjzyg5v><a href="#6-연결하고-확인하는-법" data-astro-cid-lvjzyg5v>6. 연결하고 확인하는 법</a></li><li data-astro-cid-lvjzyg5v><a href="#막힐-때" data-astro-cid-lvjzyg5v>막힐 때</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다. 언급된 어떤 서비스로부터도 대가를 받지 않았습니다.</blockquote> <h1 id="mcp-서버-추천-실제로-연결해-쓰는-6개와-연결-전-확인할-것">MCP 서버 추천, 실제로 연결해 쓰는 6개와 연결 전 확인할 것</h1>
+<p><img alt="MCP 서버 추천 — 실제로 연결해 쓰는 6개 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.CPvUKdjD_1Lv2av.webp" ></p>
+<p class="cap">MCP 서버 추천 — 실제로 연결해 쓰는 6개 (캐릭터는 GPT 이미지 생성)</p>
+<p>MCP가 뭔지 알고 나면 다음 질문은 하나예요. “그래서 뭘 연결하지?” 검색하면 서버 목록은 잔뜩 나오는데, 무엇부터 붙여야 하는지는 잘 알려 주지 않아요.</p>
+<p>MCP 서버를 연결하는 일은 도우미에게 집 열쇠를 맡기는 일과 비슷해요. 누가 만든 열쇠인지 보고, 어느 방 열쇠인지 확인하고, 안 쓰는 열쇠는 돌려받아요.<br>
+<strong>MCP 서버는 많이 붙이는 것보다, 믿을 수 있는 것부터 하나씩 붙이는 게 핵심이에요.</strong></p>
+<p><img alt="도우미 로봇에게 메일·일정·문서 열쇠를 건네는 장면 — MCP 서버 연결을 열쇠 맡기기에 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-key-ring.Be4WASq__Zgkb2L.webp" ></p>
+<p class="cap">도우미 로봇에게 메일·일정·문서 열쇠를 건네는 장면 — MCP 서버 연결을 열쇠 맡기기에 빗댄 그림 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: MCP 뜻을 알고 연결해 보려는 분<br>① 연결 전에 확인할 3가지<br>② 실제로 연결해 쓰는 커넥터 6개와 요청 예시<br>③ 처음 붙일 조합과 연결·확인하는 법<br>준비물: 클로드 계정 · 쓰고 있는 서비스 계정<br>2026년 10월 기준 · 클로드 코드 2.1.268</div>
 <hr>
-<p><em>기준: 2026-09-06 실사용 구성. 커넥터 제공 범위는 서비스·요금제에 따라 다를 수 있습니다. 다이어그램은 직접 제작, 캐릭터 삽화는 GPT 이미지 생성입니다.</em></p> </article> </main> <footer class="site">
+<h2 id="1-연결-전에-확인할-3가지">1. 연결 전에 확인할 3가지</h2>
+<p><strong>연결은 AI에게 그 서비스의 데이터를 읽고 바꿀 권한을 주는 일이라, 붙이기 전에 세 가지를 봐요.</strong> 클로드 도움말도 연결하면 내 계정 권한 안에서 데이터에 접근하고, 바꿀 수도 있다고 적어 두었어요.</p>
+<p><img alt="MCP 서버 연결 전 확인할 3가지 — 공식 제공처, 요구하는 권한, 꼭 필요한지 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="2480" src="/_astro/diagram-mcp-safety.CREPhskz_1ptPaU.webp" ></p>
+<p class="cap">MCP 서버 연결 전 확인할 3가지 — 공식 제공처, 요구하는 권한, 꼭 필요한지 (직접 제작)</p>
+<p><strong>① 공식 제공처인가</strong> — 그 서비스를 만든 회사가 직접 운영하는 서버인지 봐요.<br>
+<strong>② 권한이 보이는가</strong> — 읽기·쓰기·삭제 중 무엇을 달라고 하는지 연결 화면에서 확인해요.<br>
+<strong>③ 꼭 필요한가</strong> — 쓸 일 없는 연결은 그 자체가 위험이라 붙이지 않아요.</p>
+<p>이 세 가지는 클로드 공식 도움말의 안내와도 같아요. 믿을 수 있고 필요한 서비스만 연결하고, 연결할 때 요청하는 권한을 살피고, 안 쓰는 서비스는 연결을 끊으라고 해요.</p>
+<h2 id="2-추천-6개-한눈에-보기">2. 추천 6개 한눈에 보기</h2>
+<p><strong>제가 클로드에 연결해 두고 쓰는 커넥터는 아래 여섯 개예요. 전부 원래 쓰던 서비스예요.</strong> 클로드에서는 claude.ai에 추가한 MCP 서버를 커넥터(connector)라고 불러요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>커넥터</th><th>이런 일을 시켜요</th></tr></thead><tbody><tr><td>Gmail (지메일)</td><td>메일 찾기·요약, 메일 보내기</td></tr><tr><td>구글 캘린더</td><td>일정 보기·만들기, 빈 시간 찾기</td></tr><tr><td>노션</td><td>회의록 정리, 페이지 만들기, DB 조회</td></tr><tr><td>구글 드라이브</td><td>파일 찾기, 내용 읽기</td></tr><tr><td>슬랙</td><td>채널 요약, 메시지 검색·보내기</td></tr><tr><td>피그마</td><td>디자인 읽기, 문서용 도식 만들기</td></tr></tbody></table>
+<p>여섯 개 모두 그 서비스를 만든 회사의 주소로 연결돼요. 제 클로드 코드 연결 목록을 보면 Gmail·캘린더·드라이브는 <code>googleapis.com</code>, 노션은 <code>mcp.notion.com</code>, 슬랙은 <code>mcp.slack.com</code>, 피그마는 <code>mcp.figma.com</code>이에요. <mark>새 도구를 배우는 게 아니라 쓰던 도구에 손발을 다는 것</mark>에 가까워요.</p>
+<h2 id="3-메일캘린더문서부터">3. 메일·캘린더·문서부터</h2>
+<p><strong>처음 세 개를 고른다면 메일, 캘린더, 문서(노션이나 드라이브)예요. 매일 손이 가는 일이라 바로 차이가 나요.</strong> Gmail을 연결하면 메일함을 뒤지는 일을 말로 시킬 수 있어요. 저는 폰으로 자료를 옮길 때도 AI에게 제 메일로 보내 달라고 시켜요.</p>
+<p class="plabel">📋 그대로 복사해 쓰세요</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>지난주 온 세금계산서 메일 찾아서 요약해줘</span></span></code></pre>
+<p>구글 캘린더를 연결했다면 이렇게요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>다음 주 일정 보고 비는 시간에 30분 미팅 잡아줘</span></span></code></pre>
+<p>드라이브를 연결했다면 “그 보고서 어디 있더라”를 이렇게 물어요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>드라이브에서 지난달 주간 보고 파일을 찾아서 핵심만 3줄로 알려줘</span></span></code></pre>
+<p>노션은 회의록 정리와 페이지 만들기에 써요. 개인 위키를 노션에 두고 있다면, AI가 그 위키를 읽고 쓰게 되는 차이가 커요.</p>
+<h2 id="4-팀이라면-슬랙-도식은-피그마">4. 팀이라면 슬랙, 도식은 피그마</h2>
+<p><strong>팀에서 일한다면 슬랙을 더하세요.</strong> 회의 전에 채널 논의를 요약시키는 데 쓸모가 커요. 슬랙을 연결했다면 이렇게 시켜요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>이 채널 이번 주 논의를 정해진 것과 남은 질문으로 나눠서 요약해줘</span></span></code></pre>
+<p>피그마 커넥터는 디자인 파일을 읽고 다이어그램을 만들어 줘요. 디자이너가 아니어도 문서에 넣을 도식을 만들 때 써요.<br>
+<strong>슬랙과 피그마는 메일·캘린더·문서가 손에 익은 뒤에 붙여도 늦지 않아요.</strong></p>
+<h2 id="5-개발자라면-github파일브라우저">5. 개발자라면 GitHub·파일·브라우저</h2>
+<p><strong>코딩을 한다면 저장소·파일·브라우저를 다루는 서버가 많이 쓰여요.</strong> 이 절은 제가 직접 연결해 쓴 게 아니라 각 공식 저장소를 읽고 정리한 거예요.</p>
+<p><strong>GitHub MCP 서버</strong> — GitHub가 직접 내는 서버예요. 저장소 코드 읽기, 이슈·PR 관리, 워크플로 확인을 말로 시킬 수 있어요.<br>
+<strong>Playwright MCP 서버</strong> — 마이크로소프트가 내는 브라우저 자동화 서버예요. AI가 웹 페이지를 열고 눌러 볼 수 있어요.<br>
+<strong>Filesystem 서버</strong> — MCP 공식 저장소에 있는 참고용 서버예요. 정해 둔 폴더의 파일을 읽고 써요.</p>
+<p>클로드 코드 같은 코딩 에이전트에 붙이면 이슈 확인, 코드 수정, PR 만들기가 한 흐름으로 이어져요. 다만 MCP 공식 저장소는 참고용 서버가 교육용 예시이고 그대로 실제 운영에 쓰라고 만든 게 아니라고 적어 두었어요. 예전에 있던 PostgreSQL 참고 서버도 지금은 보관(archived) 목록으로 옮겨졌어요.</p>
+<h2 id="6-연결하고-확인하는-법">6. 연결하고 확인하는 법</h2>
+<p><strong>커넥터는 클로드 설정에서 고르고, 그 서비스에 로그인해 접근을 허락하면 연결돼요.</strong></p>
+<ol class="steps"><li>클로드 웹이나 데스크톱에서 <code>Customize > Connectors</code>를 여세요(영어 화면 기준).<span class="then">→ 커넥터 설정 화면이 열려요.</span></li><li><code>Connectors</code> 옆의 <code>+</code> 버튼을 누르세요.<span class="then">→ 연결할 수 있는 커넥터가 분류별로 떠요.</span></li><li>연결할 서비스를 눌러 설명과 할 수 있는 일을 읽어 보세요.<span class="then">→ 1번의 ①과 ②를 여기서 확인해요.</span></li><li><code>Connect</code>를 누르고 그 서비스의 로그인 안내를 따라가세요.<span class="then">→ 계정 접근을 허락하면 연결이 끝나요.</span></li><li>클로드 코드를 쓴다면 터미널에 아래 한 줄을 입력하세요.</li></ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">claude mcp list</span></span></code></pre>
+<p>→ 연결된 서버가 한 줄씩 떠요. 이 머신(클로드 코드 <code>2.1.268</code>)에서는 위 여섯 개가 모두 <code>Connected</code>로 보여요.<br>
+→ claude.ai 계정으로 로그인한 클로드 코드라면, claude.ai에서 연결한 커넥터가 따로 추가하지 않아도 따라와요.</p>
+<p><strong>처음 붙일 조합은 하는 일에 따라 고르세요.</strong><br>
+<strong>직장인 기본</strong> — Gmail + 캘린더 + 노션 또는 드라이브<br>
+<strong>팀 리더</strong> — 위 조합 + 슬랙<br>
+<strong>개발자</strong> — GitHub + 파일시스템 + 쓰는 DB의 공식 서버</p>
+<p>한 번에 다 붙이지 말고, 하나 연결해서 일주일 써 보고 다음을 붙이세요. 연결이 늘수록 편해지지만 관리할 권한도 함께 늘어요.</p>
+<p><img alt="안 쓰는 열쇠를 돌려받아 열쇠함에 넣는 장면 — 쓰지 않는 커넥터는 연결 끊기 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-key-return.DsaoHF_P_Z22qC4u.webp" ></p>
+<p class="cap">안 쓰는 열쇠를 돌려받아 열쇠함에 넣는 장면 — 쓰지 않는 커넥터는 연결 끊기 (GPT 이미지 생성)</p>
+<p>쓰지 않게 된 커넥터는 같은 <code>Customize > Connectors</code> 화면에서 연결을 끊을 수 있어요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>회사 메일·사내 문서 계정은 연결하기 전에 회사 보안 규칙부터 확인하세요.</div>
+<h2 id="막힐-때">막힐 때</h2>
+<p><strong>회사 계정에서 커넥터를 추가할 수 없어요</strong><br>
+원인: 팀·엔터프라이즈 요금제는 관리자가 먼저 커넥터를 켜 줘야 해요.<br>
+해결: 관리자에게 요청하세요. 켜진 뒤에도 각자 자기 계정으로 로그인은 따로 해야 해요.</p>
+<p><strong>클로드 코드 목록에 커넥터가 안 떠요</strong><br>
+원인: 커넥터는 claude.ai 계정으로 로그인한 클로드 코드에만 자동으로 따라와요.<br>
+해결: claude.ai 계정으로 로그인했는지 확인하고, 커넥터는 claude.ai의 Customize > Connectors에서 추가하세요.</p>
+<p><strong>목록에 Needs authentication이라고 떠요</strong><br>
+원인: 커넥터는 추가했지만 그 서비스 로그인(인증)이 끝나지 않은 상태예요.<br>
+해결: Customize > Connectors에서 그 커넥터의 연결을 끊었다가 다시 연결하세요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 연결은 열쇠 맡기기, 3가지부터 확인<br>② 시작은 메일·캘린더·문서 세 개<br>③ 하나 붙여 일주일 써 본 뒤 다음<br>④ 안 쓰는 커넥터는 연결 끊기</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 무료 요금제에서도 연결할 수 있나요?</summary><p>클로드 도움말에 따르면 웹 커넥터는 모든 사용자가 쓸 수 있어요. 주소를 직접 넣는 사용자 지정 커넥터는 무료 요금제에서 1개까지예요.</p></details>
+<details class="faq"><summary>Q. MCP 서버와 커넥터는 다른 건가요?</summary><p>같은 거예요. 클로드는 claude.ai에 추가한 MCP 서버를 커넥터라고 불러요.</p></details>
+<details class="faq"><summary>Q. 연결하면 AI가 내 계정으로 무엇이든 할 수 있나요?</summary><p>클로드는 그 서비스에서 내 계정이 가진 권한을 그대로 이어받아요. 그래서 연결할 때 요청하는 권한을 살피고, 필요 없는 커넥터는 끊어 두는 게 좋아요.</p></details>
+<details class="faq"><summary>Q. 목록에 없는 도구는 어떻게 연결하나요?</summary><p>MCP 서버 주소를 직접 넣는 사용자 지정 커넥터로 붙일 수 있어요. 다만 이런 서버는 앤트로픽이 검증하지 않은 것이라, 믿을 수 있는 곳에서 낸 서버인지 먼저 확인하세요.</p></details>
+<p>다음 글에서는 클로드 코드에 MCP 서버를 직접 연결하는 방법을 첫 연결까지 다뤄요.</p>
+<p class="nextpost">→ <a href="/posts/20260907-claude-code-mcp/">클로드 코드에 MCP 연결하기, 세 가지 방법과 연결 확인까지</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>클로드 도움말 — 커넥터 사용법 · <a href="https://support.claude.com/en/articles/11176164">support.claude.com/en/articles/11176164</a></li>
+<li>Claude Code 공식 문서 — MCP 연결 · <a href="https://code.claude.com/docs/en/mcp">code.claude.com/docs/en/mcp</a></li>
+<li>MCP 공식 서버 저장소 · <a href="https://github.com/modelcontextprotocol/servers">github.com/modelcontextprotocol/servers</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 발행 2026년 9월 6일<br>다시 확인·수정 2026년 10월 7일<br>커넥터 6개를 연결해 쓰는 경험 + 공식 문서 대조<br>개발자용 서버는 공식 저장소를 읽고 정리<br>제휴 없음 · 캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260906-mcp-explained/">MCP 뜻</a> · <a href="/posts/20260922-mcp-vs-api-vs-cli/">MCP vs API vs CLI 차이</a> · <a href="/posts/20260907-claude-code-mcp/">Claude Code에 MCP 연결하기</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

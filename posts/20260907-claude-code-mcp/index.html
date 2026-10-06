@@ -1,42 +1,130 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Claude Code에 MCP 연결하기 — 개념부터 첫 연결까지 (실사용 기준)</title><meta name="description" content="Claude Code에 MCP 서버를 연결하는 방법. 연결 방식 세 가지, 첫 연결로 뭘 고를지, 연결 후 확인하는 법까지 — 커넥터를 매일 쓰는 실사용 기준으로 정리했다."><meta property="og:title" content="Claude Code에 MCP 연결하기 — 개념부터 첫 연결까지 (실사용 기준)"><meta property="og:description" content="Claude Code에 MCP 서버를 연결하는 방법. 연결 방식 세 가지, 첫 연결로 뭘 고를지, 연결 후 확인하는 법까지 — 커넥터를 매일 쓰는 실사용 기준으로 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>클로드 코드에 MCP 연결하기, 세 가지 방법과 연결 확인까지</title><meta name="description" content="Claude Code에 MCP 서버를 연결하는 방법. 연결 방식 세 가지, 첫 연결로 뭘 고를지, 연결 후 확인하는 법까지 — 커넥터를 매일 쓰는 실사용 기준으로 정리했다."><meta property="og:title" content="클로드 코드에 MCP 연결하기, 세 가지 방법과 연결 확인까지"><meta property="og:description" content="Claude Code에 MCP 서버를 연결하는 방법. 연결 방식 세 가지, 첫 연결로 뭘 고를지, 연결 후 확인하는 법까지 — 커넥터를 매일 쓰는 실사용 기준으로 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 7일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="claude-code에-mcp-연결하기--개념부터-첫-연결까지-실사용-기준">Claude Code에 MCP 연결하기 — 개념부터 첫 연결까지 (실사용 기준)</h1>
-<p><img alt="플러그를 꽂는 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="720" height="720" src="/_astro/char-plug.BJZpVkbh_Z3YQ1J.webp" ></p>
-<p><a href="/posts/20260906-mcp-explained/">MCP가 뭔지</a>, <a href="/posts/20260906-mcp-servers-guide/">어떤 서버를 쓸지</a>까지 왔다면 마지막 단계입니다 — <strong>실제로 연결하기.</strong> 저는 Claude Code에 Gmail·캘린더·노션 등을 연결해 매일 쓰고 있고, 이 글은 그 실사용 기준의 연결 가이드입니다.</p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li>연결 방법은 3가지: <strong>① 클로드 계정 커넥터</strong>(가장 쉬움, 클릭 몇 번) ② <code>claude mcp add</code> 명령 ③ 프로젝트 <code>.mcp.json</code> 파일</li>
-<li>첫 연결은 <strong>공식 커넥터의 Gmail이나 캘린더</strong>부터 — 설정 없이 로그인만 하면 됩니다</li>
-<li>연결 확인은 <code>/mcp</code> 명령 하나면 끝</li>
-</ul>
-<h2 id="-1-방법---클로드-계정-커넥터-비개발자-추천">🔌 1. 방법 ① — 클로드 계정 커넥터 (비개발자 추천)</h2>
-<p>가장 쉬운 길입니다. <strong>claude.ai의 커넥터 설정에서 Gmail, 구글 캘린더·드라이브, 노션, 슬랙 같은 공식 커넥터를 연결</strong>해 두면, 같은 계정으로 로그인한 Claude Code에서도 그 도구들을 그대로 씁니다. 서버 주소나 설정 파일을 만질 일이 없어요.</p>
-<p>제 연결도 대부분 이 방식입니다. “지난주 메일 찾아 요약해줘”가 터미널에서 되는 경험은 여기서 시작됩니다.</p>
-<h2 id="️-2-방법---claude-mcp-add-직접-서버를-붙일-때">⌨️ 2. 방법 ② — <code>claude mcp add</code> (직접 서버를 붙일 때)</h2>
-<p>공식 커넥터에 없는 서버(로컬 도구, 사내 서버 등)는 명령으로 등록합니다.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># 기본 꼴: 이름을 정하고, -- 뒤에 서버 실행 명령을 적는다</span></span>
-<span class="line"><span style="color:#B392F0">claude</span><span style="color:#9ECBFF"> mcp</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> 이름</span><span style="color:#79B8FF"> --</span><span style="color:#9ECBFF"> 실행명령</span></span>
-<span class="line"></span>
-<span class="line"><span style="color:#6A737D"># 목록·상태 확인은 Claude Code 안에서</span></span>
-<span class="line"><span style="color:#B392F0">/mcp</span></span></code></pre>
-<p>등록 범위(내 계정 전역이냐, 이 프로젝트만이냐)를 옵션으로 고를 수 있습니다. 세부 옵션은 버전에 따라 바뀌니 <code>claude mcp --help</code>와 공식 문서를 기준으로 삼으세요.</p>
-<h2 id="-3-방법---프로젝트-mcpjson-팀-공유용">📄 3. 방법 ③ — 프로젝트 <code>.mcp.json</code> (팀 공유용)</h2>
-<p>프로젝트 루트에 <code>.mcp.json</code> 파일로 서버 목록을 적어두면, <strong>그 저장소를 여는 모든 사람이 같은 연결을 공유</strong>합니다. 팀 프로젝트라면 이 방식이 표준입니다.</p>
-<p><img alt="연결 방법 3가지 — 난이도와 용도 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1120" src="/_astro/diagram-mcp-connect.Cl4MqrIn_ZYCgP9.webp" ></p>
-<h2 id="-4-연결-후-확인--그리고-안전-수칙">✅ 4. 연결 후 확인 — 그리고 안전 수칙</h2>
-<ul>
-<li>Claude Code 안에서 <code>/mcp</code>를 치면 연결된 서버와 상태가 보입니다</li>
-<li>첫 사용 시 도구 호출 승인을 물어봅니다 — <strong>어떤 권한을 주는지 읽고 승인</strong>하세요</li>
-<li><a href="/posts/20260906-mcp-servers-guide/">서버 추천 글</a>의 안전 기준 그대로: 공식 제공처 우선, 쓸 일 없는 연결은 하지 않기</li>
-</ul>
-<h2 id="-첫-연결-추천-코스">🎯 첫 연결 추천 코스</h2>
-<ol>
-<li>클로드 계정 커넥터에서 <strong>Gmail 또는 캘린더</strong> 연결 (5분)</li>
-<li>Claude Code에서 “오늘 온 메일 중 중요한 것 요약해줘” 같은 요청으로 체감</li>
-<li>익숙해지면 노션·드라이브로 확장 — 하나씩, 일주일 간격으로</li>
-</ol>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-연결-방법-세-가지" data-astro-cid-lvjzyg5v>1. 연결 방법 세 가지</a></li><li data-astro-cid-lvjzyg5v><a href="#2-커넥터로-첫-연결하기" data-astro-cid-lvjzyg5v>2. 커넥터로 첫 연결하기</a></li><li data-astro-cid-lvjzyg5v><a href="#3-연결됐는지-확인하기" data-astro-cid-lvjzyg5v>3. 연결됐는지 확인하기</a></li><li data-astro-cid-lvjzyg5v><a href="#4-목록에-없는-서버는-명령으로" data-astro-cid-lvjzyg5v>4. 목록에 없는 서버는 명령으로</a></li><li data-astro-cid-lvjzyg5v><a href="#5-범위-고르기와-mcpjson" data-astro-cid-lvjzyg5v>5. 범위 고르기와 .mcp.json</a></li><li data-astro-cid-lvjzyg5v><a href="#6-연결-전에-지킬-것" data-astro-cid-lvjzyg5v>6. 연결 전에 지킬 것</a></li><li data-astro-cid-lvjzyg5v><a href="#막힐-때" data-astro-cid-lvjzyg5v>막힐 때</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="클로드-코드에-mcp-연결하기-세-가지-방법과-연결-확인까지">클로드 코드에 MCP 연결하기, 세 가지 방법과 연결 확인까지</h1>
+<p><img alt="클로드 코드에 MCP 연결하기 — 세 가지 방법과 연결 확인까지 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.BWsHucW0_Z1YgKm3.webp" ></p>
+<p class="cap">클로드 코드에 MCP 연결하기 — 세 가지 방법과 연결 확인까지 (캐릭터는 GPT 이미지 생성)</p>
+<p>MCP가 뭔지 알고 나면 다음 질문이 생겨요. “그래서 클로드 코드에는 어디에 뭘 입력해서 연결하지?” 설정 파일과 명령어 이야기가 한꺼번에 나와서, 시작도 하기 전에 막히기 쉬워요.</p>
+<p>MCP 연결은 멀티탭에 플러그를 꽂는 일과 비슷해요. 메일·일정·노트 같은 도구가 플러그이고, 클로드 코드가 멀티탭이에요. 꽂는 방법이 세 가지 있을 뿐이에요. 웹에서 고르는 커넥터, 명령 한 줄로 꽂는 claude mcp add, 팀이 같이 쓰는 .mcp.json 파일이에요.<br>
+<strong>처음이라면 claude.ai 커넥터 하나로 시작하면 돼요. 명령어는 몰라도 돼요.</strong></p>
+<p><img alt="멀티탭에 메일·일정·노트 플러그를 꽂는 장면 — MCP 서버 연결을 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-power-strip.D_sQxxKK_Z1bWB4Q.webp" ></p>
+<p class="cap">멀티탭에 메일·일정·노트 플러그를 꽂는 장면 — MCP 서버 연결을 빗댄 그림 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 클로드 코드에 MCP를 처음 연결하는 분<br>① 연결 방법 세 가지와 고르는 법<br>② 커넥터로 첫 연결하고 확인하기<br>③ 직접 등록하는 명령과 범위(scope)<br>준비물: claude.ai 계정으로 로그인한 클로드 코드<br>2026년 10월 기준 · Windows 11 · 2.1.268</div>
 <hr>
-<p><em>기준: 2026-09-07 실사용 구성. 명령·옵션은 버전에 따라 달라질 수 있으니 공식 문서(code.claude.com/docs)를 함께 확인하세요. 다이어그램은 직접 제작, 캐릭터 삽화는 GPT 이미지 생성입니다.</em></p> </article> </main> <footer class="site">
+<h2 id="1-연결-방법-세-가지">1. 연결 방법 세 가지</h2>
+<p><strong>클로드 코드에 MCP 서버를 붙이는 길은 세 가지예요. 무엇을 연결하는지와 누가 같이 쓰는지로 고르면 돼요.</strong></p>
+<p><img alt="클로드 코드에 MCP를 연결하는 세 가지 방법 — 커넥터, claude mcp add, .mcp.json (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="2560" src="/_astro/diagram-mcp-connect.BxmXWB0U_Z1q1Y6d.webp" ></p>
+<p class="cap">클로드 코드에 MCP를 연결하는 세 가지 방법 — 커넥터, claude mcp add, .mcp.json (직접 제작)</p>
+<p>세 방법을 언제 쓰는지 표로 정리했어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>방법</th><th>이럴 때 써요</th></tr></thead><tbody><tr><td>claude.ai 커넥터</td><td>목록에 있는 서비스(Gmail·캘린더 등) — 처음이라면 이것</td></tr><tr><td><code>claude mcp add</code></td><td>목록에 없는 서버를 내 컴퓨터에 등록할 때</td></tr><tr><td><code>.mcp.json</code></td><td>저장소에 넣어 팀원 모두 같은 서버를 쓸 때</td></tr></tbody></table>
+<p>제 연결은 대부분 첫 번째 방법이에요.</p>
+<h2 id="2-커넥터로-첫-연결하기">2. 커넥터로 첫 연결하기</h2>
+<p><strong>claude.ai에서 연결한 커넥터는 같은 계정으로 로그인한 클로드 코드에 저절로 들어와요.</strong> claude.ai에 추가한 MCP 서버를 커넥터(connector)라고 불러요. 서버 주소나 설정 파일을 만질 일이 없어요.</p>
+<ol class="steps"><li>웹이나 데스크톱 클로드에서 <code>Customize > Connectors</code>를 여세요(영어 화면 기준).<span class="then">→ 연결할 수 있는 커넥터 목록이 보여요.</span></li><li>연결할 서비스를 고르고, 그 서비스의 로그인(인증) 안내를 따라가세요.<span class="then">→ 클로드가 그 계정에 접근할 수 있게 돼요.</span></li><li>클로드 코드를 켜고 <code>/mcp</code>를 입력하세요.<span class="then">→ 방금 연결한 커넥터가 이름 앞에 claude.ai가 붙은 채로 보여요.</span></li></ol>
+<p>저는 Gmail·노션·구글 캘린더를 이렇게 연결해 두고 써요. 연결해 두면 터미널에서 이런 요청이 돼요.</p>
+<p class="plabel">📋 그대로 복사해 쓰세요</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>지난주 온 메일 찾아서 요약해줘</span></span></code></pre>
+<p>오늘 온 메일만 추리고 싶으면 이렇게요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>오늘 온 메일 중 중요한 것만 골라 요약해줘</span></span></code></pre>
+<p>커넥터 하나로 써 보고, 익숙해지면 하나씩 늘리세요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>첫 연결은 커넥터로 하세요. 명령어는 목록에 없는 서버가 필요할 때 배워도 늦지 않아요.</div>
+<h2 id="3-연결됐는지-확인하기">3. 연결됐는지 확인하기</h2>
+<p><strong>연결 확인은 터미널의 claude mcp list나, 클로드 코드 안의 /mcp 하나면 돼요.</strong></p>
+<ol class="steps"><li>터미널에서 아래 한 줄을 입력하세요.</li></ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">claude mcp list</span></span></code></pre>
+<p>→ 연결된 MCP 서버가 한 줄씩 상태와 함께 떠요. 이 머신(<code>2.1.268</code>)에서는 <code>claude.ai Gmail</code>, <code>claude.ai Notion</code>, <code>claude.ai Google Calendar</code>가 <strong>✔ Connected</strong>로 보여요.<br>
+→ 클로드 코드 안에서는 <code>/mcp</code>를 입력하세요. 서버마다 상태가 보이고, 로그인이 필요한 원격 서버는 여기서 인증하고, 안 쓰는 서버는 지우지 않고 끌 수 있어요.</p>
+<p>상태 표시는 세 가지예요.<br>
+<strong>✔ Connected</strong> — 연결됨, 바로 쓸 수 있어요<br>
+<code>! Needs authentication</code> — 로그인(인증)이 필요해요<br>
+<strong>✘ Failed to connect</strong> — 연결 실패, 주소나 실행 명령을 확인하세요</p>
+<p><img alt="초록 불이 켜진 연결을 가리키며 확인하는 장면 — /mcp 상태 표시를 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-status-lights.D-3aMYU9_ZS0beS.webp" ></p>
+<p class="cap">초록 불이 켜진 연결을 가리키며 확인하는 장면 — /mcp 상태 표시를 빗댄 그림 (GPT 이미지 생성)</p>
+<h2 id="4-목록에-없는-서버는-명령으로">4. 목록에 없는 서버는 명령으로</h2>
+<p><strong>커넥터 목록에 없는 서버는 claude mcp add 명령 한 줄로 등록해요.</strong> 서버가 인터넷 주소로 제공되면(원격) 첫 줄처럼, 내 컴퓨터에서 실행하는 서버면(로컬) 둘째 줄처럼 써요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">claude mcp add </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">t http </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">name</span><span style="color:#F97583">></span><span style="color:#F97583"> &#x3C;</span><span style="color:#E1E4E8">url</span><span style="color:#F97583">></span></span>
+<span class="line"><span style="color:#E1E4E8">claude mcp add </span><span style="color:#F97583">&#x3C;</span><span style="color:#E1E4E8">name</span><span style="color:#F97583">></span><span style="color:#F97583"> --</span><span style="color:#F97583"> &#x3C;</span><span style="color:#E1E4E8">command</span><span style="color:#F97583">></span></span></code></pre>
+<p>→ <code>-t</code>는 <code>--transport</code>를 줄인 옵션이에요. 적지 않으면 로컬(stdio) 서버로 등록돼요.<br>
+→ <code>--</code> 뒤에 적은 것은 서버를 실행하는 명령으로 그대로 넘어가요.</p>
+<p><code>&#x3C;name></code>은 내가 붙이는 이름이고, 영문·숫자·하이픈·밑줄만 쓸 수 있어요. <code>&#x3C;url></code>과 <code>&#x3C;command></code>는 서버를 내놓은 곳이 알려 줘요. 등록한 서버를 지울 때는 <code>claude mcp remove</code> 뒤에 이름을 붙여요. 옵션은 버전마다 바뀔 수 있어서 <code>claude mcp add --help</code>가 늘 기준이에요. 이 글의 옵션은 2.1.268의 도움말과 대조했어요.</p>
+<h2 id="5-범위-고르기와-mcpjson">5. 범위 고르기와 .mcp.json</h2>
+<p><strong>claude mcp add로 등록한 서버는 기본으로 지금 프로젝트에서 나만 써요. 범위(scope)를 바꾸면 쓰는 곳이 달라져요.</strong> 범위는 세 가지이고, 명령에 <code>-s</code> 옵션(<code>--scope</code>)을 붙여 골라요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>범위</th><th>어디서 · 누가 써요</th></tr></thead><tbody><tr><td>local (기본)</td><td>지금 프로젝트에서 나만</td></tr><tr><td><code>project</code></td><td>지금 프로젝트에서 팀 모두 — .mcp.json에 저장</td></tr><tr><td><code>user</code></td><td>내 모든 프로젝트에서 나만</td></tr></tbody></table>
+<p><code>project</code> 범위로 등록한 서버는 프로젝트 맨 위 폴더의 <code>.mcp.json</code> 파일에 적혀요. 이 파일을 저장소에 함께 올리면 팀원이 같은 서버 목록을 받아요. <mark>혼자 쓰면 local, 팀이 같이 쓰면 project</mark>로 고르면 돼요.</p>
+<p>보안 때문에, 클로드 코드는 .mcp.json에 적힌 서버를 쓰기 전에 승인을 물어요. 승인 전 서버는 <code>claude mcp get</code>에서 <code>⏸ Pending approval</code>로 보이고 연결되지 않아요.</p>
+<h2 id="6-연결-전에-지킬-것">6. 연결 전에 지킬 것</h2>
+<p><strong>MCP 서버는 AI에게 실제 권한을 주는 연결이라, 믿을 수 있는 서버만 연결하세요.</strong> 공식 문서는 연결하기 전에 서버를 믿을 수 있는지 확인하라고 적어요. 바깥 내용을 가져오는 서버는 글 속에 숨긴 지시로 AI를 조종하는 공격(프롬프트 인젝션)에 노출될 수 있어서예요.</p>
+<p>수동(Manual) 모드에서는 MCP 도구를 쓰기 전에도 승인을 물어요. 무엇을 하려는지 읽고 승인하세요. 저는 클로드 코드를 자동 모드로 쓰고, 밖으로 내보내는 일은 규칙을 정해 두고 맡겨요.</p>
+<p>쓰지 않는 서버는 /mcp에서 꺼 두세요. 클로드 도움말도 쓰지 않는 서비스는 연결을 끊어 두라고 해요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>출처를 모르는 MCP 서버는 연결하지 마세요. 저장소의 .mcp.json에 낯선 서버가 있으면 승인하기 전에 확인하세요.</div>
+<h2 id="막힐-때">막힐 때</h2>
+<p><strong>목록에 ! Needs authentication으로 떠요</strong><br>
+원인: 로그인(인증)이 필요한 원격 서버인데 아직 인증하지 않았어요.<br>
+해결: 클로드 코드에서 <code>/mcp</code>를 열고 그 서버를 골라 인증하세요.</p>
+<p><strong>등록한 서버가 다른 폴더에서는 안 보여요</strong><br>
+원인: 기본 범위(local)는 등록한 프로젝트에서만 보여요.<br>
+해결: 모든 프로젝트에서 쓰려면 <code>-s user</code>를 붙여 다시 등록하세요.</p>
+<p><strong>.mcp.json의 서버가 연결되지 않아요</strong><br>
+원인: 아직 승인하지 않았어요. 프로젝트 범위 서버는 승인 전에는 연결하지 않아요.<br>
+해결: 클로드 코드를 켜면 뜨는 승인 창에서 승인하세요. 상태는 <code>claude mcp get</code> 뒤에 서버 이름을 붙여 볼 수 있어요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 처음엔 claude.ai 커넥터로 연결<br>② 목록에 없는 서버는 claude mcp add<br>③ 팀이 같이 쓰면 project 범위(.mcp.json)<br>④ 확인은 claude mcp list와 /mcp</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 코딩을 몰라도 연결할 수 있나요?</summary><p>네. 커넥터는 웹에서 고르고 로그인하면 끝이에요. 명령어는 목록에 없는 서버를 붙일 때만 필요해요.</p></details>
+<details class="faq"><summary>Q. claude.ai 커넥터를 클로드 코드에서만 끌 수 있나요?</summary><p>네. 공식 문서에 따르면 설정에서 disableClaudeAiConnectors를 true로 두면 클로드 코드가 claude.ai 커넥터를 쓰지 않아요. 하나만 막으려면 deniedMcpServers에 이름을 넣어요.</p></details>
+<details class="faq"><summary>Q. 서버를 많이 연결하면 대화가 무거워지나요?</summary><p>공식 문서에 따르면 MCP 도구 설명은 기본으로 미뤄 두고, 실제로 쓸 때까지 도구 이름과 서버 안내만 맥락에 들어가요. 그래도 안 쓰는 서버는 /mcp에서 꺼 두는 게 좋아요.</p></details>
+<details class="faq"><summary>Q. 더 이상 안 쓰는 커넥터는 어떻게 하나요?</summary><p>claude.ai의 Customize > Connectors에서 연결을 끊으세요. 클로드 코드에서 잠깐만 안 쓰려면 /mcp에서 끄면 돼요.</p></details>
+<p>어떤 서버부터 연결할지는 MCP 서버 추천 글에 정리했어요. 매일 쓰는 서버와 연결 전 확인할 것까지요.</p>
+<p class="nextpost">→ <a href="/posts/20260906-mcp-servers-guide/">MCP 서버 추천 — 매일 쓰는 6개와 연결 전 확인할 것</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>Claude Code 공식 문서 — MCP 연결 · <a href="https://code.claude.com/docs/en/mcp">code.claude.com/docs/en/mcp</a></li>
+<li>클로드 도움말 — 커넥터 · <a href="https://support.claude.com/en/articles/11176164">support.claude.com/en/articles/11176164</a></li>
+<li>Claude Code 공식 문서 — 권한 · <a href="https://code.claude.com/docs/en/permissions">code.claude.com/docs/en/permissions</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 발행 2026년 9월 7일<br>다시 확인·수정 2026년 10월 7일<br>커넥터를 연결해 매일 쓰는 경험 + 공식 문서<br>Windows 11 · 2.1.268 도움말과 대조<br>제휴 없음 · 캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260906-mcp-explained/">MCP 뜻</a> · <a href="/posts/20260906-mcp-servers-guide/">MCP 서버 추천</a> · <a href="/posts/20260907-claude-code-hooks/">클로드 코드 훅 활용법</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

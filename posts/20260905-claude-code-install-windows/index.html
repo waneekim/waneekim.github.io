@@ -1,15 +1,17 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Windows에 Claude Code 설치하기 — 실제 쓰는 머신 기준 5분 가이드</title><meta name="description" content="Windows 11에서 Claude Code를 설치하는 4가지 방법과 권장 선택, 첫 로그인, 흔한 오류 해결까지. 공식 문서 교차 확인 + 실사용 머신 기준으로 정리했다."><meta property="og:title" content="Windows에 Claude Code 설치하기 — 실제 쓰는 머신 기준 5분 가이드"><meta property="og:description" content="Windows 11에서 Claude Code를 설치하는 4가지 방법과 권장 선택, 첫 로그인, 흔한 오류 해결까지. 공식 문서 교차 확인 + 실사용 머신 기준으로 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>클로드 코드 설치 방법, 윈도우에서 파워셸 한 줄로 끝내기</title><meta name="description" content="윈도우에 클로드 코드(Claude Code)를 설치하는 방법. 파워셸 한 줄(공식 권장)·winget·npm·CMD 중 고르는 기준, 설치 확인과 첫 로그인, 막힐 때 흔한 오류 세 가지까지 — 이 블로그를 돌리는 머신과 공식 문서로 다시 확인해 정리했다."><meta property="og:title" content="클로드 코드 설치 방법, 윈도우에서 파워셸 한 줄로 끝내기"><meta property="og:description" content="윈도우에 클로드 코드(Claude Code)를 설치하는 방법. 파워셸 한 줄(공식 권장)·winget·npm·CMD 중 고르는 기준, 설치 확인과 첫 로그인, 막힐 때 흔한 오류 세 가지까지 — 이 블로그를 돌리는 머신과 공식 문서로 다시 확인해 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 5일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="windows에-claude-code-설치하기--실제-쓰는-머신-기준-5분-가이드">Windows에 Claude Code 설치하기 — 실제 쓰는 머신 기준 5분 가이드</h1>
-<p><img alt="설치하는 로봇 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-install-bot.Dgk6qSaO_YxMFH.webp" ></p>
-<p>이 글은 이론이 아니다. <strong>지금 이 블로그를 만들고 있는 Windows 11 머신에 실제로 설치돼 돌아가는 구성</strong> 그대로를, 공식 문서와 교차 확인해 정리했다. (이 머신: Windows 11, Claude Code 2.1.229, winget 설치)</p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li>제일 간단한 방법: <strong>PowerShell 한 줄</strong> — <code>irm https://claude.ai/install.ps1 | iex</code> (공식 권장, 자동 업데이트)</li>
-<li>시작 전 필요한 것: <strong>Claude 유료 플랜(Pro 이상)</strong> — 무료 계정으로는 못 쓴다</li>
-<li>설치 후: 터미널 재시작 → <code>claude</code> 실행 → 브라우저 로그인. 끝</li>
-</ul>
-<h2 id="-0-시작-전-체크리스트">📋 0. 시작 전 체크리스트</h2>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 9개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-시작-전에-확인할-것" data-astro-cid-lvjzyg5v>1. 시작 전에 확인할 것</a></li><li data-astro-cid-lvjzyg5v><a href="#2-설치-방법-고르기" data-astro-cid-lvjzyg5v>2. 설치 방법 고르기</a></li><li data-astro-cid-lvjzyg5v><a href="#3-방법-a-파워셸-한-줄-설치" data-astro-cid-lvjzyg5v>3. 방법 A: 파워셸 한 줄 설치</a></li><li data-astro-cid-lvjzyg5v><a href="#4-방법-b-winget-설치" data-astro-cid-lvjzyg5v>4. 방법 B: winget 설치</a></li><li data-astro-cid-lvjzyg5v><a href="#5-방법-d-npm-설치" data-astro-cid-lvjzyg5v>5. 방법 D: npm 설치</a></li><li data-astro-cid-lvjzyg5v><a href="#6-설치-확인하고-첫-로그인" data-astro-cid-lvjzyg5v>6. 설치 확인하고 첫 로그인</a></li><li data-astro-cid-lvjzyg5v><a href="#7-vs-code에서-쓰려면" data-astro-cid-lvjzyg5v>7. VS Code에서 쓰려면</a></li><li data-astro-cid-lvjzyg5v><a href="#막힐-때" data-astro-cid-lvjzyg5v>막힐 때</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="클로드-코드-설치-방법-윈도우에서-파워셸-한-줄로-끝내기">클로드 코드 설치 방법, 윈도우에서 파워셸 한 줄로 끝내기</h1>
+<p><img alt="클로드 코드 설치 방법 — 윈도우에서 파워셸 한 줄로 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.BBWBZynv_17Fgrn.webp" ></p>
+<p class="cap">클로드 코드 설치 방법 — 윈도우에서 파워셸 한 줄로 (캐릭터는 GPT 이미지 생성)</p>
+<p>클로드 코드를 써 보려고 공식 문서를 열면 설치 명령이 네 가지나 나와요. “이 중에 뭘 쳐야 하지?” 터미널이 낯설면 여기서 창을 닫게 되죠.</p>
+<p>전동 드릴을 선물 받았는데 배터리가 따로 든 상자를 열어 본 적 있으세요? 물건은 이미 좋은데, 끼우기 전까지는 아무 일도 일어나지 않아요. 클로드 코드도 같아요. 설치와 로그인, 이 두 단계가 배터리를 끼우는 일이에요.<br>
+<strong>윈도우에서는 파워셸에 명령 한 줄을 붙여 넣고, 브라우저로 로그인하면 준비가 끝나요.</strong></p>
+<p><img alt="드릴은 있는데 배터리가 따로 든 상자 — 설치 전의 클로드 코드 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-drill-battery.BYtJNtG5_Z66bV0.webp" ></p>
+<p class="cap">드릴은 있는데 배터리가 따로 든 상자 — 설치 전의 클로드 코드 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 윈도우에 클로드 코드를 처음 까는 분<br>① 설치 방법 네 가지와 고르는 기준<br>② 설치 확인과 첫 로그인<br>③ 막힐 때 흔한 오류 세 가지<br>준비물: 클로드 유료 플랜 · 파워셸<br>2026년 10월 기준 · Windows 11 · 2.1.268</div>
+<hr>
+<h2 id="1-시작-전에-확인할-것">1. 시작 전에 확인할 것</h2>
+<p><strong>계정부터 확인하세요. 클로드 코드는 무료 플랜으로는 쓸 수 없어요.</strong> 공식 문서 기준으로 Pro·Max·Team·Enterprise 또는 Console 계정이 있어야 해요. 컴퓨터 조건은 아래와 같아요.</p>
 
 
 
@@ -39,49 +41,97 @@
 
 
 
-<table><thead><tr><th>항목</th><th>요구사항</th></tr></thead><tbody><tr><td>OS</td><td>Windows 10 1809 이상 (이 글은 Windows 11에서 검증)</td></tr><tr><td>메모리</td><td>4GB 이상</td></tr><tr><td>계정</td><td>Claude <strong>Pro/Max/Team/Enterprise</strong> 또는 API Console 계정 — 무료 플랜 불가</td></tr><tr><td>Git for Windows</td><td>선택 (권장 — 설치하면 Bash 명령을 더 잘 다룬다)</td></tr><tr><td>Node.js</td><td><strong>필요 없음</strong> (npm 방식으로 설치할 때만 필요)</td></tr></tbody></table>
-<blockquote>
-<p>아직 플랜을 안 골랐다면: <a href="/posts/20260905-chatgpt-plus-vs-claude-pro/">ChatGPT Plus vs Claude Pro 비교</a></p>
-</blockquote>
-<h2 id="️-1-설치--방법-4가지-중-하나만">⚙️ 1. 설치 — 방법 4가지 중 하나만</h2>
-<p>30초 안에 고르자. 고민되면 A다.</p>
-<p><img alt="설치 방법 선택 가이드 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1280" src="/_astro/diagram-install-choice.C228Q8RC_1SLcsr.webp" ></p>
-<h3 id="방법-a-powershell-한-줄-공식-권장">방법 A. PowerShell 한 줄 (공식 권장)</h3>
-<p>PowerShell을 열고:</p>
+
+
+
+
+<table><thead><tr><th>항목</th><th>조건</th></tr></thead><tbody><tr><td>운영체제</td><td>Windows 10 1809 이상 (이 글은 Windows 11)</td></tr><tr><td>메모리</td><td>4GB 이상, x64 또는 ARM64</td></tr><tr><td>계정</td><td>Pro·Max·Team·Enterprise 또는 Console</td></tr><tr><td>노드(Node.js)</td><td>필요 없음 — npm으로 설치할 때만 22 이상</td></tr><tr><td>깃(Git for Windows)</td><td>선택 — 있으면 Bash 도구를 써요</td></tr><tr><td>관리자 권한</td><td>필요 없음</td></tr></tbody></table>
+<p>여기서 걸리는 건 대부분 계정이에요. 무료 계정으로 설치까지는 되지만, 쓰려고 하면 막혀요. Git for Windows가 없으면 클로드 코드는 셸 명령을 파워셸로 실행해요.</p>
+<h2 id="2-설치-방법-고르기">2. 설치 방법 고르기</h2>
+<p><strong>고민되면 방법 A, 파워셸 한 줄이에요. 공식 문서가 권장하고, 자동 업데이트까지 돼요.</strong> 어떤 방법으로 깔아도 결과는 같은 클로드 코드예요. 업데이트 방식만 달라요.</p>
+<p><img alt="클로드 코드 설치 방법 고르기 — 파워셸 한 줄, winget, npm, CMD 중 하나 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1280" src="/_astro/diagram-install-choice.C228Q8RC_1SLcsr.webp" ></p>
+<p class="cap">클로드 코드 설치 방법 고르기 — 파워셸 한 줄, winget, npm, CMD 중 하나 (직접 제작)</p>
+<p>정리하면 이래요.<br>
+<strong>방법 A. 파워셸 한 줄</strong> — 공식 권장, 백그라운드 자동 업데이트<br>
+<strong>방법 B. winget</strong> — 윈도우 패키지 관리자, 업데이트는 직접<br>
+<strong>방법 C. 명령 프롬프트(CMD)</strong> — A와 같은 설치를 CMD에서<br>
+<strong>방법 D. npm</strong> — Node.js 22 이상을 이미 쓰는 분</p>
+<h2 id="3-방법-a-파워셸-한-줄-설치">3. 방법 A: 파워셸 한 줄 설치</h2>
+<p><strong>파워셸을 열고 아래 한 줄을 붙여 넣으면 설치가 끝나요.</strong></p>
+<ol class="steps"><li>시작 메뉴에서 <code>PowerShell</code>을 검색해 여세요.<span class="then">→ 입력 줄이 <code>PS</code>로 시작하면 파워셸이에요. 관리자로 열 필요는 없어요.</span></li><li>아래 한 줄을 붙여 넣고 <code>Enter</code>를 누르세요.</li></ol>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">irm https:</span><span style="color:#F97583">//</span><span style="color:#E1E4E8">claude.ai</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">install.ps1 </span><span style="color:#F97583">|</span><span style="color:#E1E4E8"> iex</span></span></code></pre>
-<p>자동 백그라운드 업데이트까지 해줘서 이후 신경 쓸 게 없다. <code>irm is not recognized</code> 오류가 나면 CMD에서 실행한 것이다 — PowerShell에서 다시 하자.</p>
-<h3 id="방법-b-winget-내가-쓰는-방법">방법 B. winget (내가 쓰는 방법)</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">winget install Anthropic.ClaudeCode</span></span></code></pre>
-<p>이 머신이 이 방법으로 설치돼 있다. 단점 하나: 업데이트가 자동이 아니라서 가끔 <code>winget upgrade Anthropic.ClaudeCode</code>를 직접 돌려야 한다.</p>
-<h3 id="방법-c-cmd-파">방법 C. CMD 파</h3>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bat"><code><span class="line"><span style="color:#E1E4E8">curl -fsSL https://claude.ai/install.cmd -o install.cmd </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#E1E4E8"> install.cmd </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#F97583"> del</span><span style="color:#E1E4E8"> install.cmd</span></span></code></pre>
-<h3 id="방법-d-npm-nodejs-22-있는-개발자">방법 D. npm (Node.js 22+ 있는 개발자)</h3>
+<p>→ 설치 프로그램이 클로드 코드를 내려받아 설치해요.<br>
+→ 설치 폴더는 <code>%USERPROFILE%\.local\bin</code>이고, 이후 업데이트는 백그라운드에서 자동으로 돼요.</p>
+<p>명령 프롬프트(CMD)에서 하고 싶다면 방법 C 명령을 쓰면 돼요. 한 줄이 길어서 폰 화면에서는 잘리니, 사이트판에서 복사 버튼으로 가져가세요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>이 명령은 내려받은 내용을 그대로 실행해요. 블로그·영상에서 본 설치 명령은 주소가 claude.ai인지 확인하고, 공식 문서의 명령을 복사하세요.</div>
+<h2 id="4-방법-b-winget-설치">4. 방법 B: winget 설치</h2>
+<p><strong>winget으로 프로그램을 관리하고 있다면 이 방법이 편해요. 제 머신도 이 방법으로 깔려 있어요.</strong> 단, winget 설치는 자동으로 업데이트되지 않아요. 가끔 둘째 줄을 직접 실행해야 해요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">winget install Anthropic.ClaudeCode</span></span>
+<span class="line"><span style="color:#E1E4E8">winget upgrade Anthropic.ClaudeCode</span></span></code></pre>
+<p>→ 첫 줄은 설치, 둘째 줄은 업데이트예요. 오늘(10월 7일) 확인해 보니 제 머신에 깔린 버전은 <code>2.1.268</code>인데, winget에 올라온 최신 버전은 <code>2.1.286</code>이었어요. <mark>winget은 업데이트를 직접 챙겨야</mark> 한다는 걸 그대로 보여 주는 숫자예요.</p>
+<h2 id="5-방법-d-npm-설치">5. 방법 D: npm 설치</h2>
+<p><strong>Node.js 22 이상을 이미 쓰는 개발자라면 npm으로도 깔 수 있어요.</strong> npm으로 깔아도 같은 클로드 코드가 설치돼요. Node.js가 없다면 이 방법을 고를 이유가 없어요.</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">npm install </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">g @anthropic</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">ai</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">claude</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">code</span></span></code></pre>
-<p><strong>뭘 고를까?</strong> 고민되면 A. 이미 winget으로 프로그램을 관리하고 있다면 B.</p>
-<h2 id="-2-설치-확인과-첫-로그인">🔑 2. 설치 확인과 첫 로그인</h2>
-<p>새 터미널을 열고(중요 — 기존 터미널은 PATH를 모른다):</p>
+<p>→ 업데이트할 때는 같은 명령 끝에 <code>@latest</code>를 붙여 실행해요.</p>
+<h2 id="6-설치-확인하고-첫-로그인">6. 설치 확인하고 첫 로그인</h2>
+<p><strong>설치가 끝나면 새 터미널 창에서 버전부터 확인하세요.</strong> 설치 전에 열어 둔 창은 새 경로(PATH)를 몰라서, 같은 창에서는 claude를 못 찾을 수 있어요.</p>
+<ol class="steps"><li>터미널 창을 모두 닫고 새로 여세요.</li><li>아래 한 줄을 입력하세요.</li></ol>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">claude </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">version</span></span></code></pre>
-<p>버전이 찍히면 성공이다. 이 머신에서는 <code>2.1.229 (Claude Code)</code>가 나온다. 이제 작업할 폴더로 이동해서:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">cd 내</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">프로젝트</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">폴더</span></span>
-<span class="line"><span style="color:#E1E4E8">claude</span></span></code></pre>
-<p>첫 실행 시 브라우저가 열리며 Claude 계정 로그인(OAuth)을 요청한다. API 키를 발급받거나 환경변수를 만질 필요 없다 — 로그인 한 번이면 끝. 실제로 뜨는 화면은 이렇다:</p>
-<p><img alt="첫 실행 시 열리는 로그인 화면 — 상단에 Claude Code 안내 배너가 보인다 (직접 캡처)" loading="lazy" decoding="async" fetchpriority="auto" width="1622" height="884" src="/_astro/screenshot-claude-login.DTjQ7Xsx_21rvPn.webp" ></p>
-<h2 id="-3-vs-code에서-쓰려면">🧩 3. VS Code에서 쓰려면</h2>
-<p>VS Code(1.94.0+) 마켓플레이스에서 <strong>“Claude Code”</strong> 확장을 설치하면 에디터 안에서 바로 쓸 수 있다. 지금 이 글도 그 환경에서 작성되고 있다.</p>
-<h2 id="-4-안-될-때--windows에서-흔한-문제-3가지">🚑 4. 안 될 때 — Windows에서 흔한 문제 3가지</h2>
-<p><strong>① <code>'claude' is not recognized</code></strong> — 십중팔구 PATH 문제거나 터미널을 재시작 안 한 것.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#6A737D"># 사용자 PATH에 설치 경로 추가</span></span>
-<span class="line"><span style="color:#E1E4E8">$currentPath </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#F97583">Environment</span><span style="color:#E1E4E8">]::GetEnvironmentVariable(</span><span style="color:#9ECBFF">'PATH'</span><span style="color:#F97583">,</span><span style="color:#9ECBFF"> 'User'</span><span style="color:#E1E4E8">)</span></span>
+<p>→ <code>2.1.268 (Claude Code)</code>처럼 버전 숫자가 찍히면 설치 성공이에요. 제 머신에서 10월 7일에 찍힌 값이에요.</p>
+<ol class="steps" start="3"><li><code>cd</code> 명령으로 작업할 폴더에 들어간 뒤 <code>claude</code>를 입력하세요.<span class="then">→ 브라우저가 열리고 클로드 계정 로그인 화면이 떠요.</span></li><li>클로드 계정으로 로그인하세요.<span class="then">→ 로그인이 끝나면 터미널에 대화 화면이 열려요. API 키를 따로 만들 필요는 없어요.</span></li></ol>
+<p><img alt="claude를 처음 실행하면 열리는 로그인 화면 — 위쪽에 클로드 코드 안내 줄이 보여요 (직접 캡처)" loading="lazy" decoding="async" fetchpriority="auto" width="1622" height="884" src="/_astro/screenshot-claude-login.DTjQ7Xsx_21rvPn.webp" ></p>
+<p class="cap">claude를 처음 실행하면 열리는 로그인 화면 — 위쪽에 클로드 코드 안내 줄이 보여요 (직접 캡처)</p>
+<p><img alt="배터리를 끼우자 드릴이 돌아가는 장면 — 로그인까지 끝난 클로드 코드 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-drill-ready.DnisGnVg_1dA6aV.webp" ></p>
+<p class="cap">배터리를 끼우자 드릴이 돌아가는 장면 — 로그인까지 끝난 클로드 코드 (GPT 이미지 생성)</p>
+<p>로그인이 됐다면 첫 요청을 한국어로 넣어 보세요. 제가 이 블로그 저장소에서 실제로 입력했던 요청이에요.</p>
+<p class="plabel">📋 그대로 복사해 쓰세요</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>이 저장소 구조를 파악하고 실행 계획 문서를 만들어줘</span></span></code></pre>
+<p>설치 상태가 궁금하면 <code>claude doctor</code>를 입력해 보세요. 세션을 열지 않고 설치 상태만 점검해 줘요. 제 머신에서는 설치 방식이 <code>winget</code>으로 나오고, 마지막 줄에 <code>No installation issues found</code>가 떠요.</p>
+<h2 id="7-vs-code에서-쓰려면">7. VS Code에서 쓰려면</h2>
+<p><strong>VS Code 1.94.0 이상이면 확장 탭에서 ‘Claude Code’를 검색해 설치하면 돼요.</strong> 로그인은 같은 클로드 계정으로 하고, 여기서도 API 키는 필요 없어요. 이 블로그 작업도 VS Code 확장에서 하고 있어요.</p>
+<p>확장 안에는 클로드 코드가 따로 들어 있어요. 다만 VS Code 아래쪽 터미널에서 claude를 직접 치려면 위의 설치가 따로 필요해요.</p>
+<h2 id="막힐-때">막힐 때</h2>
+<p><strong>claude를 인식할 수 없다고 나와요</strong><br>
+원인: 설치 전에 열어 둔 터미널이거나, 설치 폴더가 PATH에 없어요.<br>
+해결: 터미널을 모두 닫고 새로 여세요. 그래도 안 되면 사용자 PATH에 <code>%USERPROFILE%\.local\bin</code>을 추가하세요. 붙여 넣을 두 줄은 사이트판에 있어요.</p>
+<p><strong>irm을 인식할 수 없다거나, &#x26;&#x26;가 올바른 구분 기호가 아니라고 나와요</strong><br>
+원인: 셸을 잘못 고른 거예요. irm이 안 되면 명령 프롬프트(CMD)에, &#x26;&#x26;가 안 되면 파워셸에 있는 거예요.<br>
+해결: 방법 A는 파워셸에서, 방법 C는 명령 프롬프트에서 실행하세요. 입력 줄이 <code>PS</code>로 시작하면 파워셸이에요.</p>
+<p><strong>보안 연결(SSL/TLS) 오류가 나요</strong><br>
+원인: 오래된 환경에서 TLS 1.2가 꺼져 있을 때 나요.<br>
+해결: 파워셸에서 TLS 1.2를 켜는 한 줄을 먼저 실행하고 설치 명령을 다시 넣으세요. 이 한 줄도 사이트판에 있어요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>설치가 안 된 것 같으면, 먼저 터미널을 새로 열어 보세요.</div>
+<p>오류 메시지를 AI에게 물어볼 때는 이렇게 붙여 넣으면 돼요. [ ] 안을 바꿔 쓰세요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>윈도우 파워셸에서 클로드 코드를 설치하다가 아래 오류가 났어. 원인과 해결 순서를 알려줘: [오류 메시지 붙여 넣기]</span></span></code></pre>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 고민되면 파워셸 한 줄 — 자동 업데이트까지<br>② 무료 플랜으로는 못 써요 — 계정 먼저<br>③ 설치 뒤엔 새 터미널에서 claude --version<br>④ winget은 가끔 winget upgrade로 직접 업데이트</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 무료 계정으로도 쓸 수 있나요?</summary><p>아니요. 공식 문서 기준으로 Pro·Max·Team·Enterprise 또는 Console 계정이 필요하고, 무료 플랜에는 클로드 코드가 들어 있지 않아요.</p></details>
+<details class="faq"><summary>Q. API 키를 따로 발급받아야 하나요?</summary><p>아니요. claude를 처음 실행하면 브라우저가 열리고, 클로드 계정으로 로그인하면 돼요.</p></details>
+<details class="faq"><summary>Q. 업데이트는 어떻게 하나요?</summary><p>파워셸·CMD 설치(방법 A·C)는 백그라운드에서 자동으로 돼요. winget은 winget upgrade Anthropic.ClaudeCode를, npm은 같은 설치 명령 끝에 @latest를 붙여 직접 실행해요.</p></details>
+<details class="faq"><summary>Q. Git for Windows는 꼭 깔아야 하나요?</summary><p>선택이에요. 없으면 클로드 코드가 셸 명령을 파워셸로 실행하고, 있으면 Git Bash로 Bash 도구를 써요.</p></details>
+<p>설치가 끝났다면, 다음 글에서 클로드 코드에 실제로 일을 맡기는 순서를 다뤄요.</p>
+<p class="nextpost">→ <a href="/posts/20260906-claude-code-usage/">클로드 코드 사용법, 설치 다음에 꼭 알아야 할 6가지</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>Claude Code 공식 문서 — 설치(Advanced setup) · <a href="https://code.claude.com/docs/en/setup">code.claude.com/docs/en/setup</a></li>
+<li>Claude Code 공식 문서 — 설치·로그인 문제 해결 · <a href="https://code.claude.com/docs/en/troubleshoot-install">code.claude.com/docs/en/troubleshoot-install</a></li>
+<li>Claude Code 공식 문서 — VS Code 확장 · <a href="https://code.claude.com/docs/en/vs-code">code.claude.com/docs/en/vs-code</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 9월 5일<br>다시 확인·수정 2026년 10월 7일<br>이 블로그를 돌리는 머신에 깐 그대로<br>Windows 11 · winget · 2.1.268 · 공식 문서와 대조<br>제휴 없음 · 캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<h3 id="복사해-쓰는-명령-전체">복사해 쓰는 명령 전체</h3>
+<p><strong>방법 C. 명령 프롬프트(CMD)에서 설치</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="batch"><code><span class="line"><span style="color:#E1E4E8">curl -fsSL https://claude.ai/install.cmd -o install.cmd </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#E1E4E8"> install.cmd </span><span style="color:#F97583">&#x26;&#x26;</span><span style="color:#F97583"> del</span><span style="color:#E1E4E8"> install.cmd</span></span></code></pre>
+<p><strong>‘claude’를 인식할 수 없을 때 — 사용자 PATH에 설치 폴더 추가 (파워셸)</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">$currentPath </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#F97583">Environment</span><span style="color:#E1E4E8">]::GetEnvironmentVariable(</span><span style="color:#9ECBFF">'PATH'</span><span style="color:#F97583">,</span><span style="color:#9ECBFF"> 'User'</span><span style="color:#E1E4E8">)</span></span>
 <span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">Environment</span><span style="color:#E1E4E8">]::SetEnvironmentVariable(</span><span style="color:#9ECBFF">'PATH'</span><span style="color:#F97583">,</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$currentPath</span><span style="color:#9ECBFF">;</span><span style="color:#E1E4E8">$</span><span style="color:#79B8FF">env:</span><span style="color:#E1E4E8">USERPROFILE</span><span style="color:#9ECBFF">\.local\bin"</span><span style="color:#F97583">,</span><span style="color:#9ECBFF"> 'User'</span><span style="color:#E1E4E8">)</span></span></code></pre>
-<p>추가 후 터미널을 완전히 닫고 새로 열자.</p>
-<p><strong>② <code>irm is not recognized</code> / <code>&#x26;&#x26; is not valid</code></strong> — PowerShell 명령을 CMD에서(또는 그 반대로) 실행한 것. 방법 A는 PowerShell, 방법 C는 CMD 전용이다.</p>
-<p><strong>③ TLS/SSL 연결 오류</strong> — 오래된 환경에서 TLS 1.2가 꺼져 있는 경우:</p>
+<p>추가한 뒤 터미널을 완전히 닫고 새로 열어 <code>claude --version</code>으로 확인하세요.</p>
+<p><strong>보안 연결(SSL/TLS) 오류가 날 때 — TLS 1.2를 켜고 다시 설치 (파워셸)</strong></p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">[</span><span style="color:#F97583">Net.ServicePointManager</span><span style="color:#E1E4E8">]::SecurityProtocol </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#F97583">Net.SecurityProtocolType</span><span style="color:#E1E4E8">]::Tls12</span></span>
 <span class="line"><span style="color:#E1E4E8">irm https:</span><span style="color:#F97583">//</span><span style="color:#E1E4E8">claude.ai</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">install.ps1 </span><span style="color:#F97583">|</span><span style="color:#E1E4E8"> iex</span></span></code></pre>
-<h2 id="-5-설치-다음은">🚀 5. 설치 다음은?</h2>
-<p>설치는 시작일 뿐이다. 실제로 일을 시키는 방법은 다음 편에 정리했다: <a href="/posts/20260906-claude-code-usage/">Claude Code 사용법 — 설치 다음에 알아야 할 것 전부</a> · 이 도구로 뭘 할 수 있는지 궁금하다면, AI에게 블로그 운영 시스템 전체를 맡긴 기록: <a href="/posts/20260905-vibe-coding-guide/">바이브 코딩이 뭐길래</a></p>
-<hr>
-<p><em>공식 문서 기준: code.claude.com/docs (setup, authentication, vs-code, troubleshoot-install — 2026-09-05 확인). 설치 방식은 바뀔 수 있으니 문제가 생기면 공식 문서를 함께 확인하자. 다이어그램은 직접 제작, 캐릭터 삽화는 GPT 이미지 생성입니다.</em></p> </article> </main> <footer class="site">
+<p><strong>npm 설치를 최신으로 올리기</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">npm install </span><span style="color:#F97583">-</span><span style="color:#E1E4E8">g @anthropic</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">ai</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">claude</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">code@latest</span></span></code></pre>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260906-claude-code-usage/">클로드 코드 사용법</a> · <a href="/posts/20260905-chatgpt-plus-vs-claude-pro/">ChatGPT Plus vs Claude Pro</a> · <a href="/posts/20260905-vibe-coding-guide/">바이브 코딩이 뭐길래</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

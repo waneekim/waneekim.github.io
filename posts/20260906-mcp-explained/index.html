@@ -1,41 +1,137 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>MCP 뜻 — AI에게 손발을 달아주는 표준, 5분 설명</title><meta name="description" content="MCP(Model Context Protocol)가 무엇인지 비유로 설명한다. 왜 나왔는지, 어떤 구조인지, 실제로 뭐가 달라지는지 — 개발 지식 없이 읽을 수 있게 정리했다."><meta property="og:title" content="MCP 뜻 — AI에게 손발을 달아주는 표준, 5분 설명"><meta property="og:description" content="MCP(Model Context Protocol)가 무엇인지 비유로 설명한다. 왜 나왔는지, 어떤 구조인지, 실제로 뭐가 달라지는지 — 개발 지식 없이 읽을 수 있게 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>MCP 뜻, AI에게 손발을 달아 주는 표준과 MCP 서버 정리</title><meta name="description" content="MCP(Model Context Protocol)가 무엇인지 USB-C 비유로 설명한다. 왜 나왔는지, 호스트·서버 구조와 용어, 연결하면 달라지는 일, 연결 전 주의점까지 — 공식 문서와 대조해 개발 지식 없이 읽을 수 있게 정리했다."><meta property="og:title" content="MCP 뜻, AI에게 손발을 달아 주는 표준과 MCP 서버 정리"><meta property="og:description" content="MCP(Model Context Protocol)가 무엇인지 USB-C 비유로 설명한다. 왜 나왔는지, 호스트·서버 구조와 용어, 연결하면 달라지는 일, 연결 전 주의점까지 — 공식 문서와 대조해 개발 지식 없이 읽을 수 있게 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 6일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="mcp-뜻--ai에게-손발을-달아주는-표준-5분-설명">MCP 뜻 — AI에게 손발을 달아주는 표준, 5분 설명</h1>
-<p><img alt="USB 케이블을 꽂아주는 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="720" height="720" src="/_astro/char-usb-plug.CSEt4Amo_mztqX.webp" ></p>
-<p>AI 관련 글을 읽다 보면 요즘 어디서나 MCP라는 세 글자가 나온다. 개발자 용어 같아서 넘기기 쉬운데, 개념 자체는 놀랄 만큼 단순하다. 비개발자 기준으로 5분 안에 정리한다.</p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li><strong>MCP = Model Context Protocol.</strong> AI가 외부 도구·데이터에 연결되는 방식을 통일한 <strong>표준 규격</strong>이다</li>
-<li>비유하면 <strong>AI 세계의 USB-C 포트</strong> — 규격만 맞으면 어떤 도구든 꽂아 쓸 수 있다</li>
-<li>왜 중요한가: AI가 “말만 하는 존재”에서 <strong>“내 메일·파일·업무 도구를 직접 다루는 존재”</strong>로 바뀌는 연결부가 MCP다</li>
-</ul>
-<h2 id="-1-뜻-ai와-도구-사이의-공용-규격">🔌 1. 뜻: AI와 도구 사이의 “공용 규격”</h2>
-<p>MCP는 Model Context Protocol의 약자로, <strong>AI 모델이 외부의 데이터와 도구에 연결되는 방법을 표준화한 프로토콜</strong>이다. Anthropic(클로드 개발사)이 2024년 11월 오픈소스로 공개했고, 이후 OpenAI를 포함한 업계 전반이 채택하면서 사실상의 공용 표준이 됐다.</p>
-<p>풀어서 말하면 이렇다. AI 챗봇은 원래 “지식은 많은데 손발이 없는” 존재였다. 메일을 읽어달라고 해도 내 메일함에 접근할 수 없고, 파일을 정리해달라고 해도 내 폴더를 열 수 없었다. MCP는 이 연결 문제를 푸는 <strong>표준 콘센트 규격</strong>이다.</p>
-<h2 id="-2-왜-나왔나-어댑터-지옥-문제">🤔 2. 왜 나왔나: 어댑터 지옥 문제</h2>
-<p>MCP 이전에는 AI 서비스마다, 도구마다 연동을 <strong>각각 따로</strong> 만들어야 했다. AI 서비스가 3개, 연결할 도구가 5개면 3×5 = 15개의 연동을 전부 개별 개발하는 식이다. 해외여행에서 나라마다 다른 콘센트 어댑터를 챙기는 것과 같은 상황이었다.</p>
-<p>MCP는 이걸 “규격 하나”로 정리했다. 도구 쪽은 MCP 규격에 맞는 <strong>서버</strong>를 한 번만 만들면 되고, AI 쪽은 MCP를 지원하기만 하면 그 도구를 전부 쓸 수 있다.</p>
-<p><img alt="MCP 이전과 이후 — 연결 구조의 차이 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1400" src="/_astro/diagram-mcp-before-after.9UKZbzGn_Z1rEknv.webp" ></p>
-<h2 id="-3-구조-딱-두-쪽만-기억하자">🧩 3. 구조: 딱 두 쪽만 기억하자</h2>
-<ul>
-<li><strong>MCP 호스트</strong> — AI가 들어 있는 앱. 클로드 데스크톱, Claude Code, 각종 AI 서비스가 여기 해당</li>
-<li><strong>MCP 서버</strong> — 도구·데이터를 제공하는 쪽. “Gmail 서버”, “노션 서버”, “회사 DB 서버”처럼 도구마다 하나씩 존재</li>
-</ul>
-<p>호스트가 MCP 서버에 꽂히면, AI는 그 서버가 제공하는 기능(메일 검색, 문서 작성, DB 조회…)을 <strong>자기 손발처럼</strong> 쓸 수 있게 된다.</p>
-<h2 id="-4-실제로-뭐가-달라지나">🧪 4. 실제로 뭐가 달라지나</h2>
-<p>내 경우를 예로 들면, 클로드에 Gmail·노션·구글 캘린더 같은 서비스를 커넥터로 연결해 두고 쓴다 — 이 커넥터들이 바로 MCP 서버다. 연결해 두면 이런 요청이 그냥 된다:</p>
-<ul>
-<li>“지난주 온 세금계산서 메일 찾아서 요약해줘”</li>
-<li>“이 회의록을 노션 페이지로 정리해줘”</li>
-<li>“다음 주 일정 보고 비는 시간에 미팅 잡아줘”</li>
-</ul>
-<p>포인트는 이 기능들이 특정 회사의 독점 기능이 아니라 <strong>표준 위에서 돌아간다</strong>는 것이다. 그래서 도구를 만드는 회사들도 “우리 서비스 MCP 서버”를 앞다퉈 내놓고 있고, 쓸 수 있는 도구가 계속 늘어난다.</p>
-<h2 id="️-5-알아둘-주의점-하나">⚠️ 5. 알아둘 주의점 하나</h2>
-<p>MCP는 AI에게 실제 권한을 주는 기술이다. 편해지는 만큼, <strong>아무 MCP 서버나 연결하면 안 된다.</strong> 출처가 불분명한 서버는 내 데이터에 접근할 수 있기 때문이다. 공식 제공처(도구를 만든 회사가 직접 운영하는 서버)를 우선으로 쓰고, 민감한 데이터를 다루는 연결은 신중하게 결정하자.</p>
-<h2 id="-6-더-가보려면">🚀 6. 더 가보려면</h2>
-<p>MCP를 가장 체감하기 쉬운 곳은 코딩 에이전트다. Claude Code 같은 도구는 MCP로 연결을 확장해 가며 쓰는 구조인데, 기본 사용법은 여기 정리했다: <a href="/posts/20260906-claude-code-usage/">Claude Code 사용법</a> · AI에게 일을 맡기는 방식 자체가 궁금하다면: <a href="/posts/20260905-vibe-coding-guide/">바이브 코딩이 뭐길래</a></p>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 6일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-뜻-ai와-도구-사이의-공용-규격" data-astro-cid-lvjzyg5v>1. 뜻: AI와 도구 사이의 공용 규격</a></li><li data-astro-cid-lvjzyg5v><a href="#2-왜-나왔나-어댑터-지옥-문제" data-astro-cid-lvjzyg5v>2. 왜 나왔나: 어댑터 지옥 문제</a></li><li data-astro-cid-lvjzyg5v><a href="#3-구조-호스트와-서버-두-쪽" data-astro-cid-lvjzyg5v>3. 구조: 호스트와 서버 두 쪽</a></li><li data-astro-cid-lvjzyg5v><a href="#4-연결하면-실제로-달라지는-것" data-astro-cid-lvjzyg5v>4. 연결하면 실제로 달라지는 것</a></li><li data-astro-cid-lvjzyg5v><a href="#5-한-회사의-기능이-아닌-이유" data-astro-cid-lvjzyg5v>5. 한 회사의 기능이 아닌 이유</a></li><li data-astro-cid-lvjzyg5v><a href="#6-연결-전에-알아-둘-주의점" data-astro-cid-lvjzyg5v>6. 연결 전에 알아 둘 주의점</a></li><li data-astro-cid-lvjzyg5v><a href="#헷갈리기-쉬운-것" data-astro-cid-lvjzyg5v>헷갈리기 쉬운 것</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="mcp-뜻-ai에게-손발을-달아-주는-표준과-mcp-서버-정리">MCP 뜻, AI에게 손발을 달아 주는 표준과 MCP 서버 정리</h1>
+<p><img alt="MCP 뜻과 MCP 서버 — AI에게 손발을 달아 주는 표준 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.fGLvSqIO_JoSvI.webp" ></p>
+<p class="cap">MCP 뜻과 MCP 서버 — AI에게 손발을 달아 주는 표준 (캐릭터는 GPT 이미지 생성)</p>
+<p>AI 관련 글을 읽다 보면 MCP라는 세 글자가 자꾸 나와요. “MCP 서버를 연결하세요”라는 문장에서 이런 생각이 들죠. “그래서 MCP가 뭔데?” 개발자 용어 같아서 넘기기 쉽지만, 개념은 놀랄 만큼 단순해요.</p>
+<p>충전 케이블을 떠올려 보세요. 기기마다 단자 모양이 다르면 케이블을 따로 챙겨야 하지만, USB-C처럼 단자를 하나로 맞추면 케이블 하나로 여러 기기를 꽂을 수 있어요. MCP는 AI와 도구 사이의 단자를 하나로 맞춘 약속이에요. MCP 공식 문서도 MCP를 ‘AI 앱을 위한 USB-C 포트’라고 소개해요.<br>
+<strong>MCP(Model Context Protocol)는 AI 앱이 바깥의 도구·데이터에 연결되는 방법을 하나로 정한 공개 표준이에요.</strong></p>
+<p><img alt="케이블 하나로 메일·일정·문서를 잇는 장면 — MCP를 USB-C에 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-usb-port.CtP3wUGq_Z15k1lq.webp" ></p>
+<p class="cap">케이블 하나로 메일·일정·문서를 잇는 장면 — MCP를 USB-C에 빗댄 그림 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: MCP라는 말이 낯선 분<br>① MCP 뜻과 USB-C 비유<br>② 호스트·서버 구조와 용어 6개<br>③ 연결하면 달라지는 일과 주의점<br>2026년 10월 기준 · MCP 사양 2026-07-28판</div>
 <hr>
-<p><em>기준: 2026-09-06. MCP 생태계는 빠르게 변하는 중이라 지원 도구·서비스 목록은 계속 달라진다. 개념 위주로 읽어주시길. 다이어그램은 직접 제작, 캐릭터 삽화는 GPT 이미지 생성입니다.</em></p> </article> </main> <footer class="site">
+<h2 id="1-뜻-ai와-도구-사이의-공용-규격">1. 뜻: AI와 도구 사이의 공용 규격</h2>
+<p><strong>MCP는 AI가 내 메일·파일·업무 도구를 직접 다루게 해 주는 연결 규격이에요.</strong> 이름을 풀면 Model Context Protocol, 우리말로 ‘모델 컨텍스트 프로토콜’이에요. AI 모델에 필요한 맥락(context)과 도구를 건네는 규약(protocol)이라는 뜻이에요.</p>
+<p>원래 AI 챗봇은 지식은 많은데 손발이 없는 존재였어요. 메일을 읽어 달라고 해도 내 메일함에 들어갈 수 없고, 파일을 정리해 달라고 해도 내 폴더를 열 수 없었어요.</p>
+<p>클로드를 만든 앤트로픽(Anthropic)이 <strong>2024년 11월 25일</strong> 오픈소스로 공개했어요.</p>
+<h2 id="2-왜-나왔나-어댑터-지옥-문제">2. 왜 나왔나: 어댑터 지옥 문제</h2>
+<p><strong>MCP 전에는 AI 서비스와 도구를 잇는 연동을 하나하나 따로 만들어야 했어요.</strong> AI 서비스가 3개, 연결할 도구가 5개면 3×5 = 15개 연동을 전부 따로 개발하는 식이에요. 해외여행 갈 때 나라마다 다른 콘센트 어댑터를 챙기는 상황과 같아요.</p>
+<p>앤트로픽 발표문도 ‘새 데이터 소스마다 따로 구현해야 해서, 연결된 시스템을 넓히기 어렵다’는 문제를 짚었어요.</p>
+<p><img alt="MCP 이전과 이후 — AI 앱 3개와 도구 5개를 잇는 연결 수 비교 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="3240" src="/_astro/diagram-mcp-before-after.B-rzgcyj_Z15Dp11.webp" ></p>
+<p class="cap">MCP 이전과 이후 — AI 앱 3개와 도구 5개를 잇는 연결 수 비교 (직접 제작)</p>
+<p>MCP는 이걸 규격 하나로 정리했어요. 도구 쪽은 MCP 서버를 한 번만 만들고, AI 앱 쪽은 MCP를 한 번만 지원하면 돼요. 그러면 15개가 3 + 5 = 8개로 줄어요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>새 도구가 나와도 MCP 서버 하나만 더하면, MCP를 지원하는 AI 앱 어디서나 쓸 수 있어요.</div>
+<h2 id="3-구조-호스트와-서버-두-쪽">3. 구조: 호스트와 서버 두 쪽</h2>
+<p><strong>구조는 두 쪽만 기억하면 돼요. AI가 들어 있는 앱(호스트)과 도구를 내주는 쪽(서버)이에요.</strong> MCP 호스트는 클로드 데스크톱, 클로드 코드 같은 AI 앱이에요. MCP 서버는 Gmail 서버, 노션 서버, 회사 DB 서버처럼 도구마다 하나씩 있어요.</p>
+<p>호스트가 서버에 꽂히면, AI는 그 서버가 내주는 기능을 자기 손발처럼 쓸 수 있어요. 공식 문서를 읽다 보면 나오는 용어 여섯 개를 표로 정리했어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>용어</th><th>뜻</th></tr></thead><tbody><tr><td>호스트 (host)</td><td>AI가 들어 있는 앱 — 클로드 데스크톱, 클로드 코드</td></tr><tr><td>클라이언트 (client)</td><td>호스트 안에서 서버 하나와의 연결을 맡는 부품</td></tr><tr><td>서버 (server)</td><td>도구·데이터를 내주는 프로그램 — Gmail, 노션</td></tr><tr><td>도구 (tools)</td><td>AI가 실행하는 기능 — 메일 검색, DB 조회</td></tr><tr><td>리소스 (resources)</td><td>AI가 읽는 자료 — 파일 내용, DB 기록</td></tr><tr><td>프롬프트 (prompts)</td><td>미리 만들어 둔 요청 틀</td></tr></tbody></table>
+<p>클라이언트는 호스트가 서버마다 하나씩 만드는 연결 담당이라, 쓰는 사람이 따로 챙길 일은 없어요. <mark>호스트는 AI 앱, 서버는 도구 쪽</mark>이라는 것만 기억하면 충분해요.</p>
+<h2 id="4-연결하면-실제로-달라지는-것">4. 연결하면 실제로 달라지는 것</h2>
+<p><strong>MCP 서버를 연결해 두면, 내 메일·문서·일정을 다루는 일을 AI에게 말로 시킬 수 있어요.</strong> 저는 클로드에 Gmail·노션·구글 캘린더를 커넥터로 연결해 두고 써요. 클로드에서는 claude.ai에 추가한 MCP 서버를 커넥터(connector)라고 불러요.</p>
+<p>연결해 두면 이런 요청이 실제로 돼요. 먼저 Gmail을 연결했다면 이렇게요.</p>
+<p class="plabel">📋 그대로 복사해 쓰세요</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>지난주 온 세금계산서 메일 찾아서 요약해줘</span></span></code></pre>
+<p>노션을 연결했다면 이렇게요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>이 회의록을 노션 페이지로 정리해줘</span></span></code></pre>
+<p>구글 캘린더를 연결했다면 이렇게요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>다음 주 일정 보고 비는 시간에 미팅 잡아줘</span></span></code></pre>
+<p><strong>연결된 MCP 서버는 직접 확인할 수 있어요.</strong></p>
+<ol class="steps"><li>클로드 웹이나 데스크톱에서 <code>Customize > Connectors</code> 메뉴를 여세요(영어 화면 기준).<span class="then">→ 연결할 수 있는 커넥터를 둘러보고 추가할 수 있어요.</span></li><li>클로드 코드를 쓴다면 터미널에 아래 한 줄을 입력하세요.</li></ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">claude mcp list</span></span></code></pre>
+<p>→ 연결된 MCP 서버가 한 줄씩 떠요. 이 머신(클로드 코드 <code>2.1.268</code>)에서는 <code>claude.ai Gmail</code>, <code>claude.ai Notion</code>, <code>claude.ai Google Calendar</code>가 <code>Connected</code>로 보여요.<br>
+→ 이름 앞의 claude.ai는 claude.ai에서 연결한 커넥터를 클로드 코드가 그대로 가져왔다는 표시예요.</p>
+<h2 id="5-한-회사의-기능이-아닌-이유">5. 한 회사의 기능이 아닌 이유</h2>
+<p><strong>MCP는 앤트로픽이 만들었지만, 지금은 여러 회사가 함께 쓰는 공개 표준이에요.</strong> 그래서 도구를 만드는 회사들이 ‘우리 서비스 MCP 서버’를 내놓고, 쓸 수 있는 도구가 계속 늘어나요.</p>
+<p>OpenAI 개발자 문서도 MCP를 ‘AI 모델을 확장하는 업계 표준이 되어 가는 공개 프로토콜’이라고 소개해요.</p>
+<p>2025년 12월 9일에는 앤트로픽이 MCP를 리눅스 재단(Linux Foundation) 산하의 Agentic AI Foundation에 기부했어요. 이 재단은 앤트로픽·Block·OpenAI가 함께 세웠어요. 같은 발표에 따르면 공개된 MCP 서버는 <strong>1만 개</strong>가 넘어요.</p>
+<p>MCP를 쓰는 곳을 공식 문서와 발표문 기준으로 정리했어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>쓰는 곳</th><th>MCP를 쓰는 방식</th></tr></thead><tbody><tr><td>클로드 (웹·데스크톱·코드)</td><td>커넥터로 연결</td></tr><tr><td>챗GPT · 코덱스</td><td>원격 MCP 서버 연결 (OpenAI 문서)</td></tr><tr><td>VS 코드 · 커서</td><td>개발 도구에 MCP 서버 연결</td></tr><tr><td>제미나이 · 코파일럿</td><td>MCP 채택 (앤트로픽 2025년 12월 발표)</td></tr></tbody></table>
+<h2 id="6-연결-전에-알아-둘-주의점">6. 연결 전에 알아 둘 주의점</h2>
+<p><strong>MCP는 AI에게 실제 권한을 주는 기술이라, 아무 서버나 연결하면 안 돼요.</strong> 연결한 서버는 내 데이터에 접근할 수 있어요. MCP 사양도 도구를 ‘임의의 코드 실행’으로 보고 조심해서 다루라고 적어 두었어요.</p>
+<p>OpenAI와 클로드 코드 공식 문서도 믿을 수 있는 서버만 연결하라고 해요. 글 속에 숨긴 지시로 AI를 조종하는 공격(프롬프트 인젝션)이 있어서예요.</p>
+<p><img alt="낯선 플러그를 꽂기 전에 돋보기로 살펴보는 장면 — MCP 서버도 연결 전에 확인 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-plug-check.n0lGzDBY_Z11wsOF.webp" ></p>
+<p class="cap">낯선 플러그를 꽂기 전에 돋보기로 살펴보는 장면 — MCP 서버도 연결 전에 확인 (GPT 이미지 생성)</p>
+<p>민감한 데이터를 다루는 연결은 신중하게 정하고, 쓰지 않는 커넥터는 연결을 끊어 두세요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>출처를 모르는 MCP 서버는 연결하지 마세요. 도구를 만든 회사가 직접 운영하는 공식 서버부터 쓰세요.</div>
+<h2 id="헷갈리기-쉬운-것">헷갈리기 쉬운 것</h2>
+<p><strong>MCP는 AI 이름이 아니에요</strong> 클로드나 ChatGPT 같은 AI가 아니라 <mark>AI 앱과 도구를 잇는 규격</mark>이에요. 공식 문서도 AI 앱이 모델을 어떻게 쓰는지는 MCP가 정하지 않는다고 적어요.</p>
+<p><strong>MCP 서버가 꼭 내 컴퓨터에서 도는 건 아니에요</strong> 같은 컴퓨터에서 도는 로컬 서버도, 서비스 회사가 인터넷에서 운영하는 원격 서버도 있어요. 제 클로드 코드 목록의 claude.ai 커넥터들은 모두 https 주소로 연결된 원격 서버예요.</p>
+<p><strong>MCP가 보안을 대신 지켜 주지는 않아요</strong> MCP 사양은 사용자 동의와 통제를 원칙으로 두면서도, 프로토콜만으로는 강제할 수 없다고 밝혀요. 지키는 건 앱 설정과, 무엇을 연결할지 고르는 사람의 몫이에요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① MCP는 AI 앱과 도구를 잇는 공개 표준<br>② 도구는 서버를, AI 앱은 지원을 한 번만<br>③ 구조는 호스트(AI 앱)와 서버(도구) 두 쪽<br>④ 출처를 아는 공식 서버만 연결</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. MCP를 쓰려면 코딩을 알아야 하나요?</summary><p>아니요. 4번처럼 커넥터 메뉴에서 골라 연결하면 돼요. 서버를 새로 만드는 건 개발자의 일이에요.</p></details>
+<details class="faq"><summary>Q. ChatGPT에서도 MCP를 쓸 수 있나요?</summary><p>네. OpenAI 문서에 따르면 원격 MCP 서버를 ChatGPT와 Codex, API에서 쓸 수 있어요.</p></details>
+<details class="faq"><summary>Q. MCP 서버는 누가 만드나요?</summary><p>도구를 만든 회사가 공식 서버를 내기도 하고, 개인이 만든 서버도 있어요. 앤트로픽은 처음 공개할 때 Google Drive, Slack, GitHub 서버를 함께 내놓았어요.</p></details>
+<details class="faq"><summary>Q. AI가 연결된 도구로 마음대로 일을 벌이지는 않나요?</summary><p>MCP 사양은 도구를 쓰기 전에 사용자 동의를 받으라고 정해 두었고, 실제로 얼마나 묻는지는 앱 설정에 따라 달라요. 저는 클로드 코드를 자동 모드로 쓰고, 밖으로 내보내는 일은 규칙을 정해 두고 맡겨요.</p></details>
+<p>다음 글에서는 클로드 코드에 MCP 서버를 직접 연결하는 방법을 다뤄요. 연결 방식 세 가지와 연결 뒤 확인하는 법까지요.</p>
+<p class="nextpost">→ <a href="/posts/20260907-claude-code-mcp/">Claude Code에 MCP 연결하기 — 개념부터 첫 연결까지 (실사용 기준)</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>MCP 공식 문서 — MCP란 무엇인가 · <a href="https://modelcontextprotocol.io/docs/getting-started/intro">modelcontextprotocol.io/docs/getting-started/intro</a></li>
+<li>앤트로픽 발표 — MCP 공개(2024년 11월) · <a href="https://anthropic.com/news/model-context-protocol">anthropic.com/news/model-context-protocol</a></li>
+<li>Claude Code 공식 문서 — MCP 연결 · <a href="https://code.claude.com/docs/en/mcp">code.claude.com/docs/en/mcp</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 발행 2026년 9월 6일<br>다시 확인·수정 2026년 10월 6일<br>커넥터를 연결해 쓰는 경험 + 공식 문서 대조<br>Windows 11 · 클로드 코드 2.1.268<br>제휴 없음 · 캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260906-mcp-servers-guide/">MCP 서버 추천</a> · <a href="/posts/20260922-mcp-vs-api-vs-cli/">MCP vs API vs CLI 차이</a> · <a href="/posts/20260906-claude-code-usage/">클로드 코드 사용법</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

@@ -1,21 +1,169 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Jev 사용법 — 상태와 질문표를 보내면 확신도가 돌아온다, 확신도로 세 갈래 나누기 (공식 문서 기준)</title><meta name="description" content="TypeSafe AI의 Jev를 실제로 어떻게 부르는지 공식 문서의 예제 그대로 따라간다. 고객 문의 한 통을 보내 '어느 팀·얼마나 화났나·급한가'를 한 번에 받고, 돌아온 확신도로 자동 처리·확인 후 진행·사람에게 넘기기 세 갈래를 만드는 법. 확신도가 어떻게 계산되는지, 문서가 권하는 문턱값, 네 가지 설계 패턴, 한도와 오류 코드, 그리고 질문을 잘못 쓰는 흔한 실수까지. Jev 3부작의 2편."><meta property="og:title" content="Jev 사용법 — 상태와 질문표를 보내면 확신도가 돌아온다, 확신도로 세 갈래 나누기 (공식 문서 기준)"><meta property="og:description" content="TypeSafe AI의 Jev를 실제로 어떻게 부르는지 공식 문서의 예제 그대로 따라간다. 고객 문의 한 통을 보내 '어느 팀·얼마나 화났나·급한가'를 한 번에 받고, 돌아온 확신도로 자동 처리·확인 후 진행·사람에게 넘기기 세 갈래를 만드는 법. 확신도가 어떻게 계산되는지, 문서가 권하는 문턱값, 네 가지 설계 패턴, 한도와 오류 코드, 그리고 질문을 잘못 쓰는 흔한 실수까지. Jev 3부작의 2편."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Jev 사용법, 확신도로 자동·확인·사람 세 갈래 나누기</title><meta name="description" content="TypeSafe AI의 Jev를 공식 문서의 예제 그대로 따라간다. SDK를 설치하고 고객 문의 한 통에 질문 셋(어느 팀·얼마나 화남·급한가)을 한 번에 보내, 돌아온 확률과 확신도로 자동 처리·확인 후 진행·사람에게 넘기기 세 갈래를 만드는 법. 확신도 계산, 문턱값 예제, 질문 쓰는 요령, 한도·요금·오류 코드까지 2026년 10월 7일 문서와 다시 대조했다. Jev 3부작의 2편."><meta property="og:title" content="Jev 사용법, 확신도로 자동·확인·사람 세 갈래 나누기"><meta property="og:description" content="TypeSafe AI의 Jev를 공식 문서의 예제 그대로 따라간다. SDK를 설치하고 고객 문의 한 통에 질문 셋(어느 팀·얼마나 화남·급한가)을 한 번에 보내, 돌아온 확률과 확신도로 자동 처리·확인 후 진행·사람에게 넘기기 세 갈래를 만드는 법. 확신도 계산, 문턱값 예제, 질문 쓰는 요령, 한도·요금·오류 코드까지 2026년 10월 7일 문서와 다시 대조했다. Jev 3부작의 2편."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 22일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다. TypeSafe AI와 아무 관계가 없고, 예제와 수치는 2026년 9월 22일 공식 문서 기준입니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="jev-사용법--상태와-질문표를-보내면-확신도가-돌아온다-확신도로-세-갈래-나누기">Jev 사용법 — 상태와 질문표를 보내면 확신도가 돌아온다, 확신도로 세 갈래 나누기</h1>
-<p>콜센터 접수 창구를 떠올려 보세요. 접수원은 문의를 읽고 <strong>도장 세 개</strong>를 찍습니다. 어느 팀, 얼마나 화남, 급한가. 그리고 자신 없는 건 팀장에게 넘깁니다. 이 접수원이 하루 10만 건을 0.5초씩에 처리하고, “자신 없다”를 숫자로 말해준다면 어떨까요.</p>
-<p><a href="/posts/20260922-system-one-model-jev/">1편</a>에서 Jev가 ‘고르기만 하는 AI’라는 걸 봤습니다. 이 글은 그 접수원을 <strong>실제로 어떻게 부르고, 돌아온 숫자로 무엇을 하는지</strong>를 공식 문서의 예제 그대로 따라갑니다. 코드는 최소한만 보여드리고, 각 줄이 사람 말로 무엇인지 옆에 적을게요.</p>
-<p><img alt="편지를 세 바구니(자동·확인·사람)로 나누는 접수 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-three-trays.BaRFjVPC_Z2syzYj.webp" ></p>
-<h2 id="결론-요약">결론 요약</h2>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 9개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-sdk-설치하고-키-넣기" data-astro-cid-lvjzyg5v>1. SDK 설치하고 키 넣기</a></li><li data-astro-cid-lvjzyg5v><a href="#2-질문-셋을-한-번에-보내기" data-astro-cid-lvjzyg5v>2. 질문 셋을 한 번에 보내기</a></li><li data-astro-cid-lvjzyg5v><a href="#3-돌아온-값-읽기" data-astro-cid-lvjzyg5v>3. 돌아온 값 읽기</a></li><li data-astro-cid-lvjzyg5v><a href="#4-확신도-읽는-법" data-astro-cid-lvjzyg5v>4. 확신도 읽는 법</a></li><li data-astro-cid-lvjzyg5v><a href="#5-확신도로-세-갈래-나누기" data-astro-cid-lvjzyg5v>5. 확신도로 세 갈래 나누기</a></li><li data-astro-cid-lvjzyg5v><a href="#6-질문-잘-쓰는-요령" data-astro-cid-lvjzyg5v>6. 질문 잘 쓰는 요령</a></li><li data-astro-cid-lvjzyg5v><a href="#7-한도와-요금-알고-시작하기" data-astro-cid-lvjzyg5v>7. 한도와 요금 알고 시작하기</a></li><li data-astro-cid-lvjzyg5v><a href="#막힐-때" data-astro-cid-lvjzyg5v>막힐 때</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다. TypeSafe AI와 아무 관계가 없고, 예제와 수치는 공식 문서의 예시 값입니다(2026년 10월 7일 다시 확인). 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="jev-사용법-확신도로-자동확인사람-세-갈래-나누기">Jev 사용법, 확신도로 자동·확인·사람 세 갈래 나누기</h1>
+<p><img alt="Jev 사용법 — 확신도로 세 갈래 나누기 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.BJpuWBAY_Z1ezbnL.webp" ></p>
+<p class="cap">Jev 사용법 — 확신도로 세 갈래 나누기 (캐릭터는 GPT 이미지 생성)</p>
+<p>Jev를 처음 부르면 답과 함께 숫자가 여럿 따라와요. 확률, 그리고 확신도(confidence). “이 숫자로 뭘 하라는 거지?” 하는 데서 막히기 쉬워요.</p>
+<p>콜센터 접수 창구를 떠올려 보세요. 접수원은 문의를 읽고 도장 세 개를 찍어요. 어느 팀, 얼마나 화남, 급한가. 그리고 자신 없는 건 팀장에게 넘겨요. Jev는 이 접수원처럼 도장을 찍으면서, 얼마나 자신 있는지를 숫자로 같이 알려 줘요.<br>
+<strong>Jev 사용법의 핵심은 답을 받는 게 아니라, 확신도로 갈림길을 만드는 거예요.</strong></p>
+<p><img alt="편지를 자동·확인·사람 세 바구니로 나누는 접수 로봇 — 확신도 세 갈래 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-three-trays.BaRFjVPC_Z2syzYj.webp" ></p>
+<p class="cap">편지를 자동·확인·사람 세 바구니로 나누는 접수 로봇 — 확신도 세 갈래 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: Jev API를 처음 써 보려는 분<br>① 질문 셋을 한 번에 보내고 받는 법<br>② 확신도 읽기와 세 갈래 나누기<br>③ 한도·오류와 질문 쓰는 요령<br>준비물: 파이썬 3.10 이상 · TypeSafe API 키<br>2026년 10월 기준 · jev-1.13.0 · 공식 문서</div>
+<hr>
+<h2 id="1-sdk-설치하고-키-넣기">1. SDK 설치하고 키 넣기</h2>
+<p><strong>파이썬 SDK를 설치하고 API 키를 환경변수에 넣으면 준비가 끝나요.</strong> 1편에서 본 ‘고르기만 하는 AI’ Jev를 공식 문서의 예제 그대로 따라가요. 이 글의 값은 모두 문서의 예시 값이에요.</p>
+<ol class="steps"><li>터미널에서 아래 한 줄로 SDK를 설치하세요.</li></ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">pip install typesafe</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">sdk</span></span></code></pre>
+<ol class="steps" start="2"><li>TypeSafe 대시보드에서 API 키를 받아 환경변수 <code>TYPESAFE_API_KEY</code>에 넣으세요.<span class="then">→ SDK가 이 값을 읽어요. 키를 코드에 직접 적지 않아도 돼요.</span></li></ol>
+<p>→ 이제 파이썬에서 <code>TypeSafeClient()</code> 하나로 Jev를 불러요. 모델은 따로 정하지 않으면 <code>jev-latest</code>예요.</p>
+<h2 id="2-질문-셋을-한-번에-보내기">2. 질문 셋을 한 번에 보내기</h2>
+<p><strong>문의 한 통(상태, state)과 질문 셋(질문표, questions)을 한 번에 보내요.</strong> 공식 빠른 시작의 상태는 ‘3일째 Stripe 연동이 실패해 매출이 빠지고 있다, 빨리 도와 달라’는 고객 문의예요(원문은 영어). 여기에 질문 셋을 붙여요.<br>
+① <code>department</code> — 하나 고르기(Choice): 어느 팀이 맡나. 보기는 결제(billing)·기술(technical)·영업(sales)<br>
+② <code>frustration</code> — 단계 매기기(Score): 얼마나 화났나. 차분함 → 화났지만 정중함 → 매우 화남<br>
+③ <code>is_urgent</code> — 예/아니오(Noul): 급하다고 말하나</p>
+<p>문서 표현으로 질문들은 ‘독립적으로, 병렬로 평가’돼요. 하나씩 세 번 보낼 이유가 없어요. 전체 파이썬 코드는 사이트판에 복사 버튼과 함께 있어요.</p>
+<h2 id="3-돌아온-값-읽기">3. 돌아온 값 읽기</h2>
+<p><strong>질문마다 답이 오고, Choice와 Score에는 확률과 확신도가 붙어요.</strong> 빠른 시작의 예시 값은 이래요.<br>
+① department → <code>technical</code>, 확신도 <code>0.78</code>, 확률은 기술 0.85 · 결제 0.15 · 영업 0<br>
+② frustration → 점수 <code>1.0</code>, 둘째 단계인 ‘화났지만 정중함’<br>
+③ is_urgent → <code>1.0</code>, 급하다 쪽으로 100%</p>
+<p>SDK 없이 HTTP로 직접 보내도 모양은 같아요. API 문서의 응답 예시를 줄이면 이래요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "model"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"jev-1.13.0"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "answers"</span><span style="color:#E1E4E8">: {</span></span>
+<span class="line"><span style="color:#79B8FF">    "is_urgent"</span><span style="color:#E1E4E8">: {</span><span style="color:#79B8FF">"noul"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0.95</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#79B8FF">  "usage"</span><span style="color:#E1E4E8">: {</span><span style="color:#79B8FF">"input_tokens"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">296</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">            "output_tokens"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>세 가지가 눈에 들어와요.<br>
+① 별명 <code>jev-latest</code>로 보내면 실제 버전 <code>jev-1.13.0</code>이 돌아와요.<br>
+② 응답에 글이 한 줄도 없어요. 숫자와 이름뿐이에요.<br>
+③ 출력 토큰이 찍히지만 모델 문서상 출력 요금은 없어요. 입력 100만 토큰당 0.042달러만 내요.</p>
+<h2 id="4-확신도-읽는-법">4. 확신도 읽는 법</h2>
+<p><strong>확신도는 확률이 한쪽에 얼마나 몰렸는지를 0~1 숫자 하나로 접은 거예요.</strong> 다 몰리면 1, 고르게 퍼지면 0이에요. Choice의 계산식은 문서에 나와 있어요. 보기가 n개이고 가장 큰 확률이 p라면 (n × p − 1) ÷ (n − 1)이에요.</p>
+<p>보기가 셋이면 이렇게 돼요.<br>
+① 기술 1.0 · 나머지 0 → 확신도 <code>1.0</code><br>
+② 기술 0.85 · 결제 0.15 · 영업 0 → <code>0.78</code> (위 예시 응답 그대로)<br>
+③ 셋이 3분의 1씩 → <code>0</code></p>
+<p><img alt="감정 구름의 높이를 세 구간 자로 재는 로봇 — 확신도를 숫자로 읽는 장면 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-ruler-levels.C7A_rBAk_Z2rcfYG.webp" ></p>
+<p class="cap">감정 구름의 높이를 세 구간 자로 재는 로봇 — 확신도를 숫자로 읽는 장면 (GPT 이미지 생성)</p>
+<p>Score는 계산이 조금 달라요. 단계에 순서가 있어서, 이웃 단계로 갈리면 덜 깎이고 양 끝으로 갈리면 더 깎여요. 문서 예시에서 심각도 세 단계의 확률이 0 · 0.57 · 0.43으로 갈리면 점수는 <code>1.43</code>, 확신도는 <code>0.35</code>로 낮게 나와요. <mark>점수와 확신도는 늘 같이 보세요</mark>. 점수가 애매하면 확신도가 낮아요.</p>
+<p>Noul에는 확신도가 따로 없어요. 값 자체가 ‘예’일 확률이라, 0.5에 가까울수록 모르겠다는 뜻이에요.</p>
+<h2 id="5-확신도로-세-갈래-나누기">5. 확신도로 세 갈래 나누기</h2>
+<p><strong>확신도가 있으니 코드가 갈림길을 만들 수 있어요.</strong> 공식 문서 ‘확신도’ 페이지가 출발점으로 권하는 세 갈래예요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>확신도</th><th>코드가 할 일</th></tr></thead><tbody><tr><td>높음</td><td>사람 없이 자동으로 실행 — 도장 찍고 바로 전달</td></tr><tr><td>중간</td><td>조심해서 진행 — 확인 요청, 검토 표시, 정보 더 모으기</td></tr><tr><td>낮음</td><td>실행하지 않음 — 사람에게, 다시 묻기, 다른 시스템으로</td></tr></tbody></table>
+<p>문턱을 어디에 둘지는 일의 무게가 정해요. 확신도 페이지의 예제 코드는 <code>0.5</code>를 바닥으로 두고, 그 아래는 사람에게 넘겨요. 그 위에서는 되돌리기 어려운 일일수록 문턱을 높여요.</p>
+<p>‘확신도 기반 라우팅’ 패턴의 은행 예제는 이래요. 잔액 조회는 <code>0.6</code>만 넘으면 보여 줘요. 틀려도 잔액을 한 번 더 듣는 정도라서요. 송금 승인은 <code>0.85</code>를 넘어야 자동으로 하고, 그 아래면 ‘확인하시겠어요?’를 띄워요.</p>
+<p><img alt="Jev 확신도 세 갈래 — 상태와 질문표를 보내면 답·확률·확신도가 오고, 코드가 자동·확인·사람으로 나눈다 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="3360" src="/_astro/diagram-confidence-three-ways.DPaEZQef_Z17C28v.webp" ></p>
+<p class="cap">Jev 확신도 세 갈래 — 상태와 질문표를 보내면 답·확률·확신도가 오고, 코드가 자동·확인·사람으로 나눈다 (직접 제작)</p>
+<p>0.5, 0.6, 0.85는 문서 예제의 숫자일 뿐, 내 일에 맞는 값은 따로 있어요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>문턱은 정답이 아니라 출발점이에요. 보수적으로 시작해 내 데이터로 시험하고 조정하세요.</div>
+<h2 id="6-질문-잘-쓰는-요령">6. 질문 잘 쓰는 요령</h2>
+<p><strong>넓은 판단은 좁은 질문 여러 개로 쪼개세요.</strong> 문서의 원칙은 ‘넓은 판단을 좁고 타입이 정해진 질문들로 쪼개고, 지시와 기준을 명시하라’예요. 판단은 Jev가, 흐름은 코드가 맡아요.</p>
+<p><strong>첫째, 조건 하나에 질문 하나</strong></p>
+<p class="plabel">❌ 이렇게 말고</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>고객이 화가 났고, 환불을 요구하나?</span></span></code></pre>
+<p>두 조건을 한 번에 판단하니 값의 뜻이 흐려져요. 둘로 나눠 묻고, 합치는 건 코드가 해요.</p>
+<p class="plabel">⭕ 이렇게</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>고객이 화가 났나?</span></span></code></pre>
+<p>환불 요구는 따로 물어요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>고객이 환불을 요구하나?</span></span></code></pre>
+<p><strong>둘째, ‘예’가 ‘있다’ 쪽이 되게</strong> ‘개인정보가 없는가?’처럼 거꾸로 물으면 뒤에서 읽는 코드가 반대로 해석하기 쉬워요. ‘개인정보가 있는가?’로 물으세요.</p>
+<p><strong>셋째, Score 단계는 정도가 아니라 상황으로</strong> ‘약간·보통·매우’ 대신 ‘우회 방법이 있다 / 없다’처럼 Jev가 맞춰 볼 상황을 적으세요. 순서가 없는 것(팀 이름)은 Choice로, 예/아니오는 Noul로 물어요.</p>
+<p><strong>넷째, 상태에는 판단에 필요한 것만</strong> 문서는 관련 있는 맥락만 넣어야 모델이 방해받지 않는다고 해요. 계산·날짜·개수 같은 일은 Jev에게 맡기지 말고 코드가 해요.</p>
+<p>문서는 이 원칙으로 네 가지 패턴을 권해요. 한 번에 여러 질문을 미리 묻기, 확신도로 가르기, 여러 Score를 코드가 합치기, 의도를 Choice로 분류해 처리기 고르기예요.</p>
+<h2 id="7-한도와-요금-알고-시작하기">7. 한도와 요금 알고 시작하기</h2>
+<p><strong>쓰기 전에 한도를 알아 두면 오류를 줄일 수 있어요.</strong> 모델 문서와 API 문서에 적힌 값이에요(2026년 10월 7일 확인).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>상태 크기</td><td>요청 전체 64k 토큰, 상태와 가장 긴 질문을 합쳐 32k 토큰</td></tr><tr><td>입력</td><td>글자만 — 문자열, JSON 객체, 문자열 배열</td></tr><tr><td>Choice 보기</td><td>최대 255개</td></tr><tr><td>Score 단계</td><td>2~10개</td></tr><tr><td>속도 한도</td><td>초당 10만 토큰, 초당 80요청 (수시로 조정 중)</td></tr><tr><td>요금</td><td>입력 100만 토큰당 0.042달러, 출력 무료</td></tr></tbody></table>
+<p>속도 한도는 9월 22일 이 글을 처음 쓸 때(초당 25만 토큰, 분당 1,200요청)와 달라졌어요. 문서도 수요에 따라 예고 없이 바뀔 수 있다고 밝혀요.</p>
+<h2 id="막힐-때">막힐 때</h2>
+<p><strong>401 오류가 나요</strong><br>
+원인: API 키가 없거나 잘못됐어요.<br>
+해결: 환경변수 TYPESAFE_API_KEY에 키가 들어 있는지, 요청의 Authorization 머리값을 확인하세요.</p>
+<p><strong>422 오류가 나요</strong><br>
+원인: 요청 형식이 틀렸어요. 필수 항목이 빠졌거나 질문 모양이 잘못된 경우예요.<br>
+해결: 오류 본문이 어느 항목이 문제인지 알려 줘요. 그 항목부터 고치세요.</p>
+<p><strong>429나 529 오류가 나요</strong><br>
+원인: 429는 속도 한도 초과, 529는 서비스 과부하예요.<br>
+해결: 바로 다시 보내지 말고 지수 백오프(잠깐 쉬고, 다음엔 두 배 쉬고)로 재시도하세요. 공식 SDK는 기본 설정으로 이걸 알아서 해요.</p>
+<p><strong>한국어 문의에서 결과가 어긋나요</strong><br>
+원인: Jev의 주 학습 언어는 영어예요. 문서는 한국어 같은 다른 언어도 받지만 정확도가 같지는 않다고 밝혀요.<br>
+해결: 내 데이터로 먼저 시험하고, 확신도로 가를 때 문턱을 더 보수적으로 두세요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 상태와 질문표를 보내면 답이 한 번에 와요<br>② 확신도는 ‘모르겠다’를 숫자로 말한 것<br>③ 높으면 자동, 중간은 확인, 낮으면 사람<br>④ 문턱은 출발점 — 내 데이터로 조정해요</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 파이썬을 꼭 써야 하나요?</summary><p>아니요. SDK 없이 HTTP로 직접 보낼 수 있어요. 공식 문서의 v1/systemone 주소로 3번에서 본 JSON 모양 그대로 주고받아요.</p></details>
+<details class="faq"><summary>Q. Noul에는 왜 확신도가 없나요?</summary><p>Noul 값 자체가 ‘예’일 확률이라서요. 0.5에 가까우면 모르겠다는 뜻이에요.</p></details>
+<details class="faq"><summary>Q. 질문을 하나씩 나눠 보내는 게 더 정확하지 않나요?</summary><p>같은 상태에 대한 질문은 한 요청에 모으는 게 문서의 권장이에요. 질문들은 독립적으로, 병렬로 평가돼서 한 질문의 답이 다른 질문에 끼어들지 않아요.</p></details>
+<details class="faq"><summary>Q. 요금은 어떻게 매기나요?</summary><p>입력 토큰에만 매겨요. 2026년 10월 7일 모델 문서 기준 100만 토큰당 0.042달러이고, 출력은 무료예요.</p></details>
+<p>다음 글에서는 이 계약을 제가 만든 LLM 게이트웨이에 판정 창구로 옮겨 붙인 기록을 다뤄요.</p>
+<p class="nextpost">→ <a href="/posts/20260922-llm-gateway-fast-decisions/">LLM 게이트웨이 판정 API, Jev 계약을 옮겨 붙인 기록</a></p>
+<p><strong>참고 자료</strong></p>
 <ul>
-<li>부르는 법은 하나입니다. <strong>상태(state) + 질문표(questions)</strong>를 보내면 질문마다 <strong>답 + 확률 + 확신도</strong>가 옵니다. 주소는 <code>POST https://api.typesafe.ai/v1/systemone</code>, 모델은 <code>jev-latest</code></li>
-<li><strong>확신도(confidence)</strong>는 확률이 한쪽에 얼마나 몰렸는지를 0~1로 접은 숫자. 문서가 권하는 세 갈래는 <strong>0.9 초과 자동 · 0.5~0.9 확인 후 · 0.5 미만 사람에게</strong></li>
-<li>잘 쓰는 법은 <strong>질문을 잘게, 상태는 관련 있는 것만, 판단은 코드가.</strong> 문서의 표현으로 “코드가 흐름을 소유한다”</li>
-<li>한도: 질문당 상태 32k 토큰(요청 전체 64k), 보기 255개, 단계 2~10개. 오류는 401(키)·422(형식)·429(속도)·529(과부하)</li>
+<li>TypeSafe 공식 문서 — 빠른 시작 · <a href="https://docs.typesafe.ai/introduction/quickstart">docs.typesafe.ai/introduction/quickstart</a></li>
+<li>TypeSafe 공식 문서 — 확신도 · <a href="https://docs.typesafe.ai/confidence">docs.typesafe.ai/confidence</a></li>
+<li>TypeSafe 공식 문서 — 모델(한도·요금) · <a href="https://docs.typesafe.ai/models">docs.typesafe.ai/models</a></li>
 </ul>
-<h2 id="-1-한-번-불러-보기--공식-빠른-시작-예제">📮 1. 한 번 불러 보기 — 공식 빠른 시작 예제</h2>
-<p>공식 문서의 빠른 시작은 고객 문의 한 통으로 시작합니다. 파이썬 SDK를 설치하고(<code>pip install typesafe-sdk</code>), API 키를 환경변수 <code>TYPESAFE_API_KEY</code>에 두고, 이렇게 부릅니다.</p>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 9월 22일<br>다시 확인·수정 2026년 10월 7일<br>공식 문서를 읽고 정리 · 값은 문서 예시<br>TypeSafe AI와 관계없음 · 제휴 없음<br>캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p><strong>빠른 시작 예제 전체</strong> (공식 문서 그대로, 문의 문장과 보기 설명만 뜻을 한국어로 옮김 — 원문은 영어)</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> typesafe_sdk </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Choice, Noul, Score, TypeSafeClient</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#E1E4E8">client </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> TypeSafeClient()</span></span>
+<span class="line"><span style="color:#E1E4E8">client </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> TypeSafeClient()   </span><span style="color:#6A737D"># 환경변수 TYPESAFE_API_KEY 를 읽고, 모델은 기본 jev-latest</span></span>
 <span class="line"><span style="color:#E1E4E8">ticket </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "3일째 Stripe 연동이 계속 실패해요. 매출이 빠지고 있어요. 빨리 도와주세요."</span><span style="color:#6A737D">  # 상태(state)</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#E1E4E8">response </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> client.system_one(</span></span>
@@ -33,148 +181,25 @@
 <span class="line"><span style="color:#FFAB70">            instructions</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"급하다거나 시간이 촉박하다고 말하고 있나"</span><span style="color:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#E1E4E8">        ),</span></span>
 <span class="line"><span style="color:#E1E4E8">    },</span></span>
-<span class="line"><span style="color:#E1E4E8">)</span></span></code></pre>
-<p>(원문 예제는 영어 문의이고, 여기서는 뜻만 한국어로 옮겼습니다. 문서가 밝히듯 영어가 기본 언어이고 다른 언어는 정확도가 같지 않습니다.)</p>
-<p>돌아오는 것은 질문 이름별 답입니다. 문서의 예시 값 그대로입니다.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">response.answers[</span><span style="color:#9ECBFF">"department"</span><span style="color:#E1E4E8">].choice        </span><span style="color:#6A737D"># "technical"  ← 고른 팀</span></span>
-<span class="line"><span style="color:#E1E4E8">response.answers[</span><span style="color:#9ECBFF">"department"</span><span style="color:#E1E4E8">].confidence    </span><span style="color:#6A737D"># 0.78         ← 얼마나 확신하나</span></span>
-<span class="line"><span style="color:#E1E4E8">response.answers[</span><span style="color:#9ECBFF">"department"</span><span style="color:#E1E4E8">].probabilities </span><span style="color:#6A737D"># {"technical": …, "billing": …, "sales": …}  보기별 확률, 합은 1</span></span>
-<span class="line"><span style="color:#E1E4E8">response.answers[</span><span style="color:#9ECBFF">"frustration"</span><span style="color:#E1E4E8">].score        </span><span style="color:#6A737D"># 1.0          ← 0(차분)~2(격분) 중 1 = "화났지만 정중함"</span></span>
-<span class="line"><span style="color:#E1E4E8">response.answers[</span><span style="color:#9ECBFF">"is_urgent"</span><span style="color:#E1E4E8">].noul           </span><span style="color:#6A737D"># 1.0          ← 급하다 100%</span></span></code></pre>
-<p>질문 셋을 <strong>한 번에</strong> 보냈고 답 셋이 <strong>한 번에</strong> 왔습니다. 문서 표현으로 “질문들은 독립적으로, 병렬로 평가”됩니다. 질문을 하나씩 세 번 보낼 이유가 없어요.</p>
-<h2 id="-2-sdk-없이-보면--요청과-응답의-실제-모양">🔧 2. SDK 없이 보면 — 요청과 응답의 실제 모양</h2>
-<p>프로그램이 실제로 주고받는 것은 JSON 한 덩어리입니다. 공식 API 문서의 예시입니다.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#6A737D">// 요청  POST https://api.typesafe.ai/v1/systemone   (헤더 Authorization: Bearer &#x3C;API 키>)</span></span>
-<span class="line"><span style="color:#E1E4E8">{</span></span>
-<span class="line"><span style="color:#79B8FF">  "state"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Help! My payouts have been failing for 3 days."</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "model"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"jev-latest"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "questions"</span><span style="color:#E1E4E8">: {</span></span>
-<span class="line"><span style="color:#79B8FF">    "is_urgent"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"noul"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"instructions"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Does this convey urgency?"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">                   "criteria"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"true"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Explicitly time-sensitive"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"false"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"No urgency expressed"</span><span style="color:#E1E4E8"> } }</span></span>
-<span class="line"><span style="color:#E1E4E8">  }</span></span>
-<span class="line"><span style="color:#E1E4E8">}</span></span>
-<span class="line"><span style="color:#6A737D">// 응답</span></span>
-<span class="line"><span style="color:#E1E4E8">{ </span><span style="color:#79B8FF">"model"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"jev-1.13.0"</span><span style="color:#E1E4E8">,</span></span>
-<span class="line"><span style="color:#79B8FF">  "answers"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"is_urgent"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"type"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"noul"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"noul"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0.95</span><span style="color:#E1E4E8"> } },</span></span>
-<span class="line"><span style="color:#79B8FF">  "usage"</span><span style="color:#E1E4E8">: { </span><span style="color:#79B8FF">"input_tokens"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">296</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"output_tokens"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8"> } }</span></span></code></pre>
-<p>세 가지가 눈에 들어옵니다. 첫째, <code>model</code>은 별명 <code>jev-latest</code>로 보내고 실제 버전 <code>jev-1.13.0</code>이 돌아옵니다. 둘째, 응답에 <strong>글이 한 줄도 없습니다.</strong> 숫자와 이름뿐이에요. 셋째, <code>usage</code>에 출력 토큰이 20으로 찍히지만 모델 문서상 <strong>출력 요금은 없습니다.</strong> 입력 100만 토큰당 $0.042만 냅니다.</p>
-<h2 id="️-3-확신도--확률의-모양을-숫자-하나로">🎚️ 3. 확신도 — 확률의 모양을 숫자 하나로</h2>
-<p>Choice와 Score에는 확률 목록 외에 <strong>확신도(confidence)</strong>가 따로 옵니다. 문서의 정의는 “확률 분포에서 계산한 통계”로, <strong>확률이 한쪽에 얼마나 몰렸는가</strong>를 0~1로 접은 것입니다. 보기가 셋일 때 계산식은 <code>(3 × 가장 큰 확률 − 1) ÷ 2</code>예요.</p>
-<ul>
-<li>기술팀 1.0, 나머지 0 → 확신도 <strong>1.0</strong> (한 곳에 다 몰림)</li>
-<li>기술팀 0.78, 결제 0.15, 영업 0.07 → 확신도 <strong>0.67</strong></li>
-<li>셋이 0.33씩 → 확신도 <strong>0</strong> (완전히 갈림)</li>
-</ul>
-<p>Score의 확신도도 같은 뜻입니다. 문서 예시에서 “심각도” 세 단계의 확률이 0 · 0.57 · 0.43으로 갈리면 점수는 가중 평균 1.43, 확신도는 0.35로 낮게 나옵니다. <strong>점수가 애매하면 확신도가 낮다</strong> — 이 두 숫자를 같이 봐야 합니다.</p>
-<p><img alt="감정 구름의 높이를 세 구간 자로 재는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-ruler-levels.C7A_rBAk_Z2rcfYG.webp" ></p>
-<h2 id="-4-세-갈래--자동으로-확인받고-사람에게">🚦 4. 세 갈래 — 자동으로, 확인받고, 사람에게</h2>
-<p>확신도가 있으니 코드가 갈림길을 만들 수 있습니다. 공식 문서 “확신도” 페이지가 권하는 세 구간입니다.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>확신도</th><th>문서의 지침</th><th>접수 창구로 치면</th></tr></thead><tbody><tr><td><strong>0.9 초과</strong></td><td>사람 없이 자동으로 실행</td><td>도장 찍고 바로 전달</td></tr><tr><td><strong>0.5 ~ 0.9</strong></td><td>“조심해서 진행” — 확인 요청, 검토 표시, 정보 더 모으기</td><td>“기술팀 맞나요?” 한 번 묻기</td></tr><tr><td><strong>0.5 미만</strong></td><td>실행하지 않는다 — 사람에게, 다시 묻기, 다른 시스템으로</td><td>팀장에게</td></tr></tbody></table>
-<p>문턱값은 <strong>일의 무게에 따라 다르게</strong> 두라는 게 문서의 핵심 조언입니다. “확신도 기반 라우팅” 패턴 페이지의 예제는 은행 앱인데, 잔액 조회는 0.6만 넘어도 실행하고(틀려봐야 잔액을 한 번 더 듣는 정도), 송금 승인은 0.85를 넘어야 자동 실행하고 그 아래면 “확인하시겠어요?”를 띄웁니다. 문서의 코드 골격은 이렇습니다.</p>
+<span class="line"><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(response.answers[</span><span style="color:#9ECBFF">"department"</span><span style="color:#E1E4E8">].choice)   </span><span style="color:#6A737D"># "technical"  (문서 예시: 확신도 0.78, 확률 technical 0.85 · billing 0.15 · sales 0.0)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(response.answers[</span><span style="color:#9ECBFF">"frustration"</span><span style="color:#E1E4E8">].score)   </span><span style="color:#6A737D"># 1.0          (= "화났지만 정중함")</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(response.answers[</span><span style="color:#9ECBFF">"is_urgent"</span><span style="color:#E1E4E8">].noul)      </span><span style="color:#6A737D"># 1.0</span></span></code></pre>
+<p><strong>은행 예제 — 확신도로 가르는 코드</strong> (‘확신도 기반 라우팅’ 패턴 문서 그대로)</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">action </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> response.answers[</span><span style="color:#9ECBFF">"intent"</span><span style="color:#E1E4E8">]</span></span>
 <span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> action.confidence </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 0.6</span><span style="color:#E1E4E8">:                 </span><span style="color:#6A737D"># 갈리면 사람에게</span></span>
 <span class="line"><span style="color:#E1E4E8">    route_to_support_agent(account_id)</span></span>
-<span class="line"><span style="color:#F97583">elif</span><span style="color:#E1E4E8"> action.choice </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "check_balance"</span><span style="color:#E1E4E8">:      </span><span style="color:#6A737D"># 가벼운 일은 그냥</span></span>
+<span class="line"><span style="color:#F97583">elif</span><span style="color:#E1E4E8"> action.choice </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "check_balance"</span><span style="color:#E1E4E8">:      </span><span style="color:#6A737D"># 가벼운 일은 0.6 이면 충분</span></span>
 <span class="line"><span style="color:#E1E4E8">    show_balance(account_id)</span></span>
-<span class="line"><span style="color:#F97583">elif</span><span style="color:#E1E4E8"> action.choice </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "approve_transfer"</span><span style="color:#E1E4E8">:   </span><span style="color:#6A737D"># 무거운 일은 문턱 높게</span></span>
-<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> action.confidence </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0.85</span><span style="color:#E1E4E8">: approve_transfer(account_id)</span></span>
-<span class="line"><span style="color:#F97583">    else</span><span style="color:#E1E4E8">: ask_user_to_confirm(</span><span style="color:#9ECBFF">"확인해 주세요…"</span><span style="color:#E1E4E8">)</span></span></code></pre>
-<p>문서는 이렇게 못 박습니다. “<strong>올바른 문턱값은 당신의 도메인과, 당신 용도에서의 모델 성능에 달려 있다.</strong>” 0.9와 0.5는 출발점이지 정답이 아니에요.</p>
-<p><img alt="상태와 질문표 → Jev → 답·확률·확신도 → 코드가 세 갈래로 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1280" src="/_astro/diagram-confidence-three-ways.CaYIlkBG_z3mr4.webp" ></p>
-<h2 id="-5-잘-쓰는-법--문서의-네-가지-패턴">🧩 5. 잘 쓰는 법 — 문서의 네 가지 패턴</h2>
-<p>TypeSafe 문서의 “패턴” 절은 넷을 권합니다. 비개발자용으로 한 줄씩 옮깁니다.</p>
-<ul>
-<li><strong>미리 넓게 묻기(Speculative Fan-Out)</strong> — 한 번 부를 때 나중에 필요할지도 모르는 질문까지 같이 보내고, 코드가 필요한 답만 골라 씁니다. 한 번에 여러 질문이 같은 값이니 아끼지 말라는 것</li>
-<li><strong>확신도로 가르기(Confidence-Gated Routing)</strong> — 위 4절. 답뿐 아니라 확신도를 <strong>두 번째 축</strong>으로 써서 안전한 시스템을 만듭니다</li>
-<li><strong>점수 합치기(Composite Scoring)</strong> — “이 지원자는 좋은가” 한 번에 묻지 말고 경력·기술·소통을 각각 Score로 묻고 코드가 합칩니다</li>
-<li><strong>의도 분류로 보내기(Intent Routing)</strong> — 사용자 요청의 의도를 Choice로 분류해 맞는 처리기로 보냅니다</li>
-</ul>
-<p>넷의 공통 원칙이 문서의 이 문장입니다. “<strong>넓은 판단을 좁고 타입이 정해진 질문들로 쪼개고, 지시와 기준을 명시하라.</strong>” 그리고 “코드가 결정론적인 일을 처리하고 흐름을 소유한다”— 판단은 Jev가, 결정은 코드가.</p>
-<h2 id="-6-한도와-오류--알고-시작할-것">📏 6. 한도와 오류 — 알고 시작할 것</h2>
-<p>모델 문서와 API 문서에 적힌 값입니다(2026-09-22 기준).</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>항목</th><th>값</th></tr></thead><tbody><tr><td>상태 크기</td><td>요청 전체 64k 토큰, 그중 상태 + 가장 긴 질문이 32k 토큰</td></tr><tr><td>입력 형식</td><td>글자만 — 문자열, JSON 객체, 문자열 배열. 이미지·음성·영상 불가</td></tr><tr><td>Choice 보기</td><td>최대 255개</td></tr><tr><td>Score 단계</td><td>2~10개</td></tr><tr><td>속도 한도</td><td>초당 25만 토큰, 분당 1,200 요청 (수요에 따라 조정 중이라고 명시)</td></tr><tr><td>오류</td><td>401 키 없음/잘못됨 · 422 요청 형식 오류 · 429 속도 초과 · 529 과부하</td></tr></tbody></table>
-<p>429와 529는 “바로 재시도하지 말고 <strong>지수 백오프</strong>로” 재시도하라는 게 문서 지침입니다. 잠깐 쉬고, 다음엔 두 배 쉬고.</p>
-<h2 id="️-7-흔한-실수--문서의-안티패턴-그대로">⚠️ 7. 흔한 실수 — 문서의 안티패턴 그대로</h2>
-<p><img alt="수학 문제지 앞에서는 어깨를 으쓱하고, 편지 앞에서는 엄지를 드는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-not-calculator.CjHs8F2n_2nO1TF.webp" ></p>
-<ul>
-<li><strong>두 조건을 한 Noul에</strong> — “화났고 그리고 환불 요구하나?” → 둘로 나눕니다</li>
-<li><strong>거꾸로 된 문장</strong> — “개인정보가 <strong>없는가</strong>?”처럼 부정형으로 물으면 뒤의 코드가 꼬입니다. “개인정보가 있는가?”로</li>
-<li><strong>Score 단계를 정도 표현으로</strong> — “약간·보통·매우” 대신 “우회 방법 있음 / 없음”처럼 <strong>상황</strong>으로. 단계 설명이 서로 겹쳐도 안 됩니다</li>
-<li><strong>순서 없는 것을 Score로</strong> — 팀 이름처럼 순서가 없으면 Choice, 예/아니오면 Noul</li>
-<li><strong>한 질문에 여러 차원</strong> — “품질이 좋은가”에 정확성·문체·길이가 섞여 있으면 각각 Score로</li>
-<li><strong>상태에 아무거나 다 넣기</strong> — 문서 표현으로 “무관한 세부가 방해물이 된다.” 결정에 필요한 것만</li>
-<li><strong>계산·날짜·개수를 맡기기</strong> — <a href="/posts/20260922-system-one-model-jev/">1편</a>의 약점 목록. 그건 코드가 합니다</li>
-</ul>
-<h2 id="-시작-코스--문의-분류기-하나">🎯 시작 코스 — 문의 분류기 하나</h2>
-<ol>
-<li>최근 문의 10건을 모읍니다. 그게 <strong>상태</strong>입니다</li>
-<li>질문 셋을 적습니다 — 어느 팀(Choice, 보기 3~5개, 각 보기에 한 줄 설명), 얼마나 급한가(Score 3단계, 상황으로), 환불 요구인가(Noul)</li>
-<li>공식 빠른 시작대로 SDK를 설치하고 API 키를 받아(문서 기준 발표 당시 얼리액세스 대기열, 이날 모델 문서는 정식 제공 표기) 10건을 돌려 봅니다</li>
-<li>답과 확신도를 표로 놓고 <strong>사람이 매긴 것과 비교</strong>합니다. 확신도가 낮았던 건이 실제로 애매했는지 봅니다</li>
-<li>그 표를 보고 문턱값 둘을 정합니다. 자동 처리 문턱과 사람에게 넘길 문턱. 그다음 코드에 넣습니다</li>
-</ol>
-<p>접수원이 유능한지보다 중요한 건 <strong>접수원이 “모르겠다”를 숫자로 말해주느냐</strong>입니다. Jev의 확신도가 그 숫자이고, 그 숫자로 갈림길을 만드는 건 여러분의 코드입니다.</p>
-<p>이전 편: <a href="/posts/20260922-system-one-model-jev/">System One 모델 Jev란</a> · 다음 편: <a href="/posts/20260922-llm-gateway-fast-decisions/">LLM 게이트웨이에 판정 창구를 더 낸 기록</a></p>
-<hr>
-<p><em>기준: 2026-09-22. 예제 코드·응답 값·계산식·문턱값·패턴·한도·오류 코드는 TypeSafe AI 공식 문서(docs.typesafe.ai — 빠른 시작, HTTP API 레퍼런스, Choice·Score·Noul, 확신도, 확신도 기반 라우팅 패턴, 패턴 개요, 상태 개념, 모델 페이지)를 이날 직접 확인했습니다. 빠른 시작 예제의 문의 문장과 보기 설명은 뜻만 한국어로 옮겼고, 응답 값(technical·0.78·1.0·1.0)은 문서 그대로입니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</em></p> </article> </main> <footer class="site">
+<span class="line"><span style="color:#F97583">elif</span><span style="color:#E1E4E8"> action.choice </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> "approve_transfer"</span><span style="color:#E1E4E8">:   </span><span style="color:#6A737D"># 무거운 일은 문턱을 높게</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> action.confidence </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0.85</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        approve_transfer(account_id)</span></span>
+<span class="line"><span style="color:#F97583">    else</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        ask_user_to_confirm(</span><span style="color:#9ECBFF">"Just to confirm: you would like to approve this transfer, is that correct?"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">else</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    route_to_support_agent(account_id)</span></span></code></pre>
+<p class="related">Jev 3부작: <a href="/posts/20260922-system-one-model-jev/">1편 System One 모델 Jev란</a> · 2편 이 글 · <a href="/posts/20260922-llm-gateway-fast-decisions/">3편 LLM 게이트웨이 판정 창구</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

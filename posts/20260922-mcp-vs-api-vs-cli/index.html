@@ -1,94 +1,134 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>MCP vs API vs CLI 차이 — 도구함, 리모컨 다발, 통합 리모컨 (셋은 경쟁이 아니라 층이 다르다)</title><meta name="description" content="AI 글에 늘 같이 나오는 세 단어 MCP·API·CLI를 비개발자 눈높이로 가른다. CLI는 기계에 달린 버튼(사람이나 AI가 터미널에서 직접 누름), API는 기기별 리모컨(프로그램이 정해진 양식으로 요청, 서비스마다 양식이 다름), MCP는 통합 리모컨 규격(AI가 도구 목록을 받아 스스로 고름). 같은 일 하나를 세 방식으로 해 보고, 제 블로그 공장이 셋을 어디에 쓰는지, 언제 뭘 고르는지 표로 정리했다."><meta property="og:title" content="MCP vs API vs CLI 차이 — 도구함, 리모컨 다발, 통합 리모컨 (셋은 경쟁이 아니라 층이 다르다)"><meta property="og:description" content="AI 글에 늘 같이 나오는 세 단어 MCP·API·CLI를 비개발자 눈높이로 가른다. CLI는 기계에 달린 버튼(사람이나 AI가 터미널에서 직접 누름), API는 기기별 리모컨(프로그램이 정해진 양식으로 요청, 서비스마다 양식이 다름), MCP는 통합 리모컨 규격(AI가 도구 목록을 받아 스스로 고름). 같은 일 하나를 세 방식으로 해 보고, 제 블로그 공장이 셋을 어디에 쓰는지, 언제 뭘 고르는지 표로 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>MCP vs API vs CLI 차이, 언제 무엇을 쓸지 한 표로</title><meta name="description" content="AI 글에 늘 같이 나오는 MCP·API·CLI를 비개발자 눈높이로 가른다. CLI는 기계에 달린 버튼(사람이나 터미널을 쥔 AI가 명령으로), API는 기기별 리모컨(프로그램이 서비스마다 다른 양식으로), MCP는 통합 리모컨 규격(AI가 도구 목록을 받아 스스로 고름). 구글 드라이브에 파일 올리기를 세 방식으로 해 보고, 상황별로 무엇을 고를지 표로 정리했다. 공식 문서와 2026년 10월 7일 대조."><meta property="og:title" content="MCP vs API vs CLI 차이, 언제 무엇을 쓸지 한 표로"><meta property="og:description" content="AI 글에 늘 같이 나오는 MCP·API·CLI를 비개발자 눈높이로 가른다. CLI는 기계에 달린 버튼(사람이나 터미널을 쥔 AI가 명령으로), API는 기기별 리모컨(프로그램이 서비스마다 다른 양식으로), MCP는 통합 리모컨 규격(AI가 도구 목록을 받아 스스로 고름). 구글 드라이브에 파일 올리기를 세 방식으로 해 보고, 상황별로 무엇을 고를지 표로 정리했다. 공식 문서와 2026년 10월 7일 대조."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 22일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="mcp-vs-api-vs-cli-차이--도구함-리모컨-다발-통합-리모컨">MCP vs API vs CLI 차이 — 도구함, 리모컨 다발, 통합 리모컨</h1>
-<p>거실에 기계가 여럿 있다고 해 보세요. 다루는 방법은 셋입니다. <strong>기계 몸체에 달린 버튼</strong>을 직접 누르거나, <strong>기기마다 딸려 온 리모컨</strong>을 쓰거나, 모든 기기의 기능 목록이 한 화면에 뜨는 <strong>통합 리모컨</strong>을 쓰거나. 셋 중 뭐가 제일 좋으냐는 질문은 이상하죠. 누가, 얼마나 자주, 뭘 하려는지에 따라 다르니까요.</p>
-<p>AI 글을 읽다 보면 CLI, API, MCP 세 단어가 늘 같이 나옵니다. 이 셋의 관계가 정확히 위 세 방법이에요. <strong>CLI는 몸체의 버튼, API는 기기별 리모컨, MCP는 통합 리모컨 규격.</strong> 이 글은 셋을 한 줄씩 가르고, 같은 일 하나를 세 방식으로 해 보고, 제 블로그 공장이 실제로 셋을 어디에 쓰는지 보여드립니다.</p>
-<p><img alt="도구함, 리모컨 다발, 통합 리모컨을 앞에 두고 통합 리모컨을 가리키는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-three-ways.D9KQAa8Z_1sK86V.webp" ></p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li><strong>CLI</strong> = 사람이(또는 터미널을 쥔 AI가) 명령어를 쳐서 프로그램을 부르는 방식. 몸체의 버튼</li>
-<li><strong>API</strong> = 프로그램이 프로그램을 부르는 약속. 서비스마다 주소·항목·인증 양식이 다르다. 기기별 리모컨</li>
-<li><strong>MCP</strong> = AI 앱이 도구와 자료를 <strong>발견하고</strong> 부르는 공용 규격. AI가 목록을 보고 스스로 고른다. 통합 리모컨 규격</li>
-<li>셋은 경쟁이 아니라 <strong>층</strong>입니다. MCP 서버의 속은 대개 API나 CLI이고, 제 블로그 공장은 셋을 다 씁니다</li>
-</ul>
-<h2 id="-1-cli--기계에-달린-버튼">🔘 1. CLI — 기계에 달린 버튼</h2>
-<p>CLI(Command Line Interface)는 검은 창(터미널)에 글자로 명령을 치는 방식입니다. <code>git commit</code>, <code>ffmpeg -i 영상.mp4 …</code> 같은 것들이죠. 마우스 대신 글자로 누르는 버튼이라고 보면 됩니다.</p>
-<p>두 가지를 짚어 둘게요. 첫째, <strong>CLI는 사람만 쓰는 게 아닙니다.</strong> <a href="/posts/20260906-claude-code-usage/">Claude Code</a>는 그 자체가 CLI이면서, 작업 중에 다른 CLI를 부릅니다. 제 저장소의 자동화 코드 여섯 파일이 git·Edge·npm 같은 프로그램을 명령어로 부르고, 릴스는 ffmpeg 명령 한 줄로 만듭니다. AI가 터미널을 쥐면 그 순간부터 CLI는 AI의 손이에요.</p>
-<p>둘째, <strong>명령어를 알고 있어야 합니다.</strong> 버튼이 어디 있는지 모르면 못 누르죠. 그래서 AI가 CLI를 쓸 때는 그 도구의 사용법을 이미 알고 있거나, 문서를 먼저 읽습니다.</p>
-<p><img alt="터미널 앞에서 키보드를 치는 로봇과 버튼이 달린 기계 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-terminal-buttons.Cr20JDoQ_1Og2zn.webp" ></p>
-<h2 id="-2-api--기기별-리모컨">📡 2. API — 기기별 리모컨</h2>
-<p>API(Application Programming Interface)는 <strong>프로그램이 다른 프로그램(대개 인터넷 너머의 서비스)에게 일을 시키는 약속</strong>입니다. “이 주소로, 이 항목을 채워서, 이 열쇠(키)를 붙여 보내면, 이런 답을 준다”가 정해져 있어요.</p>
-<p>제 공장의 예를 들면 이렇습니다. 이 글의 삽화는 파이썬 스크립트가 OpenAI 이미지 API에 “이런 장면을 그려줘”를 정해진 양식으로 보내서 받아 온 것이고, 여행 글의 재료는 GitHub API로 이슈를 읽어 옵니다. 두 API의 주소도, 항목 이름도, 인증 방식도 서로 달라요. <strong>리모컨이 기기마다 다른 것과 같습니다.</strong> 그래서 API는 사람이 직접 누르는 게 아니라 개발자가 코드에 미리 적어 두고, 프로그램이 정해진 순서로 누릅니다.</p>
-<h2 id="️-3-mcp--통합-리모컨-규격">🎛️ 3. MCP — 통합 리모컨 규격</h2>
-<p>MCP(Model Context Protocol)는 공식 문서의 정의로 <strong>“AI 애플리케이션을 외부 시스템에 연결하는 오픈소스 표준”</strong>입니다. 문서 자체가 “AI 앱을 위한 USB-C 포트”라고 비유하고, <a href="/posts/20260906-mcp-explained/">MCP 뜻 글</a>에서 그 비유를 그대로 썼어요. 이 글에선 리모컨 비유로 한 겹 더 들어갑니다.</p>
-<p>API와 뭐가 다르냐면, <strong>AI가 목록을 받아 스스로 고른다</strong>는 점입니다. 구조는 이렇습니다.</p>
-<ul>
-<li><strong>호스트</strong>(Claude Code 같은 AI 앱)가 <strong>서버</strong>(도구를 내놓는 프로그램)마다 <strong>클라이언트</strong> 하나를 만들어 연결합니다</li>
-<li>서버가 내놓는 것은 셋 — <strong>도구</strong>(실행할 수 있는 함수: 파일 작업, API 호출, DB 조회), <strong>자료</strong>(파일 내용, DB 기록 같은 맥락), <strong>프롬프트</strong>(재사용 지시 틀)</li>
-<li>AI 앱은 먼저 <code>tools/list</code>로 <strong>어떤 도구가 있는지 묻고</strong>, 그중 하나를 <code>tools/call</code>로 부릅니다. 메시지 형식은 JSON-RPC 2.0 하나로 통일돼 있고, 같은 컴퓨터 안(stdio)이든 인터넷 너머(streamable HTTP)든 형식이 같습니다</li>
-</ul>
-<p>이 글을 쓰는 제 Claude Code 세션에는 MCP 서버가 아홉 개 붙어 있습니다. Figma·Gmail·구글 캘린더·구글 드라이브·Notion·Slack 여섯 개는 인증이 돼 있고, 셋은 인증 대기예요. 제가 “이 파일 드라이브에 올려줘”라고만 하면, AI가 여섯 서버의 도구 목록에서 드라이브 서버의 파일 만들기 도구를 골라 부릅니다. <strong>어느 도구를 쓸지 사람이 코드에 적어 두지 않았다</strong>는 게 API와의 결정적 차이입니다.</p>
-<p><img alt="메뉴판을 든 웨이터 로봇과 그것을 읽는 손님 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-menu-for-robot.CL5-oG8K_1HQ9sH.webp" ></p>
-<h2 id="-4-같은-일을-세-방식으로--구글-드라이브에-파일-올리기">🔁 4. 같은 일을 세 방식으로 — 구글 드라이브에 파일 올리기</h2>
-<p>말로만 가르면 헷갈리니, 같은 일 하나를 셋으로 해 봅니다. “보고서.pdf를 구글 드라이브에 올린다.”</p>
-<ul>
-<li><strong>CLI</strong> — rclone이라는 프로그램(공식 문서의 소개는 “클라우드 저장소용 rsync”)을 설치하고 터미널에 <code>rclone copy ./보고서.pdf gdrive:backup</code>. 사람이 치거나, 터미널을 쥔 AI가 칩니다</li>
-<li><strong>API</strong> — 내 프로그램이 구글 드라이브 API 공식 문서대로 <code>POST https://www.googleapis.com/upload/drive/v3/files?uploadType=media</code>에 파일을 실어 보냅니다. <code>Authorization: Bearer 토큰</code>과 <code>Content-Type</code> 헤더가 필요하고, 이 단순 업로드 방식은 5MB 이하 파일용이에요. 사람은 직접 안 누릅니다</li>
-<li><strong>MCP</strong> — AI에게 “이 파일 드라이브에 올려줘”. AI 앱이 드라이브 MCP 서버의 도구 목록에서 파일 만들기 도구를 발견하고, 이름과 내용을 채워 부릅니다. 그 서버는 <strong>안에서 결국 드라이브 API를 부릅니다</strong></li>
-</ul>
-<p><img alt="같은 일 하나를 CLI·API·MCP로 — 누가 부르나, 양식은 누가 정하나, AI가 고르나 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1320" src="/_astro/diagram-three-ways-drive.Bo-IktxI_ZG12nY.webp" ></p>
-<h2 id="-5-층-관계--mcp-서버의-속은-api나-cli다">🧱 5. 층 관계 — MCP 서버의 속은 API나 CLI다</h2>
-<p>셋을 나란히 두면 경쟁 관계처럼 보이지만, 실제로는 <strong>위아래로 쌓여 있습니다.</strong> MCP 공식 문서가 도구를 “파일 작업, API 호출, 데이터베이스 조회 같은 동작을 수행하는 실행 가능한 함수”라고 정의하듯, MCP 서버는 그 동작을 <strong>안에서 API나 CLI로 수행</strong>합니다. 드라이브 MCP 서버의 속은 드라이브 API이고, 파일시스템 MCP 서버의 속은 로컬 파일 명령이에요.</p>
-<p>그러니 “MCP가 API를 대체한다”는 말은 틀립니다. MCP는 <strong>API·CLI를 AI가 쓰기 좋게 포장하는 규격</strong>이에요. 리모컨을 없애는 게 아니라, 리모컨 다발을 통합 리모컨 한 화면에 올리는 겁니다.</p>
-<h2 id="-6-언제-뭘-쓰나">🎯 6. 언제 뭘 쓰나</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>상황</th><th>고르는 것</th><th>이유</th></tr></thead><tbody><tr><td>한 번 하는 일, 스크립트 한 줄, 내 컴퓨터의 파일·빌드·배포</td><td><strong>CLI</strong></td><td>설치하면 바로 되고, 사람도 AI도 같은 명령을 쓴다</td></tr><tr><td>매일 정해진 순서로 도는 자동화, 서비스 간 연결</td><td><strong>API</strong> (코드로)</td><td>판단이 필요 없는 일에 AI를 끼우면 느리고 비싸다</td></tr><tr><td>상황을 봐가며 도구를 골라야 하는 일, “이거 해줘” 한마디로 끝내고 싶은 일</td><td><strong>MCP</strong></td><td>AI가 목록에서 고르니 사람이 순서를 적어 둘 필요가 없다</td></tr><tr><td>팀이 쓰는 AI 앱에 회사 도구를 붙이기</td><td><strong>MCP 서버 하나</strong></td><td>한 번 만들면 MCP를 지원하는 AI 앱 어디서든 같은 서버를 쓴다</td></tr></tbody></table>
-<p>제 공장이 정확히 이 표대로 나뉘어 있습니다. 매일 아침 6시 릴리스는 <strong>CLI와 API만</strong> 씁니다 — 사이트 빌드·배포(CLI), 이슈 수집(API), 정해진 순서니까 AI의 판단이 필요 없어요. 반면 글을 쓰는 세션은 <strong>MCP</strong>를 씁니다 — Claude Code가 필요할 때 드라이브·메일·Notion 도구를 스스로 고르죠. <a href="/posts/20260908-ai-agent-intro/">에이전트 글</a>의 “지시서·도구·규칙” 중 도구 칸이 바로 이 세 층입니다.</p>
-<h2 id="️-7-주의--통합-리모컨은-권한도-통합한다">⚠️ 7. 주의 — 통합 리모컨은 권한도 통합한다</h2>
-<ul>
-<li><strong>MCP 서버는 AI에게 준 권한입니다.</strong> 목록에 있는 도구는 AI가 고를 수 있어요. 메일 보내기·파일 삭제 같은 도구가 있으면, 그걸 언제 써도 되는지 규칙이 필요합니다. <a href="/posts/20260906-mcp-servers-guide/">서버 추천 글</a>의 “연결 전 확인할 것”이 그 이야기예요</li>
-<li><strong>API 키는 리모컨의 배터리가 아니라 집 열쇠입니다.</strong> 코드나 대화에 붙여 넣지 말고 설정 파일(.env)에만 두세요. 제 공장도 키는 .env 한 곳에서만 읽고 어디에도 출력하지 않습니다</li>
-<li><strong>CLI를 쥔 AI는 뭐든 할 수 있습니다.</strong> 그래서 <a href="/posts/20260907-claude-code-hooks/">훅으로 실행 전 검사</a>를 두는 거예요</li>
-</ul>
-<h2 id="-시작-코스--셋을-한-번씩-만져-보기">🎯 시작 코스 — 셋을 한 번씩 만져 보기</h2>
-<ol>
-<li><strong>CLI</strong>: 터미널을 열고 <code>git --version</code> 한 줄. 검은 창이 답하면 CLI를 쓴 겁니다</li>
-<li><strong>API</strong>: AI에게 “무료 공개 API 하나로 데이터를 가져오는 파이썬 10줄을 써줘”라고 시켜 돌려 봅니다. 주소·항목·키가 눈에 들어옵니다</li>
-<li><strong>MCP</strong>: <a href="/posts/20260907-claude-code-mcp/">Claude Code에 MCP 서버 하나 연결</a>하고 “지금 쓸 수 있는 도구 목록 보여줘”라고 물어봅니다. <code>tools/list</code>의 결과를 사람 말로 보는 겁니다</li>
-<li>같은 일(파일 하나 올리기)을 셋으로 해 봅니다. 어느 쪽이 편했는지가 곧 여러분의 답입니다</li>
-</ol>
-<p>버튼, 리모컨, 통합 리모컨. 어느 하나가 이기는 게 아니라 <strong>누가 누르느냐</strong>가 다를 뿐입니다. 사람이면 버튼, 프로그램이면 리모컨, AI면 통합 리모컨이에요.</p>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 9개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-한-표로-보는-차이" data-astro-cid-lvjzyg5v>1. 한 표로 보는 차이</a></li><li data-astro-cid-lvjzyg5v><a href="#2-cli-기계에-달린-버튼" data-astro-cid-lvjzyg5v>2. CLI: 기계에 달린 버튼</a></li><li data-astro-cid-lvjzyg5v><a href="#3-api-기기별-리모컨" data-astro-cid-lvjzyg5v>3. API: 기기별 리모컨</a></li><li data-astro-cid-lvjzyg5v><a href="#4-mcp-통합-리모컨-규격" data-astro-cid-lvjzyg5v>4. MCP: 통합 리모컨 규격</a></li><li data-astro-cid-lvjzyg5v><a href="#5-같은-일을-세-방식으로" data-astro-cid-lvjzyg5v>5. 같은 일을 세 방식으로</a></li><li data-astro-cid-lvjzyg5v><a href="#6-언제-무엇을-고르나" data-astro-cid-lvjzyg5v>6. 언제 무엇을 고르나</a></li><li data-astro-cid-lvjzyg5v><a href="#7-통합-리모컨은-권한도-통합해요" data-astro-cid-lvjzyg5v>7. 통합 리모컨은 권한도 통합해요</a></li><li data-astro-cid-lvjzyg5v><a href="#헷갈리기-쉬운-것" data-astro-cid-lvjzyg5v>헷갈리기 쉬운 것</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="mcp-vs-api-vs-cli-차이-언제-무엇을-쓸지-한-표로">MCP vs API vs CLI 차이, 언제 무엇을 쓸지 한 표로</h1>
+<p><img alt="MCP vs API vs CLI 차이 — 언제 무엇을 쓸지 한 표로 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.DGIFWccx_ZcaFan.webp" ></p>
+<p class="cap">MCP vs API vs CLI 차이 — 언제 무엇을 쓸지 한 표로 (캐릭터는 GPT 이미지 생성)</p>
+<p>AI 글을 읽다 보면 세 단어가 늘 같이 나와요. MCP, API, CLI. “MCP 서버를 연결하라는데, API랑 뭐가 다르지?” 하는 데서 멈추게 되죠.</p>
+<p>거실에 기계가 여럿 있다고 해 보세요. 몸체에 달린 버튼을 누르거나, 기기마다 딸린 리모컨을 쓰거나, 모든 기기의 기능이 한 화면에 뜨는 통합 리모컨을 쓸 수 있어요. 무엇이 제일 좋은지는 누가, 얼마나 자주, 무엇을 하려는지에 따라 달라요.<br>
+<strong>CLI는 몸체의 버튼, API는 기기별 리모컨, MCP는 통합 리모컨 규격이에요.</strong></p>
+<p><img alt="도구함, 리모컨 다발, 통합 리모컨 가운데 통합 리모컨을 가리키는 로봇 — MCP·API·CLI 비유 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-three-ways.D9KQAa8Z_1sK86V.webp" ></p>
+<p class="cap">도구함, 리모컨 다발, 통합 리모컨 가운데 통합 리모컨을 가리키는 로봇 — MCP·API·CLI 비유 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: MCP·API·CLI가 헷갈리는 분<br>① 세 방식을 한 표로 비교<br>② 같은 일을 세 방식으로 해 본 차이<br>③ 상황별로 무엇을 고를지<br>2026년 10월 기준 · MCP 사양 2026-07-28판</div>
 <hr>
-<p><em>기준: 2026-09-22. MCP의 정의·구조(호스트·클라이언트·서버)·서버 원시 요소(도구·자료·프롬프트)·메시지 형식(JSON-RPC 2.0)·전송 방식(stdio·streamable HTTP)·도구 발견과 호출(tools/list·tools/call)은 MCP 공식 문서(modelcontextprotocol.io 소개·아키텍처 페이지, 2026-07-28 판)를 이날 직접 확인했습니다. rclone 명령 형태는 rclone 공식 문서의 Drive 페이지, 드라이브 API 주소·헤더·5MB 제한은 Google Drive API 공식 문서 “업로드 관리” 페이지 기준입니다. 이 세션에 붙은 MCP 서버 수(9, 인증 6)와 제 자동화 코드의 CLI·API 사용처는 직접 집계했습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</em></p> </article> </main> <footer class="site">
+<h2 id="1-한-표로-보는-차이">1. 한 표로 보는 차이</h2>
+<p><strong>셋을 가르는 기준은 누가 부르고, 무엇을 부를지 누가 정하느냐예요.</strong> 공식 문서와 제 블로그 공장에서 쓰는 방식을 기준으로 한 줄씩 정리했어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>방식</th><th>누가 부르고 누가 고르나</th></tr></thead><tbody><tr><td>CLI (명령줄)</td><td>사람이나 터미널을 쥔 AI가 명령어를 쳐서 부른다</td></tr><tr><td>API (응용 프로그램 인터페이스)</td><td>프로그램이 정해진 양식으로 부른다 — 양식은 서비스마다 다르다</td></tr><tr><td>MCP (모델 컨텍스트 프로토콜)</td><td>AI 앱이 도구 목록을 받아 스스로 골라 부른다 — 공용 규격</td></tr></tbody></table>
+<p>표의 둘째 칸이 핵심이에요. 어느 도구를 쓸지 사람이 코드에 적어 두면 API, AI가 목록을 보고 고르면 MCP예요.</p>
+<h2 id="2-cli-기계에-달린-버튼">2. CLI: 기계에 달린 버튼</h2>
+<p><strong>CLI(Command Line Interface)는 검은 창(터미널)에 글자로 명령을 치는 방식이에요.</strong> 마우스 대신 글자로 누르는 버튼이라고 보면 돼요. 가장 쉽게 만져 보는 방법은 터미널에 이 한 줄을 치는 거예요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">git </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">version</span></span></code></pre>
+<p>→ 검은 창이 git 버전으로 답하면 CLI를 쓴 거예요.</p>
+<p>CLI는 사람만 쓰는 게 아니에요. 클로드 코드는 그 자체가 CLI이면서, 작업 중에 다른 CLI를 불러요. 9월 22일 이 글을 쓸 때 세어 보니, 제 저장소의 자동화 코드 <strong>6개</strong> 파일이 git·Edge·npm을 명령으로 불렀어요. 릴스도 ffmpeg 명령 한 줄로 만들어요.</p>
+<p>대신 명령어를 알아야 해요. 버튼이 어디 있는지 모르면 못 누르죠. 그래서 AI도 CLI를 쓸 때는 사용법을 이미 알거나 문서를 먼저 읽어요.</p>
+<h2 id="3-api-기기별-리모컨">3. API: 기기별 리모컨</h2>
+<p><strong>API는 프로그램이 다른 프로그램(대개 인터넷 너머의 서비스)에 일을 시키는 약속이에요.</strong> ‘이 주소로, 이 항목을 채워, 이 열쇠(키)를 붙여 보내면 이런 답을 준다’가 정해져 있어요.</p>
+<p>제 블로그의 예를 들면, 이 글의 삽화는 파이썬 스크립트가 OpenAI 이미지 API에 정해진 양식으로 요청해서 받아 온 거예요. 여행 글 재료는 GitHub API로 이슈를 읽어 와요. 두 API는 주소도, 항목 이름도, 인증 방식도 달라요. 리모컨이 기기마다 다른 것과 같아요.</p>
+<p>그래서 API는 사람이 직접 누르지 않아요. <strong>개발자가 코드에 순서를 적어 두고, 프로그램이 그대로 눌러요.</strong></p>
+<h2 id="4-mcp-통합-리모컨-규격">4. MCP: 통합 리모컨 규격</h2>
+<p><strong>MCP는 AI 앱이 도구 목록을 받아, 필요한 것을 스스로 골라 부르게 하는 공용 규격이에요.</strong> MCP 공식 문서는 MCP를 ‘AI 애플리케이션을 외부 시스템에 연결하는 오픈소스 표준’이라고 정의하고, ‘AI 앱을 위한 USB-C 포트’에 빗대요.</p>
+<p>움직이는 순서는 세 단계예요.<br>
+① 호스트(클로드 코드 같은 AI 앱)가 서버(도구를 내놓는 프로그램)마다 연결을 하나씩 만들어요.<br>
+② AI 앱이 먼저 <code>tools/list</code>로 어떤 도구가 있는지 목록을 받아요.<br>
+③ 그중 하나를 골라 <code>tools/call</code>로 불러요. 메시지 형식은 JSON-RPC 2.0 하나라서, 같은 컴퓨터 안이든 인터넷 너머든 같아요.</p>
+<p><img alt="메뉴판(도구 목록)을 건네는 웨이터 로봇과 그중 하나를 고르는 손님 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-menu-for-robot.CL5-oG8K_1HQ9sH.webp" ></p>
+<p class="cap">메뉴판(도구 목록)을 건네는 웨이터 로봇과 그중 하나를 고르는 손님 로봇 (GPT 이미지 생성)</p>
+<p>9월 22일 이 글을 처음 쓸 때 제 클로드 코드 세션에는 MCP 서버 <strong>9개</strong>가 붙어 있었고, 그중 <strong>6개</strong>(Figma·Gmail·구글 캘린더·구글 드라이브·노션·슬랙)가 인증된 상태였어요. 제가 ‘이 파일 드라이브에 올려줘’라고만 하면, AI가 도구 목록에서 드라이브 서버의 파일 만들기 도구를 골라 불러요. <mark>어느 도구를 쓸지 사람이 코드에 적어 두지 않는다</mark>는 게 API와 가장 큰 차이예요.</p>
+<h2 id="5-같은-일을-세-방식으로">5. 같은 일을 세 방식으로</h2>
+<p><strong>말로만 가르면 헷갈리니, 보고서 파일 하나를 구글 드라이브에 올리는 일을 셋으로 해 볼게요.</strong></p>
+<p><strong>CLI로</strong> rclone이라는 프로그램(공식 소개는 ‘클라우드 저장소용 rsync’)을 설치하고, 터미널에 한 줄을 쳐요. 사람이 치거나, 터미널을 쥔 AI가 쳐요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">rclone copy .</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">report.pdf gdrive:backup</span></span></code></pre>
+<p><strong>API로</strong> 내 프로그램이 구글 드라이브 API 공식 문서대로 업로드 주소(upload/drive/v3/files)에 파일을 실어 보내요. 인증 토큰(Authorization: Bearer)과 파일 종류(Content-Type) 헤더가 필요하고, 이 단순 업로드 방식은 <strong>5MB 이하</strong> 파일용이에요. 사람은 직접 누르지 않아요.</p>
+<p><strong>MCP로</strong> AI에게 말로 시켜요.</p>
+<p class="plabel">📋 그대로 복사해 쓰세요</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>이 파일을 구글 드라이브에 올려줘</span></span></code></pre>
+<p>AI 앱이 드라이브 MCP 서버의 도구 목록에서 파일 만들기 도구(create_file)를 찾아, 이름과 내용을 채워 불러요. 그리고 그 서버는 안에서 결국 드라이브 API를 불러요.</p>
+<p><img alt="구글 드라이브에 파일 올리기를 CLI·API·MCP로 — 누가 부르나, 양식은 누가 정하나, AI가 고르나 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1320" src="/_astro/diagram-three-ways-drive.BJOSxU-V_1cslmp.webp" ></p>
+<p class="cap">구글 드라이브에 파일 올리기를 CLI·API·MCP로 — 누가 부르나, 양식은 누가 정하나, AI가 고르나 (직접 제작)</p>
+<p>셋을 나란히 두면 경쟁처럼 보이지만, 실제로는 위아래로 쌓여 있어요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>셋은 경쟁이 아니라 층이에요. MCP 서버의 속은 대개 API나 CLI예요.</div>
+<h2 id="6-언제-무엇을-고르나">6. 언제 무엇을 고르나</h2>
+<p><strong>누가 누르느냐로 고르면 돼요. 상황별로 정리하면 이래요.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>상황</th><th>고를 것과 이유</th></tr></thead><tbody><tr><td>한 번 하는 일 · 내 컴퓨터의 빌드·배포</td><td>CLI — 설치하면 바로 되고, 사람도 AI도 같은 명령을 쓴다</td></tr><tr><td>매일 정해진 순서로 도는 자동화</td><td>API(코드로) — 판단이 필요 없는 일에 AI를 끼우면 느리고 비싸다</td></tr><tr><td>상황을 봐 가며 도구를 골라야 하는 일</td><td>MCP — AI가 목록에서 고르니 순서를 적어 둘 필요가 없다</td></tr><tr><td>팀이 쓰는 AI 앱에 회사 도구 붙이기</td><td>MCP 서버 하나 — 한 번 만들면 MCP를 지원하는 앱 어디서나 쓴다</td></tr></tbody></table>
+<p>제 블로그 공장도 이 표대로 나뉘어 있어요. 매일 아침 6시 발행 큐는 정해진 순서대로 스크립트를 명령으로 돌려요. 사이트 배포도, 그날 글 내보내기도 순서가 정해져 있어서 AI의 판단이 끼지 않아요. 반면 글을 쓰는 세션은 MCP를 써요. 클로드 코드가 필요할 때 드라이브·메일·노션 도구를 스스로 골라요.</p>
+<p><strong>이런 분은 CLI와 API:</strong> 같은 일을 정해진 순서로 되풀이하는 분<br>
+<strong>이런 분은 MCP:</strong> ‘이거 해줘’ 한마디로 도구 고르기까지 AI에게 맡기고 싶은 분</p>
+<h2 id="7-통합-리모컨은-권한도-통합해요">7. 통합 리모컨은 권한도 통합해요</h2>
+<p><strong>MCP 서버를 붙이는 건 AI에게 권한을 주는 일이에요.</strong> 목록에 있는 도구는 AI가 고를 수 있어요. 메일 보내기·파일 삭제 같은 도구가 있다면, 언제 써도 되는지 규칙이 필요해요.</p>
+<p>CLI를 쥔 AI도 마찬가지예요. 명령으로 할 수 있는 일은 무엇이든 할 수 있어서, 실행 전 검사(훅)를 두는 거예요. 저는 클로드 코드를 자동 모드로 쓰고, 밖으로 내보내는 일은 규칙(하루 1편 큐·발행 전 검사)을 정해 맡겨요. 처음엔 매번 직접 승인했어요.</p>
+<p>API 키도 조심해야 해요. 제 공장은 키를 설정 파일 한 곳에서만 읽고 어디에도 출력하지 않아요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>API 키는 리모컨 배터리가 아니라 집 열쇠예요. 코드나 대화에 붙여 넣지 말고 설정 파일(.env)에만 두세요.</div>
+<h2 id="헷갈리기-쉬운-것">헷갈리기 쉬운 것</h2>
+<p><strong>MCP가 API를 대체하는 건 아니에요</strong> MCP 공식 문서는 도구를 ‘파일 작업, API 호출, 데이터베이스 조회 같은 동작을 수행하는 실행 가능한 함수’라고 정의해요. 드라이브 MCP 서버의 속은 드라이브 API이고, 파일시스템 MCP 서버의 속은 로컬 파일 명령이에요.</p>
+<p><strong>CLI는 개발자만 쓰는 게 아니에요</strong> 터미널을 쥔 AI도 CLI를 써요. 클로드 코드에 일을 시키면, 사람이 명령어를 몰라도 AI가 대신 명령을 쳐요.</p>
+<p><strong>API는 사람이 누르는 버튼이 아니에요</strong> API는 프로그램끼리 정한 약속이라, 사람은 코드를 통해서만 써요. 사람이 직접 치는 쪽은 CLI예요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① CLI는 버튼 — 사람이나 AI가 명령으로<br>② API는 기기별 리모컨 — 프로그램이 양식대로<br>③ MCP는 통합 리모컨 — AI가 목록에서 골라<br>④ 셋은 층 — MCP 서버의 속은 API·CLI</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 비개발자도 셋을 직접 만져 볼 수 있나요?</summary><p>네. 터미널에 git --version 한 줄이면 CLI예요. AI에게 ‘무료 공개 API로 데이터를 가져오는 파이썬 10줄을 써줘’라고 시켜 돌려 보면 API, 클로드 코드에 MCP 서버를 연결하고 ‘지금 쓸 수 있는 도구 목록 보여줘’라고 물으면 MCP를 만져 본 거예요.</p></details>
+<details class="faq"><summary>Q. 매일 도는 자동화는 왜 MCP 말고 API로 하나요?</summary><p>정해진 순서로 도는 일에는 AI의 판단이 필요 없어서요. 거기에 AI를 끼우면 느리고 비싸져요.</p></details>
+<details class="faq"><summary>Q. MCP 서버는 아무거나 연결해도 되나요?</summary><p>아니요. 목록에 있는 도구는 AI가 고를 수 있어서, 연결한 만큼 권한을 주는 셈이에요. 연결 전에 확인할 것은 MCP 서버 추천 글에 정리해 두었어요.</p></details>
+<details class="faq"><summary>Q. 같은 일을 셋 다로 할 수 있다면 무엇부터 해 보면 좋나요?</summary><p>파일 하나 올리기처럼 작은 일을 셋으로 한 번씩 해 보세요. 어느 쪽이 편했는지가 곧 내 상황의 답이에요.</p></details>
+<p>다음 글에서는 클로드 코드에 MCP 서버를 직접 연결하는 방법을 다뤄요. 연결 방법 세 가지와 연결 뒤 확인하는 법까지요.</p>
+<p class="nextpost">→ <a href="/posts/20260907-claude-code-mcp/">Claude Code에 MCP 연결하기 — 개념부터 첫 연결까지 (실사용 기준)</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>MCP 공식 문서 — 아키텍처 · <a href="https://modelcontextprotocol.io/docs/learn/architecture">modelcontextprotocol.io/docs/learn/architecture</a></li>
+<li>Google Drive API — 파일 업로드 · <a href="https://developers.google.com/workspace/drive/api/guides/manage-uploads">developers.google.com/workspace/drive/api/guides/manage-uploads</a></li>
+<li>rclone 공식 문서 — Google Drive · <a href="https://rclone.org/drive">rclone.org/drive</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 9월 22일<br>다시 확인·수정 2026년 10월 7일<br>블로그 공장에서 셋을 쓰는 방식 + 공식 문서 대조<br>제휴 없음 · 캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p><strong>드라이브 API 단순 업로드 — 요청 원문</strong> (Google Drive API 공식 문서 ‘업로드 관리’, 2026년 10월 7일 확인)</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="http"><code><span class="line"><span style="color:#F97583">POST</span><span style="color:#E1E4E8"> https://www.googleapis.com/upload/drive/v3/files?uploadType=media</span></span>
+<span class="line"><span style="color:#85E89D">Authorization</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> Bearer &#x3C;액세스 토큰></span></span>
+<span class="line"><span style="color:#85E89D">Content-Type</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> application/pdf</span></span>
+<span class="line"><span style="color:#85E89D">Content-Length</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> &#x3C;파일 크기(바이트)></span></span></code></pre>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260906-mcp-explained/">MCP 뜻</a> · <a href="/posts/20260906-mcp-servers-guide/">MCP 서버 추천</a> · <a href="/posts/20260907-claude-code-mcp/">Claude Code에 MCP 연결하기</a> · <a href="/posts/20260908-ai-agent-intro/">AI 에이전트 만들기 입문</a> · <a href="/posts/20260907-claude-code-hooks/">Claude Code 훅 활용법</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

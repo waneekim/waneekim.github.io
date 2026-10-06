@@ -1,48 +1,117 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Claude Code vs Cursor — 구조가 다르면 쓰임새가 다릅니다 (실사용자의 정직한 비교)</title><meta name="description" content="Claude Code를 매일 쓰는 입장에서 Cursor와의 구조적 차이를 정리했다. 에디터형과 에이전트형은 경쟁 관계가 아니라 쓰임새가 다른 도구다."><meta property="og:title" content="Claude Code vs Cursor — 구조가 다르면 쓰임새가 다릅니다 (실사용자의 정직한 비교)"><meta property="og:description" content="Claude Code를 매일 쓰는 입장에서 Cursor와의 구조적 차이를 정리했다. 에디터형과 에이전트형은 경쟁 관계가 아니라 쓰임새가 다른 도구다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>클로드 코드 vs 커서 비교, 코드를 직접 볼지로 고르는 법</title><meta name="description" content="클로드 코드를 매일 쓰는 입장에서 커서와의 차이를 정리했다. 커서는 에디터에서, 클로드 코드는 터미널에서 출발한 도구다. 커서는 써 보지 않아 공식 문서·요금표(2026년 10월 확인)로만 다뤘다."><meta property="og:title" content="클로드 코드 vs 커서 비교, 코드를 직접 볼지로 고르는 법"><meta property="og:description" content="클로드 코드를 매일 쓰는 입장에서 커서와의 차이를 정리했다. 커서는 에디터에서, 클로드 코드는 터미널에서 출발한 도구다. 커서는 써 보지 않아 공식 문서·요금표(2026년 10월 확인)로만 다뤘다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 6일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다. Claude Code는 제 돈으로 구독해 실사용 중이며, Cursor는 실사용 경험이 없어 공개 정보 기준으로만 다룹니다.</blockquote> <h1 id="claude-code-vs-cursor--구조가-다르면-쓰임새가-다릅니다-실사용자의-정직한-비교">Claude Code vs Cursor — 구조가 다르면 쓰임새가 다릅니다 (실사용자의 정직한 비교)</h1>
-<p><img alt="두 갈래 길 앞의 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="720" height="720" src="/_astro/char-crossroad.qLDkBJLf_vGvYo.webp" ></p>
-<p>먼저 정직하게 밝힙니다. <strong>저는 Claude Code를 매일 쓰는 실사용자이고, Cursor는 써본 적이 없습니다.</strong> 그래서 이 글은 “둘 다 써봤다”고 주장하는 비교 글과 다르게, 실사용 절반 + 공개 정보 절반으로 씁니다. 대신 구조 차이는 명확하게 정리할 수 있습니다 — 이 둘은 애초에 <strong>같은 물건이 아니기 때문입니다.</strong></p>
-<h2 id="결론-요약">결론 요약</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>원하는 것</th><th>추천</th></tr></thead><tbody><tr><td>코드를 <strong>내가 쓰면서</strong> AI 보완을 받고 싶다 (자동완성·인라인 수정)</td><td>Cursor 계열 (AI 에디터)</td></tr><tr><td>일을 <strong>AI에게 맡기고</strong> 결과를 검증하고 싶다 (위임·자동화)</td><td>Claude Code (에이전트)</td></tr><tr><td>나는 개발자가 아니고 코드를 볼 일이 없다</td><td>Claude Code 쪽이 자연스럽다</td></tr></tbody></table>
-<h2 id="️-1-구조-차이--ai가-들어간-에디터-vs-터미널에-사는-에이전트">🏗️ 1. 구조 차이 — “AI가 들어간 에디터” vs “터미널에 사는 에이전트”</h2>
-<p><img alt="에디터형 vs 에이전트형 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1240" src="/_astro/diagram-editor-vs-agent.BtHif2Fk_Z1yOc3c.webp" ></p>
-<p><strong>Cursor는 에디터입니다.</strong> VS Code 기반의 코드 에디터에 AI가 깊게 통합된 형태로, 타이핑하는 동안 자동완성이 오고, 코드를 선택해 고쳐달라고 하고, 채팅으로 에이전트 작업도 시킵니다. 주인공은 <strong>에디터를 열고 코드를 보는 나</strong>입니다.</p>
-<p><strong>Claude Code는 에이전트입니다.</strong> 에디터가 아니라 터미널(그리고 VS Code 확장)에서 돌며, 저장소 전체를 맥락으로 갖고 파일 수정·명령 실행·검증까지 해냅니다. 주인공은 <strong>일을 시키는 나</strong>고, 코드는 AI가 만집니다.</p>
-<p>같은 “AI 코딩 도구”로 묶이지만, 전자는 <strong>작업대에 붙은 조수</strong>, 후자는 <strong>일을 통째로 받아가는 외주 파트너</strong>에 가깝습니다.</p>
-<h2 id="-2-에이전트형의-실사용-감각-여기부터는-실경험">🧪 2. 에이전트형의 실사용 감각 (여기부터는 실경험)</h2>
-<p>제가 Claude Code로 하는 일에는 코드 편집기가 등장하지 않습니다. “이 글을 사이트에 배포해줘”, “브라우저를 조종해서 블로그에 글을 올려줘” 같은 요청을 하면, 파일을 고치고 스크립트를 돌리고 실패하면 스스로 고쳐서 결과만 보고받습니다. 이 블로그 운영 시스템 전체가 그렇게 돌아갑니다. (<a href="/posts/20260906-claude-code-usage/">사용법 정리</a>)</p>
-<p>핵심 체감은 이겁니다. <strong>에이전트형은 “코딩 도구”라기보다 “업무 위임 도구”입니다.</strong> 코드를 한 줄도 안 보는 저 같은 사용자가 성립하는 이유죠.</p>
-<h2 id="-3-그래서-어느-쪽--사람-기준으로-가르면-간단합니다">📊 3. 그래서 어느 쪽? — 사람 기준으로 가르면 간단합니다</h2>
-<p>· <strong>현직 개발자, 하루 종일 에디터에서 산다</strong> → Cursor 계열이 작업 흐름에 자연스럽습니다. 코드를 눈으로 보며 통제하고 싶은 사람의 도구입니다
-· <strong>개발자인데 반복 작업·리팩터링을 위임하고 싶다</strong> → 둘을 병행하는 경우가 많습니다. 에디터에서 쓰고, 큰 위임은 에이전트로
-· <strong>비개발자, 자동화가 목적이다</strong> → Cursor는 에디터라는 전제부터 낯섭니다. Claude Code(또는 <a href="/posts/20260906-claude-code-vs-codex/">Codex</a>)처럼 말로 시키는 쪽이 맞습니다</p>
-<p>가격은 둘 다 월 $20 안팎의 구독제입니다(요금제·한도는 자주 바뀌니 공식 페이지 확인). 결정 기준은 가격이 아니라 <strong>“내가 코드를 보고 싶은가”</strong> 하나로 충분합니다.</p>
-<h2 id="-다음-단계">🚀 다음 단계</h2>
-<p>에이전트형이 궁금해졌다면: <a href="/posts/20260905-claude-code-install-windows/">Claude Code 설치 (Windows 5분)</a> → <a href="/posts/20260906-claude-code-usage/">사용법</a> · 구독 비교가 고민이라면: <a href="/posts/20260905-chatgpt-plus-vs-claude-pro/">ChatGPT Plus vs Claude Pro</a></p>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-한-표로-보는-차이" data-astro-cid-lvjzyg5v>1. 한 표로 보는 차이</a></li><li data-astro-cid-lvjzyg5v><a href="#2-커서-ai가-들어간-코드-에디터" data-astro-cid-lvjzyg5v>2. 커서: AI가 들어간 코드 에디터</a></li><li data-astro-cid-lvjzyg5v><a href="#3-클로드-코드-일을-맡기는-에이전트" data-astro-cid-lvjzyg5v>3. 클로드 코드: 일을 맡기는 에이전트</a></li><li data-astro-cid-lvjzyg5v><a href="#4-2026년-10월-경계는-흐려지는-중" data-astro-cid-lvjzyg5v>4. 2026년 10월, 경계는 흐려지는 중</a></li><li data-astro-cid-lvjzyg5v><a href="#5-그래서-어느-쪽-사람-기준으로" data-astro-cid-lvjzyg5v>5. 그래서 어느 쪽? 사람 기준으로</a></li><li data-astro-cid-lvjzyg5v><a href="#6-요금은-둘-다-월-20부터" data-astro-cid-lvjzyg5v>6. 요금은 둘 다 월 $20부터</a></li><li data-astro-cid-lvjzyg5v><a href="#헷갈리기-쉬운-것" data-astro-cid-lvjzyg5v>헷갈리기 쉬운 것</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다. Claude Code는 제 돈으로 구독해 실사용 중이며, Cursor는 실사용 경험이 없어 공개 정보 기준으로만 다룹니다.</blockquote> <h1 id="클로드-코드-vs-커서-비교-코드를-직접-볼지로-고르는-법">클로드 코드 vs 커서 비교, 코드를 직접 볼지로 고르는 법</h1>
+<p><img alt="클로드 코드 vs 커서 비교 — 코드를 직접 볼지로 고르는 법 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.CX4Q4-Ae_oyQTp.webp" ></p>
+<p class="cap">클로드 코드 vs 커서 비교 — 코드를 직접 볼지로 고르는 법 (캐릭터는 GPT 이미지 생성)</p>
+<p>커서(Cursor)도 클로드 코드도 ‘AI 코딩 도구’라는데, 이런 생각이 들죠. “둘이 뭐가 다르지? 나는 뭘 써야 하지?” 먼저 밝힐게요. 저는 클로드 코드를 매일 쓰고, 커서는 써 본 적이 없어요. 그래서 이 글은 실사용 절반, 공식 문서 절반으로 써요.</p>
+<p>가구를 만든다고 해 볼게요. 내가 직접 대패를 잡고 옆에서 조수가 공구를 건네주는 방식이 있고, 일을 통째로 맡기고 완성품만 확인하는 방식이 있어요. 커서는 앞의 방식인 작업대에 붙은 조수에, 클로드 코드는 뒤의 방식인 일을 통째로 받아 가는 외주 파트너에 가까워요.<br>
+<strong>고르는 기준은 ‘내가 코드를 직접 보고 싶은가’ 하나면 충분해요.</strong></p>
+<p><img alt="코드 편집기 표지판과 로봇 표지판 사이에서 고민하는 장면 — 커서와 클로드 코드의 갈림길 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="720" height="720" src="/_astro/char-crossroad.qLDkBJLf_vGvYo.webp" ></p>
+<p class="cap">코드 편집기 표지판과 로봇 표지판 사이에서 고민하는 장면 — 커서와 클로드 코드의 갈림길 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 커서와 클로드 코드 사이에서 고민하는 분<br>① 한 표로 보는 출발점 차이<br>② 클로드 코드를 매일 쓰는 실사용 감각<br>③ 사람 기준으로 가르는 선택법<br>2026년 10월 기준 · 커서는 공식 문서 기준</div>
 <hr>
-<p><em>Cursor 관련 내용은 2026-09-06 기준 공개 자료를 참고했으며 실사용 평가가 아닙니다. 실사용 후기가 필요하면 실제 사용자의 글을 함께 찾아보시길 권합니다. 다이어그램은 직접 제작, 캐릭터 삽화는 GPT 이미지 생성입니다.</em></p> </article> </main> <footer class="site">
+<h2 id="1-한-표로-보는-차이">1. 한 표로 보는 차이</h2>
+<p><strong>커서는 코드 에디터에서, 클로드 코드는 터미널에서 출발한 AI 코딩 도구예요.</strong> 커서 칸은 공식 문서·요금표(2026년 10월 7일 확인), 클로드 코드 칸은 공식 문서와 제 경험이에요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>커서</th><th>클로드 코드</th></tr></thead><tbody><tr><td>출발점</td><td>AI 코드 에디터</td><td>터미널 에이전트</td></tr><tr><td>주인공</td><td>코드를 보는 나</td><td>일을 시키는 나</td></tr><tr><td>대표 기능</td><td>자동완성·골라서 고치기</td><td>파일 수정·명령 실행</td></tr><tr><td>지금 쓰는 곳</td><td>에디터·CLI·클라우드</td><td>터미널·IDE·데스크톱·웹</td></tr><tr><td>개인 유료 요금</td><td>Pro 월 $20</td><td>Pro 월 $20</td></tr><tr><td>누구에게 맞나</td><td>에디터에 사는 개발자</td><td>말로 맡길 비개발자</td></tr><tr><td>제 사용</td><td>써 본 적 없음</td><td>매일 사용</td></tr></tbody></table>
+<p>표에서 가장 큰 차이는 <mark>주인공이 누구인지</mark>예요. 커서에서는 코드를 보는 내가, 클로드 코드에서는 일을 시키는 내가 주인공이에요.</p>
+<h2 id="2-커서-ai가-들어간-코드-에디터">2. 커서: AI가 들어간 코드 에디터</h2>
+<p><strong>커서의 출발점은 에디터예요. 내가 코드를 보는 화면 안에 AI가 들어와 있어요.</strong> 커서 공식 문서는 커서가 VS Code 코드베이스로 만들어졌다고 밝혀요. VS Code를 쓰던 개발자에게 익숙한 화면이에요.</p>
+<p><img alt="작업대에서 직접 대패질하는 목수와 옆에서 공구를 건네는 작은 로봇 조수 — 커서의 출발점 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-workbench.CYECAgqx_Z1aMS4T.webp" ></p>
+<p class="cap">작업대에서 직접 대패질하는 목수와 옆에서 공구를 건네는 작은 로봇 조수 — 커서의 출발점 (GPT 이미지 생성)</p>
+<p>공식 문서 기준으로 커서의 대표 기능은 세 가지예요.<br>
+<strong>탭(Tab) 자동완성</strong> — 타이핑하는 동안 다음 코드를 회색 글씨로 제안하고, Tab을 누르면 받아들여요.<br>
+<strong>인라인 편집</strong> — 코드를 고르고 Windows에서 <code>Ctrl+K</code>를 누른 뒤 고칠 내용을 말하면 그 자리에서 고쳐요.<br>
+<strong>에이전트</strong> — 채팅으로 여러 파일에 걸친 작업을 맡겨요. 큰 작업은 <code>Shift+Tab</code>으로 계획 모드를 켜고 계획부터 받아요.</p>
+<p>주인공은 에디터를 열고 코드를 보는 나예요. 코드를 눈으로 보며 통제하고 싶은 사람에게 맞춰진 도구예요.</p>
+<h2 id="3-클로드-코드-일을-맡기는-에이전트">3. 클로드 코드: 일을 맡기는 에이전트</h2>
+<p><strong>제가 클로드 코드로 하는 일에는 코드 편집기가 등장하지 않아요.</strong> 아래처럼 요청하면 파일을 고치고, 스크립트를 돌리고, 실패하면 스스로 고쳐서 결과를 보고해요.</p>
+<p class="plabel">실제로 보낸 요청</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>이 글을 사이트에 배포해줘</span></span></code></pre>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>브라우저를 조종해서 블로그에 글을 올려줘</span></span></code></pre>
+<p>이 블로그 운영 시스템 전체가 그렇게 돌아가요. 클로드 코드는 자동 모드로 쓰고, 외부 발행은 하루 1편 발행 큐와 발행 전 검사 같은 규칙을 정해 두고 맡겨요. 처음엔 발행을 매번 직접 승인했고, 커밋은 지금도 제가 시킬 때만 해요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>에이전트형은 코딩 도구라기보다 업무 위임 도구예요. 코드를 안 보는 저 같은 사용자도 쓸 수 있는 이유예요.</div>
+<h2 id="4-2026년-10월-경계는-흐려지는-중">4. 2026년 10월, 경계는 흐려지는 중</h2>
+<p><strong>처음 이 글을 쓴 9월보다 두 도구의 경계가 흐려졌어요.</strong> 커서 공식 문서는 이제 커서를 ‘코딩 에이전트’라고 소개해요. 터미널에서 쓰는 커서 CLI와, 내가 자리를 비워도 계속 도는 클라우드 에이전트도 있어요.</p>
+<p>클로드 코드도 터미널만이 아니라 VS Code·JetBrains 같은 IDE 확장, 데스크톱 앱, 웹 브라우저에서 쓸 수 있어요.</p>
+<p>그래도 출발점은 달라요. 커서는 코드를 보는 에디터 화면에서, 클로드 코드는 말로 일을 맡기는 터미널에서 시작해요.</p>
+<p><img alt="출발점이 다른 두 도구 — 커서는 에디터에서, 클로드 코드는 터미널에서 출발하고 경계는 흐려지는 중 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="3240" src="/_astro/diagram-editor-vs-agent.MPgu4jem_1PxuQS.webp" ></p>
+<p class="cap">출발점이 다른 두 도구 — 커서는 에디터에서, 클로드 코드는 터미널에서 출발하고 경계는 흐려지는 중 (직접 제작)</p>
+<h2 id="5-그래서-어느-쪽-사람-기준으로">5. 그래서 어느 쪽? 사람 기준으로</h2>
+<p><strong>사람 기준으로 가르면 간단해요. 이런 분은 커서, 이런 분은 클로드 코드예요.</strong></p>
+<p><strong>현직 개발자이고 하루 종일 에디터에서 일한다면 커서 쪽.</strong> 코드를 눈으로 보며 통제하는 작업 흐름에 자연스러워요.<br>
+<strong>비개발자이고 자동화가 목적이라면 클로드 코드 쪽.</strong> 에디터라는 전제부터 낯설 수 있어요. 말로 시키는 쪽이 맞아요.</p>
+<p>개발자인데 반복 작업·리팩터링을 맡기고 싶다면 둘을 함께 쓰는 방법도 있어요. 에디터에서 쓰고, 큰 위임은 에이전트로 넘기는 식이에요. 클로드 코드 공식 문서는 VS Code 확장을 커서에 설치하는 방법도 함께 안내해요.</p>
+<h2 id="6-요금은-둘-다-월-20부터">6. 요금은 둘 다 월 $20부터</h2>
+<p><strong>가격으로는 갈리지 않아요. 개인 유료 플랜은 둘 다 월 $20이에요.</strong> 2026년 10월 7일 공식 요금표 기준으로 커서 Pro는 월 $20, 클로드 Pro는 월 결제 $20(연간 결제 시 월 $17)이에요.</p>
+<p>커서에는 무료 Hobby 플랜이 있고 에이전트 요청에 한도가 있어요. 클로드 코드는 무료 플랜에 없고 유료 플랜부터예요.</p>
+<p>그래서 결정 기준은 가격이 아니라 <mark>내가 코드를 보고 싶은가</mark> 하나로 충분해요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>요금·한도는 자주 바뀌어요. 결제 전에 두 회사의 공식 요금표를 다시 확인하세요.</div>
+<h2 id="헷갈리기-쉬운-것">헷갈리기 쉬운 것</h2>
+<p><strong>커서에서도 클로드 모델을 고를 수 있어요</strong> 커서는 여러 회사의 AI 모델을 골라 쓰는 도구예요. 공식 문서의 모델 목록에 앤트로픽의 클로드 모델도 들어 있어요. ‘클로드 모델’과 ‘클로드 코드’는 다른 이야기예요.</p>
+<p><strong>둘 중 하나만 고르는 관계가 아니에요</strong> 클로드 코드 확장은 커서에도 설치할 수 있어요. 에디터는 커서, 큰 위임은 클로드 코드로 나눠 쓸 수 있어요.</p>
+<p><strong>이 글의 커서 설명은 사용 후기가 아니에요</strong> 커서는 써 보지 않아서 공식 문서와 요금표로만 썼어요. 실제 사용 후기는 커서를 쓰는 분의 글을 함께 찾아보세요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 커서는 에디터, 클로드 코드는 터미널에서 출발<br>② 코드를 직접 보며 통제하고 싶다면 커서<br>③ 말로 맡기고 결과만 확인하려면 클로드 코드<br>④ 개인 유료 요금은 둘 다 월 $20부터</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 커서와 클로드 코드를 같이 쓸 수 있나요?</summary><p>네. 클로드 코드 공식 문서는 VS Code 확장을 커서에 설치하는 방법을 함께 안내해요. 에디터는 커서로, 큰 작업 위임은 클로드 코드로 나눌 수 있어요.</p></details>
+<details class="faq"><summary>Q. 코딩을 몰라도 커서를 쓸 수 있나요?</summary><p>커서는 코드를 보는 에디터가 출발점이라, 코드를 볼 일이 없다면 말로 맡기는 클로드 코드 쪽이 자연스러워요. 저는 코드를 보지 않고 클로드 코드로 블로그 시스템을 굴려요.</p></details>
+<details class="faq"><summary>Q. 무료로 써 볼 수 있나요?</summary><p>2026년 10월 7일 공식 요금표 기준으로 커서는 무료 Hobby 플랜이 있어요(에이전트 요청 한도 있음). 클로드 코드는 무료 플랜에 없고 Pro부터예요.</p></details>
+<details class="faq"><summary>Q. 코덱스와는 뭐가 다른가요?</summary><p>코덱스도 클로드 코드처럼 말로 맡기는 코딩 에이전트예요. 둘 다 써 본 비교는 같은 블로그의 ‘클로드 코드 vs 코덱스 비교’ 글에 정리했어요.</p></details>
+<p>클로드 코드가 궁금해졌다면, 설치 다음에 꼭 알아야 할 사용법부터 보세요.</p>
+<p class="nextpost">→ <a href="/posts/20260906-claude-code-usage/">클로드 코드 사용법, 설치 다음에 꼭 알아야 할 6가지</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>커서 공식 문서 — VS Code에서 옮기기 · <a href="https://cursor.com/docs/configuration/migrations/vscode">cursor.com/docs/configuration/migrations/vscode</a></li>
+<li>커서 요금제 · <a href="https://cursor.com/pricing">cursor.com/pricing</a></li>
+<li>Claude Code 공식 문서 — 개요 · <a href="https://code.claude.com/docs/en/overview">code.claude.com/docs/en/overview</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 발행 2026년 9월 6일<br>다시 확인·수정 2026년 10월 7일<br>클로드 코드는 매일 쓰는 경험으로<br>커서는 써 보지 않아 공식 문서로만<br>제휴 없음 · 캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260906-claude-code-vs-codex/">클로드 코드 vs 코덱스 비교</a> · <a href="/posts/20260905-claude-code-install-windows/">Windows에 Claude Code 설치하기</a> · <a href="/posts/20260905-chatgpt-plus-vs-claude-pro/">ChatGPT Plus vs Claude Pro</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
