@@ -1,94 +1,99 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>AI가 엉뚱한 메모를 읽고 왔다 — 빈 책상이 필요했던 이유 (LLM 중계기 개발기)</title><meta name="description" content="Codex와 Claude의 명령어 도구는 켜진 폴더의 안내문과 기억을 먼저 읽고 일을 시작합니다. 코딩할 때는 고마운 기능인데, 제가 만든 중계기가 이 AI들을 자기 폴더에서 켜는 바람에 평범한 채팅 질문에도 중계기 개발 메모가 덤으로 실렸어요. 같은 질문인데 켠 폴더에 따라 답이 달라진 증상, 원인, 아무것도 없는 전용 폴더로 자리를 옮긴 해결, 그리고 '채팅은 빈 책상, 일은 내가 고른 폴더'라는 규칙을 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="AI가 엉뚱한 메모를 읽고 왔다 — 빈 책상이 필요했던 이유 (LLM 중계기 개발기)"><meta property="og:description" content="Codex와 Claude의 명령어 도구는 켜진 폴더의 안내문과 기억을 먼저 읽고 일을 시작합니다. 코딩할 때는 고마운 기능인데, 제가 만든 중계기가 이 AI들을 자기 폴더에서 켜는 바람에 평범한 채팅 질문에도 중계기 개발 메모가 덤으로 실렸어요. 같은 질문인데 켠 폴더에 따라 답이 달라진 증상, 원인, 아무것도 없는 전용 폴더로 자리를 옮긴 해결, 그리고 '채팅은 빈 책상, 일은 내가 고른 폴더'라는 규칙을 비개발자 눈높이로 정리했습니다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>CLAUDE.md·AGENTS.md가 질문마다 실린 사고와 빈 폴더 (LLM 중계기 개발기)</title><meta name="description" content="Codex와 Claude의 명령어 도구는 켜진 폴더의 안내문과 기억을 먼저 읽고 일을 시작합니다. 코딩할 때는 고마운 기능인데, 제가 만든 중계기가 이 AI들을 자기 폴더에서 켜는 바람에 평범한 채팅 질문에도 중계기 개발 메모가 덤으로 실렸어요. 같은 질문인데 켠 폴더에 따라 답이 달라진 증상, 원인, 아무것도 없는 전용 폴더로 자리를 옮긴 해결, 그리고 '채팅은 빈 책상, 일은 내가 고른 폴더'라는 규칙을 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="CLAUDE.md·AGENTS.md가 질문마다 실린 사고와 빈 폴더 (LLM 중계기 개발기)"><meta property="og:description" content="Codex와 Claude의 명령어 도구는 켜진 폴더의 안내문과 기억을 먼저 읽고 일을 시작합니다. 코딩할 때는 고마운 기능인데, 제가 만든 중계기가 이 AI들을 자기 폴더에서 켜는 바람에 평범한 채팅 질문에도 중계기 개발 메모가 덤으로 실렸어요. 같은 질문인데 켠 폴더에 따라 답이 달라진 증상, 원인, 아무것도 없는 전용 폴더로 자리를 옮긴 해결, 그리고 '채팅은 빈 책상, 일은 내가 고른 폴더'라는 규칙을 비개발자 눈높이로 정리했습니다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v> <p class="series-bar" data-astro-cid-lvjzyg5v> <a href="/menu/#ai-project" data-astro-cid-lvjzyg5v>LLM 중계기 개발기</a> <span data-astro-cid-lvjzyg5v>2부 · 7편 / 전체 33편</span> </p> <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 1일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 OpenAI·앤트로픽과 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="ai가-엉뚱한-메모를-읽고-왔다--빈-책상이-필요했던-이유-llm-중계기-개발기">AI가 엉뚱한 메모를 읽고 왔다 — 빈 책상이 필요했던 이유 (LLM 중계기 개발기)</h1>
-<p>통역사를 한 분 모셨다고 해 볼게요. 원래라면 회의실의 깨끗한 테이블에 앉아, 상대가 하는 말만 듣고 옮겨 주면 됩니다.</p>
-<p>그런데 마땅한 자리가 없어서 제 <strong>서재</strong>에 앉혔어요. 책상 위에는 제가 써 둔 메모가 잔뜩 있고, 책장 곳곳에도 쪽지가 꽂혀 있습니다. 성실한 통역사는 일을 시작하기 전에 책상 위 자료부터 훑어봐요. 좋은 통역사라면 원래 그렇게 하죠. 그러다 보니 통역에 제 메모 내용이 슬쩍 섞여 들어갑니다. 통역사는 잘못한 게 없어요. 앉힌 자리가 문제였을 뿐이에요.</p>
-<p>제가 만든 LLM 중계기에서 AI가 바로 이런 일을 겪었습니다.</p>
-<blockquote>
-<p>이 글은 <strong>LLM 중계기 개발기</strong>의 7편입니다. 지난 <a href="/posts/20261001-llmgw-06-spawn-vs-resident/">6편 「부를 때마다 새로 켤까, 켜 둔 채 쓸까」</a>에서는 AI 프로그램을 언제 켜고 언제 끄는지를 다뤘어요. 이번에는 그렇게 켠 AI를 <strong>어디에 앉히는지</strong>의 이야기입니다.</p>
-</blockquote>
-<p><img alt="서재의 어지러운 책상에 앉아 책장의 쪽지를 읽으며 통역하는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-cluttered-study.Bl_4WV2K_21E9Er.webp" ></p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li><strong>원래 성질</strong> — Codex와 Claude의 명령어 도구는 켜진 폴더의 <strong>안내문과 기억</strong>을 먼저 읽고 일을 시작합니다. 코딩할 때는 고마운 기능이에요</li>
-<li><strong>사고</strong> — 중계기가 이 AI들을 자기 폴더에서 켜는 바람에, 평범한 채팅 질문에도 <strong>중계기 개발 메모</strong>가 매번 덤으로 실렸어요. 같은 질문인데 켠 폴더에 따라 답이 달라졌고, AI가 읽을 양도 늘었습니다</li>
-<li><strong>해결</strong> — 채팅용 AI는 이제 <strong>아무것도 없는 전용 폴더</strong>에서 켭니다. 규칙은 “채팅은 빈 책상, 일은 내가 고른 폴더”예요</li>
-</ul>
-<h2 id="-1-명령어-도구-ai는-폴더에서-일을-시작한다">📂 1. 명령어 도구 AI는 ‘폴더’에서 일을 시작한다</h2>
-<p>Codex와 Claude의 명령어 도구(CLI)는 원래 <strong>코딩을 돕는 도구</strong>예요. 개발자는 보통 프로젝트 폴더에 들어가서 이 도구를 켜고, “이 코드 고쳐 줘”처럼 일을 맡깁니다.</p>
-<p>그래서 이 도구들은 켜지자마자 그 폴더부터 살핍니다.</p>
-<ul>
-<li><strong>안내문 읽기</strong> — 폴더에 “이 프로젝트는 이렇게 일한다”는 안내 파일이 있으면 먼저 읽어요. Claude는 CLAUDE.md, Codex는 AGENTS.md라는 이름의 파일이에요</li>
-<li><strong>기억 불러오기</strong> — Claude는 폴더마다 따로 쌓아 두는 기억(자동 메모리)도 불러옵니다. 폴더 위치를 이름표 삼아 그 폴더용 메모를 찾아오는 방식이에요</li>
-</ul>
-<p>새 직원이 첫 출근 날 인수인계 문서부터 읽는 것과 같아요. 매번 같은 설명을 되풀이하지 않아도 되니, 코딩할 때는 아주 고마운 기능입니다.</p>
-<p>여기서 짚어 둘 것이 하나 있어요. 프로그램은 켜질 때 <strong>어느 폴더에서 일하는지</strong>를 하나 정하고 시작합니다. 개발자들은 이걸 ‘현재 작업 디렉터리(cwd)‘라고 부르는데, 이 글에서는 쉽게 <strong>앉은 자리</strong>라고 부를게요. 앉을 자리를 따로 정해 주지 않으면, 프로그램은 <strong>자기를 켠 프로그램의 자리</strong>를 그대로 물려받습니다.</p>
-<h2 id="-2-증상--같은-질문인데-켠-폴더에-따라-답이-달랐다">📝 2. 증상 — 같은 질문인데 켠 폴더에 따라 답이 달랐다</h2>
-<p>중계기는 사람이 직접 쓰는 채팅창이라기보다 <strong>다른 프로그램이 부르는 AI 창구</strong>예요. 중계기를 쓰던 다른 도구 하나는 사람 없이 혼자 돌아가면서, 중계기를 순수한 ‘대답 기계’로 썼습니다. 질문을 보내고 답만 받는 거죠.</p>
-<p>그 도구 쪽에서 실제로 재 보니 이상한 점이 두 가지 드러났어요.</p>
-<ul>
-<li><strong>같은 질문, 다른 답</strong> — 같은 요청을 보내도, 중계기를 어느 폴더에서 켰느냐에 따라 결과가 달라졌습니다</li>
-<li><strong>부르지도 않은 덤</strong> — 중계기를 개발 폴더에서 켜 둔 상태에서, 질문과 상관없는 그 폴더의 안내문과 기억이 매 요청에 실려 있었어요. Claude 쪽은 약 2,400토큰, Codex 쪽은 1만 7천~2만 토큰 분량이었습니다</li>
-</ul>
-<p><strong>토큰</strong>(token)은 AI가 글을 읽고 쓰는 단위예요. 글을 잘게 자른 조각이라고 보면 됩니다. AI는 답하기 전에 받은 글을 토큰 단위로 전부 읽어요. 읽을 양이 늘면 보통 답이 늦어지고, 쓴 만큼 돈을 내는 방식이면 비용이, 구독이면 사용 한도가 그만큼 더 줄어듭니다.</p>
-<p>질문을 보낸 쪽은 메모를 붙인 적이 없는데, AI는 매번 두툼한 메모 뭉치를 함께 받아 읽고 있었던 셈이에요.</p>
-<h2 id="-3-원인--ai가-중계기의-서재에-앉아-있었다">🔍 3. 원인 — AI가 중계기의 서재에 앉아 있었다</h2>
-<p>원인을 따라가 보니 1절의 ‘앉은 자리’였어요.</p>
-<p>중계기는 질문을 전하려고 Codex와 Claude 프로그램을 켭니다. 그런데 켤 때 일반 채팅용 AI의 자리를 따로 정해 주지 않았어요. 그러면 두 AI는 중계기의 자리, 그러니까 <strong>중계기가 켜진 폴더</strong>를 물려받습니다.</p>
-<p>중계기를 개발 폴더에서 켜면 그 자리는 중계기의 <strong>서재</strong>예요. 거기에는 중계기 자신의 개발 메모(안내 파일)가 있고, 그 폴더 이름으로 찾아오는 기억도 있을 수 있습니다. AI는 원래 성질대로 그걸 먼저 읽었어요. 중계기를 다른 폴더에서 켜면 AI도 다른 책상에 앉게 되니, 같은 질문에도 답이 달라질 수 있었던 거죠.</p>
-<p>사실 Claude 쪽은 첫 버전부터 “설정 파일은 읽지 마”라고 일러 둔 상태였어요. 중계기의 채팅은 순수한 대답 기계여야 하니까요. 그런데 폴더 위치를 이름표 삼아 찾아오는 <strong>기억</strong>은 그 설정으로 막히지 않았습니다. Codex 쪽은 앉은 자리의 안내문을 막는 장치가 아예 없었고요.</p>
-<p><img alt="중계기 폴더에서 켜진 AI는 질문과 함께 개발 메모·기억을 읽고, 빈 전용 폴더에서 켜진 AI는 질문만 읽는다 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1460" src="/_astro/diagram-empty-desk.S9hC9vXf_ZgC6fx.webp" ></p>
-<h2 id="-4-해결--아무것도-없는-빈-책상">🧹 4. 해결 — 아무것도 없는 빈 책상</h2>
-<p>고친 방법은 단순해요. 채팅용 AI를 켤 때마다 <strong>앉을 자리를 직접 정해 줍니다</strong>.</p>
-<ul>
-<li><strong>빈 전용 폴더</strong> — 중계기 데이터 폴더 안에 ‘chat-cwd’라는 빈 폴더를 만들어 두고, 일반 채팅용 Codex와 Claude는 늘 그 폴더에서 켭니다. 비어 있으니 읽을 안내문도, 그 폴더 이름으로 쌓인 기억도 없어요</li>
-<li><strong>어디서 켜든 같은 자리</strong> — 중계기를 어느 폴더에서 켜든 AI가 앉는 자리는 같아요. 같은 질문은 같은 조건에서 답을 받습니다</li>
-<li><strong>Codex는 한 겹 더</strong> — Codex에는 대화방을 열 때 “프로젝트 안내문은 0바이트까지만 읽어라”, 그러니까 아예 읽지 말라는 설정을 함께 넘깁니다</li>
-</ul>
-<p>이 변경은 9월 21일 업데이트에 들어갔어요.</p>
-<p><img alt="깨끗하게 비운 하얀 책상에 편지 한 통만 들고 앉은 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-empty-desk.ClIK3yiB_Z2n7KcH.webp" ></p>
-<p>다 막은 건 아니에요. Codex를 쓰는 사람이 Codex 설정 폴더에 ‘모든 폴더 공통’으로 넣어 둔 안내문은 중계기 폴더가 아니라 그 사람의 Codex 설정에 속해 있어서, 설정에 따라서는 여전히 읽힐 수 있습니다. 사용자 본인이 쓴 파일이라 이 부분은 예외로 문서에 적어 두었어요.</p>
-<h2 id="-5-책상-위-도구-상자도-치웠다">🧰 5. 책상 위 도구 상자도 치웠다</h2>
-<p>같은 업데이트에서 하나를 더 치웠어요. 이번엔 메모가 아니라 <strong>도구 상자</strong>예요.</p>
-<p>Codex는 웹 검색, 이미지 보기·만들기, 명령 실행 같은 도구를 쓸 줄 알아요. AI에게 “이런 도구를 쓸 수 있다”고 알려 주려면 도구마다 설명서를 질문과 함께 건네야 합니다. 그 설명서도 AI가 읽는 글이에요.</p>
-<p>중계기의 일반 채팅은 질문에 답만 하면 되니, 이 도구들을 Codex에게 보여 주지 않게 했어요. 개발 컴퓨터에서 재 보니 요청 하나에 AI가 읽는 양이 약 <strong>1만 8,900토큰에서 1만 3,100토큰</strong>으로, 30%쯤 줄었습니다.</p>
-<p><img alt="책상 위 쪽지들을 작은 빗자루로 서랍에 쓸어 담는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-sweep-notes.DPkCvloO_Z1xmRBm.webp" ></p>
-<p>치운 이유가 하나 더 있어요. 사람 없이 돌아가는 도구는 남이 쓴 글을 질문에 그대로 실어 보내기도 합니다. 그 글 속에 “이 명령을 실행해” 같은 문장이 숨어 있어도, 실행할 도구가 없으면 따를 수가 없죠. 혹시 AI가 지침을 어기고 명령을 시도하면 중계기가 그 승인 요청을 자동으로 거절하게도 해 두었어요.</p>
-<ul>
-<li>Claude 쪽은 쓰는 프로그램이 요청에 ‘도구 없음’이라고 표시하면 도구를 빼고 답합니다</li>
-<li>예전처럼 Codex가 도구를 다 쓰게 하는 설정도 남겨 두었어요</li>
-</ul>
-<h2 id="-6-남긴-규칙--채팅은-빈-책상-일은-내가-고른-폴더">🪑 6. 남긴 규칙 — 채팅은 빈 책상, 일은 내가 고른 폴더</h2>
-<p>그렇다고 AI가 폴더를 읽는 게 나쁜 건 아니에요. 중계기에는 <strong>작업 폴더 모드</strong>도 있습니다. AI에게 내 프로젝트 폴더를 맡겨 파일을 읽고 고치게 하는 기능이에요. 미리 등록해 둔 폴더만 쓸 수 있고, 이때는 AI를 <strong>그 폴더에</strong> 앉히고 그 폴더의 안내문도 읽게 합니다. 일을 하려면 그 폴더의 사정을 알아야 하니까요. 작업 폴더 모드 이야기는 6부에서 자세히 할게요.</p>
-<p>그래서 규칙은 이렇게 정리됐어요.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>쓰임</th><th>AI가 앉는 자리</th><th>폴더의 안내문·기억</th></tr></thead><tbody><tr><td>일반 채팅 (질문하고 답 받기)</td><td>아무것도 없는 전용 폴더</td><td>읽지 않는다</td></tr><tr><td>작업 폴더 모드 (내 프로젝트 맡기기)</td><td>내가 등록한 폴더</td><td>읽는다</td></tr></tbody></table>
-<p>이번 일에서 배운 건 이거예요. <strong>도구의 친절한 기본값이, 다른 자리에서는 새는 구멍이 된다.</strong> 코딩 도구가 ‘지금 폴더’를 읽는 건 코딩할 때는 장점인데, 대답 기계로 쓸 때는 엉뚱한 메모가 끼어드는 통로가 됐어요. 그래서 AI 프로그램을 켤 때는 앉을 자리를 물려받게 두지 않고 <strong>직접 정해 줘야</strong> 합니다.</p>
-<h2 id="정리">정리</h2>
-<p>① Codex와 Claude의 명령어 도구는 켜진 폴더의 안내문과 기억을 먼저 읽어요. 코딩할 땐 고마운 기능이에요
-② 중계기가 AI를 자기 폴더에서 켜는 바람에 채팅 질문마다 개발 메모가 덤으로 실렸고, 켠 폴더에 따라 답이 달라졌어요
-③ 이제 채팅은 아무것도 없는 전용 폴더에서, 일은 내가 등록한 폴더에서 해요 — 다음 편은 “로그인했는데 401 — 서랍 속 옛 열쇠가 문을 막다”입니다</p>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v> <p class="series-bar" data-astro-cid-lvjzyg5v> <a href="/menu/#ai-project" data-astro-cid-lvjzyg5v>LLM 중계기 개발기</a> <span data-astro-cid-lvjzyg5v>2부 · 7편 / 전체 33편</span> </p> <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 1일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-ai-명령어-도구는-폴더에서-시작한다" data-astro-cid-lvjzyg5v>1. AI 명령어 도구는 폴더에서 시작한다</a></li><li data-astro-cid-lvjzyg5v><a href="#2-증상-같은-질문-다른-답" data-astro-cid-lvjzyg5v>2. 증상: 같은 질문, 다른 답</a></li><li data-astro-cid-lvjzyg5v><a href="#3-원인-ai가-중계기의-서재에-앉았다" data-astro-cid-lvjzyg5v>3. 원인: AI가 중계기의 서재에 앉았다</a></li><li data-astro-cid-lvjzyg5v><a href="#4-해결-아무것도-없는-빈-책상" data-astro-cid-lvjzyg5v>4. 해결: 아무것도 없는 빈 책상</a></li><li data-astro-cid-lvjzyg5v><a href="#5-결과-도구-상자도-치우니-30-줄었다" data-astro-cid-lvjzyg5v>5. 결과: 도구 상자도 치우니 30% 줄었다</a></li><li data-astro-cid-lvjzyg5v><a href="#6-남긴-규칙-채팅은-빈-책상" data-astro-cid-lvjzyg5v>6. 남긴 규칙: 채팅은 빈 책상</a></li><li data-astro-cid-lvjzyg5v><a href="#적용해-보기" data-astro-cid-lvjzyg5v>적용해 보기</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 OpenAI·앤트로픽과 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="claudemdagentsmd가-질문마다-실린-사고와-빈-폴더-llm-중계기-개발기">CLAUDE.md·AGENTS.md가 질문마다 실린 사고와 빈 폴더 (LLM 중계기 개발기)</h1>
+<p><img alt="CLAUDE.md·AGENTS.md가 질문마다 실린 사고와 빈 폴더 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.BHFZSdWO_1Cf4f1.webp" ></p>
+<p class="cap">CLAUDE.md·AGENTS.md가 질문마다 실린 사고와 빈 폴더 (캐릭터는 GPT 이미지 생성)</p>
+<p>Claude Code나 Codex를 쓰다 보면 CLAUDE.md, AGENTS.md라는 파일 이름을 자주 보게 돼요. “이 파일은 언제, 누가 읽는 거지?” 코딩할 때는 고마운 이 파일들이, 제가 만든 LLM 중계기에서는 엉뚱한 자리에 끼어들었어요.</p>
+<p>통역사를 한 분 모셨는데 마땅한 자리가 없어 제 서재에 앉혔다고 해 볼게요. 책상 위에도 책장에도 제 메모가 잔뜩 있어요. 성실한 통역사는 일을 시작하기 전에 책상 위 자료부터 훑어보고, 통역에 제 메모 내용이 슬쩍 섞여 들어가요. 통역사는 잘못한 게 없어요. 앉힌 자리가 문제였을 뿐이에요.<br>
+<strong>AI 명령어 도구는 켜진 폴더의 메모부터 읽어요. 그래서 채팅용 AI에게는 빈 책상을 따로 마련해야 했어요.</strong></p>
+<p>지난 6편에서는 AI 프로그램을 언제 켜고 언제 끄는지를 다뤘어요. 이번에는 그렇게 켠 AI를 어디에 앉히는지의 이야기예요.</p>
+<p><img alt="어지러운 서재에서 쪽지를 읽으며 통역하는 로봇 — 켜진 폴더의 메모부터 읽는 AI (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-cluttered-study.Bl_4WV2K_21E9Er.webp" ></p>
+<p class="cap">어지러운 서재에서 쪽지를 읽으며 통역하는 로봇 — 켜진 폴더의 메모부터 읽는 AI (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>연재: LLM 중계기 개발기 7편 · 2부 여러 AI를 한 줄로<br>대상: Claude Code·Codex를 쓰거나 궁금한 분<br>① AI 명령어 도구가 폴더에서 읽는 것<br>② 같은 질문에 답이 달라진 원인과 해결<br>③ 채팅은 빈 책상, 일은 고른 폴더<br>2026년 10월 기준 · 제 중계기 개발 기록</div>
 <hr>
-<p><em>2026년 10월 1일 기준입니다. 제가 만든 중계기의 개발 기록을 바탕으로 썼고, 특정 기업·서비스의 공식 입장이 아닙니다.</em></p> </article> <nav class="series-nav" aria-label="LLM 중계기 개발기 이전 편·다음 편" data-astro-cid-lvjzyg5v> <a class="prev" href="/posts/20261001-llmgw-06-spawn-vs-resident/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>← 이전 편 · 6편</span> <span class="t" data-astro-cid-lvjzyg5v>부를 때마다 새로 켤까, 켜 둔 채 쓸까 — 콜택시와 정류장에서 기다리는 셔틀버스</span> </a> <a class="next" href="/posts/20261001-llmgw-08-stray-key/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>다음 편 · 8편 →</span> <span class="t" data-astro-cid-lvjzyg5v>로그인했는데 401 — 서랍 속 옛 열쇠가 문을 막다</span> </a> <a class="toc" href="/menu/#ai-project" data-astro-cid-lvjzyg5v>☰ LLM 중계기 개발기 전체 목차</a> </nav></main> <footer class="site">
+<h2 id="1-ai-명령어-도구는-폴더에서-시작한다">1. AI 명령어 도구는 폴더에서 시작한다</h2>
+<p><strong>Codex와 Claude의 명령어 도구(CLI)는 켜지자마자 그 폴더의 안내문과 기억부터 읽어요.</strong> 원래 코딩을 돕는 도구라서, 개발자는 프로젝트 폴더에 들어가 이 도구를 켜고 일을 맡겨요. 그래서 도구도 켜진 폴더부터 살펴요.</p>
+<p>① 안내문 — 폴더에 ‘이 프로젝트는 이렇게 일한다’는 파일이 있으면 먼저 읽어요. Claude는 <code>CLAUDE.md</code>, Codex는 <code>AGENTS.md</code>예요.<br>
+② 기억(자동 메모리) — Claude는 폴더마다 따로 쌓아 두는 기억도 불러와요. 폴더 위치를 이름표 삼아 찾아오는 방식이에요.</p>
+<p>새 직원이 첫 출근 날 인수인계 문서부터 읽는 것과 같아요. 코딩할 때는 아주 고마운 기능이에요.</p>
+<p>프로그램은 켜질 때 어느 폴더에서 일할지를 하나 정하고 시작해요. 이 글에서는 이걸 ‘앉은 자리’라고 부를게요. <mark>자리를 정해 주지 않으면 켠 프로그램의 자리를 물려받아요.</mark> 이 성질이 이번 사고의 열쇠예요.</p>
+<h2 id="2-증상-같은-질문-다른-답">2. 증상: 같은 질문, 다른 답</h2>
+<p><strong>같은 질문을 보내도, 중계기를 어느 폴더에서 켰느냐에 따라 답이 달라졌어요.</strong> 중계기를 쓰던 다른 도구 하나는 사람 없이 혼자 돌아가면서, 중계기를 순수한 ‘대답 기계’로 썼어요. 그 도구 쪽에서 실제로 재 보니 이상한 점이 두 가지 드러났어요.</p>
+<p>① 같은 질문, 다른 답 — 같은 요청인데 중계기를 켠 폴더에 따라 결과가 달라졌어요.<br>
+② 부르지도 않은 덤 — 중계기를 개발 폴더에서 켜 둔 상태에서, 질문과 상관없는 그 폴더의 안내문과 기억이 매 요청에 실려 있었어요. Claude 쪽은 약 <strong>2,400토큰</strong>, Codex 쪽은 <strong>1만 7천~2만 토큰</strong> 분량이었어요.</p>
+<p>토큰은 AI가 글을 읽고 쓰는 단위예요. 글을 잘게 자른 조각이라고 보면 돼요. 읽을 양이 늘면 보통 답이 늦어지고, 쓴 만큼 돈을 내는 방식이면 비용이, 구독이면 사용 한도가 그만큼 더 줄어요.</p>
+<h2 id="3-원인-ai가-중계기의-서재에-앉았다">3. 원인: AI가 중계기의 서재에 앉았다</h2>
+<p><strong>중계기가 채팅용 AI의 자리를 정해 주지 않아서, AI가 중계기의 폴더를 물려받았어요.</strong> 중계기는 질문을 전하려고 Codex와 Claude 프로그램을 켜요. 그런데 일반 채팅용 AI의 자리를 따로 정하지 않았어요.</p>
+<p>중계기를 개발 폴더에서 켜면 그 자리는 중계기의 서재예요. 중계기 자신의 개발 메모와, 그 폴더 이름으로 저장된 기억이 있죠. AI는 원래 성질대로 그걸 먼저 읽었어요. 다른 폴더에서 켜면 다른 책상에 앉으니, 같은 질문에도 답이 달라질 수 있었어요.</p>
+<p>사실 Claude 쪽은 첫 버전부터 “설정 파일은 읽지 마”라고 일러 둔 상태였어요. 그런데 폴더 위치를 이름표 삼아 찾아오는 기억은 그 설정으로 막히지 않았어요. Codex 쪽은 안내문을 막는 장치가 아예 없었고요.</p>
+<p><img alt="중계기 폴더 vs 빈 전용 폴더 — 채팅용 AI가 질문과 함께 읽는 것 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1460" src="/_astro/diagram-empty-desk.S9hC9vXf_ZgC6fx.webp" ></p>
+<p class="cap">중계기 폴더 vs 빈 전용 폴더 — 채팅용 AI가 질문과 함께 읽는 것 (직접 제작)</p>
+<h2 id="4-해결-아무것도-없는-빈-책상">4. 해결: 아무것도 없는 빈 책상</h2>
+<p><strong>채팅용 AI를 켤 때마다 앉을 자리를 직접 정해 주게 고쳤어요. 아무것도 없는 빈 전용 폴더예요.</strong><br>
+① 빈 전용 폴더 — 중계기 데이터 폴더 안에 <code>chat-cwd</code>라는 빈 폴더를 만들어 두고, 일반 채팅용 Codex와 Claude는 늘 그 폴더에서 켜요. 비어 있으니 읽을 안내문도, 그 폴더 이름의 기억도 없어요.<br>
+② 어디서 켜든 같은 자리 — 중계기를 어느 폴더에서 켜든 같은 질문은 같은 조건에서 답을 받아요.<br>
+③ Codex는 한 겹 더 — 대화방을 열 때 “프로젝트 안내문은 아예 읽지 말라”는 설정을 함께 넘겨요.</p>
+<p>이 변경은 <strong>9월 21일</strong> 업데이트에 들어갔어요.</p>
+<p><img alt="책상 위 쪽지를 서랍에 쓸어 담는 로봇 — 채팅용 AI의 자리를 비우다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-sweep-notes.DPkCvloO_Z1xmRBm.webp" ></p>
+<p class="cap">책상 위 쪽지를 서랍에 쓸어 담는 로봇 — 채팅용 AI의 자리를 비우다 (GPT 이미지 생성)</p>
+<p>다 막은 건 아니에요. Codex를 쓰는 사람이 Codex 설정 폴더에 ‘모든 폴더 공통’으로 넣어 둔 안내문은 그 사람의 Codex 설정에 속해 있어요. 그래서 설정에 따라서는 여전히 읽힐 수 있어요. 사용자 본인이 쓴 파일이라 예외로 문서에 적어 뒀어요.</p>
+<h2 id="5-결과-도구-상자도-치우니-30-줄었다">5. 결과: 도구 상자도 치우니 30% 줄었다</h2>
+<p><strong>같은 업데이트에서 채팅용 Codex에게 도구를 보여 주지 않게 했더니, AI가 읽는 양이 약 30% 줄었어요.</strong> Codex는 웹 검색, 이미지 보기·만들기, 명령 실행 같은 도구를 쓸 줄 알아요. 도구를 쓸 수 있다고 알려 주려면 도구마다 설명서를 질문과 함께 건네야 하고, 그 설명서도 AI가 읽는 글이에요.</p>
+<p>일반 채팅은 답만 하면 되니 이 도구들을 Codex에게 보여 주지 않게 했어요. 개발 컴퓨터에서 잰 값이에요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Codex 일반 채팅 요청 하나</th><th>AI가 읽는 양</th></tr></thead><tbody><tr><td>도구를 보여 줄 때</td><td>약 <strong>1만 8,900토큰</strong></td></tr><tr><td>도구를 숨긴 뒤</td><td>약 <strong>1만 3,100토큰</strong> (약 30% 감소)</td></tr></tbody></table>
+<p>빈 폴더의 효과가 아니라 도구를 숨긴 효과라서 따로 적었어요.</p>
+<p>이유가 하나 더 있어요. 사람 없이 돌아가는 도구는 남이 쓴 글을 질문에 그대로 실어 보내기도 해요. 글 속에 숨긴 지시로 AI를 움직이려는 시도(프롬프트 인젝션)가 섞여 들어올 수 있어요. 그 글 속에 “이 명령을 실행해” 같은 문장이 있어도, 실행할 도구가 없으면 따를 수가 없죠. 혹시 AI가 명령을 시도하면 중계기가 그 승인 요청을 자동으로 거절하게도 해 뒀어요.</p>
+<h2 id="6-남긴-규칙-채팅은-빈-책상">6. 남긴 규칙: 채팅은 빈 책상</h2>
+<p><strong>AI가 폴더를 읽는 게 나쁜 건 아니에요. 자리를 물려받게 두지 않고 직접 정해 주는 게 규칙이에요.</strong> 중계기에는 AI에게 내 프로젝트 폴더를 맡기는 ‘작업 폴더 모드’도 있어요. 미리 등록해 둔 폴더만 쓸 수 있고, 이때는 AI를 그 폴더에 앉히고 그 폴더의 안내문도 읽게 해요. 일을 하려면 그 폴더의 사정을 알아야 하니까요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>쓰임</th><th>앉는 자리와 읽는 것</th></tr></thead><tbody><tr><td>일반 채팅</td><td>아무것도 없는 전용 폴더 — 안내문·기억을 읽지 않음</td></tr><tr><td>작업 폴더 모드</td><td>내가 등록한 폴더 — 그 폴더의 안내문을 읽음</td></tr></tbody></table>
+<p>작업 폴더 모드는 6부에서 자세히 다룰게요. 이번 일에서 배운 건, 도구의 친절한 기본값이 다른 자리에서는 새는 구멍이 된다는 거예요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>AI 프로그램을 켤 때는 앉을 자리를 물려받게 두지 말고 직접 정해 주세요.</div>
+<h2 id="적용해-보기">적용해 보기</h2>
+<p><strong>Claude Code나 Codex를 다른 프로그램에서 부른다면, 이 순서로 확인해 보세요.</strong></p>
+<ol class="steps"><li>AI를 켜는 폴더에 <code>CLAUDE.md</code>나 <code>AGENTS.md</code>가 있는지 보세요.<span class="then">→ 있다면 질문마다 그 내용이 함께 읽혀요.</span></li><li>프로그램에서 AI를 부를 때 작업 폴더를 직접 정해 주세요. 채팅만 할 거라면 빈 폴더가 좋아요.<span class="then">→ 어디서 켜든 같은 조건에서 답을 받아요.</span></li><li>채팅에 필요 없는 도구는 AI에게 보여 주지 마세요.<span class="then">→ AI가 읽는 양이 줄고, 남의 글에 숨은 명령을 따를 길도 막혀요.</span></li></ol>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① AI 명령어 도구는 켜진 폴더의 메모부터 읽어요<br>② 중계기 폴더를 물려받아 질문마다 덤이 실렸어요<br>③ 채팅용 AI는 빈 전용 폴더에서 켜게 고쳤어요<br>④ 도구까지 숨기니 읽는 양이 약 30% 줄었어요</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. CLAUDE.md나 AGENTS.md를 읽는 게 나쁜 건가요?</summary><p>아니요. 코딩할 때는 프로젝트 사정을 알려 주는 고마운 파일이에요. 문제는 그 폴더와 상관없는 채팅에도 읽혔다는 점이었어요.</p></details>
+<details class="faq"><summary>Q. Claude는 설정 파일을 읽지 않게 해 뒀는데 왜 새었나요?</summary><p>폴더 위치를 이름표 삼아 찾아오는 기억(자동 메모리)은 그 설정으로 막히지 않았어요. 그래서 자리 자체를 빈 폴더로 옮겼어요.</p></details>
+<details class="faq"><summary>Q. 작업 폴더 모드에서도 빈 폴더를 쓰나요?</summary><p>아니요. 작업 폴더 모드는 내가 등록한 폴더에 AI를 앉히고, 그 폴더의 안내문도 읽게 해요. 일을 하려면 그 폴더의 사정을 알아야 하니까요.</p></details>
+<p>다음 편에서는 로그인을 해 뒀는데도 401(인증 실패)이 난 사고를 다뤄요. 서랍 속 옛 열쇠가 먼저 꽂혀 문을 막은 이야기예요.</p>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 1일<br>다시 확인·수정 2026년 10월 7일<br>제가 만든 중계기의 커밋·릴리스 노트 기준<br>숫자는 저장소 기록과 다시 대조<br>OpenAI·앤트로픽과 관계없음 · 제휴 없음<br>캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p class="related">LLM 중계기 개발기: <a href="/posts/20261001-llmgw-06-spawn-vs-resident/">← 지난 편(6편)</a> · 7편 이 글 · <a href="/posts/20261001-llmgw-08-stray-key/">다음 편(8편) →</a></p> </article> <nav class="series-nav" aria-label="LLM 중계기 개발기 이전 편·다음 편" data-astro-cid-lvjzyg5v> <a class="prev" href="/posts/20261001-llmgw-06-spawn-vs-resident/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>← 이전 편 · 6편</span> <span class="t" data-astro-cid-lvjzyg5v>세션 재사용과 워밍업, AI를 새로 켤까 켜 둔 채 쓸까</span> </a> <a class="next" href="/posts/20261001-llmgw-08-stray-key/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>다음 편 · 8편 →</span> <span class="t" data-astro-cid-lvjzyg5v>Claude 401 오류, 로그인했는데 옛 API 키가 먼저 쓰인 이유</span> </a> <a class="toc" href="/menu/#ai-project" data-astro-cid-lvjzyg5v>☰ LLM 중계기 개발기 전체 목차</a> </nav></main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

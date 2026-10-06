@@ -1,98 +1,127 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>&#39;OpenAI 호환&#39;은 왜 표준 콘센트가 됐나 — 모양은 같은데 전압이 살짝 다를 때 (LLM 중계기 개발기)</title><meta name="description" content="AI 도구 설명에 자주 보이는 'OpenAI 호환'은 OpenAI의 AI를 쓴다는 뜻이 아니라, OpenAI가 정한 대화 요청의 모양을 따른다는 뜻입니다. 이 모양이 널리 쓰이면서 LM Studio 같은 프로그램도 같은 모양으로 창구를 열고, 제가 만든 LLM 중계기도 이 모양 덕분에 주소 한 줄로 어떤 프로그램이든 받게 됐어요. 그런데 '호환'인데도 끝난 이유, 생각 과정, 빈 도구 목록, 거절 이유에서 AI마다 조금씩 달라 하나씩 맞춰야 했습니다. 그 이득과 한계를 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="'OpenAI 호환'은 왜 표준 콘센트가 됐나 — 모양은 같은데 전압이 살짝 다를 때 (LLM 중계기 개발기)"><meta property="og:description" content="AI 도구 설명에 자주 보이는 'OpenAI 호환'은 OpenAI의 AI를 쓴다는 뜻이 아니라, OpenAI가 정한 대화 요청의 모양을 따른다는 뜻입니다. 이 모양이 널리 쓰이면서 LM Studio 같은 프로그램도 같은 모양으로 창구를 열고, 제가 만든 LLM 중계기도 이 모양 덕분에 주소 한 줄로 어떤 프로그램이든 받게 됐어요. 그런데 '호환'인데도 끝난 이유, 생각 과정, 빈 도구 목록, 거절 이유에서 AI마다 조금씩 달라 하나씩 맞춰야 했습니다. 그 이득과 한계를 비개발자 눈높이로 정리했습니다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>OpenAI 호환 API 뜻, 표준이 된 이유와 빈틈 4가지 (LLM 중계기 개발기)</title><meta name="description" content="AI 도구 설명에 자주 보이는 'OpenAI 호환'은 OpenAI의 AI를 쓴다는 뜻이 아니라, OpenAI가 정한 대화 요청의 모양을 따른다는 뜻입니다. 이 모양이 널리 쓰이면서 LM Studio 같은 프로그램도 같은 모양으로 창구를 열고, 제가 만든 LLM 중계기도 이 모양 덕분에 주소 한 줄로 어떤 프로그램이든 받게 됐어요. 그런데 '호환'인데도 끝난 이유, 생각 과정, 빈 도구 목록, 거절 이유에서 AI마다 조금씩 달라 하나씩 맞춰야 했습니다. 그 이득과 한계를 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="OpenAI 호환 API 뜻, 표준이 된 이유와 빈틈 4가지 (LLM 중계기 개발기)"><meta property="og:description" content="AI 도구 설명에 자주 보이는 'OpenAI 호환'은 OpenAI의 AI를 쓴다는 뜻이 아니라, OpenAI가 정한 대화 요청의 모양을 따른다는 뜻입니다. 이 모양이 널리 쓰이면서 LM Studio 같은 프로그램도 같은 모양으로 창구를 열고, 제가 만든 LLM 중계기도 이 모양 덕분에 주소 한 줄로 어떤 프로그램이든 받게 됐어요. 그런데 '호환'인데도 끝난 이유, 생각 과정, 빈 도구 목록, 거절 이유에서 AI마다 조금씩 달라 하나씩 맞춰야 했습니다. 그 이득과 한계를 비개발자 눈높이로 정리했습니다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v> <p class="series-bar" data-astro-cid-lvjzyg5v> <a href="/menu/#ai-project" data-astro-cid-lvjzyg5v>LLM 중계기 개발기</a> <span data-astro-cid-lvjzyg5v>1부 · 3편 / 전체 33편</span> </p> <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 1일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 OpenAI·앤트로픽·NVIDIA·LM Studio와 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="openai-호환은-왜-표준-콘센트가-됐나--모양은-같은데-전압이-살짝-다를-때">‘OpenAI 호환’은 왜 표준 콘센트가 됐나 — 모양은 같은데 전압이 살짝 다를 때</h1>
-<p>우리나라 집에서는 어느 방에 가도 콘센트 모양이 같습니다. 새로 산 헤어드라이어를 들고 와서 아무 콘센트에나 꽂으면 그냥 돌아가요. 모양도, 전압(220V)도 정해져 있으니까요. 가전을 만드는 쪽은 이 모양에 맞춰 플러그를 만들고, 집을 짓는 쪽은 이 모양으로 콘센트를 답니다. 서로 상대를 몰라도 되는 거죠.</p>
-<p>그런데 모양만 같고 전압이 살짝 다르다면 어떨까요. 플러그는 쏙 들어가는데 드라이어 바람이 약하거나, 엉뚱하게 돌 수도 있을 거예요.</p>
-<p>AI 세계에도 이런 표준 콘센트가 있습니다. 바로 ‘<strong>OpenAI 호환</strong>’이라는 형식이에요. 제가 만든 LLM 중계기도 이 콘센트 모양으로 창구를 열었고, 덕분에 많은 것을 거저 얻었습니다. 대신 전압이 살짝 다른 곳들을 하나씩 맞추느라 꽤 애를 먹었어요.</p>
-<blockquote>
-<p>이 글은 <strong>LLM 중계기 개발기</strong>의 3편입니다. 지난 <a href="/posts/20261001-llmgw-02-what-is-relay/">2편 ‘중계기란 무엇인가’</a>에서 여러 AI를 한 창구 뒤에 세우는 이야기를 했다면, 이번에는 그 창구가 왜 하필 ‘OpenAI 호환’ 모양인지, 그리고 ‘호환’이라는 말을 어디까지 믿을 수 있는지를 다룹니다.</p>
-</blockquote>
-<p><img alt="서로 다른 나라에서 온 로봇들이 제각각인 플러그를 들고 큰 콘센트 하나 앞에 줄을 선다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-universal-socket.Bco3V5p-_2eCMK.webp" ></p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li><strong>표준</strong> — 프로그램이 AI에게 말을 거는 형식 가운데 OpenAI의 대화 형식이 널리 쓰이면서, LM Studio처럼 다른 곳에서 만든 AI 프로그램도 같은 모양으로 창구를 엽니다</li>
-<li><strong>이득</strong> — 중계기도 이 모양으로 창구를 열었기 때문에, 이 형식을 아는 프로그램은 <strong>주소 한 줄</strong>만 바꾸면 바로 붙습니다. 뒤에 선 AI마다 다른 말투는 중계기가 번역해요</li>
-<li><strong>한계</strong> — ‘호환’은 모양이 같다는 뜻이지 동작까지 같다는 뜻은 아니었어요. <strong>끝난 이유, 생각 과정, 빈 도구 목록, 거절 이유</strong> 네 군데에서 AI마다 조금씩 달라 중계기가 하나씩 맞췄습니다</li>
-</ul>
-<h2 id="-1-프로그램이-ai에게-보내는-편지의-모양">📨 1. 프로그램이 AI에게 보내는 ‘편지’의 모양</h2>
-<p>프로그램이 AI에게 일을 시킬 때는 정해진 모양의 편지를 보냅니다. 개발자들은 이 편지를 요청(request)이라고 불러요. OpenAI 형식의 대화 요청에서 중심이 되는 칸은 세 개입니다.</p>
-<p>① <strong>받는 AI</strong> — 어느 모델에게 보낼지, 모델 이름을 적습니다</p>
-<p>② <strong>지금까지의 대화</strong> — 누가 무슨 말을 했는지 순서대로 적은 목록이에요. ‘역할 지시’, ‘사용자’, ‘AI’가 각자 한 말을 줄줄이 담습니다</p>
-<p>③ <strong>받는 방식</strong> — 답을 다 만든 뒤 한꺼번에 받을지, 만들어지는 대로 조금씩 흘려 받을지(스트리밍)를 고릅니다</p>
-<p>예를 들어 회의록 요약을 시키는 편지는 이런 모양이에요.</p>
-<blockquote>
-<ul>
-<li><strong>받는 AI</strong> — Claude의 한 모델</li>
-<li><strong>대화</strong> — [역할 지시] 너는 회의록을 짧게 정리하는 도우미야 → [사용자] 이 회의록을 세 줄로 요약해 줘 (회의록 본문 첨부)</li>
-<li><strong>받는 방식</strong> — 조금씩 흘려 받기</li>
-</ul>
-</blockquote>
-<p>답장도 정해진 모양으로 옵니다. AI가 쓴 답 본문과 함께, 왜 거기서 멈췄는지를 적은 <strong>끝난 이유</strong> 칸이 붙어 와요. 이 칸은 4절에서 다시 나옵니다.</p>
-<p>재미있는 점이 하나 있어요. 이 형식에서는 보통 요청할 때마다 지금까지의 대화 전체를 다시 담아 보냅니다. AI가 앞선 대화를 기억해 주는 게 아니라, 편지에 대화 기록을 통째로 동봉하는 방식이에요.</p>
-<h2 id="-2-왜-이-모양이-표준-콘센트가-됐나">🔌 2. 왜 이 모양이 ‘표준 콘센트’가 됐나</h2>
-<p>OpenAI는 ChatGPT를 만든 곳이고, 이 대화 형식은 OpenAI가 자기 AI를 프로그램에서 부를 수 있게 내놓은 것입니다. 이 형식이 널리 쓰이면서, 이 모양에 맞춰 만든 프로그램과 도구가 많이 쌓였어요.</p>
-<p>그러자 다른 곳들도 같은 모양을 따르는 경우가 흔해졌습니다. 콘센트 규격이 정해지면 새로 나오는 가전이 그 플러그를 다는 것과 비슷해요. 새 AI 프로그램이 이 모양으로 창구를 열면, 이미 이 모양을 아는 프로그램들이 따로 고치지 않고도 붙을 수 있으니까요.</p>
-<p>제가 중계기에 연결한 것 중에도 그런 예가 있습니다.</p>
-<ul>
-<li><strong>LM Studio</strong> — 내 컴퓨터에서 작은 AI 모델을 돌려 주는 프로그램이에요. 개발자(Developer) 탭에서 서버를 켜면 OpenAI 호환 모양으로 창구를 엽니다. 그래서 중계기는 받은 편지를 거의 그대로 넘기면 됐어요</li>
-<li><strong>NVIDIA의 AI 창구</strong> — 여러 AI 모델을 인터넷으로 쓸 수 있게 열어 둔 NVIDIA의 서비스도 OpenAI 호환 모양으로 말합니다</li>
-</ul>
-<p>반대로 이 모양을 말하지 않는 AI도 있어요. Codex와 Claude의 명령어 도구는 사람이 터미널에서 쓰라고 만든 것이라, OpenAI 모양의 편지를 받는 창구가 없습니다. 이쪽은 중계기가 번역을 맡아야 했어요(3절).</p>
-<p>이름 때문에 헷갈리기 쉬운 점도 하나 짚어 둘게요. ‘OpenAI 호환’은 <strong>OpenAI의 AI를 쓴다</strong>는 뜻이 아니라, <strong>OpenAI가 정한 편지 모양을 따른다</strong>는 뜻입니다. 220V 콘센트를 쓴다고 해서 특정 발전소의 전기만 쓰는 게 아닌 것처럼요.</p>
-<h2 id="-3-중계기가-이-콘센트를-고른-이유">🧩 3. 중계기가 이 콘센트를 고른 이유</h2>
-<p>중계기는 첫 버전부터 창구를 이 모양으로 열었습니다. 창구는 크게 둘이에요. “지금 쓸 수 있는 모델이 뭐가 있나요?”에 답하는 <strong>모델 목록</strong> 창구, 그리고 1절에서 본 편지를 받는 <strong>대화</strong> 창구입니다.</p>
-<p>그 덕분에 쓰는 쪽 프로그램이 할 일이 아주 적어졌어요.</p>
-<ul>
-<li>OpenAI 형식을 아는 프로그램이라면 <strong>AI 주소 칸</strong>을 중계기 주소로 바꾸면 끝입니다</li>
-<li>원래 넣어야 하는 열쇠(API 키) 칸에는 기본 설정에서는 아무 값이나 넣어도 돼요. 실제 로그인은 중계기가 AI마다 대신 처리하니까요</li>
-<li>모델 이름은 ‘claude/…’, ‘codex/…’처럼 <strong>AI 이름/모델 이름</strong> 모양으로 적어서, 어느 AI에게 보낼지 구분합니다</li>
-</ul>
-<p>뒤쪽에서는 번역이 일어납니다.</p>
-<ul>
-<li><strong>원래 같은 모양인 AI</strong>(LM Studio, NVIDIA 창구 등)에는 편지를 거의 그대로 넘깁니다</li>
-<li><strong>명령어 도구</strong>(Codex, Claude)에는 대화 목록을 한 덩어리의 글로 합쳐서 넘깁니다. 대화에 AI가 한 말이 섞여 있으면 누가 한 말인지 이름표를 붙여서요</li>
-<li>돌아온 답은 다시 OpenAI 모양의 답장으로 감싸서 프로그램에 돌려줍니다</li>
-</ul>
-<p><img alt="통역사 로봇이 두 로봇 사이에서 빛나는 편지를 건네준다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-translator.DDfCCav6_1cJ6HU.webp" ></p>
-<p>다만 처음부터 약속한 범위가 넓지는 않았어요. 중계기 설명서에 적어 둔 공통 약속은 <strong>받는 AI, 대화, 받는 방식</strong> 세 칸이 중심입니다. 답 길이 제한이나 답의 무작위성(temperature) 같은 설정은 그 AI가 지원하는 범위에서만 적용되고, 도구 목록 같은 고급 칸은 공통 약속에 넣지 않았어요. 콘센트 모양은 맞춰 줬지만, 그 뒤로 흐르는 전기까지 똑같다고 장담하지는 않은 셈이죠.</p>
-<p><img alt="왼쪽 프로그램들이 중계기의 OpenAI 호환 창구에 꽂히고, 중계기가 플러그 모양이 다른 AI 다섯 곳으로 번역해 보낸다. 아래에 호환의 빈틈 4가지 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1580" src="/_astro/diagram-standard-socket.yBf2Y37T_NQmed.webp" ></p>
-<h2 id="-4-모양은-같은데-전압이-살짝-다르다--호환의-빈틈-4가지">⚡ 4. 모양은 같은데 전압이 살짝 다르다 — 호환의 빈틈 4가지</h2>
-<p><img alt="로봇 기술자가 똑같아 보이는 콘센트 세 개를 측정기로 재며 고개를 갸웃한다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-voltage-meter.CwCbv-ol_Z2fIKSi.webp" ></p>
-<p>실제로 써 보니 같은 콘센트에 꽂혀 있어도 AI마다 미묘하게 달랐습니다. 그중 중계기가 직접 손봐야 했던 네 가지를 골랐어요.</p>
-<p><strong>① 끝난 이유 — ‘다 했음’인지 ‘잘렸음’인지</strong></p>
-<p>답장의 끝난 이유 칸에는 보통 둘 중 하나가 적힙니다. 할 말을 다 해서 멈췄다(stop), 아니면 정해 둔 분량에 걸려 잘렸다(length).</p>
-<p>처음 만든 중계기는 한꺼번에 받는 답장의 이 칸에 <strong>늘 ‘다 했음’을 적었습니다</strong>. 그래서 한 AI 서버가 “분량 때문에 잘렸다”고 알려 줘도, 쓰는 쪽 프로그램은 잘린 답을 완성된 답으로 알았어요. 개발 둘째 날, AI가 알려 준 값을 그대로 전달하도록 고쳤습니다.</p>
-<p>일주일쯤 뒤에는 Claude와 Codex 쪽도 손봤어요. Claude는 같은 뜻을 다른 낱말로 말합니다. 분량 초과는 ‘max_tokens’, 정상 종료는 ‘end_turn’이라고 하죠. 중계기가 이걸 OpenAI 형식의 낱말로 바꿔 적습니다. 지금은 모델마다의 특성표에 “이 AI가 알려 주는 끝난 이유를 믿을 수 있는지”도 함께 적고, 확인되지 않은 AI는 ‘모름’으로 표시해요. 이 이야기는 4부에서 따로 자세히 다룹니다.</p>
-<p><strong>② 생각 과정 — 같은 내용, 세 가지 포장</strong></p>
-<p>답하기 전에 먼저 생각을 하는 AI들이 있어요. 문제는 그 생각을 어디에 담아 보내느냐가 제각각이었다는 점입니다.</p>
-<ul>
-<li>답과 따로 <strong>‘생각’ 칸</strong>(reasoning_content)에 담는 AI</li>
-<li>같은 칸인데 <strong>이름만 다른 칸</strong>(reasoning)에 담는 AI</li>
-<li>아예 <strong>답 본문 맨 앞에</strong> <code>&#x3C;think></code> 꼬리표로 감싸 섞어 보내는 AI</li>
-</ul>
-<p>처음 중계기는 첫 번째 칸을 그냥 버렸어요. 그런데 생각에도 출력 분량이 들어서, 생각을 길게 하다 정작 답이 잘리는 일이 생겼습니다. 생각 칸이 버려졌으니 프로그램은 왜 잘렸는지 알 수 없었죠. 개발 둘째 날 이 칸을 그대로 전달하고, 생각에 쓴 분량을 기록에 경고로 남기게 고쳤습니다.</p>
-<p>이름이 다른 칸은 원래 이름 그대로 보존해서 넘기게 했고(개발 일주일째), 본문 앞에 섞여 오는 생각은 한 달쯤 뒤에 중계기가 앞머리의 꼬리표 부분만 떼어 생각 칸으로 옮기게 했어요. 그대로 두면 생각이 답인 척 새어 나오고, 쓰는 프로그램마다 그걸 각자 떼어 내야 하니까요.</p>
-<p><strong>③ 빈 도구 목록 — ‘없음’을 말하는 방법의 차이</strong></p>
-<p>요청에는 AI가 쓸 수 있는 도구(웹 검색 등)를 적는 칸도 있습니다. “이번엔 도구를 쓰지 마”라고 하고 싶을 때 이 칸에 <strong>빈 목록</strong>을 보내기도 해요.</p>
-<p>이걸 ‘도구 없음’으로 알아듣는 AI도 있지만, 한 AI 서버는 “목록이 비어 있으면 안 된다”며 요청 자체를 거절했습니다. 개발 막바지인 9월 말의 일이에요. 해결은 단순했습니다. OpenAI 모양으로 말하는 AI 서버에 보낼 때는 빈 목록을 <strong>아예 빼고</strong> 보냅니다. 칸이 없어도 뜻은 똑같이 ‘도구 없음’이니까요. 반대로 Claude 같은 명령어 도구에는 빈 목록을 그대로 전해서, 기본으로 켜져 있는 도구를 끄게 합니다. 같은 뜻을 상대가 알아듣는 모양으로 바꿔 보내는 거예요.</p>
-<p>설정 칸에서도 비슷한 일이 있었어요. 생각하는 AI 중에는 답의 무작위성 설정(temperature)을 받지 않고 거절하는 경우가 있어서, 중계기는 거절당한 설정만 빼고 한 번 다시 보냅니다. 다만 답 길이 제한처럼 결과의 뜻을 바꾸는 설정은 함부로 빼지 않고, 원래 오류를 그대로 돌려줘요.</p>
-<p><strong>④ 거절 이유 — 오류의 모양도 제각각</strong></p>
-<p>AI가 요청을 거절할 때는 이유를 적어 보내는데, 그 모양이 AI마다 다릅니다. 어떤 곳은 정해진 칸에, 어떤 곳은 다른 이름의 칸에, 어떤 곳은 그냥 글로 보내요.</p>
-<p>첫날의 중계기는 이유가 예상한 모양이 아니면 버리고, “HTTP 400”이라는 번호 한 줄만 전달했습니다. ‘요청이 잘못됐다’는 뜻의 번호일 뿐, 무엇이 잘못됐는지는 빠져 있었죠. 그날 바로 고쳤어요. 이제는 원문을 통째로 보관하고, 여러 모양 가운데서 사람이 읽을 이유 문장을 골라 OpenAI 모양의 오류에 담되, 원문도 함께 붙여 보냅니다.</p>
-<p>다음 날에는 반대쪽 사고가 있었어요. 오류를 받긴 했는데 기록에 남길 때 앞부분만 잘라 두는 바람에, Codex가 보낸 “더 새 버전으로 업데이트하라”는 정작 중요한 안내가 잘려 나갔습니다. 진짜 원인이 이렇게 잘려 사라진 게 벌써 세 번째여서, 그 뒤로는 오류를 자르지 않는다는 규칙과 그걸 확인하는 자동 검사를 함께 만들었어요. 이 이야기도 4부에서 자세히 하겠습니다.</p>
-<h2 id="-5-모양을-맞추는-일과-전압을-맞추는-일">🧭 5. 모양을 맞추는 일과 전압을 맞추는 일</h2>
-<p>정리하면 ‘OpenAI 호환’은 <strong>콘센트 모양</strong>을 맞추는 약속이었어요. 그 덕분에 중계기는 주소 한 줄로 어떤 프로그램이든 받아들일 수 있었습니다. 하지만 <strong>전압</strong>, 그러니까 칸 하나하나의 뜻과 쓰임은 AI마다 조금씩 달랐죠.</p>
-<p>이 차이를 다루면서 남긴 규칙이 세 가지 있습니다.</p>
-<p>① <strong>믿을 수 있는지 모르면 그렇다고 적어 둔다</strong> — 끝난 이유를 확인하지 못한 AI는 스펙 카드에 ‘모름’으로 표시합니다. 답장 칸은 여전히 ‘다 했음’이 기본값이라, 쓰는 쪽은 카드를 함께 봐야 해요(16편에서 자세히)</p>
-<p>② <strong>원문은 버리지 않는다</strong> — 생각 칸도, 거절 이유도 일단 그대로 전합니다</p>
-<p>③ <strong>같은 뜻이면 상대가 알아듣는 모양으로 바꿔 보낸다</strong> — 빈 도구 목록처럼요</p>
-<p>중계기가 모든 차이를 숨길 수는 없어서, 중계기에 프로그램을 붙이는 사람을 위한 <strong>연결 안내서</strong>도 따로 써 두었습니다. “끝난 이유가 ‘잘림’이면 완성된 답으로 저장하지 말 것”, “본문이 비어 있으면 생각 칸을 확인할 것”, “오류에 붙은 원문을 볼 것” 같은 내용이에요. 콘센트 옆에 붙여 둔 “이 콘센트는 이런 점이 다릅니다” 안내문인 셈입니다.</p>
-<h2 id="정리">정리</h2>
-<p>① ‘OpenAI 호환’은 OpenAI의 AI를 쓴다는 뜻이 아니라 OpenAI가 정한 대화 편지의 모양을 따른다는 뜻이고, 널리 쓰이다 보니 표준 콘센트처럼 됐어요
-② 중계기는 이 모양으로 창구를 열어서, 쓰는 쪽은 주소 한 줄만 바꾸고 뒤쪽 번역은 중계기가 맡아요
-③ 하지만 끝난 이유·생각 과정·빈 도구 목록·거절 이유처럼 ‘전압’은 AI마다 달라서, 믿을 수 없는 칸은 카드에 ‘모름’으로 표시하고 원문은 버리지 않는 규칙으로 맞췄어요 — 다음 편은 “AI와 함께 하루 만에 만든 첫 버전”입니다</p>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v> <p class="series-bar" data-astro-cid-lvjzyg5v> <a href="/menu/#ai-project" data-astro-cid-lvjzyg5v>LLM 중계기 개발기</a> <span data-astro-cid-lvjzyg5v>1부 · 3편 / 전체 33편</span> </p> <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 1일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 7개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-프로그램이-ai에게-보내는-편지" data-astro-cid-lvjzyg5v>1. 프로그램이 AI에게 보내는 편지</a></li><li data-astro-cid-lvjzyg5v><a href="#2-표준-콘센트가-된-이유" data-astro-cid-lvjzyg5v>2. 표준 콘센트가 된 이유</a></li><li data-astro-cid-lvjzyg5v><a href="#3-중계기가-이-콘센트를-고른-이유" data-astro-cid-lvjzyg5v>3. 중계기가 이 콘센트를 고른 이유</a></li><li data-astro-cid-lvjzyg5v><a href="#4-빈틈--끝난-이유와-생각-과정" data-astro-cid-lvjzyg5v>4. 빈틈 ①② 끝난 이유와 생각 과정</a></li><li data-astro-cid-lvjzyg5v><a href="#5-빈틈--빈-도구-목록과-거절-이유" data-astro-cid-lvjzyg5v>5. 빈틈 ③④ 빈 도구 목록과 거절 이유</a></li><li data-astro-cid-lvjzyg5v><a href="#6-모양을-맞추는-일과-전압을-맞추는-일" data-astro-cid-lvjzyg5v>6. 모양을 맞추는 일과 전압을 맞추는 일</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 OpenAI·앤트로픽·NVIDIA·LM Studio와 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="openai-호환-api-뜻-표준이-된-이유와-빈틈-4가지-llm-중계기-개발기">OpenAI 호환 API 뜻, 표준이 된 이유와 빈틈 4가지 (LLM 중계기 개발기)</h1>
+<p><img alt="OpenAI 호환 API 뜻 — 표준이 된 이유와 빈틈 4가지 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.J1zhRLZ__ZkzdQv.webp" ></p>
+<p class="cap">OpenAI 호환 API 뜻 — 표준이 된 이유와 빈틈 4가지 (캐릭터는 GPT 이미지 생성)</p>
+<p>AI 도구 설명을 읽다 보면 ‘OpenAI 호환’이라는 말이 자주 보여요. “OpenAI 계정이 있어야 쓸 수 있다는 뜻인가?” 하는 의문이 들기 쉬워요.</p>
+<p>우리나라 집에서는 어느 방에 가도 콘센트 모양이 같아요. 새로 산 헤어드라이어를 아무 콘센트에나 꽂으면 그냥 돌아가요. 모양도, 전압(220V)도 정해져 있으니까요. 그런데 모양만 같고 전압이 살짝 다르다면 어떨까요. 플러그는 쏙 들어가는데 드라이어 바람이 약하거나 엉뚱하게 돌 수도 있겠죠.<br>
+<strong>‘OpenAI 호환’은 OpenAI의 AI를 쓴다는 뜻이 아니라, OpenAI가 정한 대화 요청의 모양을 따른다는 뜻이에요.</strong></p>
+<p>제가 만든 LLM 중계기도 이 모양으로 창구를 열어 많은 것을 거저 얻었지만, 전압이 살짝 다른 곳들을 하나씩 맞추느라 꽤 애를 먹었어요. 이 글은 ‘LLM 중계기 개발기’의 3편이에요. 지난 2편 ‘중계기란 무엇인가’에 이어, 이번에는 그 창구가 왜 하필 ‘OpenAI 호환’ 모양인지, ‘호환’이라는 말을 어디까지 믿을 수 있는지를 다뤄요.</p>
+<p><img alt="제각각인 플러그를 든 로봇들이 콘센트 하나 앞에 줄을 선 장면 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-universal-socket.Bco3V5p-_2eCMK.webp" ></p>
+<p class="cap">제각각인 플러그를 든 로봇들이 콘센트 하나 앞에 줄을 선 장면 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>연재: LLM 중계기 개발기 3편 · 1부 왜 만들었나<br>대상: 'OpenAI 호환'이 무슨 뜻인지 궁금한 분<br>① OpenAI 호환 API의 뜻과 요청 모양<br>② 표준 콘센트가 된 이유와 얻은 것<br>③ 호환인데도 달랐던 빈틈 4가지<br>2026년 10월 1일 기준 · 중계기 v0.1.108</div>
 <hr>
-<p><em>2026년 10월 1일 기준입니다. 제가 만든 중계기의 개발 기록을 바탕으로 썼고, 특정 기업·서비스의 공식 입장이 아닙니다.</em></p> </article> <nav class="series-nav" aria-label="LLM 중계기 개발기 이전 편·다음 편" data-astro-cid-lvjzyg5v> <a class="prev" href="/posts/20261001-llmgw-02-what-is-relay/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>← 이전 편 · 2편</span> <span class="t" data-astro-cid-lvjzyg5v>중계기란 무엇인가 — 콘센트 모양이 다른 나라에서 쓰는 만능 어댑터</span> </a> <a class="next" href="/posts/20261001-llmgw-04-first-day/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>다음 편 · 4편 →</span> <span class="t" data-astro-cid-lvjzyg5v>AI와 함께 하루 만에 만든 첫 버전 — 짐 풀고, 고치고, 밤에야 눕는 이삿날</span> </a> <a class="toc" href="/menu/#ai-project" data-astro-cid-lvjzyg5v>☰ LLM 중계기 개발기 전체 목차</a> </nav></main> <footer class="site">
+<h2 id="1-프로그램이-ai에게-보내는-편지">1. 프로그램이 AI에게 보내는 편지</h2>
+<p><strong>프로그램이 AI에게 일을 시킬 때는 정해진 모양의 편지(요청)를 보내요. OpenAI 형식에서 중심이 되는 칸은 세 개예요.</strong> 실제 편지는 아래처럼 생겼어요. 영어 이름표가 붙은 칸에 값을 채우는 모양이에요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  "model"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"claude/opus"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">  "messages"</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span><span style="color:#79B8FF">"role"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"user"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">"content"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"..."</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#E1E4E8">  ],</span></span>
+<span class="line"><span style="color:#79B8FF">  "stream"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">true</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>칸</th><th>뜻</th></tr></thead><tbody><tr><td><code>model</code></td><td>받는 AI — 어느 모델에게 보낼지</td></tr><tr><td><code>messages</code></td><td>지금까지의 대화 — 역할 지시·사용자·AI가 한 말을 순서대로</td></tr><tr><td><code>stream</code></td><td>받는 방식 — 한꺼번에 받을지, 조금씩 흘려 받을지</td></tr><tr><td><code>finish_reason</code></td><td>답장에 붙는 끝난 이유 — 다 했음(stop)인지 잘렸음(length)인지</td></tr></tbody></table>
+<p>예를 들어 회의록 요약을 시키면 대화 칸에 “[역할 지시] 너는 회의록을 짧게 정리하는 도우미야 → [사용자] 이 회의록을 세 줄로 요약해 줘”가 들어가요.</p>
+<p>이 형식에서는 보통 요청할 때마다 지금까지의 대화 전체를 다시 담아 보내요. AI가 앞선 대화를 기억해 주는 게 아니라, 편지에 대화 기록을 통째로 동봉하는 방식이에요.</p>
+<h2 id="2-표준-콘센트가-된-이유">2. 표준 콘센트가 된 이유</h2>
+<p><strong>OpenAI가 자기 AI를 부르라고 내놓은 이 형식이 널리 쓰이면서, 다른 곳들도 같은 모양으로 창구를 열게 됐어요.</strong> 이 모양에 맞춘 프로그램과 도구가 많이 쌓였으니, 새 AI가 같은 모양으로 창구를 열면 그 프로그램들이 고치지 않고 바로 붙어요. 콘센트 규격이 정해지면 새 가전이 그 플러그를 다는 것과 비슷해요.</p>
+<p>제가 중계기에 연결한 것 중에도 그런 예가 있어요.<br>
+① LM Studio — 내 컴퓨터에서 작은 AI 모델을 돌려 주는 프로그램이에요. <code>Developer</code> 탭에서 서버를 켜면 OpenAI 호환 모양으로 창구를 열어요<br>
+② NVIDIA의 AI 창구 — 여러 AI 모델을 인터넷으로 쓰게 열어 둔 서비스도 OpenAI 호환 모양으로 말해요</p>
+<p>두 곳 모두 공식 문서에 ‘OpenAI 호환’이라고 적어 두었어요(2026년 10월 7일 확인).</p>
+<p>반대로 Codex와 Claude의 명령어 도구는 사람이 터미널에서 쓰라고 만든 것이라 이 모양의 창구가 없어요. 이쪽은 중계기가 번역을 맡았어요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>'OpenAI 호환'은 편지 모양을 따른다는 뜻이에요. 220V 콘센트를 쓴다고 특정 발전소 전기만 쓰는 게 아닌 것처럼요.</div>
+<h2 id="3-중계기가-이-콘센트를-고른-이유">3. 중계기가 이 콘센트를 고른 이유</h2>
+<p><strong>중계기는 첫 버전(2026년 7월 13일)부터 창구를 이 모양으로 열었어요. 덕분에 쓰는 쪽 프로그램이 할 일이 세 가지로 줄었어요.</strong> 창구는 쓸 수 있는 모델을 알려 주는 <code>/v1/models</code>와, 편지를 받는 <code>/v1/chat/completions</code> 두 개예요.</p>
+<ol class="steps"><li>쓰는 프로그램 설정에서 <b>AI 주소(base URL)</b> 칸을 중계기 주소로 바꾸세요.<span class="then">→ 그 프로그램의 질문이 중계기로 가요.</span></li><li><b>API 키</b> 칸에는 아무 값이나 넣으세요(중계기 기본 설정).<span class="then">→ 실제 로그인은 중계기가 AI마다 대신 해요.</span></li><li>모델 이름 칸에는 'AI 이름/모델 이름'을 적으세요. 예: <code>claude/opus</code><span class="then">→ 중계기가 그 이름을 보고 보낼 AI를 골라요.</span></li></ol>
+<p>뒤쪽에서는 번역이 일어나요. 원래 같은 모양인 AI(LM Studio, NVIDIA 창구)에는 편지를 거의 그대로 넘겨요. 명령어 도구(Codex, Claude)에는 대화 목록을 한 덩어리 글로 합쳐 넘기고, 대화에 AI가 한 말이 섞여 있으면 누가 한 말인지 이름표를 붙여요. 돌아온 답은 다시 OpenAI 모양의 답장으로 감싸 돌려줘요.</p>
+<p><img alt="두 로봇 사이에서 편지를 건네는 통역사 로봇 — 중계기가 하는 번역 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-translator.DDfCCav6_1cJ6HU.webp" ></p>
+<p class="cap">두 로봇 사이에서 편지를 건네는 통역사 로봇 — 중계기가 하는 번역 (GPT 이미지 생성)</p>
+<p>다만 처음부터 약속한 범위가 넓지는 않았어요. 공통 약속은 받는 AI, 대화, 받는 방식 세 칸이 중심이에요. 답 길이 제한이나 답의 무작위성(temperature) 같은 설정은 그 AI가 지원하는 범위에서만 적용되고, 도구 목록 같은 고급 칸은 공통 약속에 넣지 않았어요. 콘센트 모양은 맞췄지만, 그 뒤로 흐르는 전기까지 똑같다고 장담하지는 않은 셈이에요.</p>
+<p><img alt="OpenAI 호환 창구 하나와 AI마다의 번역, 그리고 호환의 빈틈 4가지 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1580" src="/_astro/diagram-standard-socket.yBf2Y37T_NQmed.webp" ></p>
+<p class="cap">OpenAI 호환 창구 하나와 AI마다의 번역, 그리고 호환의 빈틈 4가지 (직접 제작)</p>
+<h2 id="4-빈틈--끝난-이유와-생각-과정">4. 빈틈 ①② 끝난 이유와 생각 과정</h2>
+<p><strong>실제로 써 보니 같은 콘센트에 꽂혀 있어도 AI마다 미묘하게 달랐어요. 중계기가 직접 손본 빈틈이 네 가지예요.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>빈틈</th><th>중계기가 한 일</th></tr></thead><tbody><tr><td>① 끝난 이유</td><td>AI가 알려 준 값을 그대로 전하고, 다른 낱말은 바꿔 적기</td></tr><tr><td>② 생각 과정</td><td>세 가지 포장을 모두 생각 칸으로 모으기</td></tr><tr><td>③ 빈 도구 목록</td><td>같은 뜻을 상대가 알아듣는 모양으로 보내기</td></tr><tr><td>④ 거절 이유</td><td>오류 원문을 버리지도 자르지도 않기</td></tr></tbody></table>
+<p><img alt="똑같아 보이는 콘센트의 전압을 측정기로 재는 로봇 — 호환의 빈틈 찾기 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-voltage-meter.CwCbv-ol_Z2fIKSi.webp" ></p>
+<p class="cap">똑같아 보이는 콘센트의 전압을 측정기로 재는 로봇 — 호환의 빈틈 찾기 (GPT 이미지 생성)</p>
+<p>① <strong>끝난 이유 — ‘다 했음’인지 ‘잘렸음’인지</strong> 처음 만든 중계기는 한꺼번에 받는 답장의 끝난 이유 칸에 늘 ‘다 했음’을 적었어요. 그래서 한 AI 서버가 분량 때문에 잘렸다고 알려 줘도, 프로그램은 잘린 답을 완성된 답으로 알았어요.<br>
+<strong>7월 14일</strong>, AI가 알려 준 값을 그대로 전하도록 고쳤어요.</p>
+<p><strong>7월 21일</strong>에는 Claude와 Codex 쪽도 손봤어요. Claude는 같은 뜻을 다른 낱말로 말해요. 분량 초과는 ‘max_tokens’, 정상 종료는 ‘end_turn’이라고 하죠. 중계기가 이걸 OpenAI 형식의 낱말로 바꿔 적어요. 지금은 모델마다의 특성표에 이 칸을 믿을 수 있는지도 적고, 확인되지 않은 AI는 ‘모름’으로 표시해요.</p>
+<p>② <strong>생각 과정 — 같은 내용, 세 가지 포장</strong> 답하기 전에 먼저 생각하는 AI들이 있는데, 그 생각을 담는 방식이 제각각이었어요. 따로 ‘생각’ 칸(reasoning_content)에 담는 AI, 이름만 다른 칸(reasoning)에 담는 AI, 답 본문 맨 앞에 think 꼬리표로 감싸 섞어 보내는 AI가 있었어요.</p>
+<p>처음 중계기는 첫 번째 칸을 버렸어요. 그런데 생각에도 출력 분량이 들어서, 생각을 길게 하다 답이 잘리면 프로그램은 이유를 알 수 없었어요.<br>
+<strong>7월 14일</strong> 이 칸을 그대로 전하고 생각에 쓴 분량을 기록에 경고로 남기게 고쳤고, <strong>7월 19일</strong>에는 이름이 다른 칸을 그대로 보존하게 했어요. 본문 앞에 섞여 오는 생각은 <strong>8월 11일</strong>부터 꼬리표 부분만 떼어 생각 칸으로 옮겨요.</p>
+<h2 id="5-빈틈--빈-도구-목록과-거절-이유">5. 빈틈 ③④ 빈 도구 목록과 거절 이유</h2>
+<p>③ <strong>빈 도구 목록 — ‘없음’을 말하는 방법의 차이</strong> 요청에는 AI가 쓸 수 있는 도구(웹 검색 등)를 적는 칸도 있어요. “이번엔 도구를 쓰지 마”라고 할 때 빈 목록을 보내기도 해요. 이걸 ‘도구 없음’으로 알아듣는 AI도 있지만, 한 AI 서버는 “목록이 비어 있으면 안 된다”며 요청을 거절했어요. 개발 막바지인 <strong>9월 29일</strong>의 일이에요.</p>
+<p>해결은 단순했어요. OpenAI 모양으로 말하는 AI 서버에는 빈 목록을 아예 빼고 보내요. 칸이 없어도 뜻은 똑같이 ‘도구 없음’이니까요. 반대로 Claude 같은 명령어 도구에는 빈 목록을 그대로 전해 기본 도구를 끄게 해요.</p>
+<p>설정 칸도 비슷했어요. 생각하는 AI 중에는 temperature 설정을 거절하는 경우가 있어서, 거절당한 설정만 빼고 한 번 다시 보내요. 다만 답 길이 제한처럼 결과의 뜻을 바꾸는 설정은 함부로 빼지 않고 원래 오류를 돌려줘요.</p>
+<p>④ <strong>거절 이유 — 오류의 모양도 제각각</strong> AI가 요청을 거절할 때 이유를 적어 보내는 모양도 AI마다 달라요. 첫날(<strong>7월 13일</strong>)의 중계기는 이유가 예상한 모양이 아니면 버리고 “HTTP 400”이라는 번호 한 줄만 전했어요. 그날 바로 고쳐서, 이제는 원문을 통째로 보관하고 사람이 읽을 이유 문장을 골라 담되 원문도 함께 붙여 보내요.</p>
+<p>다음 날에는 기록에 남길 때 오류 앞부분만 잘라 두는 바람에, Codex가 보낸 “더 새 버전으로 업데이트하라”는 안내가 잘려 나갔어요. 진짜 원인이 잘려 사라진 게 벌써 <strong>세 번째</strong>라, 그 뒤로는 오류를 자르지 않는 규칙과 그걸 확인하는 자동 검사를 함께 만들었어요.</p>
+<h2 id="6-모양을-맞추는-일과-전압을-맞추는-일">6. 모양을 맞추는 일과 전압을 맞추는 일</h2>
+<p><strong>‘OpenAI 호환’은 콘센트 모양을 맞추는 약속이었고, 칸 하나하나의 뜻과 쓰임이라는 전압은 AI마다 조금씩 달랐어요.</strong> 덕분에 주소 한 줄로 어떤 프로그램이든 받아들일 수 있었지만, 이 차이를 다루며 규칙 세 가지를 남겼어요.</p>
+<p>① <strong>믿을 수 있는지 모르면 그렇다고 적어 둔다</strong> — 끝난 이유를 확인하지 못한 AI는 특성표에 ‘모름’으로 표시해요<br>
+② <strong>원문은 버리지 않는다</strong> — 생각 칸도, 거절 이유도 일단 그대로 전해요<br>
+③ <strong>같은 뜻이면 상대가 알아듣는 모양으로 바꿔 보낸다</strong> — 빈 도구 목록처럼요</p>
+<p>중계기가 모든 차이를 숨길 수는 없어서, 중계기에 프로그램을 붙이는 사람을 위한 연결 안내서도 따로 써 두었어요. “끝난 이유가 ‘잘림’이면 완성된 답으로 저장하지 말 것”, “본문이 비어 있으면 생각 칸을 확인할 것”, “오류에 붙은 원문을 볼 것” 같은 내용이에요. <mark>호환은 모양까지, 동작은 따로 확인</mark>하는 게 이 편의 교훈이에요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① OpenAI 호환 = OpenAI가 정한 편지 모양<br>② 쓰는 쪽은 주소 한 줄, 번역은 중계기가<br>③ 끝난 이유·생각·도구 목록·오류는 AI마다 달라요<br>④ 모르면 '모름'으로 적고, 원문은 버리지 않아요</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 'OpenAI 호환'이면 OpenAI 계정이 있어야 하나요?</summary><p>아니요. 편지 모양만 같다는 뜻이에요. LM Studio처럼 내 컴퓨터에서 돌리는 AI도 OpenAI 계정 없이 이 모양으로 창구를 열어요.</p></details>
+<details class="faq"><summary>Q. OpenAI 호환 API면 어떤 프로그램이든 그대로 붙나요?</summary><p>AI 주소(base URL)를 바꿀 수 있는 프로그램이면 붙어요. 다만 4·5번의 빈틈처럼 칸의 쓰임이 AI마다 달라서, 끝난 이유와 오류 원문은 따로 확인하는 게 좋아요.</p></details>
+<details class="faq"><summary>Q. 답이 잘렸는지는 어떻게 아나요?</summary><p>답장의 끝난 이유가 length면 정해 둔 분량에 걸려 잘린 거예요. 그 값을 믿을 수 있는 AI인지까지는 4부에서 사고 이야기와 함께 다뤄요.</p></details>
+<p>다음 편은 “AI와 함께 하루 만에 만든 첫 버전”이에요. 첫날 하루에만 54번 저장하며 만든 첫 중계기 이야기를 할게요.</p>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 쓴 날 2026년 10월 1일<br>다시 다듬은 날 2026년 10월 7일<br>직접 만든 중계기의 개발 기록 바탕<br>날짜는 저장소 커밋과 대조<br>LM Studio·NVIDIA는 공식 문서로 확인<br>제휴 없음 · 캐릭터는 GPT, 도식은 직접</div>
+<p class="related">연재 LLM 중계기 개발기 — 지난 편: <a href="/posts/20261001-llmgw-02-what-is-relay/">LLM 게이트웨이 구조</a> · 다음 편: <a href="/posts/20261001-llmgw-04-first-day/">AI와 함께 하루 만에 만든 첫 버전</a></p> </article> <nav class="series-nav" aria-label="LLM 중계기 개발기 이전 편·다음 편" data-astro-cid-lvjzyg5v> <a class="prev" href="/posts/20261001-llmgw-02-what-is-relay/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>← 이전 편 · 2편</span> <span class="t" data-astro-cid-lvjzyg5v>LLM 게이트웨이 구조, 질문 하나가 지나가는 네 칸과 두 창구</span> </a> <a class="next" href="/posts/20261001-llmgw-04-first-day/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>다음 편 · 4편 →</span> <span class="t" data-astro-cid-lvjzyg5v>AI 페어 프로그래밍, 하루 만에 첫 버전을 만든 이삿날 기록</span> </a> <a class="toc" href="/menu/#ai-project" data-astro-cid-lvjzyg5v>☰ LLM 중계기 개발기 전체 목차</a> </nav></main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

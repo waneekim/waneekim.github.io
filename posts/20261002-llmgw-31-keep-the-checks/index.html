@@ -1,217 +1,133 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>검사는 지우지 않는다 — 사고 다발 교차로의 신호등 (LLM 중계기 개발기)</title><meta name="description" content="LLM 중계기는 고장 하나를 고칠 때마다 같은 고장을 다시 잡는 자동 검사를 하나씩 세웠습니다. 첫 버전이 나오고 이틀이 채 안 돼 시험을 돌릴 때마다 먼저 도는 검사·시험이 13개가 됐고, 한 번 돌리는 데 18초쯤 걸리자 기록은 '매번 18초를 물리면 시험을 안 돌리게 된다'고 적었어요. 하나도 지우지 않고 커밋 전의 빠른 핵심 검사 5종과 새 판 전의 전체 검사로 나눈 이야기, 코드가 옮겨 가면 검사도 옮겨 단 사례, 검사가 정말 무는지 일부러 고장을 넣어 확인하는 방법을 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="검사는 지우지 않는다 — 사고 다발 교차로의 신호등 (LLM 중계기 개발기)"><meta property="og:description" content="LLM 중계기는 고장 하나를 고칠 때마다 같은 고장을 다시 잡는 자동 검사를 하나씩 세웠습니다. 첫 버전이 나오고 이틀이 채 안 돼 시험을 돌릴 때마다 먼저 도는 검사·시험이 13개가 됐고, 한 번 돌리는 데 18초쯤 걸리자 기록은 '매번 18초를 물리면 시험을 안 돌리게 된다'고 적었어요. 하나도 지우지 않고 커밋 전의 빠른 핵심 검사 5종과 새 판 전의 전체 검사로 나눈 이야기, 코드가 옮겨 가면 검사도 옮겨 단 사례, 검사가 정말 무는지 일부러 고장을 넣어 확인하는 방법을 비개발자 눈높이로 정리했습니다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>회귀 테스트와 품질 게이트, 검사를 지우지 않고 빠르게 돌리는 법 (LLM 중계기 개발기)</title><meta name="description" content="LLM 중계기는 고장 하나를 고칠 때마다 같은 고장을 다시 잡는 자동 검사를 하나씩 세웠습니다. 첫 버전이 나오고 이틀이 채 안 돼 시험을 돌릴 때마다 먼저 도는 검사·시험이 13개가 됐고, 한 번 돌리는 데 18초쯤 걸리자 기록은 '매번 18초를 물리면 시험을 안 돌리게 된다'고 적었어요. 하나도 지우지 않고 커밋 전의 빠른 핵심 검사 5종과 새 판 전의 전체 검사로 나눈 이야기, 코드가 옮겨 가면 검사도 옮겨 단 사례, 검사가 정말 무는지 일부러 고장을 넣어 확인하는 방법을 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="회귀 테스트와 품질 게이트, 검사를 지우지 않고 빠르게 돌리는 법 (LLM 중계기 개발기)"><meta property="og:description" content="LLM 중계기는 고장 하나를 고칠 때마다 같은 고장을 다시 잡는 자동 검사를 하나씩 세웠습니다. 첫 버전이 나오고 이틀이 채 안 돼 시험을 돌릴 때마다 먼저 도는 검사·시험이 13개가 됐고, 한 번 돌리는 데 18초쯤 걸리자 기록은 '매번 18초를 물리면 시험을 안 돌리게 된다'고 적었어요. 하나도 지우지 않고 커밋 전의 빠른 핵심 검사 5종과 새 판 전의 전체 검사로 나눈 이야기, 코드가 옮겨 가면 검사도 옮겨 단 사례, 검사가 정말 무는지 일부러 고장을 넣어 확인하는 방법을 비개발자 눈높이로 정리했습니다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v> <p class="series-bar" data-astro-cid-lvjzyg5v> <a href="/menu/#ai-project" data-astro-cid-lvjzyg5v>LLM 중계기 개발기</a> <span data-astro-cid-lvjzyg5v>6부 · 31편 / 전체 33편</span> </p> <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 2일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 글에 나오는 AI 서비스들(OpenAI·앤트로픽)과 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="검사는-지우지-않는다--사고-다발-교차로의-신호등-llm-중계기-개발기">검사는 지우지 않는다 — 사고 다발 교차로의 신호등 (LLM 중계기 개발기)</h1>
-<p>사고가 유난히 잦은 교차로가 하나 있다고 해 볼게요. 처음에는 신호등이 하나도 없었어요. 차끼리 부딪히는 사고가 나자 신호등이 섰고, 좌회전하던 차가 사고를 내자 좌회전 신호가 더해졌고, 길을 건너던 사람이 다칠 뻔하자 보행 신호가 생겼어요. 신호등 하나하나에 사연이 있는 셈이죠.</p>
-<p>몇 달 동안 사고가 한 건도 없었다고 신호등을 뽑자는 사람은 없을 거예요. 사고가 없는 게 바로 신호등 덕분이니까요. 길을 넓혀 차선이 옮겨 가면 신호등을 버리는 대신 새 차선 쪽으로 옮겨 달고요. 다만 신호가 너무 길면 이야기가 달라져요. 빨간불이 몇 분씩 이어지면, 차가 없을 때 그냥 건너는 사람이 생기기 마련이에요. 지키기 어려운 신호는 결국 아무도 지키지 않게 돼요.</p>
-<p>제가 만든 LLM 중계기에도 이런 신호등이 있어요. 고장이 날 때마다 하나씩 세운 <strong>자동 검사</strong>들이에요. 오늘은 그 신호등들이 어떻게 늘었고, 왜 하나도 뽑지 않았고, 너무 길어진 신호를 어떻게 나눴는지 이야기할게요.</p>
-<blockquote>
-<p>이 글은 <strong>LLM 중계기 개발기</strong>의 31편입니다. 지난 <a href="/posts/20261002-llmgw-30-waiting-approval/">30편 「AI가 허락을 기다리다 멈췄다」</a>에서는 작업 폴더 모드에서 AI가 사람의 허락을 기다리다 멈춰 선 이야기를 했어요. <a href="/posts/20261001-llmgw-04-first-day/">4편</a>에서 ‘고장 하나에 검사 하나’라는 습관을 소개하며 검사를 지우지 않는 원칙은 31편에서 하겠다고 약속했는데, 오늘이 그 편이에요.</p>
-</blockquote>
-<p><img alt="북적이는 교차로에서 사다리에 올라 새 신호등을 다는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-new-light.BDF6oG7t_2s6AD9.webp" ></p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li><strong>습관</strong> — 고장 하나를 고칠 때마다 같은 고장을 다시 잡는 <strong>검사</strong>를 하나씩 세웠어요. 첫 버전이 나오고 이틀이 채 안 돼 시험을 돌릴 때마다 먼저 도는 검사와 시험이 13개가 됐고, 지금 검사 목록에는 12종이 올라 있어요. 지운 검사는 없어요</li>
-<li><strong>판단</strong> — 전부 매번 돌리자 시험 한 번에 18초쯤 걸렸어요. 기록은 “매번 18초를 물리면 시험을 안 돌리게 된다”고 적었어요. 그래서 커밋 전에 도는 빠른 <strong>핵심 검사 5종</strong>과 새 판을 내기 전에 꼭 도는 <strong>전체 검사</strong>로 나눴어요</li>
-<li><strong>원칙</strong> — 코드가 옮겨 가면 검사를 지우지 않고 검사가 보는 곳을 옮겨요. 그리고 일부러 고장을 다시 넣어, 검사가 정말 <strong>무는지</strong> 확인해요</li>
-</ul>
-<h2 id="-1-신호등마다-사연이-있다--이틀-만에-열세-개">🚦 1. 신호등마다 사연이 있다 — 이틀 만에 열세 개</h2>
-<p>먼저 낱말 두 개를 짚을게요.</p>
-<ul>
-<li><strong>시험</strong>(테스트, test) — 기능 하나가 정해진 대로 움직이는지 확인하는 작은 시험이에요. “이 글을 넣으면 이 답이 나와야 한다” 같은 것들이죠</li>
-<li><strong>검사</strong>(게이트, gate) — 시험만으로는 잡기 어려운 것을 지키는 관문이에요. 컴퓨터 종류에 따라 달라지는 것, 켜고 끄는 과정, 기록에 남는 내용 같은 것들이요. 통과하지 못하면 다음 단계로 넘어가지 못해요</li>
-</ul>
-<p><a href="/posts/20261001-llmgw-04-first-day/">4편</a>에서 첫날 붙인 검사 6개를 표로 봤어요. 그 습관은 둘째 날에도 이어졌어요. 그리고 새로 생긴 검사와 시험은 모두 <strong>시험을 돌릴 때마다 맨 먼저 도는 자리</strong>에 줄줄이 붙었어요. 신호등이 하나 설 때마다, 교차로를 지나는 모든 차가 그 신호를 받게 된 셈이에요.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>언제</th><th>사고</th><th>세운 신호등</th><th>이야기</th></tr></thead><tbody><tr><td>7/13 10:21</td><td>윈도의 D:를 인터넷 주소로 착각해 켜자마자 꺼짐</td><td>경로 검사</td><td><a href="/posts/20261001-llmgw-20-mac-vs-windows/">20편</a></td></tr><tr><td>7/13 10:40</td><td>두 컴퓨터가 부품 목록을 서로 고쳐 씀</td><td>부품 목록 검사</td><td>20편</td></tr><tr><td>7/13 12:36</td><td>깔려 있는데 ‘미설치’로 뜸</td><td>실행 통로 검사</td><td>20편</td></tr><tr><td>7/13 20:54</td><td>(원칙) “설정 파일을 직접 고치세요”라는 안내</td><td>설정 파일 안내 검사</td><td>4편</td></tr><tr><td>7/13 22:04</td><td>끈 뒤에도 남은 Codex 앱 서버</td><td>종료 정리 검사</td><td><a href="/posts/20261001-llmgw-21-zombies/">21편</a></td></tr><tr><td>7/13 22:22</td><td>압축판에 빠진 Claude 부품</td><td>압축판 부품 검사</td><td>20편</td></tr><tr><td>7/14 01:08</td><td>끝나지 않는 ‘워밍업 중’</td><td>‘영구 대기 금지’ 시험</td><td><a href="/posts/20261001-llmgw-22-endless-preparing/">22편</a></td></tr><tr><td>7/14 07:06</td><td>세 번째로 잘려 사라진 오류 원문</td><td>오류 원문 검사</td><td><a href="/posts/20261001-llmgw-18-keep-errors/">18편</a></td></tr><tr><td>7/14 07:36</td><td>(새 기능) 화면 안의 업데이트 버튼</td><td>명령어 도구 버전 시험</td><td>18편</td></tr><tr><td>7/14 11:35</td><td>문서 화면이 패널을 절반만 채움</td><td>화면 높이 검사</td><td>—</td></tr><tr><td>7/14 18:36</td><td>보관함이 기록을 400자에서 자름</td><td>기록 검사</td><td>18편</td></tr><tr><td>7/14 20:17</td><td>창 X가 정리를 부르지 않음</td><td>종료 경로 검사</td><td>21편</td></tr><tr><td>7/15 01:00</td><td>로그인 만료가 ‘성공’으로 위장</td><td>위장 실패 시험</td><td><a href="/posts/20261001-llmgw-17-hidden-failure/">17편</a></td></tr></tbody></table>
-<p>첫 버전이 7월 13일 아침 8시에 나왔으니, 이틀이 채 지나지 않아 시험을 한 번 돌릴 때마다 검사 10개와 시험 3개, 모두 13개가 먼저 돌게 된 거예요. 하나하나가 실제로 겪은 사고, 또는 지키기로 한 원칙에서 나왔어요.</p>
-<h2 id="️-2-신호가-길면-무단횡단한다--매번-18초면-안-돌린다">⏱️ 2. 신호가 길면 무단횡단한다 — “매번 18초면 안 돌린다”</h2>
-<p>신호등이 열세 개가 되자 문제가 생겼어요. 교차로 하나를 건너는 데 시간이 너무 오래 걸리게 된 거예요.</p>
-<p>프로그램을 고치는 일은 대개 작은 한 바퀴의 반복이에요. 조금 고치고, 시험을 돌리고, 결과를 보고, 다시 고치고. 그런데 시험을 돌릴 때마다 열세 개가 먼저 돌았으니, 기능 시험 자체는 금방 끝나도 한 바퀴에 <strong>18초쯤</strong> 걸렸어요. 중계기의 검사 목록 문서에 남은 숫자예요.</p>
-<p>18초는 짧아 보여요. 그런데 문서에는 이런 문장이 적혀 있어요.</p>
-<blockquote>
-<p>개발 반복 속도가 곧 품질이다.
-매 저장마다 18초를 물리면 테스트를 안 돌리게 된다.</p>
-</blockquote>
-<p>빨간불이 너무 길면 무단횡단이 생기는 것과 같아요. 시험이 느리면 ‘이번엔 작은 수정이니까’ 하며 건너뛰고 싶어지고, 건너뛴 시험은 아무것도 지켜 주지 못하니까요.</p>
-<p><img alt="로봇이 커다란 초시계를 들고, 옆의 작은 로봇이 체크리스트를 빠르게 넘기는 장면 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-stopwatch.DZjfglx-_Z15sc7M.webp" ></p>
-<p>그래서 7월 21일 아침, 검사를 <strong>세 묶음</strong>으로 나눴어요. 하나도 지우지 않고 자리만 바꿨어요.</p>
-<p>① <strong>기본 시험</strong> — 시험을 돌릴 때 매번 도는 건 기능 시험만 남겼어요. 그날 기록으로 시험 229개가 약 1.7초에 끝났어요</p>
-<p>② <strong>핵심 검사 5종</strong> — 저장 기록(커밋)을 남기기 전에 돌리기를 권하는 묶음이에요. 문서에는 수 초면 끝난다고 적혀 있어요</p>
-<p>③ <strong>전체 검사</strong> — 본 줄기에 합치거나(PR) 새 판을 내거나 배포하기 전에는 반드시 돌리는 묶음이에요. 그날 검사 10종과 시험 229개를 모두 돌리는 데 약 19.5초가 걸렸어요</p>
-<p>눈여겨볼 점이 있어요. 전체를 다 돌리는 시간은 여전히 20초쯤이에요. 줄어든 건 검사의 양이 아니라 <strong>매번 기다리는 시간</strong>이에요. 날마다 지나는 길의 신호는 짧게 두고, 꼼꼼한 점검은 차를 내보내기 전 출고 검사에서 한 번 제대로 하는 거죠.</p>
-<p>그날 저장 기록의 제목에는 ‘재적용’, 그러니까 다시 적용했다는 말이 붙어 있어요. 그리고 이번에는 방침을 문서로 남겼어요. 검사 목록 문서의 방침 제목은 ‘되돌리지 말 것’이고, 무거운 검사를 매번 도는 자리로 다시 끌어오지 말라는 경고와 함께, 다른 컴퓨터에서 작업하더라도 이 방침이 유지되도록 이 문서를 근거로 삼는다고 적혀 있어요.</p>
-<p>나눈 뒤에도 검사가 잊히지 않았다는 흔적은 저장 기록에 있어요. 8월 말의 기록 여러 개에는 ‘핵심 검사 통과’가, 8월 11일·9월 1일·9월 8일 기록에는 ‘전체 검사 통과’가 시험 개수와 함께 적혀 있어요.</p>
-<h2 id="️-3-안쪽-고리와-바깥-고리--검사-목록-12종">🗂️ 3. 안쪽 고리와 바깥 고리 — 검사 목록 12종</h2>
-<p>중계기 저장소에는 <strong>검사 목록 문서</strong>가 따로 있어요. 7월 21일에 묶음을 나누며 함께 만든 문서로, 검사마다 어느 묶음에 들어가는지, 어떤 고장을 막는지가 적혀 있어요. 오늘(10월 2일) 이 목록에는 12종이 올라 있어요.</p>
-<p><img alt="교차로 신호등처럼 사고마다 세운 검사 12종 — 커밋 전에 도는 안쪽 고리 5종과, 새 판 전에 도는 바깥 고리 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1980" src="/_astro/diagram-two-rings.DXYBfbnZ_Zq0YgC.webp" ></p>
-<p><strong>안쪽 고리 — 핵심 검사 5종 (커밋 전)</strong></p>
-<p>문서가 꼽은 기준은 셋이에요. 실제로 쓰는 사람이 겪은 고장을 잡았고, 값싸게 돌고, 코드를 고치다 보면 다시 생기기 쉬운 것.</p>
-<ul>
-<li><strong>부품 목록 검사·경로 검사·실행 통로 검사</strong> — 첫날 ‘같은 코드, 다른 컴퓨터’ 고장 셋에서 나왔어요(20편)</li>
-<li><strong>종료 정리 검사</strong> — 끈 뒤에 남는 프로그램을 막아요(21편). 실제로 프로그램을 띄웠다 끄고, 정말 사라졌는지와 문 번호(포트)가 닫혔는지를 재요</li>
-<li><strong>기록 검사</strong> — 흉내만 내는 가짜 AI를 붙여 성공·잘림·오류를 실제로 주고받은 뒤 기록을 열어 봐요. 오류 원문이 잘리지 않았는지, 비밀 값이 드러나지 않았는지, 잘린 답에 경고가 붙었는지 확인해요(18편, <a href="/posts/20261001-llmgw-16-cut-answer/">16편</a>)</li>
-</ul>
-<p><strong>바깥 고리 — 전체 검사 (PR·새 판·배포 전)</strong></p>
-<p>핵심 5종에 검사 다섯을 더하고, 시험 항목 전부를 함께 돌려요.</p>
-<ul>
-<li><strong>종료 경로 검사</strong> — 정리가 ‘작동하는지’가 아니라 ‘불리는지’를 봐요(21편)</li>
-<li><strong>압축판 부품 검사</strong> — 배포판에 그 컴퓨터용 부품이 들어 있는지 확인해요(20편)</li>
-<li><strong>오류 원문 검사</strong> — 코드를 읽어서, 오류를 짧게 자르는 줄이 있으면 실패해요(18편의 ‘검사 ①’)</li>
-<li><strong>설정 파일 안내 검사</strong> — “설정 파일을 직접 열어 고치세요” 같은 안내가 문서나 화면에 남아 있으면 실패해요(4편). 고장이 아니라 원칙을 지키는 검사예요</li>
-<li><strong>화면 높이 검사</strong> — 채팅과 문서 화면이 패널을 끝까지 채우는지, 크롬으로 화면을 실제로 띄워 여러 창 크기에서 재요. 크롬 브라우저가 있어야 돌 수 있어서 바깥 고리에 있어요</li>
-</ul>
-<p>그리고 8월 8일, 앱 껍데기를 작은 트레이 프로그램으로 바꿀 때(<a href="/posts/20261001-llmgw-25-lighter-shell/">25편</a>) 둘이 더 올라왔어요. <strong>윈도 배포판 검사</strong>와 <strong>맥·리눅스 배포판 검사</strong>예요. 압축 파일이 깨지지 않았는지, 들어 있어야 할 것이 다 들어 있는지 확인해요. 윈도 배포판 검사는 들어 있으면 안 되는 것(예전 껍데기 Electron과 그 안의 브라우저)이 없는지도 봐요. 이 둘은 배포판을 만드는 명령 끝에 자동으로 따라 돌아요.</p>
-<p>새 검사를 더하는 규칙도 문서에 있어요.</p>
-<ul>
-<li>먼저 목록 표에 적고, 어떤 고장을 막는지 함께 쓴다</li>
-<li>값싸고 실제 고장을 잡는 것이면 안쪽 고리에, 무겁거나 특정 환경이 필요하면 바깥 고리에만 넣는다</li>
-<li><strong>매번 도는 자리에는 넣지 않는다</strong></li>
-</ul>
-<p>검사가 열두 종으로 느는 동안 시험 항목도 늘었어요. 저장 기록에 적힌 숫자를 날짜순으로 옮기면 이래요.</p>
-<ul>
-<li>7월 13일 저녁 — 48개 (첫날)</li>
-<li>7월 21일 — 229개 (묶음을 나눈 날)</li>
-<li>8월 11일 — 490개</li>
-<li>9월 1일 — 586개</li>
-<li>9월 8일 — 631개</li>
-<li>9월 22일 — 713개</li>
-<li>9월 25일 — 799개 (798개 통과, 1개는 건너뜀)</li>
-</ul>
-<p>9월 25일 뒤로는 저장 기록에 숫자가 적혀 있지 않아서 여기까지만 적었어요. 첫날 저녁의 열여섯 배가 넘어요.</p>
-<h2 id="-4-뽑지-않고-옮겨-단다--길이-바뀌면-신호등도-옮긴다">🔁 4. 뽑지 않고 옮겨 단다 — 길이 바뀌면 신호등도 옮긴다</h2>
-<p>검사 목록 문서의 방침에는 이런 줄이 있어요.</p>
-<blockquote>
-<p>게이트는 삭제하지 않는다 — 격리·강등만. 아래 전부 실제 버그를 잡은 이력이 있다(또는 원칙 가드).</p>
-</blockquote>
-<p>‘격리·강등’은 검사를 매번 도는 자리에서 빼 다른 묶음으로 옮긴다는 뜻이에요. 지운다는 선택지는 처음부터 없었어요. 코드가 크게 바뀔 때도 마찬가지였어요. 검사가 보던 코드가 사라지면 검사를 지우는 대신 <strong>검사가 보는 곳을 옮겼어요.</strong></p>
-<p>① <strong>종료 경로 검사 — Electron에서 트레이로</strong>
-7월 21일 목록에서 이 검사의 분류는 ‘Electron용’이었어요. 창을 X로 닫을 때 숨기기가 아니라 정리를 부르는지, 창이 모두 닫히면 종료를 부르는지 봤어요. 8월 8일 Electron 껍데기를 걷어내자 검사가 보던 코드가 통째로 사라졌어요. 검사는 지워지지 않고 ‘트레이용’으로 다시 쓰였어요. 지금은 트레이가 중계기의 종료 창구를 부르는지, 정리에 11초 상한이 있는지, 서버가 끝내 꺼지지 않으면 트레이가 나무째 끄는 마지막 수단이 연결돼 있는지 확인해요. Electron 코드를 지우기 전까지 Electron판과 새 시작 파일(런처)을 나란히 둔 것도 이 검사가 Electron 코드를 보고 있었기 때문이에요</p>
-<p>② <strong>경로 검사의 재현 시험 — 옛 시작 파일에서 새 시작 파일로</strong>
-윈도의 D:를 주소로 착각한 고장을 재현하던 시험은 지키는 대상을 Electron 시작 파일에서 런처로 옮겼어요</p>
-<p>③ <strong>오류 원문 검사 — 보는 범위를 넓혔다</strong>
-처음에는 AI 연결 부품 폴더만 읽었는데, 그날 저녁 기록 보관함이 400자에서 자르고 있던 게 드러나자 보관함과 중계기 본체 코드까지 읽게 넓혔어요</p>
-<p>④ <strong>압축판 부품 검사 — 윈도 하나에서 배포 대상 넷으로</strong>
-7월에는 ‘맥에서 만든 윈도용 배포판’만 지키던 검사였어요. 껍데기를 바꾸며 맥판과 리눅스판도 나오자, 검사가 보는 대상도 넓어졌어요. 지금은 컴퓨터마다 다른 실행 파일을 쓰는 부품이 배포 대상 네 가지(윈도, 맥 두 종류, 리눅스) 모두에 갖춰져 있는지 확인해요</p>
-<p>⑤ <strong>매번 돌던 시험 셋 — 지우지 않고 전체 시험 안으로</strong>
-‘영구 대기 금지’, 명령어 도구 버전, 위장 실패 시험은 원래 매번 맨 먼저 돌았어요. 이 셋은 어차피 기능 시험 전체에도 들어 있어서, 7월 21일에 두 번 돌던 것을 한 번으로 줄였어요. 줄어든 건 중복이지 시험이 아니에요</p>
-<p>⑥ <strong>정답이 바뀌면 정답을 고친다</strong>
-22편에서 Claude 연결 부품의 검사 하나가 ‘연결 직후 다른 모델은 워밍업 중’을 정답으로 지키고 있었어요. 화면 규칙이 ‘준비 전’으로 바뀌자 그 검사도 지우지 않고 정답을 ‘준비 전’으로 고쳤어요</p>
-<p><img alt="낡은 신호등을 고물 통에 버리지 않고 조심스럽게 들어 새로 깐 도로로 옮기는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-move-light.B6S1xSwh_Z17cD9o.webp" ></p>
-<p>오늘(10월 2일) 코드를 읽는 검사 여섯 개를 다시 돌려 봤어요. 부품 목록, 경로, 실행 통로, 오류 원문, 설정 파일 안내, 종료 경로 검사예요. 모두 통과했어요. 7월 13일 아침에 선 첫 신호등에도 여전히 불이 들어와 있는 셈이에요.</p>
-<h2 id="-5-불이-정말-들어오나--일부러-고장을-다시-넣어-본다">🦷 5. 불이 정말 들어오나 — 일부러 고장을 다시 넣어 본다</h2>
-<p>꺼진 신호등은 신호등이 없는 것보다 위험할 수 있어요. 사람들은 신호등이 있다는 이유로 마음을 놓으니까요. 검사도 같아요. 가장 위험한 검사는 <strong>있는데 걸리지 않는 검사</strong>예요. 17편에는 검사가 있는데도 걸리지 않은 일이 두 번 나와요. 그중 하나는 검사가 시작하자마자 오류로 멈췄는데, 주변 장치가 그 오류를 삼켜 버린 일이었어요. 겉으로는 지켜지는 것처럼 보였죠.</p>
-<p>그래서 검사를 세우면 그 검사가 정말 <strong>무는지</strong> 확인해요. 방법은 단순해요. 고친 코드를 일부러 다시 망가뜨리고, 검사가 실패하는지 보는 거예요.</p>
-<ul>
-<li><strong>오류 원문 검사</strong>(18편) — 지웠던 160자 자르기를 일부러 다시 넣었더니 검사가 실패로 끝났어요</li>
-<li><strong>종료 정리 검사</strong>(21편) — 끄기 기능을 아무것도 하지 않는 빈 껍데기로 바꿨더니 “자식이 아직 살아 있음”으로 실패했어요</li>
-<li><strong>새로 붙인 AI의 전용 차선 검사</strong>(<a href="/posts/20261001-llmgw-13-missing-lane/">13편</a>) — 고치기 전 코드에서는 이 검사가 실패한다는 것까지 확인했어요</li>
-</ul>
-<p>검사를 만드는 방식에도 같은 생각이 들어 있어요. 종료 정리 검사의 첫머리에는, 검사는 통과하는데 실제로는 안 되는 일을 피하려고 가짜로 통과시키지 않고 <strong>실제 프로그램과 문 번호의 상태</strong>를 잰다고 적혀 있어요. 정리 기능을 불렀다는 사실이 아니라, 프로그램이 정말 사라졌는지를 보는 거예요.</p>
-<p>그래도 빈틈은 남아요. 종료 정리 검사는 통과했는데 창 X로 닫는 길은 정리를 부르지도 않았던 일(21편)이 그랬어요. 그 빈틈에서 종료 경로 검사가 나왔고, 두 검사는 정리가 ‘작동하는가’와 ‘불리는가’를 나눠 보는 짝이 됐어요.</p>
-<p>한계도 숨기지 않아요. 화면 높이 검사는 크롬이 없는 컴퓨터에서는 ‘건너뜀’ 경고를 남기고 넘어가요. 건너뛴 검사는 통과한 검사가 아니라는 걸 기록에 남기는 거죠. 검사가 쓰는 사람의 진짜 열쇠를 건드리지 않게 하는 규칙도 있어요. 중계기를 실제로 띄우는 검사는 늘 임시 폴더와 임시 문 번호에서 돌아요. 검사 때문에 진짜 설정이 바뀌면 그게 또 하나의 사고니까요.</p>
-<h2 id="-6-남긴-규칙--신호등을-관리하는-법">📏 6. 남긴 규칙 — 신호등을 관리하는 법</h2>
-<ul>
-<li><strong>고장 하나에 검사 하나</strong> — 고친 고장은 같은 고장을 다시 잡는 검사와 함께 저장해요</li>
-<li><strong>검사는 지우지 않는다</strong> — 매번 도는 자리에서 빼거나, 보는 곳을 옮길 뿐이에요. 규칙이 바뀌면 정답을 고쳐요</li>
-<li><strong>매번 도는 건 가볍게</strong> — 느린 검사는 결국 아무도 돌리지 않아요. 무거운 검사는 내놓기 전에 한 번 제대로 돌려요</li>
-<li><strong>새 검사는 목록에 적는다</strong> — 어느 고리에 넣을지, 무엇을 막는지 이유와 함께</li>
-<li><strong>검사가 무는지 확인한다</strong> — 일부러 고장을 다시 넣어 실패하는지 봐요</li>
-</ul>
-<h2 id="정리">정리</h2>
-<p>① 고장 하나를 고칠 때마다 검사를 하나 세웠어요. 이틀이 채 안 돼 매번 먼저 도는 검사·시험이 13개가 됐고, 지금 검사 목록에는 12종이 있어요. 시험 항목은 첫날 48개에서 9월 25일 799개로 늘었어요
-② 매번 다 돌리니 한 번에 18초쯤 걸렸고, “매번 18초를 물리면 시험을 안 돌리게 된다”는 판단으로 커밋 전 핵심 검사 5종과 새 판 전 전체 검사(약 20초)로 나눴어요. 매번 도는 기능 시험은 약 1.7초가 됐어요
-③ 검사는 지우지 않고, 코드가 옮겨 가면 검사가 보는 곳을 옮겨요. 그리고 일부러 고장을 다시 넣어 검사가 정말 무는지 확인해요</p>
-<p>다음 32편은 「가짜는 진짜를 대신 못 한다」예요. 오늘 본 검사와 시험의 대부분은 흉내만 내는 가짜 AI로 돌아요. 가짜로 모두 통과해도 새 판을 내기 전에 진짜 환경에서 한 번은 돌려 봐야 하는 이유를 이야기할게요.</p>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v> <p class="series-bar" data-astro-cid-lvjzyg5v> <a href="/menu/#ai-project" data-astro-cid-lvjzyg5v>LLM 중계기 개발기</a> <span data-astro-cid-lvjzyg5v>6부 · 31편 / 전체 33편</span> </p> <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 2일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 7개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-고장-하나에-검사-하나" data-astro-cid-lvjzyg5v>1. 고장 하나에 검사 하나</a></li><li data-astro-cid-lvjzyg5v><a href="#2-매번-18초면-안-돌린다" data-astro-cid-lvjzyg5v>2. 매번 18초면 안 돌린다</a></li><li data-astro-cid-lvjzyg5v><a href="#3-핵심-5종과-전체-검사로-나누기" data-astro-cid-lvjzyg5v>3. 핵심 5종과 전체 검사로 나누기</a></li><li data-astro-cid-lvjzyg5v><a href="#4-지우지-않고-옮겨-단다" data-astro-cid-lvjzyg5v>4. 지우지 않고 옮겨 단다</a></li><li data-astro-cid-lvjzyg5v><a href="#5-검사가-정말-무는지-확인하기" data-astro-cid-lvjzyg5v>5. 검사가 정말 무는지 확인하기</a></li><li data-astro-cid-lvjzyg5v><a href="#6-내-프로젝트에-적용해-보기" data-astro-cid-lvjzyg5v>6. 내 프로젝트에 적용해 보기</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 글에 나오는 AI 서비스들(OpenAI·앤트로픽)과 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="회귀-테스트와-품질-게이트-검사를-지우지-않고-빠르게-돌리는-법-llm-중계기-개발기">회귀 테스트와 품질 게이트, 검사를 지우지 않고 빠르게 돌리는 법 (LLM 중계기 개발기)</h1>
+<p><img alt="회귀 테스트와 품질 게이트 — 검사를 지우지 않고 빠르게 돌리는 법 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.vNm3I0pC_Z2nDTaa.webp" ></p>
+<p class="cap">회귀 테스트와 품질 게이트 — 검사를 지우지 않고 빠르게 돌리는 법 (캐릭터는 GPT 이미지 생성)</p>
+<p>버그를 고쳤는데 몇 주 뒤 같은 버그가 또 나온 적 있나요? “고친 걸 어떻게 계속 고친 상태로 지키지?” 제가 만든 LLM 중계기는 이 질문에 자동 검사로 답했어요.</p>
+<p>사고가 잦은 교차로를 떠올려 보세요. 사고가 날 때마다 신호등이 하나씩 늘고, 몇 달 동안 사고가 없었다고 신호등을 뽑는 사람은 없어요. 사고가 없는 게 신호등 덕분이니까요. 다만 빨간불이 몇 분씩 이어지면, 차가 없을 때 그냥 건너는 사람이 생기기 마련이에요.<br>
+<strong>고친 고장마다 검사를 세우고, 검사는 지우지 않되, 매번 기다리는 시간은 짧게. 이번 편의 결론이에요.</strong></p>
+<p>지난 30편에서는 AI가 사람의 허락을 기다리다 멈춰 선 이야기를 했어요. 4편에서 ‘검사를 지우지 않는 원칙은 31편에서’ 하겠다고 약속했는데, 오늘이 그 편이에요.</p>
+<p><img alt="북적이는 교차로에 새 신호등을 다는 로봇 — 고장 하나에 검사 하나 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-new-light.BDF6oG7t_2s6AD9.webp" ></p>
+<p class="cap">북적이는 교차로에 새 신호등을 다는 로봇 — 고장 하나에 검사 하나 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>연재: LLM 중계기 개발기 31편 · 6부 중계기 위에서, 그리고 회고<br>대상: 고친 버그가 자꾸 돌아와 고민인 분<br>① 고장 하나에 검사 하나를 세우는 습관<br>② 18초 걸리던 검사를 둘로 나눈 방법<br>③ 검사를 지우지 않고 옮기고 확인하는 법<br>2026년 10월 2일 기준 · 개발 기록 대조</div>
 <hr>
-<p><em>2026년 10월 2일 기준입니다. 제가 만든 중계기의 개발 기록(저장 기록의 시각과 메모, 검사 목록 문서, 검사 스크립트)을 바탕으로 썼고, 특정 기업·서비스의 공식 입장이 아닙니다.</em></p> </article> <nav class="series-nav" aria-label="LLM 중계기 개발기 이전 편·다음 편" data-astro-cid-lvjzyg5v> <a class="prev" href="/posts/20261002-llmgw-30-waiting-approval/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>← 이전 편 · 30편</span> <span class="t" data-astro-cid-lvjzyg5v>AI가 허락을 기다리다 멈췄다 — 결재 도장을 기다리는 서류</span> </a> <a class="next" href="/posts/20261002-llmgw-32-fake-vs-real/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>다음 편 · 32편 →</span> <span class="t" data-astro-cid-lvjzyg5v>가짜는 진짜를 대신 못 한다 — 모의고사와 실전</span> </a> <a class="toc" href="/menu/#ai-project" data-astro-cid-lvjzyg5v>☰ LLM 중계기 개발기 전체 목차</a> </nav></main> <footer class="site">
+<h2 id="1-고장-하나에-검사-하나">1. 고장 하나에 검사 하나</h2>
+<p><strong>고장을 하나 고칠 때마다, 같은 고장을 다시 잡는 자동 검사를 함께 세웠어요.</strong> 고쳤던 고장이 다시 생기는 걸 회귀(regression)라고 하고, 그걸 잡는 시험을 회귀 테스트라고 불러요.</p>
+<p>이 글에서는 낱말 두 개를 나눠 쓸게요. <strong>시험</strong>(테스트)은 기능 하나가 정해진 대로 움직이는지 보는 작은 시험이에요. <strong>검사</strong>(게이트)는 컴퓨터 종류에 따라 달라지는 것, 켜고 끄는 과정, 기록에 남는 내용처럼 시험만으로 잡기 어려운 것을 지키는 관문이에요.</p>
+<p>첫날부터 새 검사와 시험은 모두 시험을 돌릴 때마다 맨 먼저 도는 자리에 줄줄이 붙었어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>언제</th><th>새로 세운 검사·시험</th></tr></thead><tbody><tr><td>7월 13일</td><td>경로 · 부품 목록 · 실행 통로 · 설정 파일 안내 · 종료 정리 · 압축판 부품 검사</td></tr><tr><td>7월 14일</td><td>‘영구 대기 금지’ 시험 · 오류 원문 검사 · 명령어 도구 버전 시험 · 화면 높이 검사 · 기록 검사 · 종료 경로 검사</td></tr><tr><td>7월 15일 새벽</td><td>위장 실패 시험(로그인 만료가 ‘성공’으로 위장)</td></tr></tbody></table>
+<p>첫 버전이 7월 13일 아침에 나오고 이틀이 채 안 돼, 시험을 한 번 돌릴 때마다 검사 10개와 시험 3개, <strong>모두 13개</strong>가 먼저 돌았어요. 하나하나가 실제로 겪은 사고, 또는 지키기로 한 원칙에서 나왔어요.</p>
+<h2 id="2-매번-18초면-안-돌린다">2. 매번 18초면 안 돌린다</h2>
+<p><strong>검사가 열세 개로 늘자, 시험 한 번에 18초쯤 걸리게 됐어요.</strong> 프로그램을 고치는 일은 조금 고치고, 시험을 돌리고, 다시 고치는 한 바퀴의 반복이에요. 그 한 바퀴마다 18초를 기다려야 했어요.</p>
+<p>중계기의 검사 목록 문서에는 이렇게 적혀 있어요.<br>
+<strong>“개발 반복 속도가 곧 품질이다. 매 저장마다 18초를 물리면 테스트를 안 돌리게 된다.”</strong></p>
+<p>빨간불이 너무 길면 무단횡단이 생기는 것과 같아요. 시험이 느리면 ‘이번엔 작은 수정이니까’ 하며 건너뛰고 싶어지고, 건너뛴 시험은 아무것도 지켜 주지 못해요.</p>
+<p><img alt="커다란 초시계를 든 로봇과 체크리스트를 빠르게 넘기는 작은 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-stopwatch.DZjfglx-_Z15sc7M.webp" ></p>
+<p class="cap">커다란 초시계를 든 로봇과 체크리스트를 빠르게 넘기는 작은 로봇 (GPT 이미지 생성)</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>매번 도는 시험이 느리면, 결국 아무도 돌리지 않아요.</div>
+<h2 id="3-핵심-5종과-전체-검사로-나누기">3. 핵심 5종과 전체 검사로 나누기</h2>
+<p><strong>7월 21일 아침, 검사를 하나도 지우지 않고 세 묶음으로 나눴어요.</strong><br>
+① 기본 시험 — 매번 도는 건 기능 시험만 남겼어요. 그날 시험 <strong>229개</strong>가 <strong>약 1.7초</strong>에 끝났어요<br>
+② 핵심 검사 5종 — 저장 기록(커밋)을 남기기 전에 돌리기를 권하는 묶음, 수 초<br>
+③ 전체 검사 — 새 판을 내거나 배포하기 전에는 반드시. 검사 10종과 시험 229개에 <strong>약 19.5초</strong></p>
+<p>전체를 다 돌리는 시간은 여전히 20초쯤이에요. 줄어든 건 검사의 양이 아니라 매번 기다리는 시간이에요. <mark>매번 도는 건 가볍게, 무거운 건 내놓기 전에 한 번 제대로</mark>가 이때 정한 방침이에요. 문서의 방침 제목은 ‘되돌리지 말 것’이에요.</p>
+<p>안쪽 고리(핵심 5종)는 실제 고장을 잡았고, 값싸고, 다시 생기기 쉬운 것이에요. 바깥 고리(전체 검사)는 여기에 종료 경로, 압축판 부품, 오류 원문, 설정 파일 안내, 화면 높이 검사를 더하고 시험 전부를 함께 돌려요. 8월 8일에는 배포판을 만들 때 자동으로 따라 도는 윈도 배포판 검사와 맥·리눅스 배포판 검사가 목록에 더해져, 지금 목록은 <strong>12종</strong>이에요.</p>
+<p><img alt="사고마다 세운 검사 12종 — 커밋 전에 도는 안쪽 고리 5종과 새 판 전에 도는 바깥 고리 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1980" src="/_astro/diagram-two-rings.DXYBfbnZ_Zq0YgC.webp" ></p>
+<p class="cap">사고마다 세운 검사 12종 — 커밋 전에 도는 안쪽 고리 5종과 새 판 전에 도는 바깥 고리 (직접 제작)</p>
+<p>새 검사를 더하는 규칙도 문서에 있어요. 먼저 목록 표에 무엇을 막는지와 함께 적고, 값싸면 안쪽, 무겁거나 특정 환경이 필요하면 바깥에 넣어요. <strong>매번 도는 자리에는 넣지 않아요.</strong></p>
+<p>검사가 느는 동안 시험 항목도 늘었어요. 저장 기록에 적힌 숫자예요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>날짜</th><th>시험 수</th></tr></thead><tbody><tr><td>7월 13일 저녁</td><td>48개</td></tr><tr><td>7월 21일</td><td>229개 (묶음을 나눈 날)</td></tr><tr><td>8월 11일</td><td>490개</td></tr><tr><td>9월 1일</td><td>586개</td></tr><tr><td>9월 8일</td><td>631개</td></tr><tr><td>9월 22일</td><td>713개</td></tr><tr><td>9월 25일</td><td>799개 (798개 통과, 1개 건너뜀)</td></tr></tbody></table>
+<p>9월 25일 뒤로는 저장 기록에 숫자가 적혀 있지 않아서 여기까지만 적었어요. 첫날 저녁의 열여섯 배가 넘어요.</p>
+<h2 id="4-지우지-않고-옮겨-단다">4. 지우지 않고 옮겨 단다</h2>
+<p><strong>검사가 보던 코드가 사라지면, 검사를 지우는 대신 보는 곳을 옮겼어요.</strong> 검사 목록 문서의 방침은 이래요. “게이트는 삭제하지 않는다 — 격리·강등만.” 매번 도는 자리에서 빼 다른 묶음으로 옮길 수는 있어도, 지운다는 선택지는 없었어요.</p>
+<p>① 종료 경로 검사 — 7월에는 Electron 창 닫기를 봤어요. 8월 8일 Electron을 걷어낸 뒤엔 트레이용으로 다시 써서, 종료 창구와 <strong>11초</strong> 정리 상한과 마지막 수단이 연결돼 있는지 확인해요<br>
+② 경로 검사의 재현 시험 — 지키는 대상을 옛 시작 파일에서 새 시작 파일로 옮겼어요<br>
+③ 오류 원문 검사 — 기록 보관함도 자르고 있던 게 드러나자, 보관함과 본체 코드까지 읽게 넓혔어요<br>
+④ 압축판 부품 검사 — 윈도용 하나에서 배포 대상 네 가지(윈도, 맥 두 종류, 리눅스)로 넓혔어요<br>
+⑤ 매번 돌던 시험 셋 — 기능 시험 전체에도 들어 있어서 한 번만 돌게 했어요. 줄어든 건 중복이지 시험이 아니에요<br>
+⑥ 정답이 바뀐 검사 — 화면 규칙이 바뀌자 ‘워밍업 중’을 지키던 검사의 정답을 ‘준비 전’으로 고쳤어요</p>
+<p>10월 2일에 코드를 읽는 검사 여섯 개를 다시 돌려 봤더니 모두 통과했어요. 7월 13일 아침에 선 첫 신호등에도 여전히 불이 들어와 있는 셈이에요.</p>
+<p><img alt="낡은 신호등을 버리지 않고 새 길로 옮기는 로봇 — 검사는 지우지 않고 보는 곳을 옮긴다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-move-light.B6S1xSwh_Z17cD9o.webp" ></p>
+<p class="cap">낡은 신호등을 버리지 않고 새 길로 옮기는 로봇 — 검사는 지우지 않고 보는 곳을 옮긴다 (GPT 이미지 생성)</p>
+<h2 id="5-검사가-정말-무는지-확인하기">5. 검사가 정말 무는지 확인하기</h2>
+<p><strong>가장 위험한 검사는 있는데 걸리지 않는 검사예요.</strong> 꺼진 신호등처럼, 있다는 이유로 마음을 놓게 하니까요. 그래서 검사를 세우면 고친 코드를 일부러 다시 망가뜨려 검사가 실패하는지 봐요.</p>
+<p>① 오류 원문 검사 — 지웠던 160자 자르기를 다시 넣었더니 실패했어요(18편)<br>
+② 종료 정리 검사 — 끄기 기능을 빈 껍데기로 바꿨더니 “자식이 아직 살아 있음”으로 실패했어요(21편)<br>
+③ 새로 붙인 AI의 전용 차선 검사 — 고치기 전 코드에서 실패하는 것까지 확인했어요(13편)</p>
+<p>종료 정리 검사는 정리 기능을 불렀다는 사실이 아니라, 프로그램이 정말 사라졌는지와 문 번호(포트)가 닫혔는지를 실제로 재요. 그래도 창 X로 닫는 길이 정리를 부르지 않은 빈틈이 있었고, 거기서 종료 경로 검사가 나왔어요. 크롬이 없는 컴퓨터에서 화면 높이 검사는 ‘건너뜀’ 경고를 남겨요. <strong>건너뛴 검사는 통과한 검사가 아니니까요.</strong> 중계기를 실제로 띄우는 검사는 늘 임시 폴더와 임시 문 번호에서 돌아요. 검사 때문에 진짜 설정이 바뀌면 그게 또 하나의 사고니까요.</p>
+<h2 id="6-내-프로젝트에-적용해-보기">6. 내 프로젝트에 적용해 보기</h2>
+<p><strong>AI 코딩 도우미에게 일을 맡길 때도 이 원칙을 그대로 요청에 넣을 수 있어요.</strong> 고칠 때 검사를 함께 만들고, 그 검사가 고치기 전 코드에서 실패하는지까지 보게 하는 거예요.</p>
+<p class="plabel">📋 그대로 복사해 쓰세요</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>이 버그를 고치고, 같은 버그가 다시 생기면 실패하는 시험을 함께 만들어줘. 고치기 전 코드에서 그 시험이 실패하는지도 확인해줘</span></span></code></pre>
+<p>시험이 느려졌을 때는 지우지 말고 나누게 하세요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>시험이 오래 걸리면 지우지 말고, 매번 도는 빠른 묶음과 배포 전에 도는 전체 묶음으로 나눠줘. 어느 묶음에 넣었는지 이유와 함께 목록 문서에 적어줘</span></span></code></pre>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 고장 하나에 검사 하나 — 첫날 48개 시험이 799개로<br>② 검사는 지우지 않고 자리나 보는 곳을 옮긴다<br>③ 매번 도는 건 가볍게(약 1.7초), 무거운 건 내놓기 전에<br>④ 일부러 고장을 넣어 검사가 무는지 확인한다</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 검사가 많아지면 개발이 느려지지 않나요?</summary><p>그래서 묶음을 나눴어요. 매번 도는 기본 시험은 기능 시험만 남겨 7월 21일 기준 약 1.7초였고, 무거운 검사는 커밋 전과 새 판 전에 따로 돌려요. 전체를 다 돌리면 지금도 약 20초 걸려요.</p></details>
+<details class="faq"><summary>Q. 쓸모없어진 검사는 지워도 되지 않나요?</summary><p>중계기에서는 지우지 않았어요. 매번 도는 자리에서 빼거나, 보는 곳을 옮기거나, 바뀐 규칙에 맞게 정답을 고쳤어요. 문서에는 “게이트는 삭제하지 않는다 — 격리·강등만”이라고 적혀 있어요.</p></details>
+<details class="faq"><summary>Q. 시험(테스트)과 검사(게이트)는 뭐가 다른가요?</summary><p>시험은 기능 하나가 정해진 대로 움직이는지 봐요. 검사는 컴퓨터 종류, 켜고 끄는 과정, 기록 내용처럼 시험만으로 잡기 어려운 것을 지키고, 통과하지 못하면 다음 단계로 넘어가지 못하게 해요.</p></details>
+<p>다음 32편에서는 가짜와 진짜 이야기를 해요. 오늘 본 검사와 시험의 대부분은 흉내만 내는 가짜 AI로 돌아요. 가짜로 다 통과해도 새 판 전에 진짜 환경에서 한 번은 돌려 봐야 하는 이유를 다룰게요.</p>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 쓴 날 2026년 10월 2일<br>숫자 다시 대조 2026년 10월 7일<br>제가 만든 중계기의 개발 기록 바탕<br>저장 기록 · 검사 목록 문서와 대조<br>제휴 없음 · 언급한 서비스들과 관계없음<br>캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p class="related">연재 이어 보기: <a href="/posts/20261002-llmgw-30-waiting-approval/">← 30편</a> · <a href="/posts/20261002-llmgw-32-fake-vs-real/">32편 →</a> · 함께 보면 좋은 편: <a href="/posts/20261001-llmgw-04-first-day/">4편(첫날 검사 6개)</a> · <a href="/posts/20261001-llmgw-18-keep-errors/">18편(오류 원문)</a> · <a href="/posts/20261001-llmgw-21-zombies/">21편(종료 정리)</a> · <a href="/posts/20261002-llmgw-33-human-and-ai/">33편(연재 전체 목차)</a></p> </article> <nav class="series-nav" aria-label="LLM 중계기 개발기 이전 편·다음 편" data-astro-cid-lvjzyg5v> <a class="prev" href="/posts/20261002-llmgw-30-waiting-approval/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>← 이전 편 · 30편</span> <span class="t" data-astro-cid-lvjzyg5v>코덱스·클로드 코드 승인 요청, AI가 허락을 기다리다 멈춘 이유</span> </a> <a class="next" href="/posts/20261002-llmgw-32-fake-vs-real/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>다음 편 · 32편 →</span> <span class="t" data-astro-cid-lvjzyg5v>목 테스트 한계, 가짜로 통과해도 스모크 테스트가 필요한 이유</span> </a> <a class="toc" href="/menu/#ai-project" data-astro-cid-lvjzyg5v>☰ LLM 중계기 개발기 전체 목차</a> </nav></main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다

@@ -1,100 +1,124 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>중계기란 무엇인가 — 콘센트 모양이 다른 나라에서 쓰는 만능 어댑터 (LLM 중계기 개발기)</title><meta name="description" content="여행용 멀티 어댑터를 열어 보면 꽂는 구멍, 모양을 바꾸는 부품, 과부하를 막는 장치가 따로 있습니다. 제가 만든 LLM 중계기도 안을 열어 보면 칸이 나뉘어 있어요. 프로그램이 보낸 질문 하나가 창구 → 교통정리 → 어댑터를 지나 AI에 닿고 답이 조금씩 흘러 돌아오는 길, 사람용 관리 화면과 프로그램용 API라는 두 창구, 요청마다 남는 기록(토큰·첫 글자까지 걸린 시간·끝난 이유), 그리고 처음부터 지키는 세 가지 안전 기본값을 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="중계기란 무엇인가 — 콘센트 모양이 다른 나라에서 쓰는 만능 어댑터 (LLM 중계기 개발기)"><meta property="og:description" content="여행용 멀티 어댑터를 열어 보면 꽂는 구멍, 모양을 바꾸는 부품, 과부하를 막는 장치가 따로 있습니다. 제가 만든 LLM 중계기도 안을 열어 보면 칸이 나뉘어 있어요. 프로그램이 보낸 질문 하나가 창구 → 교통정리 → 어댑터를 지나 AI에 닿고 답이 조금씩 흘러 돌아오는 길, 사람용 관리 화면과 프로그램용 API라는 두 창구, 요청마다 남는 기록(토큰·첫 글자까지 걸린 시간·끝난 이유), 그리고 처음부터 지키는 세 가지 안전 기본값을 비개발자 눈높이로 정리했습니다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>LLM 게이트웨이 구조, 질문 하나가 지나가는 네 칸과 두 창구 (LLM 중계기 개발기)</title><meta name="description" content="여행용 멀티 어댑터를 열어 보면 꽂는 구멍, 모양을 바꾸는 부품, 과부하를 막는 장치가 따로 있습니다. 제가 만든 LLM 중계기도 안을 열어 보면 칸이 나뉘어 있어요. 프로그램이 보낸 질문 하나가 창구 → 교통정리 → 어댑터를 지나 AI에 닿고 답이 조금씩 흘러 돌아오는 길, 사람용 관리 화면과 프로그램용 API라는 두 창구, 요청마다 남는 기록(토큰·첫 글자까지 걸린 시간·끝난 이유), 그리고 처음부터 지키는 세 가지 안전 기본값을 비개발자 눈높이로 정리했습니다."><meta property="og:title" content="LLM 게이트웨이 구조, 질문 하나가 지나가는 네 칸과 두 창구 (LLM 중계기 개발기)"><meta property="og:description" content="여행용 멀티 어댑터를 열어 보면 꽂는 구멍, 모양을 바꾸는 부품, 과부하를 막는 장치가 따로 있습니다. 제가 만든 LLM 중계기도 안을 열어 보면 칸이 나뉘어 있어요. 프로그램이 보낸 질문 하나가 창구 → 교통정리 → 어댑터를 지나 AI에 닿고 답이 조금씩 흘러 돌아오는 길, 사람용 관리 화면과 프로그램용 API라는 두 창구, 요청마다 남는 기록(토큰·첫 글자까지 걸린 시간·끝난 이유), 그리고 처음부터 지키는 세 가지 안전 기본값을 비개발자 눈높이로 정리했습니다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
 <style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v> <p class="series-bar" data-astro-cid-lvjzyg5v> <a href="/menu/#ai-project" data-astro-cid-lvjzyg5v>LLM 중계기 개발기</a> <span data-astro-cid-lvjzyg5v>1부 · 2편 / 전체 33편</span> </p> <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 1일 기준</p>  <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 OpenAI·앤트로픽·구글과 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="중계기란-무엇인가--콘센트-모양이-다른-나라에서-쓰는-만능-어댑터-llm-중계기-개발기">중계기란 무엇인가 — 콘센트 모양이 다른 나라에서 쓰는 만능 어댑터 (LLM 중계기 개발기)</h1>
-<p>해외여행 가방에 꼭 챙기는 물건이 있죠. 여행용 멀티 어댑터예요. 나라마다 콘센트 구멍 모양이 다른데, 이 작은 상자 하나만 있으면 내 충전기를 어디에든 꽂을 수 있어요.</p>
-<p>겉으로는 플러그 덩어리 하나지만, 안에서는 하는 일이 나뉘어 있어요. 내 충전기를 받아 주는 구멍이 있고, 나라별 모양으로 바꿔 주는 부품이 있고, 제품에 따라서는 한꺼번에 전기가 너무 많이 흐르지 않게 막는 장치도 들어 있어요.</p>
-<blockquote>
-<p>이 글은 <strong>LLM 중계기 개발기</strong>의 2편입니다. <a href="/posts/20261001-llmgw-01-idle-subscriptions/">1편</a>에서는 여러 AI를 주소 하나 뒤에 세우는 중계기를 왜 만들었는지 이야기했어요. 오늘은 그 중계기의 뚜껑을 열어 안에서 무슨 일이 일어나는지 들여다봅니다.</p>
-</blockquote>
-<p><img alt="공항 출국장에서 여러 모양의 플러그가 달린 멀티 어댑터를 들어 보이는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-travel-adapter.H-Y6zsiw_2pXpae.webp" ></p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li><strong>질문 하나가 지나는 길</strong> — 프로그램이 보낸 질문은 중계기 안에서 <strong>창구 → 교통정리 → 어댑터</strong>를 거쳐 AI에 닿고, 답은 <strong>조금씩 흘려보내기</strong> 칸을 지나 돌아옵니다</li>
-<li><strong>창구는 두 개</strong> — 사람이 AI를 연결하고 상태를 보는 <strong>관리 화면</strong>, 프로그램이 질문을 보내는 <strong>API 창구</strong>가 있어요. API 창구는 스위치로 켜고 끄며, 처음 실행할 때는 꺼진 채로 시작합니다</li>
-<li><strong>처음부터 지키는 것</strong> — 두 창구 모두 <strong>내 컴퓨터 안에서만</strong> 열리고, 열쇠는 <strong>암호화해 내 컴퓨터에만</strong> 두며, 기록에는 <strong>열쇠와 질문 내용을 남기지 않아요</strong></li>
-</ul>
-<h2 id="-1-질문-하나가-지나가는-길">🧭 1. 질문 하나가 지나가는 길</h2>
-<p>1편에서 프로그램 쪽이 할 일은 “AI 주소를 중계기 주소로 바꾸는 한 줄”이 전부라고 했어요. 그렇다면 그 주소로 들어간 질문은 중계기 안에서 어떻게 될까요?</p>
-<p>중계기 안은 맡은 일에 따라 네 칸으로 나뉘어 있어요. 실제 프로그램 파일도 이 칸대로 나뉘어 있습니다.</p>
-<ul>
-<li>① <strong>창구</strong> — 질문을 받아 형식을 확인하고, 어느 AI에게 보낼지 정해요</li>
-<li>② <strong>교통정리</strong> — 지금 바로 보낼지, 줄을 세워 기다리게 할지 정해요</li>
-<li>③ <strong>어댑터</strong> — 질문을 그 AI가 알아듣는 방식으로 바꿔 전달해요</li>
-<li>④ <strong>조금씩 흘려보내기</strong> — AI가 답을 쓰는 대로 프로그램에 바로바로 넘겨요</li>
-</ul>
-<p><img alt="요청 하나가 중계기의 창구·교통정리·어댑터를 지나 AI에 닿고 답이 조금씩 돌아오는 길, 그리고 사람용·프로그램용 두 창구 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1580" src="/_astro/diagram-request-path.Dil5hYyv_1KoESF.webp" ></p>
-<p>여행용 어댑터에 빗대면 ①은 충전기를 꽂는 구멍, ②는 과부하를 막는 장치, ③은 나라별 모양으로 바꾸는 부품이에요. ④는 전기 어댑터에는 없는 칸인데, AI가 답하는 방식 때문에 필요해졌어요. 하나씩 볼게요.</p>
-<h2 id="-2-창구와-교통정리--받고-차례를-정한다">🚦 2. 창구와 교통정리 — 받고, 차례를 정한다</h2>
-<p><strong>창구</strong>는 프로그램이 보낸 질문을 맨 먼저 받는 곳이에요. 프로그램은 <code>claude/opus</code>처럼 ‘AI 이름/모델 이름’ 모양으로 누구에게 물을지 적어 보내요. 창구는 이 이름을 보고 어느 AI에게 보낼지 정합니다.</p>
-<p>보낼 수 없는 질문이면 그 자리에서 이유를 담아 돌려보내요. “그 AI는 아직 열쇠를 넣지 않았거나 로그인하지 않았다”, “그런 모델은 없다”, “질문이 너무 크다”처럼 프로그램이 알아들을 수 있는 이유로요. 1편에서 프로그램마다 다시 만들어야 했던 ‘오류 정리’를 이 칸이 한 번에 맡는 셈이에요.</p>
-<p><strong>교통정리</strong>는 중계기의 한가운데에 있어요. AI마다 한꺼번에 감당할 수 있는 질문 수가 다르기 때문이에요. 예를 들어 제 중계기는 기본 설정에서 Codex와 Claude에 각각 동시에 3건까지 보내고, 그중 같은 모델에는 한 번에 1건씩만 보내요. 자리가 없으면 질문은 줄을 서서 차례를 기다리고, 줄이 너무 길거나 너무 오래 기다리면 “지금은 붐빈다”고 알려 주며 돌려보내요.</p>
-<p>이 교통정리가 왜 그렇게 중요한지, 정리를 잘못하면 어떤 일이 생기는지는 3부에서 따로 다룹니다.</p>
-<h2 id="-3-어댑터와-흘려보내기--ai의-말로-바꾸고-답은-오는-대로">🔌 3. 어댑터와 흘려보내기 — AI의 말로 바꾸고, 답은 오는 대로</h2>
-<p>차례가 온 질문은 <strong>어댑터</strong>로 가요. Codex와 Claude는 원래 사람이 터미널에서 쓰는 명령어 도구이고, 다른 AI는 인터넷 너머의 주소에 열쇠(API 키)를 보여 주고 부르는 방식이에요. 부르는 방법도, 답을 돌려주는 모양도 제각각이죠.</p>
-<p>어댑터는 AI마다 하나씩 있어요. 중계기의 공통 질문을 그 AI의 방식으로 바꿔 전달하고, 돌아온 답을 다시 공통 모양으로 바꿔요. 그래서 새 AI를 붙이고 싶으면 어댑터 파일 하나를 만들고 목록에 한 줄 등록하면 됩니다. 어댑터가 꼭 지켜야 하는 약속은 2부에서 자세히 이야기할게요.</p>
-<p>어댑터를 실제로 돌리는 부분은 그 옆에서 스톱워치와 장부를 들고 있어요. 질문을 보낸 뒤 첫 글자가 오기까지 얼마나 걸렸는지, 토큰을 얼마나 썼는지, 답이 왜 끝났는지를 적어 둡니다. 이 기록은 4절의 관리 화면에서 볼 수 있어요.</p>
-<p>마지막 칸은 <strong>조금씩 흘려보내기</strong>예요. AI는 답을 한 번에 다 써서 주지 않고 한 조각씩 써 내려가요. 채팅 화면에서 답이 타자 치듯 나타나는 게 그 때문이에요. 중계기는 조각이 오는 대로 바로 프로그램에 넘겨서, 긴 답도 앞부분부터 곧바로 볼 수 있게 해요. 이런 방식을 <strong>스트리밍</strong>이라고 불러요.</p>
-<p>AI가 오래 생각하느라 한동안 아무 글자도 보내지 않을 때도 있어요. 그러면 프로그램은 연결이 끊긴 건지 헷갈리겠죠. 그래서 중계기는 답을 기다리는 동안 15초마다 “아직 연결돼 있어요”라는 신호를 따로 보내요.</p>
-<h2 id="-4-창구는-두-개--사람용과-프로그램용">🪟 4. 창구는 두 개 — 사람용과 프로그램용</h2>
-<p>지금까지 말한 창구는 프로그램이 질문을 보내는 창구예요. 중계기에는 창구가 하나 더 있어요. 사람이 보는 <strong>관리 화면</strong>이에요.</p>
-<p><img alt="사람용 창구와 프로그램용 창구를 한꺼번에 맡은 로봇 접수원 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-two-windows.az-_T20C_ZHLIS.webp" ></p>
-<p><strong>사람용 창구, 관리 화면</strong>에서는 이런 일을 해요.</p>
-<ul>
-<li><strong>AI 연결</strong> — 쓸 AI를 고르고 연결 버튼을 눌러요. 열쇠로 쓰는 AI는 열쇠를 넣고 연결하면, 그 열쇠가 실제로 통하는지 AI 쪽에 확인해요</li>
-<li><strong>진단</strong> — Codex·Claude처럼 명령어 도구로 쓰는 AI는 연결할 때 ① 컴퓨터에 설치돼 있나 ② 로그인돼 있나 ③ 실제로 한 번 불러서 답이 오나를 차례로 확인해요. 어느 단계에서 막혔는지에 따라 설치나 로그인 안내가 화면에 떠요</li>
-<li><strong>스위치</strong> — 프로그램용 창구를 열고 닫아요</li>
-<li><strong>기록</strong> — 요청마다 기록이 한 줄씩 쌓여요(아래에서 설명)</li>
-</ul>
-<p><strong>프로그램용 창구, API</strong>는 프로그램이 질문을 보내는 곳이에요. 1편에서 말한 ‘OpenAI 호환’ 형식을 쓰고, 관리 화면의 스위치나 화면 구석 트레이 아이콘으로 켜고 꺼요. 꺼 두어도 관리 화면과 연결 설정은 그대로 동작합니다.</p>
-<p>처음 실행할 때의 모습도 정해 두었어요. 만든 지 한 달쯤 된 8월 중순 업데이트(v0.1.67)부터, 처음 실행하면 프로그램용 창구를 <strong>꺼진 채로</strong> 시작해요. 막 설치한 중계기에는 연결된 AI가 하나도 없어서, 창구를 열어 봐야 빈 목록만 보여 줄 테니까요. AI를 연결한 뒤 스위치를 켜면 되고, 그다음부터는 마지막에 켜 뒀는지 꺼 뒀는지를 기억했다가 다음 실행 때 그대로 돌려놓아요. 이미 쓰고 있던 중계기는 원래처럼 켜진 채로 시작하게 남겨 두었어요.</p>
-<h3 id="기록-한-줄에-담기는-것">기록 한 줄에 담기는 것</h3>
-<p>관리 화면 아래쪽에는 AI별 기록이 쌓여요. 질문이 들어올 때 한 줄, 답이 끝날 때 한 줄이에요. 답이 끝날 때의 줄에는 이런 것이 적혀요.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>기록</th><th>뜻</th></tr></thead><tbody><tr><td>토큰 (질문 → 답, 합계)</td><td>토큰은 AI가 글을 잘게 나눠 세는 단위예요. 질문과 답에 각각 몇 개를 썼는지</td></tr><tr><td>첫 글자까지 걸린 시간</td><td>질문을 보내고 답의 첫 조각이 오기까지. 흔히 TTFT라고 불러요</td></tr><tr><td>줄 선 시간</td><td>교통정리 칸에서 차례를 기다린 시간(기다렸을 때만)</td></tr><tr><td>전체 시간</td><td>질문을 보낸 때부터 답이 끝날 때까지</td></tr><tr><td>끝난 이유</td><td>답이 스스로 끝났는지, 정해 둔 길이를 다 써서 잘렸는지</td></tr></tbody></table>
-<p>끝난 이유가 ‘길이를 다 써서 잘림’이면 그 줄은 경고로 표시돼요. 겉보기엔 멀쩡히 끝난 답이 사실은 중간에 잘린 것일 수 있다는 뜻이거든요. 이 이야기는 4부에서 다시 꺼낼게요.</p>
-<h2 id="-5-처음부터-지키는-세-가지">🔒 5. 처음부터 지키는 세 가지</h2>
-<p>중계기는 여러 AI의 열쇠를 한곳에 모아 두는 프로그램이라, 처음부터 몇 가지를 기본값으로 정해 두었어요.</p>
-<p><img alt="작은 열쇠를 금고에 조심스럽게 넣는 로봇 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-key-safe.DmBE-sWj_24PmDM.webp" ></p>
-<ul>
-<li><strong>내 컴퓨터 안에서만 열린다</strong> — 관리 화면도 프로그램용 창구도 내 컴퓨터 안에서만 접속할 수 있어요. 같은 와이파이에 있는 다른 기기나 인터넷에서는 들어올 수 없어요</li>
-<li><strong>열쇠는 암호화해서 내 컴퓨터에만 둔다</strong> — 관리 화면에 넣은 API 키는 저장하는 순간 암호화돼(AES-256-GCM이라는 널리 쓰이는 방식) 내 컴퓨터의 파일 하나에만 남아요. 다른 곳으로 보내거나 원격에 따로 보관하지 않아요. Codex·Claude처럼 로그인해서 쓰는 AI는 원래 쓰던 로그인을 그대로 씁니다</li>
-<li><strong>기록에는 열쇠와 질문 내용을 남기지 않는다</strong> — 기록에는 모델 이름, 메시지 개수, 토큰 수, 시간 같은 정보만 남겨요. 혹시 오류 메시지에 열쇠가 섞여 나오면 앞 세 글자만 남기고 가려요. 프로그램에 돌려주는 오류 메시지에도 열쇠 값은 담지 않아요</li>
-</ul>
-<h2 id="정리">정리</h2>
-<p>① 중계기 안에서 질문은 창구 → 교통정리 → 어댑터를 지나 AI에 닿고, 답은 오는 대로 조금씩 흘러 돌아와요
-② 창구는 사람용 관리 화면과 프로그램용 API 두 개예요. 관리 화면에서 AI를 연결·진단하고 요청별 기록을 보며, API 창구는 처음엔 꺼진 채로 시작해요
-③ 두 창구 모두 내 컴퓨터 안에서만 열리고, 열쇠는 암호화해 두고, 기록에는 열쇠와 질문을 남기지 않아요 — 다음 편은 “‘OpenAI 호환’은 왜 표준 콘센트가 됐나”입니다</p>
-<p>중계기를 왜 만들었는지는 <a href="/posts/20261001-llmgw-01-idle-subscriptions/">1편</a>에 있어요.</p>
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v> <p class="series-bar" data-astro-cid-lvjzyg5v> <a href="/menu/#ai-project" data-astro-cid-lvjzyg5v>LLM 중계기 개발기</a> <span data-astro-cid-lvjzyg5v>1부 · 2편 / 전체 33편</span> </p> <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 1일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 7개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-질문-하나가-지나가는-네-칸" data-astro-cid-lvjzyg5v>1. 질문 하나가 지나가는 네 칸</a></li><li data-astro-cid-lvjzyg5v><a href="#2-창구와-교통정리-받고-차례를-정한다" data-astro-cid-lvjzyg5v>2. 창구와 교통정리, 받고 차례를 정한다</a></li><li data-astro-cid-lvjzyg5v><a href="#3-어댑터와-흘려보내기" data-astro-cid-lvjzyg5v>3. 어댑터와 흘려보내기</a></li><li data-astro-cid-lvjzyg5v><a href="#4-창구는-두-개-사람용과-프로그램용" data-astro-cid-lvjzyg5v>4. 창구는 두 개, 사람용과 프로그램용</a></li><li data-astro-cid-lvjzyg5v><a href="#5-기록-한-줄에-담기는-것" data-astro-cid-lvjzyg5v>5. 기록 한 줄에 담기는 것</a></li><li data-astro-cid-lvjzyg5v><a href="#6-처음부터-지키는-세-가지" data-astro-cid-lvjzyg5v>6. 처음부터 지키는 세 가지</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 OpenAI·앤트로픽·구글과 아무 관계가 없습니다. 제가 직접 만든 중계기의 개발 기록을 바탕으로 썼습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="llm-게이트웨이-구조-질문-하나가-지나가는-네-칸과-두-창구-llm-중계기-개발기">LLM 게이트웨이 구조, 질문 하나가 지나가는 네 칸과 두 창구 (LLM 중계기 개발기)</h1>
+<p><img alt="LLM 게이트웨이 구조 — 질문 하나가 지나가는 네 칸과 두 창구 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.CQQ2QOUk_32b68.webp" ></p>
+<p class="cap">LLM 게이트웨이 구조 — 질문 하나가 지나가는 네 칸과 두 창구 (캐릭터는 GPT 이미지 생성)</p>
+<p>“주소 한 줄만 바꾸면 여러 AI를 쓸 수 있다는데, 그 주소 안에서는 무슨 일이 일어날까?” 1편을 읽고 이런 궁금증이 남았을 거예요.</p>
+<p>해외여행 가방에 꼭 챙기는 물건이 있죠. 여행용 멀티 어댑터예요. 나라마다 콘센트 구멍 모양이 다른데, 이 작은 상자 하나만 있으면 내 충전기를 어디에든 꽂을 수 있어요. 겉으로는 플러그 덩어리 하나지만 안에서는 하는 일이 나뉘어 있어요. 충전기를 받아 주는 구멍, 나라별 모양으로 바꿔 주는 부품, 제품에 따라서는 전기가 한꺼번에 너무 많이 흐르지 않게 막는 장치도 들어 있어요.<br>
+<strong>제가 만든 LLM 중계기도 뚜껑을 열면 칸 네 개와 창구 두 개로 나뉘어 있어요.</strong></p>
+<p>이 글은 ‘LLM 중계기 개발기’의 2편이에요. 1편에서는 여러 AI를 주소 하나 뒤에 세우는 중계기를 왜 만들었는지 이야기했어요. 오늘은 그 중계기의 뚜껑을 열어 안에서 무슨 일이 일어나는지 들여다볼게요.</p>
+<p><img alt="공항에서 멀티 어댑터를 들어 보이는 로봇 — 중계기를 여행용 어댑터에 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-travel-adapter.H-Y6zsiw_2pXpae.webp" ></p>
+<p class="cap">공항에서 멀티 어댑터를 들어 보이는 로봇 — 중계기를 여행용 어댑터에 빗댄 그림 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>연재: LLM 중계기 개발기 2편 · 1부 왜 만들었나<br>대상: 중계기 안이 궁금한 분<br>① 질문 하나가 지나가는 네 칸<br>② 사람용·프로그램용 두 창구<br>③ 요청 기록과 처음부터 지킨 세 가지<br>2026년 10월 1일 기준 · 중계기 v0.1.108</div>
 <hr>
-<p><em>2026년 10월 1일 기준입니다. 제가 만든 중계기의 개발 기록을 바탕으로 썼고, 특정 기업·서비스의 공식 입장이 아닙니다.</em></p> </article> <nav class="series-nav" aria-label="LLM 중계기 개발기 이전 편·다음 편" data-astro-cid-lvjzyg5v> <a class="prev" href="/posts/20261001-llmgw-01-idle-subscriptions/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>← 이전 편 · 1편</span> <span class="t" data-astro-cid-lvjzyg5v>퇴근하면 노는 AI 구독, 일하게 할 수 없을까 — LLM 중계기 개발기를 시작하며</span> </a> <a class="next" href="/posts/20261001-llmgw-03-openai-compatible/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>다음 편 · 3편 →</span> <span class="t" data-astro-cid-lvjzyg5v>&#39;OpenAI 호환&#39;은 왜 표준 콘센트가 됐나 — 모양은 같은데 전압이 살짝 다를 때</span> </a> <a class="toc" href="/menu/#ai-project" data-astro-cid-lvjzyg5v>☰ LLM 중계기 개발기 전체 목차</a> </nav></main> <footer class="site">
+<h2 id="1-질문-하나가-지나가는-네-칸">1. 질문 하나가 지나가는 네 칸</h2>
+<p><strong>프로그램이 보낸 질문은 창구 → 교통정리 → 어댑터를 지나 AI에 닿고, 답은 흘려보내기 칸을 지나 돌아와요.</strong> 1편에서 프로그램 쪽이 할 일은 “AI 주소를 중계기 주소로 바꾸는 한 줄”이 전부라고 했어요. 그 주소로 들어간 질문이 지나는 칸이 넷이고, 실제 프로그램 파일도 이 칸대로 나뉘어 있어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>칸</th><th>하는 일</th></tr></thead><tbody><tr><td>① 창구</td><td>질문을 받아 형식을 확인하고 보낼 AI를 정해요</td></tr><tr><td>② 교통정리</td><td>바로 보낼지, 줄을 세워 기다리게 할지 정해요</td></tr><tr><td>③ 어댑터</td><td>질문을 그 AI가 알아듣는 방식으로 바꿔요</td></tr><tr><td>④ 흘려보내기</td><td>AI가 쓰는 답을 오는 대로 바로 넘겨요</td></tr></tbody></table>
+<p><img alt="LLM 게이트웨이 구조 — 질문 하나가 창구·교통정리·어댑터를 지나 AI에 닿고 답이 조금씩 돌아오는 길, 그리고 두 창구 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1580" src="/_astro/diagram-request-path.Dil5hYyv_1KoESF.webp" ></p>
+<p class="cap">LLM 게이트웨이 구조 — 질문 하나가 창구·교통정리·어댑터를 지나 AI에 닿고 답이 조금씩 돌아오는 길, 그리고 두 창구 (직접 제작)</p>
+<p>여행용 어댑터에 빗대면 ①은 충전기를 꽂는 구멍, ②는 과부하를 막는 장치, ③은 나라별 모양으로 바꾸는 부품이에요.<br>
+④는 전기 어댑터에는 없는 칸인데, AI가 답하는 방식 때문에 필요해졌어요.</p>
+<h2 id="2-창구와-교통정리-받고-차례를-정한다">2. 창구와 교통정리, 받고 차례를 정한다</h2>
+<p><strong>창구는 질문을 맨 먼저 받아 보낼 곳을 정하고, 보낼 수 없으면 이유를 담아 돌려보내요.</strong> 프로그램은 <code>claude/opus</code>처럼 ‘AI 이름/모델 이름’ 모양으로 누구에게 물을지 적어 보내요. 창구는 이 이름을 보고 보낼 곳을 정해요.</p>
+<p>보낼 수 없는 질문이면 프로그램이 알아들을 수 있는 이유를 담아 그 자리에서 돌려줘요.<br>
+① 그 AI는 아직 열쇠를 넣지 않았거나 로그인하지 않았다<br>
+② 그런 모델은 없다<br>
+③ 질문이 너무 크다</p>
+<p>1편에서 프로그램마다 다시 만들어야 했던 ‘오류 정리’를 이 칸이 한 번에 맡는 셈이에요.</p>
+<p><strong>교통정리는 AI마다 한꺼번에 받을 수 있는 질문 수를 지켜요.</strong> 제 중계기는 기본 설정에서 Codex와 Claude에 각각 <strong>동시에 3건</strong>까지, 같은 모델에는 <strong>한 번에 1건</strong>씩만 보내요.</p>
+<p>자리가 없으면 질문은 줄을 서서 차례를 기다려요. 줄이 너무 길거나 너무 오래 기다리면 “지금은 붐빈다”고 알려 주며 돌려보내요. 교통정리가 왜 그렇게 중요한지는 3부에서 따로 다룰게요.</p>
+<h2 id="3-어댑터와-흘려보내기">3. 어댑터와 흘려보내기</h2>
+<p><strong>어댑터는 AI마다 하나씩 있어서, 공통 질문을 그 AI의 말로 바꿔 전달하고 답을 다시 공통 모양으로 바꿔요.</strong> Codex와 Claude는 원래 사람이 터미널에서 쓰는 명령어 도구이고, 다른 AI는 인터넷 너머의 주소에 열쇠(API 키)를 보여 주고 부르는 방식이에요. 부르는 방법도, 답을 돌려주는 모양도 제각각이에요.</p>
+<p>그래서 새 AI를 붙이려면 <strong>어댑터 파일 하나</strong>를 만들고 목록에 <strong>한 줄</strong>만 등록하면 돼요. 어댑터가 지켜야 하는 약속은 2부에서 자세히 이야기할게요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>새 AI를 붙일 때 바뀌는 건 어댑터 하나예요. 창구·교통정리·흘려보내기는 그대로 써요.</div>
+<p>어댑터를 실제로 돌리는 부분은 옆에서 스톱워치와 장부를 들고 있어요. 첫 글자가 오기까지 걸린 시간, 쓴 토큰, 답이 끝난 이유를 적어 둬요.</p>
+<p><strong>AI는 답을 한 번에 주지 않고 한 조각씩 써 내려가서, 중계기도 조각이 오는 대로 바로 넘겨요.</strong> 채팅 화면에서 답이 타자 치듯 나타나는 게 그 때문이에요. 이런 방식을 스트리밍이라고 불러요.</p>
+<p>AI가 오래 생각하느라 한동안 아무 글자도 보내지 않을 때도 있어요. 그러면 프로그램은 연결이 끊긴 건지 헷갈리겠죠. 그래서 중계기는 답을 기다리는 동안 <strong>15초마다</strong> “아직 연결돼 있어요” 신호를 따로 보내요.</p>
+<h2 id="4-창구는-두-개-사람용과-프로그램용">4. 창구는 두 개, 사람용과 프로그램용</h2>
+<p><strong>중계기에는 프로그램이 질문을 보내는 API 창구 말고, 사람이 보는 관리 화면이 하나 더 있어요.</strong> API 창구는 1편에서 말한 ‘OpenAI 호환’ 형식을 쓰고, 관리 화면에서는 아래 네 가지 일을 해요.</p>
+<p><img alt="사람용 창구와 프로그램용 창구를 함께 맡은 로봇 접수원 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-two-windows.az-_T20C_ZHLIS.webp" ></p>
+<p class="cap">사람용 창구와 프로그램용 창구를 함께 맡은 로봇 접수원 (GPT 이미지 생성)</p>
+<p>① <strong>AI 연결</strong> — 열쇠로 쓰는 AI는 열쇠를 넣고 연결하면, 그 열쇠가 실제로 통하는지 AI 쪽에 확인해요<br>
+② <strong>진단</strong> — Codex·Claude는 설치, 로그인, 실제 호출 한 번을 차례로 확인하고, 막힌 단계에 맞는 안내를 띄워요<br>
+③ <strong>스위치</strong> — 프로그램용 API 창구를 열고 닫아요. 꺼 두어도 관리 화면과 연결 설정은 그대로 동작해요<br>
+④ <strong>기록</strong> — 요청마다 기록이 한 줄씩 쌓여요(5번에서 설명)</p>
+<p><strong>API 창구는 처음 실행할 때 꺼진 채로 시작해요.</strong><br>
+<strong>8월 12일 업데이트</strong>(v0.1.67)부터 그렇게 바꿨어요. 막 설치한 중계기에는 연결된 AI가 하나도 없어서, 창구를 열어 봐야 빈 목록만 보여 줄 테니까요. AI를 연결하고 스위치를 켜면 되고, 그다음부터는 마지막에 켜 뒀는지 꺼 뒀는지를 기억해 그대로 돌려놓아요. 이미 쓰고 있던 중계기는 원래처럼 켜진 채로 시작하게 남겨 두었어요. <mark>보여 줄 게 없으면 창구를 열지 않는다</mark>는 게 그때 정한 기본값이에요.</p>
+<h2 id="5-기록-한-줄에-담기는-것">5. 기록 한 줄에 담기는 것</h2>
+<p><strong>답이 끝날 때마다 관리 화면에 기록이 한 줄 남고, 거기에 다섯 가지가 적혀요.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>기록</th><th>뜻</th></tr></thead><tbody><tr><td>토큰 (질문 → 답, 합계)</td><td>AI가 글을 잘게 나눠 세는 단위 — 질문과 답에 각각 몇 개를 썼는지</td></tr><tr><td>첫 글자까지 걸린 시간</td><td>질문을 보내고 답의 첫 조각이 오기까지. 흔히 TTFT라고 불러요</td></tr><tr><td>줄 선 시간</td><td>교통정리 칸에서 차례를 기다린 시간(기다렸을 때만)</td></tr><tr><td>전체 시간</td><td>질문을 보낸 때부터 답이 끝날 때까지</td></tr><tr><td>끝난 이유</td><td>스스로 끝났는지, 정해 둔 길이를 다 써서 잘렸는지</td></tr></tbody></table>
+<p>끝난 이유가 ‘길이를 다 써서 잘림’이면 그 줄은 경고로 표시돼요. 겉보기엔 멀쩡히 끝난 답이 사실은 중간에 잘린 것일 수 있거든요. 이 이야기는 4부에서 다시 꺼낼게요.</p>
+<h2 id="6-처음부터-지키는-세-가지">6. 처음부터 지키는 세 가지</h2>
+<p><strong>여러 AI의 열쇠를 한곳에 모아 두는 프로그램이라, 처음부터 세 가지를 기본값으로 정해 두었어요.</strong></p>
+<p><img alt="작은 열쇠를 금고에 조심스럽게 넣는 로봇 — 열쇠는 암호화해 내 컴퓨터에만 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-key-safe.DmBE-sWj_24PmDM.webp" ></p>
+<p class="cap">작은 열쇠를 금고에 조심스럽게 넣는 로봇 — 열쇠는 암호화해 내 컴퓨터에만 (GPT 이미지 생성)</p>
+<p>① <strong>내 컴퓨터 안에서만 열린다</strong> — 관리 화면도 API 창구도 내 컴퓨터 안에서만 접속할 수 있어요. 같은 와이파이의 다른 기기나 인터넷에서는 들어올 수 없어요.</p>
+<p>② <strong>열쇠는 암호화해서 내 컴퓨터에만 둔다</strong> — 넣은 API 키는 저장하는 순간 암호화돼(AES-256-GCM이라는 널리 쓰이는 방식) 내 컴퓨터의 파일 하나에만 남고, 다른 곳으로 보내지 않아요. Codex·Claude는 원래 쓰던 로그인을 그대로 써요.</p>
+<p>③ <strong>기록에는 열쇠와 질문 내용을 남기지 않는다</strong> — 모델 이름, 메시지 개수, 토큰 수, 시간 같은 정보만 남겨요. 오류 메시지에 열쇠가 섞여 나오면 앞 세 글자만 남기고 가려요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 질문은 창구 → 교통정리 → 어댑터를 지나요<br>② 답은 오는 대로 조금씩 흘려 돌려줘요<br>③ 창구는 관리 화면과 API 두 개, API는 처음엔 꺼짐<br>④ 내 컴퓨터 안에서만, 열쇠는 암호화, 기록엔 질문 없음</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 중계기를 켜 두면 다른 기기에서도 쓸 수 있나요?</summary><p>아니요. 관리 화면도 API 창구도 내 컴퓨터 안에서만 접속되게 묶어 두었어요. 같은 와이파이의 휴대폰이나 다른 컴퓨터에서는 들어올 수 없어요.</p></details>
+<details class="faq"><summary>Q. Codex·Claude도 API 키를 넣어야 하나요?</summary><p>아니요. 두 명령어 도구는 원래 쓰던 로그인을 그대로 써요. 연결할 때 진단이 설치와 로그인부터 확인하고, 막히면 안내를 띄워요.</p></details>
+<details class="faq"><summary>Q. 새 AI를 붙이려면 무엇을 바꾸나요?</summary><p>어댑터 파일 하나를 만들고 목록에 한 줄 등록해요. 창구·교통정리·흘려보내기는 그대로 써요.</p></details>
+<details class="faq"><summary>Q. 답이 잘렸는지는 어떻게 아나요?</summary><p>기록 한 줄의 끝난 이유를 봐요. 정해 둔 길이를 다 써서 잘렸으면 그 줄이 경고로 표시돼요. 자세한 사연은 4부에서 다뤄요.</p></details>
+<p>다음 편은 “‘OpenAI 호환’은 왜 표준 콘센트가 됐나”예요. 중계기가 왜 하필 그 모양으로 창구를 열었는지, 호환을 어디까지 믿을 수 있는지 이야기할게요.</p>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 쓴 날 2026년 10월 1일<br>다시 다듬은 날 2026년 10월 7일<br>직접 만든 중계기의 개발 기록 바탕<br>숫자는 저장소 코드·릴리스 노트와 대조<br>제휴 없음 · OpenAI·앤트로픽·구글과 무관<br>캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p class="related">연재 LLM 중계기 개발기 — 지난 편: <a href="/posts/20261001-llmgw-01-idle-subscriptions/">LLM 게이트웨이를 직접 만든 이유</a> · 다음 편: <a href="/posts/20261001-llmgw-03-openai-compatible/">OpenAI 호환 API 뜻</a></p> </article> <nav class="series-nav" aria-label="LLM 중계기 개발기 이전 편·다음 편" data-astro-cid-lvjzyg5v> <a class="prev" href="/posts/20261001-llmgw-01-idle-subscriptions/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>← 이전 편 · 1편</span> <span class="t" data-astro-cid-lvjzyg5v>LLM 게이트웨이를 직접 만든 이유, 퇴근하면 노는 AI 구독</span> </a> <a class="next" href="/posts/20261001-llmgw-03-openai-compatible/" data-astro-cid-lvjzyg5v> <span class="dir" data-astro-cid-lvjzyg5v>다음 편 · 3편 →</span> <span class="t" data-astro-cid-lvjzyg5v>OpenAI 호환 API 뜻, 표준이 된 이유와 빈틈 4가지</span> </a> <a class="toc" href="/menu/#ai-project" data-astro-cid-lvjzyg5v>☰ LLM 중계기 개발기 전체 목차</a> </nav></main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
 <nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
       // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
