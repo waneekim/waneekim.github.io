@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>플루토 AI 정리, 알파고 김성현 선수를 이긴 스타크래프트 AI 원리</title><meta name="description" content="스타크래프트: 브루드워 AI '플루토(Pluto)'는 노르웨이 개발자 베가르드 멜라가 혼자 만든, 신경망 하나가 자기 대결 강화학습으로 경기 전체를 하는 봇이다. '알파고' 김성현 선수가 연달아 진 영상이 230만 회 넘게 재생되며 화제가 됐다. 깃허브 README·릴리스와 국내외 보도를 바탕으로, 플루토가 화면과 마우스 없이 BWAPI로 6프레임마다 판단하는 구조, APM 1,000이라는 숫자의 진짜 뜻, 알파스타와 다른 점, 래더 무단 등록 사건, 그리고 AI 시점 화면을 만들 수 있는지까지 정리했다."><meta property="og:title" content="플루토 AI 정리, 알파고 김성현 선수를 이긴 스타크래프트 AI 원리"><meta property="og:description" content="스타크래프트: 브루드워 AI '플루토(Pluto)'는 노르웨이 개발자 베가르드 멜라가 혼자 만든, 신경망 하나가 자기 대결 강화학습으로 경기 전체를 하는 봇이다. '알파고' 김성현 선수가 연달아 진 영상이 230만 회 넘게 재생되며 화제가 됐다. 깃허브 README·릴리스와 국내외 보도를 바탕으로, 플루토가 화면과 마우스 없이 BWAPI로 6프레임마다 판단하는 구조, APM 1,000이라는 숫자의 진짜 뜻, 알파스타와 다른 점, 래더 무단 등록 사건, 그리고 AI 시점 화면을 만들 수 있는지까지 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
+<style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-플루토는-어떤-ai인가" data-astro-cid-lvjzyg5v>1. 플루토는 어떤 AI인가</a></li><li data-astro-cid-lvjzyg5v><a href="#2-알파고-김성현-선수와의-대결" data-astro-cid-lvjzyg5v>2. ‘알파고’ 김성현 선수와의 대결</a></li><li data-astro-cid-lvjzyg5v><a href="#3-화면-없이-경기하는-법" data-astro-cid-lvjzyg5v>3. 화면 없이 경기하는 법</a></li><li data-astro-cid-lvjzyg5v><a href="#4-apm-1000의-진짜-뜻" data-astro-cid-lvjzyg5v>4. APM 1,000의 진짜 뜻</a></li><li data-astro-cid-lvjzyg5v><a href="#5-알파스타와-무엇이-다른가" data-astro-cid-lvjzyg5v>5. 알파스타와 무엇이 다른가</a></li><li data-astro-cid-lvjzyg5v><a href="#6-한번-시도해-보고-싶은-것" data-astro-cid-lvjzyg5v>6. 한번 시도해 보고 싶은 것</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-07-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-07 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 블리자드·플루토 개발자와 아무 관계가 없습니다. 내용은 플루토 깃허브 저장소(README·릴리스), BWAPI 공식 문서, 딥마인드 알파스타 발표와 국내외 보도(중앙일보·인벤·게임톡·아티브뉴스·Dexerto·Relog·OSEN) 기준이며, 직접 대결해 본 후기는 아닙니다. 게임·영상·기사 화면은 싣지 않았습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="플루토-ai-정리-스타크래프트-프로게이머를-이긴-원리">플루토 AI 정리, 스타크래프트 프로게이머를 이긴 원리</h1>
+<p><img alt="플루토 AI 작동 원리 — ‘알파고’ 김성현 선수를 이긴 스타크래프트 AI (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.BAKelXBA_Z1UGiAu.webp" ></p>
+<p class="cap">플루토 AI 작동 원리 — ‘알파고’ 김성현 선수를 이긴 스타크래프트 AI (캐릭터는 GPT 이미지 생성)</p>
+<p>김성현 선수가 플루토에게 지는 영상을 보고 나면 이 질문이 남아요. “AI도 화면을 보고 마우스로 하는 걸까?” 답은 아니에요. 그래서 APM 1,000이라는 숫자도 사람과 같은 뜻이 아니에요.</p>
+<p>자동 연주 피아노를 떠올려 보세요. 사람은 악보를 눈으로 읽고 손가락으로 건반을 누르지만, 자동 연주 피아노는 종이 롤에 뚫린 구멍이 건반을 바로 움직여요. 건반은 내려가는데 손은 없죠.<br>
+<strong>플루토도 그래요. 화면과 마우스 대신 게임과 데이터로 직접 주고받으며 경기를 해요.</strong></p>
+<div class="callout warn"><b class="ttl">⚠️ 출처 안내</b>개발자 깃허브와 국내외 보도를 옮긴 글이에요. 제가 플루토와 직접 붙어 본 후기는 아니에요.</div>
+<p><img alt="손 없이 건반이 눌리는 자동 연주 피아노 — 화면과 마우스 없이 경기하는 플루토를 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-player-piano.CxRi9Zlz_Z11gyTr.webp" ></p>
+<p class="cap">손 없이 건반이 눌리는 자동 연주 피아노 — 화면과 마우스 없이 경기하는 플루토를 빗댄 그림 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 플루토 영상을 보고 원리가 궁금한 분<br>① 플루토가 무엇이고 누가 만들었는지<br>② 화면 없이 경기하는 방식과 APM의 진짜 뜻<br>③ 알파스타와 다른 점, AI 시점 화면 아이디어<br>2026년 10월 7일 기준 · 깃허브와 보도</div>
+<hr>
+<h2 id="1-플루토는-어떤-ai인가">1. 플루토는 어떤 AI인가</h2>
+<p><strong>플루토(Pluto)는 스타크래프트: 브루드워(스타1)를 하는 AI예요. 신경망 하나가 자기 자신과 대결하며 배운 강화학습으로 경기 전체를 해요.</strong> 깃허브 설명에 따르면 운영(매크로)과 컨트롤(마이크로)을 세 종족 모두 신경망이 맡고, 사람이 짜 둔 각본은 없어요. 경기 방식은 1대1 근접전(멜레)이에요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>내용</th></tr></thead><tbody><tr><td>게임</td><td>스타1 브루드워 1.16.1</td></tr><tr><td>연결 방식</td><td>BWAPI 4.4.0 (봇용 연결 도구)</td></tr><tr><td>배운 방법</td><td>자기 대결 강화학습, 각본 없음</td></tr><tr><td>종족</td><td>저그·테란·프로토스·랜덤</td></tr><tr><td>신경망 크기</td><td>3억 1,500만 파라미터</td></tr><tr><td>공개</td><td>7월 17일 베타, 9월 23일 대회판</td></tr></tbody></table>
+<p><img alt="거울 속 자기와 끝없이 대국하는 로봇 — 자기 대결 강화학습을 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-mirror-match.CBrJnUyr_2qrEef.webp" ></p>
+<p class="cap">거울 속 자기와 끝없이 대국하는 로봇 — 자기 대결 강화학습을 빗댄 그림 (GPT 이미지 생성)</p>
+<p>자기 대결 강화학습은 거울 속 나와 수없이 두면서, 이긴 판의 수는 더 자주 두고 진 판의 수는 덜 두도록 고쳐 가는 방식이에요. 중앙일보는 프로 기보를 먼저 익힌 알파고와 달리 처음부터 스스로 대전하며 배웠다고 소개했어요. 몇 판을 두었는지, 컴퓨터를 얼마나 썼는지는 공개되지 않았어요.</p>
+<p><strong>만든 사람은 노르웨이 개발자 베가르드 멜라(Vegard Mella)예요.</strong> 깃허브 계정 이름은 tscmoo예요. 같은 이름의 봇 tscmoo로 2016년 IEEE CIG 스타크래프트 AI 대회 1위에 오른 기록이 대회 자료에 있어요. 중앙일보는 그를 메타 AI 출신이라고 소개했어요.</p>
+<p><strong>대회 성적도 있어요.</strong> 깃허브 최신 릴리스 이름이 <code>CoG 2026 entry</code>, 곧 IEEE 게임 학회(CoG) 스타크래프트 AI 대회 출전판이에요. 중앙일보는 8월 대회에서 2,884전 2,844승(승률 98.6%)으로 우승했다고 전했고, Dexerto 등 해외 매체는 결승에서 PurpleWave라는 봇을 4대 1로 이겼다고 썼어요. 해외 매체는 대회 이름을 Computer Olympiad로 적어 표기가 엇갈려요.</p>
+<p>일부 기사는 ‘오픈소스’라고 했지만, 저장소 설명은 ‘바이너리(실행 파일) 배포’예요. 10월 7일 현재 저장소에는 실행 파일과 학습된 가중치가 있고, 소스 코드와 라이선스 표기는 찾지 못했어요.</p>
+<h2 id="2-알파고-김성현-선수와의-대결">2. ‘알파고’ 김성현 선수와의 대결</h2>
+<p><strong>‘알파고’로 불리는 김성현 선수가 플루토에게 연달아 진 영상은 닷새 만에 230만 회 넘게 재생됐어요.</strong> 김성현 선수는 2018년 KSL 시즌1 결승에서 이제동 선수를 4대 0으로 꺾고 초대 우승한 프로게이머예요(OSEN). 중앙일보는 AI 같은 완벽한 플레이로 상대를 눌러 ‘알파고’라는 별명이 붙었다고 소개했어요.</p>
+<p>9월 26일 김성현 선수가 유튜브에 올린 대결 영상은 10월 1일 기준 조회수 230만 회를 넘었어요. 도재욱·임홍규 선수의 패배 영상도 수십만 회씩 재생됐고, 인벤은 박상현(짭제) 선수도 진 선수로 꼽았어요. 김성현 선수는 중앙일보에 이렇게 말했어요. “플루토가 운영에서 손해 보더라도 압도적인 컨트롤로 그 차이를 만회하더라.”</p>
+<p>몇 판 몇 승인지는 따로 세지 않았어요. 김성현 선수가 워낙 많은 판을 둬서 숫자 하나로 말하기 어렵거든요.<br>
+<strong>제가 영상들을 본 느낌으로는 플루토가 더 많이 이겼어요. 대략 열 판에 여섯 판 정도예요.</strong> 공식 집계가 아니라 제 체감이에요.</p>
+<p>기사에 나온 플루토의 경기 모습은 이래요.<br>
+① 정석 빌드를 벗어난 조합 — 시즈탱크 위주에 마린·메딕을 섞는 식(중앙일보)<br>
+② 사거리를 끝까지 쓰는 ‘각도기’ 공격과 체력이 깎인 유닛부터 노리는 집중 사격(중앙일보)<br>
+③ 교전 중에도 쉬지 않는 생산(중앙일보)<br>
+④ 드랍 같은 변수 대응에는 허점, 경기 중에 배우는 기능은 없음(게임톡)</p>
+<p>스트리머들이 플루토를 콘텐츠로 쓸 수 있는 건 누구나 내려받아 집에서 붙어 볼 수 있어서예요. 아티브뉴스는 한 PC에서 스타 클라이언트 두 개를 띄워, 하나는 플루토, 하나는 사람이 조종하는 방법을 소개했어요.</p>
+<h2 id="3-화면-없이-경기하는-법">3. 화면 없이 경기하는 법</h2>
+<p><strong>플루토는 화면을 보지 않아요. BWAPI라는 통로로 게임 상태를 데이터로 받고, 명령을 게임에 바로 넣어요.</strong> BWAPI(Brood War API)는 스타1에 끼워 넣어 프로그램이 게임을 읽고 조종하게 해 주는 도구예요. 봇은 유닛 위치·체력·자원 같은 정보를 받고, ‘이 유닛은 저기로 이동’, ‘이 건물에서 마린 생산’ 같은 명령을 함수로 보내요. 커서를 움직이거나 화면을 옮길 필요가 없어요.</p>
+<p>깃허브 설명대로 나누면 플루토는 세 부분이에요.<br>
+① <code>pluto.dll</code> — 스타1 안에서 도는 32비트 BWAPI 모듈. 게임 정보를 모아 넘기고 받은 명령을 실행해요<br>
+② <code>pluto_infer.exe</code> — 신경망을 돌리는 64비트 프로그램. 공유 메모리로 DLL과 주고받고, 외부 네트워크 연결은 없대요<br>
+③ <code>pluto_weights.bin</code> — 학습이 끝난 신경망 가중치</p>
+<p><img alt="플루토가 게임과 주고받는 길 — 스타1, BWAPI와 pluto.dll, 신경망 추론 프로그램 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="2920" src="/_astro/diagram-pluto-loop.BhVhWy36_uSWQ1.webp" ></p>
+<p class="cap">플루토가 게임과 주고받는 길 — 스타1, BWAPI와 pluto.dll, 신경망 추론 프로그램 (직접 제작)</p>
+<p><strong>모델은 게임 6프레임마다 한 번 판단해요.</strong> 가장 빠름 속도에서 1프레임은 <code>42ms</code>라(BWAPI 문서), 약 0.25초에 한 번, 1분에 약 <strong>240번</strong>이에요. 한 번 판단하는 데 요즘 데스크톱 CPU로 약 20ms, 2021년 6코어 CPU로 약 60ms가 걸린대요. README는 느린 PC에서는 게임이 느려질 뿐 더 못 두지는 않는다고 설명해요. 7월 베타판은 NVIDIA 그래픽카드가 있어야 돌았는데, 9월 대회판은 CPU만으로 돌아요. AVX2를 지원하는 CPU가 필요하고, 6코어 이상과 여유 메모리 약 2GB를 권해요.</p>
+<h2 id="4-apm-1000의-진짜-뜻">4. APM 1,000의 진짜 뜻</h2>
+<p><strong>화면에 찍히는 APM과 플루토가 실제로 판단하는 횟수는 달라요.</strong> 보도마다 숫자도 달라요. 중앙일보는 전투 중 APM이 1,000을 넘는다(프로게이머는 약 400), 게임톡은 2,000을 넘는다, Dexerto는 수천까지 찍힌다고 썼어요.</p>
+<p>Dexerto와 Relog의 설명은 이래요. 판단은 6프레임마다 한 번(분당 약 240번)인데, 한 번 판단에서 여러 유닛에게 명령을 내리면 게임이 유닛 명령 하나하나를 행동으로 세요. 그래서 숫자가 부풀어요. 사람은 화면을 옮기고, 부대를 고르고, 클릭하는 데 손이 들어요. 플루토는 화면을 옮기지 않고도 맵 양쪽 끝의 유닛에게 같은 순간 명령을 내릴 수 있어요.</p>
+<p>인벤은 이 차이를 ‘불공정한 체급 차이’라고 짚고, 공정한 비교를 위해 APM 제한, 카메라 시야 제한 같은 조건을 제안했어요. 알파스타가 바로 그런 조건을 걸고 겨뤘던 AI예요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>플루토의 APM은 손이 빠르다는 뜻이 아니라 명령이 많다는 뜻이에요. 플루토에겐 손도, 화면도 없어요.</div>
+<h2 id="5-알파스타와-무엇이-다른가">5. 알파스타와 무엇이 다른가</h2>
+<p><strong>2019년 딥마인드의 알파스타는 스타2에서, 사람과 비슷한 화면·행동 제한을 걸고 그랜드마스터에 올랐어요.</strong> 플루토와 나란히 놓으면 이래요(왼쪽 플루토 · 오른쪽 알파스타).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>플루토 · 알파스타</th></tr></thead><tbody><tr><td>게임</td><td>스타1 · 스타2</td></tr><tr><td>만든 곳</td><td>개발자 1명 · 구글 딥마인드 팀</td></tr><tr><td>배운 방법</td><td>자기 대결 강화학습 · 사람 경기 모방 뒤 리그 강화학습</td></tr><tr><td>화면 조건</td><td>BWAPI로 직접 · 사람처럼 카메라 화면</td></tr><tr><td>행동 횟수</td><td>6프레임마다 판단 · 5초에 최대 22번</td></tr><tr><td>공개 방식</td><td>깃허브 실행 파일 · 네이처 논문</td></tr></tbody></table>
+<p>알파스타 수치는 딥마인드 공식 블로그(2019년 10월 30일) 기준이에요. 배틀넷 공식 서버에서, 프로게이머가 인정한 조건으로 겨뤘어요. 2011년부터 스타 AI 대회를 열어 온 데이비드 처칠 교수(캐나다 메모리얼대)는 중앙일보에 플루토를 “내가 본 가장 강한 스타크래프트 AI 봇”이라고 했고, 30명이 넘는 인력이 들어간 알파스타와 달리 개발자 혼자 만들었다는 점을 짚었어요.</p>
+<p>해외 보도는 기존 스타1 봇을 대부분 각본(스크립트) 기반이라고 설명해요. tscmoo도 손으로 짠 전략 여러 개 중 상대별로 잘 통하는 걸 고르는 봇이었어요. 플루토는 경기 운영을 신경망에 맡긴 게 다른 점이에요. 다만 상대별 승패 기록으로 시작 빌드를 고르는 장치는 따로 있다고 README에 적혀 있어요.</p>
+<p><strong>배틀넷 래더 사건은 따로 봐야 해요.</strong> 9월에 누군가 플루토를 리마스터용으로 고쳐 ^333^이라는 계정으로 래더에 올렸고, Larva·Iris 같은 프로들이 졌어요. 해외 보도에 따르면 개발자가 허락한 일이 아니었고, 맵핵 의혹도 나와 커뮤니티가 블리자드에 신고했어요.</p>
+<h2 id="6-한번-시도해-보고-싶은-것">6. 한번 시도해 보고 싶은 것</h2>
+<p><strong>플루토 영상은 늘 사람 쪽 화면이에요. 그래서 AI 쪽 화면을 보여 주는 걸 한번 시도해 보려고 해요.</strong> 플루토가 명령을 내린 곳으로 화면이 넘어가고, 클릭 표시와 드래그 상자가 그려지는 화면이에요. 다만 플루토에겐 마우스가 없으니, 명령 기록으로 ‘재구성한 AI 시점’이 돼요.</p>
+<p>미리 검토해 보니 <strong>부분적으로 가능해요.</strong> BWAPI에는 화면 위치를 옮기는 함수와 화면에 도형을 그리는 함수가 있고, 리플레이에는 명령과 좌표가 남아요. 다만 1분에 수백 번 명령하는 AI를 그대로 따라가면 화면이 정신없이 날아다녀서, 머무는 시간과 우선순위를 정하는 규칙이 핵심이에요. 잘될지는 해 봐야 알겠지만, 한번 시도해 볼 생각이에요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 신경망 하나, 자기 대결로 배운 스타1 AI<br>② 노르웨이 개발자 1명, 깃허브에 실행 파일 공개<br>③ 화면·마우스 없이 BWAPI로 0.25초마다 판단<br>④ APM 1,000은 손이 아니라 명령의 수</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 플루토와 직접 붙어 볼 수 있나요?</summary><p>깃허브 릴리스를 받아 스타1 1.16.1과 BWAPI 4.4.0을 갖춘 PC에서 돌려요. 리마스터 배틀넷이 아니라 구버전 로컬 환경이에요. 무단으로 래더에 올렸다가 문제가 된 사례가 있으니 배틀넷에는 올리지 마세요.</p></details>
+<details class="faq"><summary>Q. 플루토는 맵핵을 쓰나요?</summary><p>깃허브 README에는 시야에 대한 설명이 없어요. 맵핵 의혹은 래더에 올라간 무단 수정판 이야기이고, Relog는 원래 모델이 일반 시야(전장의 안개) 정보로만 학습했다고 전했어요.</p></details>
+<details class="faq"><summary>Q. 알파고처럼 사람 기보로 배웠나요?</summary><p>아니요. README는 자기 대결 강화학습이라고 적었고, 중앙일보도 프로 경기를 먼저 익힌 알파고와 다르다고 소개했어요. 학습 규모는 공개되지 않았어요.</p></details>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>플루토 깃허브 저장소(README·릴리스) · <a href="https://github.com/tscmoo/pluto">github.com/tscmoo/pluto</a></li>
+<li>BWAPI 공식 문서 · bwapi.github.io</li>
+<li>딥마인드 알파스타 발표(2019) · deepmind.google</li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 7일 · 같은 날 기준<br>깃허브 README·릴리스와 국내외 보도 기준<br>직접 대결해 본 후기 아님<br>영상·기사 화면은 싣지 않음<br>제휴 없음 · 블리자드·개발자와 관계없음<br>캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<h2 id="부록-출처-전체-2026-10-07-확인">부록: 출처 전체 (2026-10-07 확인)</h2>
+<ul>
+<li><a href="https://github.com/tscmoo/pluto">플루토 깃허브 저장소 README</a> · <a href="https://github.com/tscmoo/pluto/releases">릴리스</a> — 7월 17일 베타(beta-2247200, NVIDIA GPU), 9월 23일 ‘Pluto — CoG 2026 entry’(CPU, 3억 1,500만 파라미터 int8)</li>
+<li><a href="https://v.daum.net/v/7Yh7k6Srh8">중앙일보 팩플, 2026-10-01</a> — 김성현 선수 영상 230만 회, 대회 2,884전 2,844승, 개발자, 처칠 교수 평가</li>
+<li><a href="https://www.inven.co.kr/webzine/news/?news=321774">인벤, 2026-10-05</a> — 공정성 논쟁, APM·카메라 시야 제한 제안</li>
+<li><a href="https://www.gametoc.co.kr/news/articleView.html?idxno=111788">게임톡, 2026-09-26</a> — 전 프로 출신 스트리머 대결, 허점 관찰</li>
+<li><a href="https://www.artivenews.co.kr/news/articleView.html?idxno=3773">아티브뉴스, 2026-10-06</a> — 설치 요구 사항, 한 PC 두 클라이언트 대전 방법</li>
+<li><a href="https://www.dexerto.com/gaming/ai-bot-destroys-top-starcraft-pros-after-invading-ladder-and-using-absurd-strategies-3410863/">Dexerto, 2026-09-21</a> · <a href="https://relog.gg/razno/vesti/AI-Bot-Pluto-Invades-StarCraft-Ladder-and-Defeats-Professional-Players/1695?lang=2">Relog, 2026-09-23</a> — 결승 4대 1, 래더 무단 등록 사건, APM이 부풀어 보이는 이유</li>
+<li><a href="https://osen.co.kr/article/G1110985163">OSEN, 2018-09-08</a> — 김성현 선수 KSL 시즌1 우승</li>
+<li><a href="https://www.slideshare.net/slideshow/starcraft-2016/66331021">2016 IEEE CIG 스타크래프트 AI 대회 자료</a> · <a href="https://www.satirist.org/learn-game/systems/starcraft/">satirist.org 봇 목록</a> — tscmoo 제작자와 대회 기록</li>
+<li><a href="https://bwapi.github.io/class_b_w_a_p_i_1_1_game.html">BWAPI 문서 — Game</a> — 프레임당 42ms(가장 빠름), 화면 위치·그리기 함수</li>
+<li><a href="https://deepmind.google/discover/blog/alphastar-grandmaster-level-in-starcraft-ii-using-multi-agent-reinforcement-learning/">딥마인드 알파스타 발표, 2019-10-30</a></li>
+</ul> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> </body> </html> 
