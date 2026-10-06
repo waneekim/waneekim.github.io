@@ -1,82 +1,148 @@
-<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Claude Code 사용법 — 설치 다음에 알아야 할 것 전부 (실사용 머신 기준)</title><meta name="description" content="Claude Code로 실제 일을 시키는 방법. 기본 사용 흐름, CLAUDE.md, 계획 모드, 권한 관리, 자주 쓰는 슬래시 명령까지 — 블로그 운영 시스템을 통째로 맡기고 있는 머신 기준으로 정리했다."><meta property="og:title" content="Claude Code 사용법 — 설치 다음에 알아야 할 것 전부 (실사용 머신 기준)"><meta property="og:description" content="Claude Code로 실제 일을 시키는 방법. 기본 사용 흐름, CLAUDE.md, 계획 모드, 권한 관리, 자주 쓰는 슬래시 명령까지 — 블로그 운영 시스템을 통째로 맡기고 있는 머신 기준으로 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><style>:root{--ink: #1c2b33;--sub: #5c7079;--line: #e3e9ec;--accent: #0b7f99;--bg: #fffdf9}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,Noto Sans KR,Apple SD Gothic Neo,Malgun Gothic,system-ui,sans-serif;line-height:1.75;word-break:keep-all}header.site{border-bottom:1px solid var(--line);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap}header.site .brand{color:var(--ink);font-weight:800;letter-spacing:-.02em;text-decoration:none}header.site .brand b{color:var(--accent)}nav.sites{display:flex;gap:6px;flex-wrap:wrap;font-size:.86rem}nav.sites a{padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--sub);text-decoration:none;font-weight:600;background:#fff;white-space:nowrap}nav.sites a:hover{color:var(--ink);border-color:#c9d4d8}nav.sites a.on{color:#fff;background:var(--accent);border-color:var(--accent)}nav.sites a.t:hover{color:#d97730;border-color:#ecc9a8}main{max-width:44rem;margin:0 auto;padding:40px 20px 80px}h1{font-size:1.9rem;line-height:1.3;letter-spacing:-.03em}h2{margin-top:2.4em;font-size:1.35rem;letter-spacing:-.02em}a{color:var(--accent)}img{max-width:100%;height:auto;border-radius:12px}img[src*=char-]{display:block;max-width:170px;margin:0 auto}img[src*=screenshot-]{display:block;max-width:min(400px,100%);margin:1.4em auto;border:1px solid var(--line);box-shadow:0 8px 26px #1430471a}table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border:1px solid var(--line);padding:8px 10px;text-align:left}th{background:#f4f8f9}blockquote{margin:1.2em 0;border-left:4px solid var(--accent);padding:4px 18px;color:var(--sub);background:#f4fafb;border-radius:0 10px 10px 0}hr{border:0;border-top:1px solid var(--line);margin:2.5em 0}footer.site{border-top:1px solid var(--line);padding:26px 20px 40px;color:var(--sub);font-size:.85rem;text-align:center}.meta{color:var(--sub);font-size:.9rem}footer.site nav.legal{margin-top:12px}footer.site nav.legal a{color:var(--sub)}
-.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
-</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 9월 6일 기준</p> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="claude-code-사용법--설치-다음에-알아야-할-것-전부-실사용-머신-기준">Claude Code 사용법 — 설치 다음에 알아야 할 것 전부 (실사용 머신 기준)</h1>
-<p><img alt="터미널을 조종하는 캐릭터 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="720" height="720" src="/_astro/char-terminal-pilot.BJr4yhav_Z1lIBFp.webp" ></p>
-<p><a href="/posts/20260905-claude-code-install-windows/">설치</a>를 마쳤다면 이제 진짜 질문이 남는다 — <strong>“그래서 뭘 어떻게 시키지?”</strong> 이 글은 기능 목록 번역이 아니다. 지금 이 블로그의 발행 시스템 전체(사이트 배포, 이미지 생성, 브라우저 자동화)를 Claude Code에 맡겨 굴리고 있는 머신에서, 매일 쓰는 것만 추려 정리했다.</p>
-<h2 id="결론-요약">결론 요약</h2>
-<ul>
-<li>사용법의 본질은 명령어 암기가 아니라 <strong>“일 시키는 방식”</strong>이다: 목표를 말하고 → 계획을 확인하고 → 결과를 검증한다</li>
-<li>꼭 알아야 할 것 3가지: <strong>CLAUDE.md</strong>(프로젝트 규칙 파일), <strong>계획 모드</strong>(실행 전 검토), <strong>권한 프롬프트</strong>(위험한 작업은 물어봄)</li>
-<li>슬래시 명령은 <code>/help</code>부터 — 다 외울 필요 없다</li>
-</ul>
-<h2 id="-1-기본-흐름-폴더에서-열고-말로-시킨다">🚀 1. 기본 흐름: 폴더에서 열고, 말로 시킨다</h2>
-<p>Claude Code는 <strong>프로젝트 폴더 안에서</strong> 실행하는 도구다. 터미널에서:</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">cd 내</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">프로젝트</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">폴더</span></span>
-<span class="line"><span style="color:#E1E4E8">claude</span></span></code></pre>
-<p>이게 전부다. 이후는 채팅처럼 한국어로 시키면 된다. 실제로 이 저장소에서 내가 입력했던 요청들이다:</p>
-<ul>
-<li>“이 저장소 구조를 파악하고 실행 계획 문서를 만들어줘”</li>
-<li>“빌드 결과만 공개 저장소로 배포하는 스크립트를 만들어줘”</li>
-<li>“방금 만든 글을 사이트에 배포해줘”</li>
-</ul>
-<p>핵심 감각은 하나다. <strong>파일을 어떻게 고칠지가 아니라, 뭐가 되어 있어야 하는지를 말한다.</strong> 파일 탐색, 코드 수정, 명령 실행은 Claude Code가 알아서 한다.</p>
-<p><img alt="Claude Code 작업 루프 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1280" src="/_astro/diagram-usage-loop.D-lJ8N2a_EHok4.webp" ></p>
-<h2 id="-2-claudemd--한-번-적으면-계속-지켜지는-규칙">📝 2. CLAUDE.md — 한 번 적으면 계속 지켜지는 규칙</h2>
-<p>프로젝트 루트에 <code>CLAUDE.md</code> 파일을 만들면 Claude Code가 매 세션 시작 때 자동으로 읽는다. 반복 설명이 사라지는 지점이 여기다.</p>
-<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="markdown"><code><span class="line"><span style="color:#79B8FF;font-weight:bold"># CLAUDE.md 예시</span></span>
-<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> 커밋 메시지에 큰따옴표를 넣지 말 것 (PowerShell 인자 분리 문제)</span></span>
-<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> 비밀 값(.env)은 어떤 로그에도 출력하지 말 것</span></span>
-<span class="line"><span style="color:#FFAB70">-</span><span style="color:#E1E4E8"> 문서는 한국어로 작성</span></span></code></pre>
-<p>내 경험상 이 파일의 가치는 <strong>실수를 반복하지 않게 만드는 것</strong>이다. 같은 지적을 두 번 하게 됐다면 그 내용은 CLAUDE.md로 가야 한다.</p>
-<h2 id="️-3-계획-모드--큰-작업은-실행-전에-계획부터-받는다">🗺️ 3. 계획 모드 — 큰 작업은 실행 전에 계획부터 받는다</h2>
-<p>작은 수정이야 바로 시켜도 되지만, 구조를 바꾸는 작업은 <strong>계획 모드</strong>를 쓰자. Shift+Tab으로 모드를 전환하면 Claude Code가 파일을 고치지 않고 <strong>계획만 세워서 승인을 요청</strong>한다. 계획을 읽고 승인하면 그때 실행한다.</p>
-<p>이 블로그 시스템의 뼈대(디렉터리 구조, 발행 파이프라인)도 이 방식으로 만들었다 — 계획 문서를 먼저 받아 검토하고, 방향이 맞을 때 실행시켰다. <strong>되돌리기 어려운 작업일수록 계획 모드</strong>라고 기억하면 된다.</p>
-<h2 id="-4-권한-프롬프트--위험한-건-물어보고-한다">🔒 4. 권한 프롬프트 — 위험한 건 물어보고 한다</h2>
-<p>Claude Code는 파일 수정이나 명령 실행 전에 승인을 요청한다. 처음엔 귀찮게 느껴질 수 있는데, 쓰다 보면 이게 <strong>안심하고 맡길 수 있는 이유</strong>라는 걸 알게 된다. 매번 승인이 번거로우면 세션 안에서 “이 도구는 계속 허용”을 선택할 수 있다.</p>
-<p>내 운영 원칙은 단순하다: <strong>읽기·검색은 자유롭게, 쓰기·실행은 프롬프트로, 외부 발행(배포·게시)은 반드시 내가 승인.</strong> 이 원칙 덕에 블로그 발행 시스템 전체를 맡기면서도 사고가 없었다.</p>
-<h2 id="️-5-매일-쓰는-명령조작-6가지">⌨️ 5. 매일 쓰는 명령·조작 6가지</h2>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<table><thead><tr><th>조작</th><th>하는 일</th></tr></thead><tbody><tr><td><code>/help</code></td><td>명령 목록 — 모르면 이것부터</td></tr><tr><td><code>/clear</code></td><td>대화 초기화 (새 작업 시작할 때)</td></tr><tr><td><code>/compact</code></td><td>대화 요약 압축 (긴 세션에서 맥락 유지)</td></tr><tr><td><code>Esc</code></td><td>진행 중인 작업 중단</td></tr><tr><td><code>@파일명</code></td><td>특정 파일을 대화에 첨부</td></tr><tr><td><code>!명령어</code></td><td>셸 명령을 직접 실행 (예: <code>!git status</code>)</td></tr></tbody></table>
-<p>⚠️ 단축키·명령은 버전에 따라 바뀔 수 있다. <code>/help</code>가 항상 현재 버전의 정답이다.</p>
-<h2 id="-6-잘-시키는-요령--내가-배운-것-3가지">💡 6. 잘 시키는 요령 — 내가 배운 것 3가지</h2>
-<p><strong>① 검증 기준을 같이 준다.</strong> “스크립트 만들어줘”보다 “만들고 실행해서 결과 URL이 열리는 것까지 확인해줘”가 훨씬 좋은 결과를 낸다. Claude Code는 실행·확인까지 할 수 있는 도구라서, 검증을 요청에 포함하면 스스로 오류를 잡는다.</p>
-<p><strong>② 실수는 규칙으로 만든다.</strong> 잘못한 걸 발견하면 그 자리에서 고치라고 하고, 같은 실수가 반복되지 않도록 CLAUDE.md에 적게 한다.</p>
-<p><strong>③ 긴 작업은 중간 보고를 시킨다.</strong> “각 단계가 끝날 때마다 결과를 알려줘”라고 하면 방향이 어긋나기 전에 잡을 수 있다.</p>
-<h2 id="-7-다음-단계">🚀 7. 다음 단계</h2>
-<p>사용법을 익혔다면 이제 “어디까지 맡길 수 있는지”가 궁금할 것이다. 나는 블로그 운영 시스템 전체를 맡기는 실험을 진행 중이고, 그 기록이 이 블로그다: <a href="/posts/20260905-vibe-coding-guide/">바이브 코딩이 뭐길래</a> · 도구 선택이 고민이라면: <a href="/posts/20260905-chatgpt-plus-vs-claude-pro/">ChatGPT Plus vs Claude Pro</a></p>
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>클로드 코드 사용법, 설치 다음에 꼭 알아야 할 6가지</title><meta name="description" content="Claude Code로 실제 일을 시키는 방법. 기본 사용 흐름, CLAUDE.md, 계획 모드, 권한 관리, 자주 쓰는 슬래시 명령까지 — 블로그 운영 시스템을 통째로 맡기고 있는 머신 기준으로 정리했다."><meta property="og:title" content="클로드 코드 사용법, 설치 다음에 꼭 알아야 할 6가지"><meta property="og:description" content="Claude Code로 실제 일을 시키는 방법. 기본 사용 흐름, CLAUDE.md, 계획 모드, 권한 관리, 자주 쓰는 슬래시 명령까지 — 블로그 운영 시스템을 통째로 맡기고 있는 머신 기준으로 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.CsFaEZNd.css">
+<style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
+</style></head> <body> <header class="site"> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 6일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-폴더에서-켜고-말로-시키기" data-astro-cid-lvjzyg5v>1. 폴더에서 켜고, 말로 시키기</a></li><li data-astro-cid-lvjzyg5v><a href="#2-claudemd로-규칙-남기기" data-astro-cid-lvjzyg5v>2. CLAUDE.md로 규칙 남기기</a></li><li data-astro-cid-lvjzyg5v><a href="#3-큰-작업은-계획-모드로" data-astro-cid-lvjzyg5v>3. 큰 작업은 계획 모드로</a></li><li data-astro-cid-lvjzyg5v><a href="#4-권한-승인-기준-정하기" data-astro-cid-lvjzyg5v>4. 권한 승인 기준 정하기</a></li><li data-astro-cid-lvjzyg5v><a href="#5-매일-쓰는-명령-6개" data-astro-cid-lvjzyg5v>5. 매일 쓰는 명령 6개</a></li><li data-astro-cid-lvjzyg5v><a href="#6-잘-시키는-요령-3가지" data-astro-cid-lvjzyg5v>6. 잘 시키는 요령 3가지</a></li><li data-astro-cid-lvjzyg5v><a href="#막힐-때" data-astro-cid-lvjzyg5v>막힐 때</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없습니다.</blockquote> <h1 id="클로드-코드-사용법-설치-다음에-꼭-알아야-할-6가지">클로드 코드 사용법, 설치 다음에 꼭 알아야 할 6가지</h1>
+<p><img alt="클로드 코드 사용법 — 설치 다음에 꼭 알아야 할 6가지 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.BniqLQF7_Z10ICvL.webp" ></p>
+<p class="cap">클로드 코드 사용법 — 설치 다음에 꼭 알아야 할 6가지 (캐릭터는 GPT 이미지 생성)</p>
+<p>클로드 코드를 설치하고 나면 이 질문에서 멈추게 돼요. “그래서 뭘 어떻게 시키지?” 명령어 목록부터 외워야 하나 싶지만, 그럴 필요는 없어요.</p>
+<p>클로드 코드는 말귀 밝은 신입 동료와 비슷해요. 할 일을 말하면 계획을 세우고, 위험한 일은 결재를 받게 할 수 있고, 시키면 확인까지 해요.<br>
+<strong>사용법의 핵심은 명령어가 아니라 일을 맡기는 순서예요.</strong></p>
+<p><img alt="새 동료에게 업무 매뉴얼을 건네는 장면 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-coworker.Wcws-vjJ_1rOyx0.webp" ></p>
+<p class="cap">새 동료에게 업무 매뉴얼을 건네는 장면 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 클로드 코드를 막 설치한 분<br>① 폴더에서 켜고 말로 시키는 기본 흐름<br>② CLAUDE.md · 계획 모드 · 권한 승인<br>③ 매일 쓰는 명령 6개와 잘 시키는 요령<br>준비물: 설치한 클로드 코드 · 작업할 폴더<br>2026년 10월 기준 · Windows 11 · 2.1.268</div>
 <hr>
-<p><em>이 머신 기준: Windows 11, Claude Code 2.x (2026-09-06). 기능·단축키는 업데이트로 바뀔 수 있으니 공식 문서(code.claude.com/docs)와 <code>/help</code>를 함께 확인하자. 다이어그램은 직접 제작, 캐릭터 삽화는 GPT 이미지 생성입니다.</em></p> </article> </main> <footer class="site">
+<h2 id="1-폴더에서-켜고-말로-시키기">1. 폴더에서 켜고, 말로 시키기</h2>
+<p><strong>클로드 코드는 작업할 폴더 안에서 켜고, 할 일을 한국어로 말하면 돼요.</strong> 파일을 찾고 고치고 명령을 실행하는 일은 클로드 코드가 알아서 해요.</p>
+<ol class="steps"><li>터미널을 열고 <code>cd</code> 명령으로 작업할 프로젝트 폴더에 들어가세요.<span class="then">→ 입력 줄 맨 앞에 그 폴더 경로가 보여요.</span></li><li>아래 두 줄을 한 줄씩 입력하세요.</li></ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="powershell"><code><span class="line"><span style="color:#E1E4E8">claude </span><span style="color:#F97583">--</span><span style="color:#E1E4E8">version</span></span>
+<span class="line"><span style="color:#E1E4E8">claude</span></span></code></pre>
+<p>→ 첫 줄은 설치된 버전을 보여 줘요. 이 머신에서는 <code>2.1.268</code>이 떠요.<br>
+→ 둘째 줄로 클로드 코드가 켜지면, 그다음부터는 채팅하듯 한국어로 시키면 돼요.</p>
+<p>제가 이 블로그 저장소에서 실제로 입력했던 요청이에요.</p>
+<p class="plabel">📋 그대로 복사해 쓰세요</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>이 저장소 구조를 파악하고 실행 계획 문서를 만들어줘</span></span></code></pre>
+<p><strong>파일을 어떻게 고칠지가 아니라, 무엇이 되어 있어야 하는지를 말하세요.</strong> “방금 만든 글을 사이트에 배포해줘”처럼 결과만 말해도 실제로 일이 돌아갔어요.</p>
+<p><img alt="클로드 코드에 일을 맡기는 순서 — 목표 말하기, 계획 확인, 실행, 결과 확인, 다듬기 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="3120" src="/_astro/diagram-usage-loop.BdikUOz9_ZxY7uM.webp" ></p>
+<p class="cap">클로드 코드에 일을 맡기는 순서 — 목표 말하기, 계획 확인, 실행, 결과 확인, 다듬기 (직접 제작)</p>
+<h2 id="2-claudemd로-규칙-남기기">2. CLAUDE.md로 규칙 남기기</h2>
+<p><strong>프로젝트 폴더 맨 위에 CLAUDE.md 파일을 두면, 클로드 코드가 세션을 시작할 때마다 읽어요.</strong> 신입 동료에게 건네는 업무 매뉴얼이라고 보면 돼요. 같은 설명을 매번 되풀이하지 않아도 돼요.</p>
+<p class="plabel">CLAUDE.md 규칙 예시</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>커밋 메시지에 큰따옴표를 넣지 말 것 (PowerShell 인자 분리 문제)</span></span>
+<span class="line"><span>비밀 값(.env)은 어떤 로그에도 출력하지 말 것</span></span>
+<span class="line"><span>문서는 한국어로 작성</span></span></code></pre>
+<p>써 보니 이 파일은 같은 실수를 되풀이하지 않게 만드는 데 가장 쓸모 있었어요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>같은 지적을 두 번 했다면, 그 내용은 CLAUDE.md에 적어 두세요.</div>
+<h2 id="3-큰-작업은-계획-모드로">3. 큰 작업은 계획 모드로</h2>
+<p><strong>구조를 바꾸는 큰 작업은 계획 모드(plan mode)에서 계획부터 받으세요.</strong> 작은 수정은 바로 시켜도 되지만, 계획 모드에서는 파일을 고치지 않고 계획만 세워 승인을 받아요.</p>
+<ol class="steps"><li>입력 칸에서 <code>Shift+Tab</code>을 누르세요.<span class="then">→ 누를 때마다 권한 모드가 바뀌어요. 상태 줄에 <code>plan mode on</code>이 보이면 계획 모드예요.</span></li><li>할 일을 평소처럼 말하세요.<span class="then">→ 파일은 그대로 두고, 무엇을 어떻게 바꿀지 계획을 보여 줘요.</span></li><li>계획을 읽고 방향이 맞으면 승인하세요.<span class="then">→ 그때부터 실제로 파일을 고쳐요.</span></li></ol>
+<p>이 블로그 시스템의 뼈대도 이렇게 만들었어요. 계획 문서를 먼저 받아 검토하고, 방향이 맞을 때 실행시켰어요. <mark>되돌리기 어려운 작업일수록 계획 모드</mark>라고 기억하세요.</p>
+<h2 id="4-권한-승인-기준-정하기">4. 권한 승인 기준 정하기</h2>
+<p><strong>수동(Manual) 모드에서 클로드 코드는 파일을 고치거나 명령을 실행하기 전에 승인을 요청해요.</strong> 처음엔 귀찮게 느껴지지만, 쓰다 보면 이 승인 단계가 안심하고 맡길 수 있는 이유예요.</p>
+<p>다만 버전과 요금제에 따라 처음부터 자동(auto) 모드로 켜지기도 해요. 자동 모드에서는 사람 대신 검사용 모델이 작업을 살피고, 위험해 보이는 것만 막아요. 하나하나 직접 승인하고 싶다면 <code>Shift+Tab</code>으로 모드를 바꾸세요.</p>
+<p><img alt="신입 동료가 위험한 일 앞에서 결재를 받으러 오는 장면 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-approval.B1hN8rGI_AlO1K.webp" ></p>
+<p class="cap">신입 동료가 위험한 일 앞에서 결재를 받으러 오는 장면 (GPT 이미지 생성)</p>
+<p>제 운영 원칙은 세 줄이에요.<br>
+<strong>읽기·검색</strong> — 자유롭게 맡겨요.<br>
+<strong>쓰기·실행</strong> — 자동 모드로 맡겨요. 위험해 보이는 건 검사 모델이 막아요.<br>
+<strong>외부 발행(배포·게시)</strong> — 규칙을 정해 두고 맡겨요.</p>
+<p>발행도 처음엔 매번 직접 승인했어요. 손에 익은 뒤에 ‘하루 1편씩 발행 큐로’, ‘발행 전 자동 검사’ 같은 규칙을 정하고 맡겼어요. 새 채널에 처음 올리는 글은 지금도 화면을 보고 직접 승인하고, 커밋은 제가 시킬 때만 해요.</p>
+<p>수동 모드로 쓰면서 매번 승인하기 번거로우면, 승인 창에서 ‘다시 묻지 않기(don’t ask again)‘를 고를 수 있어요. 파일 수정은 그 세션이 끝날 때까지, 셸 명령은 그 저장소에서 계속 다시 묻지 않아요.</p>
+<p>사고가 없지는 않았어요. 한 번은 자동화가 엉뚱한 편집 창의 글을 발행해서 바로 되돌렸어요. 그 뒤로 발행 전에 편집 창이 하나뿐인지부터 확인하게 했어요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>배포·게시 명령에는 '다시 묻지 않기'를 고르지 마세요. 셸 명령 허용은 세션이 끝나도 그 저장소에 남아요.</div>
+<h2 id="5-매일-쓰는-명령-6개">5. 매일 쓰는 명령 6개</h2>
+<p><strong>매일 쓰는 건 아래 여섯 개예요. 다 외울 필요는 없어요.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>입력</th><th>하는 일</th></tr></thead><tbody><tr><td><code>/help</code></td><td>명령 목록 보기 — 모르면 이것부터</td></tr><tr><td><code>/clear</code></td><td>대화 비우기 — 새 작업을 시작할 때</td></tr><tr><td><code>/compact</code></td><td>대화 요약 압축 — 긴 작업에서 맥락 유지</td></tr><tr><td><code>Esc</code></td><td>진행 중인 작업 멈추기</td></tr><tr><td><code>@파일명</code></td><td>특정 파일을 대화에 불러오기</td></tr><tr><td><code>!명령어</code></td><td>셸 명령 바로 실행 (예: !git status)</td></tr></tbody></table>
+<p>단축키와 명령은 버전에 따라 바뀔 수 있어요. <strong>/help가 늘 지금 버전의 정답이에요.</strong> 위 여섯 개는 공식 문서(2026년 10월 6일 확인)와 대조했어요.</p>
+<h2 id="6-잘-시키는-요령-3가지">6. 잘 시키는 요령 3가지</h2>
+<p><strong>첫째, 검증 기준을 같이 주세요.</strong> 클로드 코드는 실행하고 확인까지 할 수 있어서, 검증을 요청에 넣으면 스스로 오류를 잡아요.</p>
+<p class="plabel">❌ 이렇게 말고</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>스크립트 만들어줘</span></span></code></pre>
+<p>무엇이 되면 끝인지가 빠져 있어요.</p>
+<p class="plabel">⭕ 이렇게</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>스크립트를 만들고 실행해서, 결과 URL이 열리는 것까지 확인해줘</span></span></code></pre>
+<p>제가 써 보니 <mark>검증을 요청에 넣는 것</mark>만으로도 결과가 훨씬 좋아졌어요.</p>
+<p><strong>둘째, 실수는 규칙으로 만드세요.</strong> 잘못한 걸 발견하면 그 자리에서 고치게 하고, 같은 실수가 다시 나오지 않도록 CLAUDE.md에 적게 하세요.</p>
+<p><strong>셋째, 긴 작업은 중간 보고를 시키세요.</strong> 요청 끝에 이 한 줄을 붙이면, 방향이 어긋나기 전에 잡을 수 있어요.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>각 단계가 끝날 때마다 결과를 알려줘</span></span></code></pre>
+<h2 id="막힐-때">막힐 때</h2>
+<p><strong>작업이 엉뚱한 방향으로 가요</strong><br>
+원인: 대개 중간에 확인할 지점 없이 긴 작업을 한 번에 맡겼을 때예요.<br>
+해결: <code>Esc</code>로 멈추세요. 그때까지 한 작업은 남아 있어요. 방향을 다시 말하고, 큰 작업이면 계획 모드로 계획부터 받으세요.</p>
+<p><strong>대화가 길어지니 앞에서 정한 내용을 놓쳐요</strong><br>
+원인: 대화가 쌓여 맥락 창이 차면 앞에서 한 지시를 놓치기 쉬워요.<br>
+해결: <code>/compact</code>로 대화를 요약해 줄이세요. 아예 다른 작업이면 <code>/clear</code>로 새로 시작하세요.</p>
+<p><strong>승인 요청이 너무 자주 떠요</strong><br>
+원인: 수동 모드는 파일 수정과 명령 실행마다 승인을 물어요.<br>
+해결: 자주 하는 작업은 승인 창에서 ‘다시 묻지 않기’를 고르세요. 배포·게시 명령은 빼고요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 폴더에서 켜고, 결과를 말로 시켜요<br>② 반복되는 지적은 CLAUDE.md에 적어요<br>③ 큰 작업은 계획 모드로 계획부터 받아요<br>④ 밖으로 나가는 일은 처음엔 직접 승인해요</div>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 명령어를 다 외워야 하나요?</summary><p>아니요. 매일 쓰는 건 5번의 여섯 개 정도이고, 모르는 건 /help가 지금 버전 기준으로 알려 줘요.</p></details>
+<details class="faq"><summary>Q. 한국어로 시켜도 되나요?</summary><p>네. 1번의 두 요청은 제가 실제로 한국어로 입력한 그대로예요. CLAUDE.md에 '문서는 한국어로 작성'처럼 적어 두면, 매번 말하지 않아도 세션마다 그 규칙을 읽고 시작해요.</p></details>
+<details class="faq"><summary>Q. 코드를 몰라도 시킬 수 있나요?</summary><p>무엇이 되어 있어야 하는지를 말하면, 파일 탐색과 코드 수정과 명령 실행은 클로드 코드가 해요. 결과를 확인하고, 밖으로 내보내는 규칙을 정하는 건 사람이 해요.</p></details>
+<details class="faq"><summary>Q. 계획 모드는 언제 쓰나요?</summary><p>구조를 바꾸거나 되돌리기 어려운 작업일 때요. 작은 수정은 바로 시켜도 돼요.</p></details>
+<p>다음 글에서는 CLAUDE.md 같은 ‘부탁’ 대신, 정해진 시점에 무조건 실행되는 규칙인 훅(hooks)을 다뤄요.</p>
+<p class="nextpost">→ <a href="/posts/20260907-claude-code-hooks/">Claude Code 훅(hooks) 활용법 — AI에게 부탁하지 말고 규칙으로 거세요</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>Claude Code 공식 문서 — 대화형 모드(단축키) · <a href="https://code.claude.com/docs/en/interactive-mode">code.claude.com/docs/en/interactive-mode</a></li>
+<li>Claude Code 공식 문서 — 권한 모드 · <a href="https://code.claude.com/docs/en/permission-modes">code.claude.com/docs/en/permission-modes</a></li>
+<li>Claude Code 공식 문서 — CLAUDE.md · <a href="https://code.claude.com/docs/en/memory">code.claude.com/docs/en/memory</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 발행 2026년 9월 6일<br>다시 확인·수정 2026년 10월 6일<br>이 블로그를 클로드 코드로 운영하며 매일 쓰는 것만<br>Windows 11 · 2.1.268 · 공식 문서와 대조<br>제휴 없음 · 캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260905-claude-code-install-windows/">Windows에 Claude Code 설치하기</a> · <a href="/posts/20260905-vibe-coding-guide/">바이브 코딩이 뭐길래</a> · <a href="/posts/20260905-chatgpt-plus-vs-claude-pro/">ChatGPT Plus vs Claude Pro</a></p> </article> </main> <footer class="site">
 직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
-<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> </body></html> 
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> </body> </html> 
