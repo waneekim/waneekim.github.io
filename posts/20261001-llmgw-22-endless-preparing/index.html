@@ -75,7 +75,7 @@
 <table><thead><tr><th>상태</th><th>언제</th></tr></thead><tbody><tr><td>준비 완료</td><td>데워져 있어 바로 대답할 때 — 살아 있는 세션이 있는 모델</td></tr><tr><td>워밍업 중</td><td>지금 실제로 데우는 일이 돌고 있을 때만</td></tr><tr><td>실패</td><td>오류나 시간 초과 — 이유를 함께 보여 줌</td></tr><tr><td>준비 전</td><td>진행 중인 일 없음 — 첫 요청이 오면 그때 데움</td></tr></tbody></table>
 <p>Codex도 쉬는 동안 앱 서버가 내려가 있으면 ‘준비 전’이에요. 앱 서버를 켜는 중일 때만 ‘워밍업 중’이고요. 화면도 이제 언제나 끝나요. 전부 데워져 있으면 ‘준비 완료’, 일부만이면 ‘사용 가능 — n/m warm · k개는 첫 요청 시 자동 워밍업’이라고 써요. 경고 색은 진짜 실패가 있을 때만이에요.</p>
 <p>릴리스 노트는 이 수정이 표시의 약속만 고친 것이라고 적었어요. 요청을 어디로 보내는지, 언제 데우는지는 그대로이고 바뀐 건 화면이 하는 말뿐이에요. 틀린 정답을 지키던 검사는 ‘준비 전’으로 고쳤고, ‘준비 전’을 확인하는 검사도 더했어요.</p>
-<p><img alt="준비 표시의 상태 — 끝이 없던 전과, 어느 길로 가도 끝 상태에 닿는 후 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1840" src="/_astro/diagram-terminal-states.C9wsKSUL_2cRC53.webp" ></p>
+<p><img alt="준비 표시의 상태 — 끝이 없던 전과, 어느 길로 가도 끝 상태에 닿는 후 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="5480" src="/_astro/diagram-terminal-states.CEkjQSUb_Z1U5EJD.webp" ></p>
 <p class="cap">준비 표시의 상태 — 끝이 없던 전과, 어느 길로 가도 끝 상태에 닿는 후 (직접 제작)</p>
 <h2 id="6-같은-병-적용-중에-멈춘-업데이트">6. 같은 병: ‘적용 중’에 멈춘 업데이트</h2>
 <p><strong>끝나지 않는 표시는 워밍업에만 생기지 않았어요.</strong> 9월 29일 v0.1.108의 기록은 자동 업데이트 이야기예요. 새 버전을 찾고 내려받기까지 했는데, 설치가 진행되지 않고 ‘적용 중’에서 멈췄어요.</p>

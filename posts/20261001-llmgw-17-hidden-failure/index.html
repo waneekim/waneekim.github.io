@@ -75,7 +75,7 @@
 
 <table><thead><tr><th>위장된 안내</th><th>중계기가 돌려주는 것</th></tr></thead><tbody><tr><td>로그인 만료 (7월 15일 · v0.1.30)</td><td>인증 실패(401) 갈래의 오류 — 다시 로그인 안내, 다시 시도하지 않음</td></tr><tr><td>사용 한도 소진 (9월 15일 · v0.1.96)</td><td>429 사용 한도 소진(insufficient_quota) — 10분 뒤 다시, 켜 둔 세션은 유지</td></tr></tbody></table>
 <p>한도 문구는 <strong>600자 이하</strong>의 짧은 답에서만 오류로 바꿔요. 연결 확인(“ok라고만 답해 줘”)이 이 안내로 돌아오면 연결은 성공으로 두고 경고 표시만 붙여요. 켜 둔 세션은 버리지 않고, 다시 해 보지도 않아요. 다시 해도 같은 안내가 올 뿐이라, 코드 메모 그대로 “정직하게 실패”하게 했어요. 이날 붙인 시험은 <strong>4개</strong>예요.</p>
-<p><img alt="성공 응답 속 실패 안내를 열어 보고 제 이름(로그인 필요 · 429 사용 한도 소진)을 붙여 돌려주는 중계기 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2400" height="1580" src="/_astro/diagram-hidden-failure.GZCWGueK_Z1FH6gm.webp" ></p>
+<p><img alt="성공 응답 속 실패 안내를 열어 보고 제 이름(로그인 필요 · 429 사용 한도 소진)을 붙여 돌려주는 중계기 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="5480" src="/_astro/diagram-hidden-failure.D0J2iiwc_21jPMt.webp" ></p>
 <p class="cap">성공 응답 속 실패 안내를 열어 보고 제 이름(로그인 필요 · 429 사용 한도 소진)을 붙여 돌려주는 중계기 (직접 제작)</p>
 <h2 id="5-글자-검사의-약점과-울타리">5. 글자 검사의 약점과 울타리</h2>
 <p><strong>글자를 읽어 판단하는 검사는 튼튼한 방법이 아니라서, 끼어들 자리를 좁게 정했어요.</strong> 안내 문구는 도구의 판이 바뀌면 달라질 수 있고, 정상 답에 같은 낱말이 나와 멀쩡한 답이 오류로 바뀔 수도 있어요. 이렇게 아닌 걸 맞다고 잘못 잡는 걸 ‘오탐’이라고 해요.</p>
