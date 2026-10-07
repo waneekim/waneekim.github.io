@@ -1,0 +1,198 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>리플렉션 AI 빔 정리, 적은 연산으로 중국 모델 잡겠다는 오픈웨이트</title><meta name="description" content="2026년 10월 5일 미국 AI 스타트업 리플렉션 AI가 첫 오픈웨이트 모델 빔(Beam)을 발표했다. 전체 5,010억 파라미터 중 230억 개만 쓰는 전문가 혼합(MoE) 모델로, 중국 Z.ai의 GLM-5.2와 비슷한 점수를 3배에서 4배 적은 추론 연산으로 낸다는 게 회사 주장이다. 이 숫자가 어떻게 계산됐는지, 토큰 단가와 어떻게 이어지는지, 오픈웨이트가 기업에 왜 중요한지를 공식 발표와 TechCrunch·The Decoder 보도 기준으로 정리하고, 가중치 공개 전이라 아직 독립 검증이 없다는 점을 짚었다."><meta property="og:title" content="리플렉션 AI 빔 정리, 적은 연산으로 중국 모델 잡겠다는 오픈웨이트"><meta property="og:description" content="2026년 10월 5일 미국 AI 스타트업 리플렉션 AI가 첫 오픈웨이트 모델 빔(Beam)을 발표했다. 전체 5,010억 파라미터 중 230억 개만 쓰는 전문가 혼합(MoE) 모델로, 중국 Z.ai의 GLM-5.2와 비슷한 점수를 3배에서 4배 적은 추론 연산으로 낸다는 게 회사 주장이다. 이 숫자가 어떻게 계산됐는지, 토큰 단가와 어떻게 이어지는지, 오픈웨이트가 기업에 왜 중요한지를 공식 발표와 TechCrunch·The Decoder 보도 기준으로 정리하고, 가중치 공개 전이라 아직 독립 검증이 없다는 점을 짚었다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/about.BDHvNx_h.css">
+<style>.series-bar[data-astro-cid-lvjzyg5v]{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin:0 0 6px;font-size:.88rem;color:var(--sub)}.series-bar[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]{font-weight:800;text-decoration:none}.series-nav[data-astro-cid-lvjzyg5v]{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:2.6em 0 0}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v],.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;text-decoration:none;color:var(--ink)}.series-nav[data-astro-cid-lvjzyg5v] a[data-astro-cid-lvjzyg5v]:hover{border-color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:right}.series-nav[data-astro-cid-lvjzyg5v] .dir[data-astro-cid-lvjzyg5v]{font-size:.82rem;font-weight:700;color:var(--accent)}.series-nav[data-astro-cid-lvjzyg5v] .t[data-astro-cid-lvjzyg5v]{font-weight:700;line-height:1.4}.series-nav[data-astro-cid-lvjzyg5v] .empty[data-astro-cid-lvjzyg5v]{color:var(--sub);font-size:.9rem;place-items:center;background:transparent;border-style:dashed}.series-nav[data-astro-cid-lvjzyg5v] .toc[data-astro-cid-lvjzyg5v]{grid-column:1 / -1;text-align:center;font-weight:700;color:var(--accent);padding:12px}@media(max-width:520px){.series-nav[data-astro-cid-lvjzyg5v]{grid-template-columns:1fr}.series-nav[data-astro-cid-lvjzyg5v] .next[data-astro-cid-lvjzyg5v]{text-align:left}}
+</style></head> <body> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true">한국어</a><a href="/nadeuli/en/" hreflang="en" lang="en">English</a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a> </nav> <a class="brand" href="/">happy_various <b>AI 실전 기록</b></a> <nav class="sites" aria-label="사이트 메뉴"> <a href="/" class="on">🤖 AI 실전 기록</a> <a class="t" href="/nadeuli/">🧺 나들이로그</a> <a href="/menu/">☰ 전체 메뉴</a> </nav> </header> <main> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 7일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 9개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무슨-일-리플렉션의-첫-오픈웨이트" data-astro-cid-lvjzyg5v>1. 무슨 일: 리플렉션의 첫 오픈웨이트</a></li><li data-astro-cid-lvjzyg5v><a href="#2-숫자로-본-빔" data-astro-cid-lvjzyg5v>2. 숫자로 본 빔</a></li><li data-astro-cid-lvjzyg5v><a href="#3-연산-3배에서-4배-절약의-정체" data-astro-cid-lvjzyg5v>3. ‘연산 3배에서 4배 절약’의 정체</a></li><li data-astro-cid-lvjzyg5v><a href="#4-토큰-단가와-효율의-관계" data-astro-cid-lvjzyg5v>4. 토큰 단가와 효율의 관계</a></li><li data-astro-cid-lvjzyg5v><a href="#5-오픈웨이트가-기업에-중요한-이유" data-astro-cid-lvjzyg5v>5. 오픈웨이트가 기업에 중요한 이유</a></li><li data-astro-cid-lvjzyg5v><a href="#6-검증과-비판-아직은-회사-숫자뿐" data-astro-cid-lvjzyg5v>6. 검증과 비판: 아직은 회사 숫자뿐</a></li><li data-astro-cid-lvjzyg5v><a href="#7-무슨-뜻인가-토큰-단가-경쟁" data-astro-cid-lvjzyg5v>7. 무슨 뜻인가: 토큰 단가 경쟁</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-07-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-07 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 리플렉션 AI와 아무 관계가 없습니다. 내용은 리플렉션 AI 공식 발표(2026-10-05)와 TechCrunch(2026-10-05, 2025-10-09)·The Decoder(2026-10-06) 보도, Apache License 2.0 원문 기준이며, 성능·효율 수치는 회사가 밝힌 것으로 2026년 10월 7일 현재 독립 검증 전입니다. 직접 써 본 후기가 아니고, 라이선스 설명은 법률 판단이 아닙니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="리플렉션-ai-빔-정리-적은-연산으로-중국-모델-잡겠다는-오픈웨이트">리플렉션 AI 빔 정리, 적은 연산으로 중국 모델 잡겠다는 오픈웨이트</h1>
+<p><img alt="리플렉션 AI 빔 — 더 적은 연산을 내건 오픈웨이트 모델 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.v4txxZkx_ZAB5Nx.webp" ></p>
+<p class="cap">리플렉션 AI 빔 — 더 적은 연산을 내건 오픈웨이트 모델 (캐릭터는 GPT 이미지 생성)</p>
+<p>중국 오픈 모델만큼 잘하면서 계산은 훨씬 덜 쓴다는 미국 모델이 나왔어요. 이런 소식을 들으면 질문이 두 개 남아요. “정말 싸게 돌아가? 그리고 우리 회사가 직접 쓸 수 있어?”</p>
+<p>요리사가 아주 많은 대형 주방을 떠올려 볼게요. 주문이 들어오면 모두가 불을 켜는 게 아니라, 그 요리를 잘하는 몇 명만 움직여요. 스무 명 중 한 명꼴이에요. 주방은 크지만 주문 하나에 드는 가스비는 작은 주방과 비슷해지죠. 게다가 이 주방은 레시피를 통째로 공개해서, 다른 가게가 자기 주방에서 같은 요리를 끓일 수 있게 하겠대요.<br>
+<strong>리플렉션 AI의 빔(Beam)이 이런 모델이에요. 덩치는 크게, 한 번에 쓰는 힘은 작게 해서 같은 답을 더 적은 연산으로 내겠다는 오픈웨이트 모델이에요.</strong></p>
+<div class="callout warn"><b class="ttl">⚠️ 출처 안내</b>2026년 10월 5일 리플렉션 AI 공식 발표와 TechCrunch·The Decoder 보도를 옮긴 글이에요. 직접 써 본 후기가 아니고, 성능·효율 수치는 모두 회사가 밝힌 것이에요. 10월 7일 현재 외부 검증 전이에요.</div>
+<p><img alt="요리사 로봇이 가득한 대형 주방에서 주문 하나에 세 명만 불을 켠 장면 — 전문가 혼합(MoE) 모델을 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-kitchen-few-cooks.Du0QviA3_ZaFdfx.webp" ></p>
+<p class="cap">요리사 로봇이 가득한 대형 주방에서 주문 하나에 세 명만 불을 켠 장면 — 전문가 혼합(MoE) 모델을 빗댄 그림 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: AI 모델을 고르거나 도입을 맡은 분<br>① 빔이 어떤 모델인지 숫자로<br>② ‘연산 3배에서 4배 절약’과 토큰 단가의 관계<br>③ 오픈웨이트가 기업에 중요한 이유와 검증 일정<br>2026년 10월 7일 기준 · 공식 발표와 보도</div>
+<hr>
+<h2 id="1-무슨-일-리플렉션의-첫-오픈웨이트">1. 무슨 일: 리플렉션의 첫 오픈웨이트</h2>
+<p><strong>2026년 10월 5일 미국 AI 스타트업 리플렉션 AI가 첫 오픈웨이트 모델 빔을 발표했어요.</strong> 회사는 빔을 코딩, 추론, 에이전트 작업용 모델이라고 소개해요. 그리고 빔이 “서방 오픈웨이트의 최전선을 앞당긴다(advances the Western open-weight frontier)”고 적었어요.</p>
+<p>리플렉션 AI는 구글 딥마인드 출신 미샤 라스킨과 이오아니스 안토노글루가 2024년에 세운 회사예요. TechCrunch에 따르면 2025년 10월 엔비디아 등에서 20억 달러를 투자받으며 ‘미국의 오픈 프런티어 연구소’를 내걸었어요. TechCrunch는 빔이 겨누는 상대로 딥시크, 큐웬(Qwen), Z.ai 같은 중국 오픈 모델을 꼽았어요. 오픈웨이트의 앞줄을 차지한 중국 모델에 대한 미국 쪽 답인 셈이에요.</p>
+<h2 id="2-숫자로-본-빔">2. 숫자로 본 빔</h2>
+<p><strong>빔은 전체 파라미터 5,010억 개 가운데 230억 개만 한 번에 쓰는 전문가 혼합(MoE) 모델이에요.</strong> 전문가 혼합(Mixture-of-Experts)은 모델 안을 여러 ‘전문가’ 묶음으로 나누고, 토큰마다 필요한 묶음만 깨워 계산하는 구조예요. 앞의 주방 비유에서 주문마다 몇 명만 움직이는 것과 같아요.</p>
+<p>회사 발표와 TechCrunch 보도에 나온 숫자를 표로 옮겼어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>발표 내용</th></tr></thead><tbody><tr><td>전체 파라미터</td><td>5,010억 개 (501B)</td></tr><tr><td>한 번에 쓰는 파라미터</td><td>230억 개 (23B)</td></tr><tr><td>사전 학습 데이터</td><td>23조 8천억 토큰 (웹 + 라이선스를 받은 비공개 데이터)</td></tr><tr><td>강화학습</td><td>GB300 GPU 1만 500장으로 4주, 1억 번 넘는 시도</td></tr><tr><td>문맥 길이</td><td>중간 학습에서 100만 토큰까지 확장</td></tr><tr><td>입력</td><td>텍스트만 (이미지·음성 없음)</td></tr><tr><td>라이선스</td><td>Apache 2.0 (가중치 공개 때)</td></tr></tbody></table>
+<p>쓰는 방법은 10월 7일 현재 하나뿐이에요. 회사가 “최종 레드팀 점검과 평가 중”이라며 받는 조기 접근 신청을 거쳐 API로 써 보는 거예요. 가중치, 기술 보고서, 모델 카드는 “이달 중(later this month)” 공개한다고 했어요. 10월 안이라는 뜻이고, 정확한 날짜는 밝히지 않았어요.</p>
+<h2 id="3-연산-3배에서-4배-절약의-정체">3. ‘연산 3배에서 4배 절약’의 정체</h2>
+<p><strong>회사 주장은 “고급 추론 평가에서 GLM-5.2와 비슷한 점수를 3~4배 적은 추론 연산으로 낸다”예요.</strong> GLM-5.2는 중국 Z.ai의 대표 오픈 모델이에요. TechCrunch에 따르면 전체 7,440억 개 중 400억 개를 한 번에 써요.</p>
+<p>이 숫자는 요금을 잰 게 아니라 계산식으로 어림한 값이에요. 회사는 Artificial Analysis와 DataCurve의 자료를 써서 ‘연산량 ≈ 2 × 한 번에 쓰는 파라미터 × 답 하나에 생성한 평균 토큰 수’로 셈했다고 밝혔어요. 한 번에 쓰는 파라미터는 230억 대 400억, 약 1.7배 차이예요. 회사 계산식을 그대로 따라가면, 나머지 차이는 빔이 답 하나에 쓰는 토큰이 더 적다는 데서 나와요.</p>
+<p>회사도 단서를 달았어요. 프롬프트를 읽어 들이는 처리, 긴 문맥에서 늘어나는 계산, 서비스 운영 비용은 빼고 셈했고, 그래서 “측정한 추론 비용이 아니라 대략적인 연산 비교”라고 적었어요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>‘3배에서 4배’는 측정한 요금이 아니라 회사 계산식으로 어림한 연산량이에요.</div>
+<h2 id="4-토큰-단가와-효율의-관계">4. 토큰 단가와 효율의 관계</h2>
+<p><strong>토큰 단가는 AI가 글을 읽고 쓰는 양에 매기는 값이에요. 보통 ‘100만 토큰당 몇 달러’로 붙어요.</strong> 토큰은 AI가 글을 잘게 나눠 세는 단위예요. API로 AI를 쓰면 보낸 글(입력)과 받은 글(출력)의 토큰 수만큼 돈을 내요.</p>
+<p>그래서 답 하나의 비용은 ‘토큰 단가 × 쓰는 토큰 수’로 정해져요. 빔의 주장은 이 곱셈의 두 칸을 다 건드려요.<br>
+① 토큰 단가 쪽 — 토큰 하나를 만드는 계산은 한 번에 쓰는 파라미터에 비례해요. 230억 개만 계산하면 같은 장비로 토큰을 더 많이 만들 수 있어, 값을 낮출 여지가 생겨요<br>
+② 쓰는 토큰 수 쪽 — 답 하나에 생성하는 토큰이 적으면 단가가 같아도 비용이 줄어요. 회사는 이걸 “토큰당 더 많은 지능”이라고 표현했어요</p>
+<p>회사는 이 결과가 “더 낮은 비용으로 강한 성능”이 된다고 했지만, 10월 7일 현재 빔의 가격표는 공식 글과 문서 어디에도 없어요. 또 가중치가 풀리면 여러 클라우드가 각자 빔을 올려 값을 매길 수 있어서, 실제 단가는 회사 하나가 정하지 않을 수도 있어요.</p>
+<p><img alt="답 하나의 비용을 토큰 단가와 쓰는 토큰 수로 나눠 본 리플렉션 빔의 효율 주장과 아직 확인 안 된 것 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="3510" src="/_astro/diagram-beam-token-cost.C4AcKlZo_1KBMv6.webp" ></p>
+<p class="cap">답 하나의 비용을 토큰 단가와 쓰는 토큰 수로 나눠 본 리플렉션 빔의 효율 주장과 아직 확인 안 된 것 (직접 제작)</p>
+<p>토큰 단가로 한 달 API 비용을 직접 계산하는 법은 이 글에 정리해 뒀어요.</p>
+<p class="nextpost">→ <a href="/posts/20260906-openai-api-cost/">OpenAI API 비용, 한 달 요금 계산법 (2026년 10월)</a></p>
+<h2 id="5-오픈웨이트가-기업에-중요한-이유">5. 오픈웨이트가 기업에 중요한 이유</h2>
+<p><strong>오픈웨이트는 학습을 마친 모델의 가중치 파일을 내려받아 직접 돌릴 수 있게 공개한 모델이에요.</strong> 가중치는 모델이 학습으로 얻은 숫자 덩어리, 비유하면 레시피와 비법 소스예요. 학습 데이터까지 공개한다는 뜻은 아니에요. 빔도 웹 데이터와 함께 라이선스를 받은 비공개 데이터로 학습했다고 밝혔어요.</p>
+<p><img alt="로봇 요리사가 레시피 책과 비법 소스를 작은 가게 주인에게 건네는 장면 — 오픈웨이트 공개를 빗댄 그림 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-recipe-handover.H9Zkpgxz_ZazX8r.webp" ></p>
+<p class="cap">로봇 요리사가 레시피 책과 비법 소스를 작은 가게 주인에게 건네는 장면 — 오픈웨이트 공개를 빗댄 그림 (GPT 이미지 생성)</p>
+<p>API로만 쓰는 모델과 비교하면, 회사 입장에서 달라지는 점은 이래요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>따져 볼 점</th><th>오픈웨이트에서 달라지는 것</th></tr></thead><tbody><tr><td>데이터 위치</td><td>자체 서버나 고른 클라우드에서 돌려, 데이터를 모델 회사로 보내지 않을 수 있음</td></tr><tr><td>맞춤</td><td>우리 데이터로 추가 학습(미세조정)해 업무에 맞출 수 있음</td></tr><tr><td>공급처</td><td>같은 모델을 여러 클라우드에서 쓸 수 있어 값을 비교하고 한 회사에 덜 묶임</td></tr><tr><td>비용 구조</td><td>토큰당 요금 대신 GPU 서버 비용. 빔은 파라미터 하나를 1바이트로 잡아도 가중치만 500GB가 넘음</td></tr><tr><td>라이선스</td><td>Apache 2.0은 복제·수정·재배포·상업적 사용을 허용. 라이선스 사본과 고지를 남기는 조건</td></tr></tbody></table>
+<p>라스킨 대표도 2025년 TechCrunch 인터뷰에서 이렇게 말했어요. “대기업이 되면 기본적으로 오픈 모델을 원합니다. 소유권을 갖고, 맞춤으로 고칠 수 있는 것을요.” 다만 실제 도입 전에는 가중치와 함께 나올 모델 카드와 라이선스 원문을 직접 읽고, 회사 규정에 맞는지 법무·보안 담당과 확인하는 게 순서예요.</p>
+<h2 id="6-검증과-비판-아직은-회사-숫자뿐">6. 검증과 비판: 아직은 회사 숫자뿐</h2>
+<p><strong>TechCrunch는 리플렉션의 성능 주장이 독립적으로 검증되지 않았다고 짚었어요.</strong> 가중치도 아직 공개 전이라, 외부에서 직접 돌려 볼 수 없어요.</p>
+<p>회사가 낸 비교표를 자세히 보면 ‘비슷한 점수’라는 말이 정확해요. 몇몇 항목은 GLM-5.2보다 낮고, 더 새 중국 모델들과는 차이가 커요. 회사 발표 표에서 몇 줄을 옮기면 이래요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>평가 (재는 것)</th><th>빔과 비교 모델 점수</th></tr></thead><tbody><tr><td>Terminal Bench v2.1 (터미널 작업)</td><td>빔 80.1 · GLM 5.2 81.0 · Kimi K3 88.3</td></tr><tr><td>HLE 도구 없이 (고난도 지식)</td><td>빔 36.2 · GLM 5.2 40.5 · Kimi K3 46.9</td></tr><tr><td>GPQA Diamond (과학 추론)</td><td>빔 90.5 · GLM 5.2 91.2 · Kimi K3 93.5</td></tr><tr><td>DeepSWE v1.1 (실전 개발)</td><td>빔 44.4 · GLM 5.2 44.0 · DeepSeek V4.1 Flash 74.2</td></tr><tr><td>SWE-bench Verified (코드 수정)</td><td>빔 80.9 · Inkling 77.6 · Nemotron 3 Ultra 70.7 (GLM·Kimi 점수 없음)</td></tr></tbody></table>
+<p>The Decoder도 “Kimi K3 같은 더 강한 오픈 모델이 순수 성능에서는 여전히 앞선다”고 정리했어요. 빔이 내세우는 건 최고 점수가 아니라 점수 대비 연산이에요.</p>
+<p>외부 검증은 시작됐어요. 벤치마크 업체 Artificial Analysis는 리플렉션에게 접근권을 받아 독립적으로 평가하는 중이라며, 10월 5일 X에 “초기 지표로는 지능 수준 대비 가장 토큰 효율적인 오픈 모델 중 하나가 될 것”이라고 남겼어요(보도 기준). 아직 점수는 내지 않았어요. <mark>효율 주장은 가중치와 외부 점수가 나온 뒤에 판단</mark>하는 게 맞아요. 회사가 밝힌 공개 시점은 10월 중이에요.</p>
+<h2 id="7-무슨-뜻인가-토큰-단가-경쟁">7. 무슨 뜻인가: 토큰 단가 경쟁</h2>
+<p><strong>서방 오픈웨이트가 ‘가장 높은 점수’ 대신 ‘같은 일을 더 적은 토큰과 연산으로’ 승부하기 시작했어요.</strong> happy_various는 이걸 토큰 단가 경쟁의 국면으로 봐요. 점수는 중국 최신 모델이 앞서 있으니, 같은 품질을 더 싸게 내는 쪽으로 싸움터를 옮긴 거예요.</p>
+<p>도입을 맡은 분이라면 볼 곳도 바뀌어요. 벤치마크 순위표보다, 우리 일 한 건에 드는 비용을 재는 습관이 더 쓸모 있어져요.<br>
+① 우리 업무 예시 10건으로 모델마다 입력·출력 토큰 수를 재기<br>
+② 같은 모델이 여러 클라우드에 올라오면 100만 토큰당 단가를 나란히 비교하기<br>
+③ 데이터를 어디서 처리하는지, 라이선스가 우리 쓰임을 허용하는지 확인하기</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 빔은 5,010억 중 230억만 쓰는 오픈웨이트 MoE<br>② GLM-5.2급 점수에 연산은 3배에서 4배 적다는 주장<br>③ 가중치·Apache 2.0은 10월 중, 가격은 미공개<br>④ 독립 검증 전 — 외부 점수가 나온 뒤 판단</div>
+<p><strong>오늘의 큰 흐름: 유럽·서방 오픈웨이트 체급 경쟁.</strong> 하루 뒤인 10월 6일에는 프랑스 미스트랄도 대형 모델 Large 4를 내놓으며 가중치 공개를 예고했어요.</p>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 지금 바로 빔을 쓸 수 있나요?</summary><p>10월 7일 현재는 리플렉션의 조기 접근 신청을 거친 API만 있어요. 가중치는 10월 중 공개 예정이고, API 가격은 아직 발표되지 않았어요.</p></details>
+<details class="faq"><summary>Q. 개인 PC에서 돌릴 수 있나요?</summary><p>어려워요. 한 번에 230억 개만 계산하지만 5,010억 개 전체를 메모리에 올려야 해서, 파라미터 하나를 1바이트로 잡아도 500GB가 넘어요. 보도 기준으로 가정용 장비 안내나 압축판도 아직 없어요.</p></details>
+<details class="faq"><summary>Q. 2024년 ‘리플렉션 70B’ 논란과 같은 회사인가요?</summary><p>아니에요. 리플렉션 70B는 2024년 9월 미국 스타트업 하이퍼라이트(HyperWrite)가 낸 모델로, 공개 뒤 외부 평가에서 발표만큼의 점수가 나오지 않아 논란이 됐어요. 빔은 딥마인드 출신이 세운 리플렉션 AI의 모델이에요. 이름만 비슷해요.</p></details>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>리플렉션 AI — 빔 소개(10월 5일) · <a href="https://reflection.ai/blog/introducing-beam">reflection.ai/blog/introducing-beam</a></li>
+<li>TechCrunch — Reflection debuts Beam(10월 5일) · techcrunch.com</li>
+<li>Apache License 2.0 원문 · <a href="https://apache.org/licenses/LICENSE-2.0">apache.org/licenses/LICENSE-2.0</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 7일 · 같은 날 기준<br>리플렉션 공식 발표와 TechCrunch 등 보도<br>직접 써 본 후기 아님 · 수치는 회사 발표<br>라이선스 설명은 법률 판단 아님<br>제휴 없음 · 리플렉션 AI와 관계없음<br>캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<h2 id="부록-출처-전체-2026-10-07-확인">부록: 출처 전체 (2026-10-07 확인)</h2>
+<ul>
+<li><a href="https://reflection.ai/blog/introducing-beam">리플렉션 AI — Introducing Beam, 2026-10-05</a> — 501B·23B 활성 MoE, 23.8조 토큰, 강화학습 규모, GLM-5.2 대비 3~4배 적은 추론 연산(계산식과 단서), 벤치마크 표, 가중치·기술 보고서·모델 카드 이달 중 공개, Apache 2.0</li>
+<li><a href="https://techcrunch.com/2026/10/05/reflection-debuts-beam-a-open-weight-ai-model-to-rival-chinese-models-at-lower-compute-cost/">TechCrunch, 2026-10-05</a> — 텍스트 전용, 100만 토큰, GLM-5.2 744B·40B 활성, 독립 검증 안 됨</li>
+<li><a href="https://the-decoder.com/reflections-beam-becomes-the-most-capable-open-weight-model-built-outside-china/">The Decoder, 2026-10-06</a> — Kimi K3 등이 순수 성능은 앞섬</li>
+<li><a href="https://techcrunch.com/2025/10/09/reflection-raises-2b-to-be-americas-open-frontier-ai-lab-challenging-deepseek">TechCrunch, 2025-10-09</a> — 창업자, 20억 달러 투자, 라스킨 인터뷰</li>
+<li><a href="https://www.implicator.ai/reflection-ai-beam-open-weight-model-glm-5-2/">Implicator, 2026-10-05</a> — Artificial Analysis의 10월 5일 X 글 인용</li>
+<li><a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a> — 허용 범위와 재배포 조건</li>
+<li><a href="https://technews.tw/2024/09/11/reflection-70bs-performance-questioned/">TechNews, 2024-09-11</a> — 하이퍼라이트 ‘리플렉션 70B’ 성능 논란</li>
+</ul>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260906-openai-api-cost/">OpenAI API 비용, 한 달 요금 계산법</a> · <a href="/posts/20261006-adversarial-distillation/">적대적 증류 뜻</a> · <a href="/posts/20261006-gemini-4-argon/">제미나이 4 아르곤 정리</a></p> </article> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> </body> </html> 
