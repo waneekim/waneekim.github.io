@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>프로젝트 글래스윙 정리, 취약점 12만9천 건과 보안팀 3단계 접근</title><meta name="description" content="2026년 10월 6일 앤트로픽이 프로젝트 글래스윙과 사이버 검증 프로그램(CVP)을 하나로 합쳐 보안팀의 고급 사이버 기능 접근을 방어·레드팀·특화 세 단계로 넓히고, 글래스윙 파트너들이 2026년 4월부터 7월까지 '검증된 취약점 최소 12만9천 건'을 찾았다고 밝혔다. 이 숫자가 무엇을 센 것인지(검증·등급·패치), 앤트로픽 오픈소스 대시보드와 VulnCheck 독립 분석으로 본 고친 수·악용 수와의 차이, 단계별 대상과 신청 조건을 앤트로픽 공식 발표 기준으로 정리했다."><meta property="og:title" content="프로젝트 글래스윙 정리, 취약점 12만9천 건과 보안팀 3단계 접근"><meta property="og:description" content="2026년 10월 6일 앤트로픽이 프로젝트 글래스윙과 사이버 검증 프로그램(CVP)을 하나로 합쳐 보안팀의 고급 사이버 기능 접근을 방어·레드팀·특화 세 단계로 넓히고, 글래스윙 파트너들이 2026년 4월부터 7월까지 '검증된 취약점 최소 12만9천 건'을 찾았다고 밝혔다. 이 숫자가 무엇을 센 것인지(검증·등급·패치), 앤트로픽 오픈소스 대시보드와 VulnCheck 독립 분석으로 본 고친 수·악용 수와의 차이, 단계별 대상과 신청 조건을 앤트로픽 공식 발표 기준으로 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.DYL9so9z.css">
+<link rel="stylesheet" href="/_astro/_id_.DkQyrgYf.css">
+<style>.sec-tabs[data-astro-cid-cnlsgtkd]{display:flex;gap:6px;width:fit-content;max-width:100%;margin:6px auto 0;padding-bottom:4px;overflow-x:auto;scrollbar-width:none;text-align:left}.sec-tabs[data-astro-cid-cnlsgtkd]::-webkit-scrollbar{display:none}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]:hover{border-color:var(--accent);color:var(--accent)}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}.sec-tabs[data-astro-cid-cnlsgtkd] .n[data-astro-cid-cnlsgtkd]{margin-left:2px;font-size:.8em;color:var(--sub);font-weight:600}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page] .n[data-astro-cid-cnlsgtkd]{color:inherit;opacity:.75}.sr[data-astro-cid-cnlsgtkd]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style></head> <body> <a class="skip" href="#main">본문으로 건너뛰기</a> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true"><span class="lbl-full">한국어</span><span class="lbl-short" aria-hidden="true">KO</span></a><a href="/nadeuli/en/" hreflang="en" lang="en"><span class="lbl-full">English</span><span class="lbl-short" aria-hidden="true">EN</span></a><a href="/nadeuli/ja/" hreflang="ja" lang="ja"><span class="lbl-full">日本語</span><span class="lbl-short" aria-hidden="true">JA</span></a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant"><span class="lbl-full">繁體中文</span><span class="lbl-short" aria-hidden="true">繁中</span></a> </nav> <div class="brand-box"> <a class="brand" href="/" aria-label="happy_various"><img class="wm light" src="/brand/wordmark-light.png" alt="happy_various" width="134" height="22"></a> <a class="site-char" href="/" aria-hidden="true" tabindex="-1"><img class="mascot light" src="/brand/ai-info-light.gif" alt="" width="53" height="54"></a> <a class="site-name" href="/">AI 로그</a> </div> <nav class="sites" aria-label="사이트 메뉴"> <details class="navdrop ai on" data-navdrop> <summary title="AI 로그">🤖 <span class="lbl-full">AI 로그</span><span class="lbl-short" aria-hidden="true">AI</span> <span class="caret" aria-hidden="true">▾</span></summary> <ul aria-label="AI 로그 소메뉴"> <li><a href="/">🤖 전체 글</a></li><li><a href="/use/">🛠️ 활용</a></li><li><a href="/project/">🧪 프로젝트</a></li><li><a href="/news/">📰 뉴스</a></li> </ul> </details> <details class="navdrop" data-navdrop> <summary title="나들이로그">🧺 <span class="lbl-full">나들이로그</span><span class="lbl-short" aria-hidden="true">나들이</span> <span class="caret" aria-hidden="true">▾</span></summary> <ul aria-label="나들이 소메뉴"> <li><a href="/nadeuli/">🧺 전체 글</a></li> <li><a href="/nadeuli/food/">🍽️ 맛집</a></li> <li><a href="/nadeuli/trip/">🧳 여행</a></li> <li><a href="/nadeuli/kids/">🧸 육아</a></li> <li><a href="/nadeuli/events/">🎪 행사</a></li> </ul> </details> </nav> <div class="hero"><nav class="sec-tabs" aria-label="AI 로그 소메뉴" data-astro-cid-cnlsgtkd> <a href="/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🤖</span> 전체 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>93</span> </a><a href="/use/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🛠️</span> 활용 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>36</span> </a><a href="/project/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🧪</span> 프로젝트 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>33</span> </a><a href="/news/" aria-current="page" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>📰</span> 뉴스 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>24</span> </a> </nav> </div> <div class="hdr-bar" hidden></div> </header> <main id="main" tabindex="-1">  <nav class="crumb" aria-label="목록" data-astro-cid-f3qesd3f><a href="/" data-astro-cid-f3qesd3f>🤖 AI 로그</a><span aria-hidden="true" data-astro-cid-f3qesd3f>›</span><a href="/news/" data-back data-astro-cid-f3qesd3f>📰 뉴스</a></nav><aside class="rail rail-l" aria-label="목록" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로</a><ul class="secs" data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/" data-astro-cid-f3qesd3f>🤖 전체 글</a></li><li data-astro-cid-f3qesd3f><a href="/use/" data-astro-cid-f3qesd3f>🛠️ 활용</a></li><li data-astro-cid-f3qesd3f><a href="/project/" data-astro-cid-f3qesd3f>🧪 프로젝트</a></li><li data-astro-cid-f3qesd3f><a href="/news/" aria-current="true" data-astro-cid-f3qesd3f>📰 뉴스</a></li></ul></div></aside><aside class="rail rail-r" aria-label="이 글 목차" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><nav class="toc" aria-label="이 글 목차" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>이 글 목차</p><ol data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="#1-무슨-일-보안-프로그램-둘을-하나로" data-toc="1-무슨-일-보안-프로그램-둘을-하나로" data-astro-cid-f3qesd3f>1. 무슨 일: 보안 프로그램 둘을 하나로</a></li><li data-astro-cid-f3qesd3f><a href="#2-프로젝트-글래스윙은-무엇인가" data-toc="2-프로젝트-글래스윙은-무엇인가" data-astro-cid-f3qesd3f>2. 프로젝트 글래스윙은 무엇인가</a></li><li data-astro-cid-f3qesd3f><a href="#3-12만9천-건은-무엇을-센-숫자인가" data-toc="3-12만9천-건은-무엇을-센-숫자인가" data-astro-cid-f3qesd3f>3. 12만9천 건은 무엇을 센 숫자인가</a></li><li data-astro-cid-f3qesd3f><a href="#4-검증-찾은-수와-고친-수-사이" data-toc="4-검증-찾은-수와-고친-수-사이" data-astro-cid-f3qesd3f>4. 검증: 찾은 수와 고친 수 사이</a></li><li data-astro-cid-f3qesd3f><a href="#5-보안팀-접근-3단계와-조건" data-toc="5-보안팀-접근-3단계와-조건" data-astro-cid-f3qesd3f>5. 보안팀 접근 3단계와 조건</a></li><li data-astro-cid-f3qesd3f><a href="#6-무슨-뜻인가-방어용-문을-제도로" data-toc="6-무슨-뜻인가-방어용-문을-제도로" data-astro-cid-f3qesd3f>6. 무슨 뜻인가: 방어용 문을 제도로</a></li><li data-astro-cid-f3qesd3f><a href="#자주-묻는-질문" data-toc="자주-묻는-질문" data-astro-cid-f3qesd3f>자주 묻는 질문</a></li><li data-astro-cid-f3qesd3f><a href="#부록-출처-전체-2026-10-08-확인" data-toc="부록-출처-전체-2026-10-08-확인" data-astro-cid-f3qesd3f>부록: 출처 전체 (2026-10-08 확인)</a></li></ol><a class="up" href="#main" data-astro-cid-f3qesd3f>↑ 맨 위로</a></nav><nav class="more" aria-label="다른 뉴스 글" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261008-google-ondevice-search-nano-banana/" data-astro-cid-f3qesd3f>임베딩젬마 2 정리, 폰 안에서 사진·영상 찾는 구글 검색 모델</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-broadcom-openai-custom-chips/" data-astro-cid-f3qesd3f>브로드컴 OpenAI 칩 정리, 500억 달러 조달 논의와 금융 구조</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-ai-safety-joint-evaluation/" data-astro-cid-f3qesd3f>AI 안전 표준 기구, OpenAI·앤트로픽·구글은 어디까지 합의했나</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-claude-haiku-5-5/" data-astro-cid-f3qesd3f>Claude Haiku 5.5 출시, 가격 인하와 작업별 실제 비용</a></li></ul></nav></div></aside><a class="float-back" href="/news/" data-back aria-label="목록으로" data-astro-cid-f3qesd3f>← 목록</a><script type="module">document.querySelectorAll("[data-back]").forEach(e=>e.addEventListener("click",r=>{try{const t=new URL(document.referrer);t.origin===location.origin&&!t.pathname.includes("/posts/")&&history.length>1&&(r.preventDefault(),history.back())}catch{}}));const n=new Map([...document.querySelectorAll("[data-toc]")].map(e=>[e.dataset.toc,e]));if(n.size&&"IntersectionObserver"in window){const e=new IntersectionObserver(r=>{for(const t of r)t.isIntersecting&&(n.forEach(o=>o.removeAttribute("aria-current")),n.get(t.target.id)?.setAttribute("aria-current","true"))},{rootMargin:"0px 0px -72% 0px"});n.forEach((r,t)=>{const o=document.getElementById(t);o&&e.observe(o)})}const c=document.querySelector(".float-back");if(c){const e=()=>c.classList.toggle("show",scrollY>480);addEventListener("scroll",e,{passive:!0}),e()}</script> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 8일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무슨-일-보안-프로그램-둘을-하나로" data-astro-cid-lvjzyg5v>1. 무슨 일: 보안 프로그램 둘을 하나로</a></li><li data-astro-cid-lvjzyg5v><a href="#2-프로젝트-글래스윙은-무엇인가" data-astro-cid-lvjzyg5v>2. 프로젝트 글래스윙은 무엇인가</a></li><li data-astro-cid-lvjzyg5v><a href="#3-12만9천-건은-무엇을-센-숫자인가" data-astro-cid-lvjzyg5v>3. 12만9천 건은 무엇을 센 숫자인가</a></li><li data-astro-cid-lvjzyg5v><a href="#4-검증-찾은-수와-고친-수-사이" data-astro-cid-lvjzyg5v>4. 검증: 찾은 수와 고친 수 사이</a></li><li data-astro-cid-lvjzyg5v><a href="#5-보안팀-접근-3단계와-조건" data-astro-cid-lvjzyg5v>5. 보안팀 접근 3단계와 조건</a></li><li data-astro-cid-lvjzyg5v><a href="#6-무슨-뜻인가-방어용-문을-제도로" data-astro-cid-lvjzyg5v>6. 무슨 뜻인가: 방어용 문을 제도로</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-08-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-08 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 앤트로픽과 아무 관계가 없습니다. 내용은 앤트로픽 공식 발표(2026-10-06·2026-05-22·2026-04-07)와 앤트로픽 오픈소스 취약점 공개 대시보드(2026-10-02 갱신, 2026-10-08 확인), Reuters(2026-06-02) 보도, VulnCheck 분석(2026-07-28·2026-09-08) 기준이며, 직접 써 본 후기는 아닙니다. 취약점 수는 대부분 앤트로픽과 파트너가 스스로 집계한 값이라 본문에 집계한 곳을 각각 적었고, 추가 집계가 나오면 바뀔 수 있습니다. 취약점 악용 방법은 다루지 않습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="프로젝트-글래스윙-정리-취약점-12만9천-건과-보안팀-3단계-접근">프로젝트 글래스윙 정리, 취약점 12만9천 건과 보안팀 3단계 접근</h1>
+<p><img alt="프로젝트 글래스윙 — 취약점 12만9천 건과 보안팀 3단계 접근 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.bWtc7kFx_dxt2K.webp" ></p>
+<p class="cap">프로젝트 글래스윙 — 취약점 12만9천 건과 보안팀 3단계 접근 (캐릭터는 GPT 이미지 생성)</p>
+<p>“취약점 12만9천 건을 찾았다고? 그럼 그만큼 안전해진 거야?” 이 숫자를 처음 보면 이런 생각이 들어요. 앤트로픽이 10월 6일 보안팀에게 고급 사이버 기능을 여는 프로그램을 넓히면서 함께 내놓은 숫자예요.</p>
+<p>오래된 아파트 단지에 새 장비를 든 정밀 점검반이 들어왔다고 해 보세요. 금 간 곳을 예전보다 훨씬 빨리 찾아 깃발을 꽂아요. 그런데 점검표에 ‘검증’ 표시가 붙은 수와 보수를 끝낸 수, 실제로 사고가 난 수는 서로 다른 숫자예요. 보수공은 그대로라 줄이 길어지거든요.<br>
+<strong>12만9천 건은 파트너들이 찾아 검증했다고 보고한 취약점 수예요. 고친 수도, 실제 공격에 쓰인 수도 아니에요.</strong></p>
+<div class="callout warn"><b class="ttl">⚠️ 출처 안내</b>2026년 10월 6일 앤트로픽 공식 발표와 10월 8일에 확인한 앤트로픽 공개 대시보드, 로이터 보도, 보안 데이터 회사 VulnCheck의 분석을 옮긴 글이에요. 숫자 대부분은 앤트로픽과 파트너가 스스로 집계한 값이고, 취약점을 악용하는 방법은 다루지 않아요.</div>
+<p><img alt="점검 로봇이 벽의 금마다 깃발을 꽂는 동안 보수공 한 명이 금 하나를 메우는 장면 — 찾기는 빨라졌고 고치기는 그대로 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-inspection-queue.CtzkSEGz_Z1xTffs.webp" ></p>
+<p class="cap">점검 로봇이 벽의 금마다 깃발을 꽂는 동안 보수공 한 명이 금 하나를 메우는 장면 — 찾기는 빨라졌고 고치기는 그대로 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: AI 보안 뉴스가 궁금한 분 · 보안 담당자<br>① 프로젝트 글래스윙이 무엇인지<br>② ‘12만9천 건’이 무엇을 센 숫자인지<br>③ 보안팀 접근 3단계와 신청 조건<br>2026년 10월 8일 기준 · 앤트로픽 발표·대시보드</div>
+<hr>
+<h2 id="1-무슨-일-보안-프로그램-둘을-하나로">1. 무슨 일: 보안 프로그램 둘을 하나로</h2>
+<p><strong>2026년 10월 6일 앤트로픽이 사이버 검증 프로그램(CVP)을 넓혀, 보안팀이 고급 사이버 기능을 쓰는 길을 세 단계로 나눠 열었어요.</strong></p>
+<ul>
+<li>지금까지는 두 갈래였어요. 프로젝트 글래스윙은 가장 중요한 소프트웨어를 지키는 일부 조직에 클로드 미토스(Claude Mythos)를 열었고, CVP는 심사를 거친 보안팀에 Opus·Sonnet 모델의 안전장치를 낮춰 줬어요.</li>
+<li>앤트로픽은 지난 6개월 동안 이 두 프로그램으로 신뢰 접근을 열어 왔고, 이제 하나로 합친다고 밝혔어요.</li>
+</ul>
+<p>새 프로그램의 세 단계는 모두 Claude Opus 5.5, Claude Sonnet 5.5, Claude Mythos 5.1과 앞으로 나올 모델을 포함해요. 기존 글래스윙 회원은 가장 높은 ‘특화 접근’ 단계로 옮겨지고, 지금 모델은 다시 승인받지 않아도 돼요. 같은 발표문에서 앤트로픽은 글래스윙의 성과로 ‘검증된 취약점 12만9천 건’이라는 숫자를 내놓았어요.</p>
+<h2 id="2-프로젝트-글래스윙은-무엇인가">2. 프로젝트 글래스윙은 무엇인가</h2>
+<p><strong>프로젝트 글래스윙은 앤트로픽이 2026년 4월 7일 시작한 보안 협력 프로젝트예요.</strong></p>
+<ul>
+<li>출범 때 아마존웹서비스(AWS), 애플, 브로드컴, 시스코, 크라우드스트라이크, 구글, JP모건체이스, 리눅스 재단, 마이크로소프트, 엔비디아, 팔로알토 네트웍스가 함께했고, 핵심 소프트웨어를 만들거나 관리하는 조직 40곳 이상이 더해졌어요.</li>
+<li>이들은 일반에 공개하지 않은 범용 모델 클로드 미토스 프리뷰(Claude Mythos Preview)로 자기 시스템과 오픈소스를 점검했어요. 앤트로픽은 사용 크레딧 최대 1억 달러와 오픈소스 보안 단체 기부 400만 달러를 약속했어요.</li>
+</ul>
+<p>앤트로픽은 출범 글에서 미토스 프리뷰가 개발사도 몰랐던 ‘제로데이’ 취약점 수천 개를 주요 운영체제와 웹 브라우저 모두에서 찾았다고 밝혔어요. 27년 된 OpenBSD 취약점과 16년 된 FFmpeg 취약점이 예로 나왔고, 둘 다 이미 패치됐대요. 로이터는 6월 2일 글래스윙 참여 조직이 약 50곳에서 약 200곳으로 늘어난다고 보도했어요. 새 파트너는 15개국 이상에서 의료·전력·수도·통신·하드웨어 분야를 지키고, 모두 일정한 보안 요건을 갖춰야 접근할 수 있대요.</p>
+<p>이름은 날개가 투명한 글래스윙 나비에서 따왔어요. 눈앞에 있어도 안 보이는 취약점, 그리고 회사가 내세우는 투명성을 함께 빗댔다고 해요. 9월 8일 ‘AI 3사가 해킹 능력 모델을 잠근’ 글에서 다룬 Mythos 5.1의 신뢰 접근 프로그램이, 이번에 단계별 규칙으로 넓어진 셈이에요.</p>
+<h2 id="3-12만9천-건은-무엇을-센-숫자인가">3. 12만9천 건은 무엇을 센 숫자인가</h2>
+<p><strong>앤트로픽 원문은 “파트너들이 2026년 4월부터 7월까지 최소 12만9천 건의 검증된 소프트웨어 취약점을 찾아냈다”예요.</strong> 같은 문단에 숫자가 몇 개 더 붙어 있어요. 무엇이 어디에 들어가는지 표로 나눠 봤어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>앤트로픽 발표 그대로</th></tr></thead><tbody><tr><td>파트너가 찾은 검증된 취약점</td><td>최소 12만9천 건 (2026년 4월부터 7월까지)</td></tr><tr><td>앤트로픽 자체 오픈소스 스캔</td><td>검증된 취약점 5,500건 더 (4월부터 10월까지)</td></tr><tr><td>그중 치명·높음 등급</td><td>3만3천 건 이상 (지금까지 매긴 것)</td></tr><tr><td>숫자의 바탕</td><td>파트너 33곳 보고와 앤트로픽 오픈소스 협력</td></tr><tr><td>고친 수 (패치)</td><td>발표에 없음 — 패치 수를 알린 파트너가 절반 미만</td></tr></tbody></table>
+<p><strong>정리하면 12만9천 건은 찾아서 검증까지 했다는 수예요. 모두 심각한 것도, 모두 고친 것도 아니에요.</strong> 두 묶음을 합치면 13만4,500건 이상이고, 그 가운데 치명·높음 등급이 3만3천 건 이상이에요. 등급을 누가 매겼는지, 파트너마다 검증을 어떤 기준으로 했는지는 발표에 없어요. 앤트로픽은 “조직마다 분류 방식이 달랐다”고만 적었어요.</p>
+<p>앤트로픽 자체 스캔은 외부 보안 업체 6곳이 재현해 보고 진짜인지 판정하는 절차를 공개해 왔어요. 파트너 숫자는 일부 파트너가 설문과 보고로 알려 준 값이에요. 앤트로픽은 이 숫자가 실제보다 적게 잡혔을 가능성이 크다며 실제 효과는 “최소 5배”일 거라고 봤어요. 이건 회사의 추정이에요.</p>
+<p><img alt="프로젝트 글래스윙 ‘취약점 12만9천 건’의 구성과, 앤트로픽 오픈소스 장부의 알림·응답·패치 수 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="4480" src="/_astro/diagram-glasswing-count.BZhpfJBC_1yYQVT.webp" ></p>
+<p class="cap">프로젝트 글래스윙 ‘취약점 12만9천 건’의 구성과, 앤트로픽 오픈소스 장부의 알림·응답·패치 수 (직접 제작)</p>
+<h2 id="4-검증-찾은-수와-고친-수-사이">4. 검증: 찾은 수와 고친 수 사이</h2>
+<p><strong>찾은 수는 빠르게 늘었지만, 고친 수와 실제 악용 수는 따로 봐야 해요. 앤트로픽 자료 안에도 그 차이가 보여요.</strong> 앤트로픽이 자체 오픈소스 스캔 결과를 공개하는 대시보드(10월 2일 갱신)를 보면 이래요.<br>
+① 오픈소스 관리자에게 알린 취약점 <strong>6,157건</strong>(591개 프로젝트) 가운데 패치가 나온 건 <strong>516건</strong>이에요. CVE나 깃허브 보안 권고 같은 공식 식별 번호는 584개가 나왔어요(한 건에 둘 다 붙기도 해요).<br>
+② 알린 것 가운데 4,824건은 외부 업체 검토 없이 관리자에게 바로 보낸 것이라, 대시보드 스스로 “오탐이 섞여 있을 수 있다”고 적었어요.<br>
+③ 앤트로픽은 ‘진짜 비율’이 효과를 가늠하는 대리 지표일 뿐이고, 패치 수가 더 믿을 만하지만 늦게 따라온다고 설명해요. 패치가 나와도 널리 설치됐다는 보장은 없다고도 했어요.</p>
+<p>5월 첫 업데이트에서도 앤트로픽은 병목이 ‘찾기’에서 ‘검증·공개·패치’로 옮겨 갔다고 했어요. 일부 오픈소스 관리자는 패치를 만들 시간이 모자라 알림 속도를 늦춰 달라고 했고, 치명·높음 버그 하나를 패치하는 데 평균 2주가 걸렸대요.</p>
+<p><strong>바깥의 눈도 있어요. 보안 데이터 회사 VulnCheck는 앤트로픽이 공개한 장부를 따로 대조했어요.</strong></p>
+<ul>
+<li>9월 8일 분석에서 클로드와 관리자가 둘 다 등급을 매긴 건만 보면, 클로드는 91.5%를 치명·높음으로 봤지만 관리자는 51.3%만 그렇게 봤어요. 대시보드와 장부의 패치 수가 서로 맞지 않는다는 지적도 했어요.</li>
+<li>7월 28일 보고서에서는 그때까지 공개된 관련 CVE 126개 가운데 실제 공격에 쓰인 게 확인된 건 1개였다고 집계했어요.</li>
+</ul>
+<p>VulnCheck는 “지금까지의 데이터로 보면 AI를 쓴 취약점 발견과 최상위 모델의 능력은 지금 있는 증거에 비해 과장돼 왔다”면서도 “위험이 상상이라는 뜻은 아니다”라고 했어요. 지금으로서는 최상위 모델을 방어자에게 여는 쪽이 공격자보다 방어자에게 더 유리하다는 평가도 함께 냈어요. 그래서 <mark>찾아서 검증한 수, 고친 수, 악용된 수는 서로 다른 숫자</mark>예요. <span class="accent">12만9천 건만 보고 그만큼 안전해졌다고 옮기지 마세요.</span></p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>12만9천 건은 ‘찾고 검증한 수’예요. 고친 수와 악용된 수는 따로 확인해야 해요.</div>
+<h2 id="5-보안팀-접근-3단계와-조건">5. 보안팀 접근 3단계와 조건</h2>
+<p><strong>새 CVP는 하는 일의 범위에 따라 방어, 레드팀, 특화 세 단계로 나뉘어요. 단계가 올라갈수록 막는 장치가 줄고 심사가 깐깐해져요.</strong> 세 단계를 한 줄씩 정리했어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>단계</th><th>하는 일 · 대상</th></tr></thead><tbody><tr><td>방어 접근</td><td>보안관제·사고 대응, 악성코드 분석, 취약점 분석·검증 — 자기 시스템을 지키는 보안팀</td></tr><tr><td>레드팀 접근</td><td>방어 접근 + 허가받은 모의 침투·레드팀 — 조직만, 개인 불가</td></tr><tr><td>특화 접근</td><td>사람 목숨·시장에 영향을 주는 안전 시스템 시험 — 일부 검증 기관</td></tr></tbody></table>
+<p><img alt="자물쇠 수가 다른 문 세 개 앞에서 경비 로봇이 보안 담당자의 출입증을 확인하는 장면 — 하는 일에 따라 여는 문이 다르다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-three-gates.DFaAEH2C_Yzjlm.webp" ></p>
+<p class="cap">자물쇠 수가 다른 문 세 개 앞에서 경비 로봇이 보안 담당자의 출입증을 확인하는 장면 — 하는 일에 따라 여는 문이 다르다 (GPT 이미지 생성)</p>
+<p><strong>방어 접근은 문이 가장 넓어요.</strong> 회사·비영리·대학·정부의 보안팀, 지역 병원이나 지자체 공공 설비처럼 규모와 상관없는 핵심 인프라 운영자, 작은 보안 회사, 오픈소스 관리자, 취약점 신고 이력이 있는 개인 연구자가 예로 나와요. 신청하면 며칠 안에 답하는 게 목표래요.</p>
+<p><strong>레드팀 접근은 사내·정부 레드팀과 보안·모의 침투 회사가 대상이에요.</strong> 허가받은 시스템만 시험할 수 있고, 랜섬웨어 배포나 물리 시스템 손상처럼 물리적 피해나 대규모 혼란을 부를 행동은 이 단계에서도 실시간으로 막아요. 심사는 몇 주 걸리고, 그동안은 방어 단계로 등록돼요.</p>
+<p><strong>특화 접근은 막는 장치가 가장 적은 단계예요.</strong> 항공 운항 시스템, 전력망, 통신망, 은행 간 송금 인프라, 정부 행정망처럼 사고가 나면 사람 목숨이나 시장이 흔들리는 시스템을 시험할 권한이 있는 일부 기관만 들어가요. 지금은 모든 기관을 미국 정부와 함께 깊이 심사한대요.</p>
+<p><strong>세 단계 모두 신원 확인과 보안 통제 증빙을 거쳐요.</strong> 단계마다 요구하는 보안 통제를 갖췄다는 증빙을 내야 하고, 오용을 감시하려고 데이터 보관도 필수예요. 앤트로픽은 올가을 고객이 직접 관리하는 클라우드에 데이터를 두는 방식(EFS)을 내놓겠다고 했어요. 쓸 수 있는 곳은 Claude 플랫폼, 구글 클라우드 버텍스 AI, 마이크로소프트 파운드리예요. 아마존 베드록에서는 EFS 대상 고객만 쓸 수 있어요.</p>
+<p>앤트로픽이 낸 시험 결과도 있어요. 여러 단계로 된 사이버 작전 과제 10개를 단계마다 5번씩 Opus 5.5로 돌렸더니, CVP 없이는 모든 과제가 첫 요청에서 막혔고 방어 단계는 50번 중 46번이 중간에 막혔어요. 레드팀 단계는 한 번도 막히지 않고 50번 중 34번을 끝냈어요. 안전장치를 다 뺀 상태와 같은 수준이라는 게 회사 설명이고, 회사가 직접 잰 값이에요.</p>
+<h2 id="6-무슨-뜻인가-방어용-문을-제도로">6. 무슨 뜻인가: 방어용 문을 제도로</h2>
+<p><strong>happy_various는 이번 발표를 가장 강한 모델을 방어에 쓰는 일을 제도로 만드는 시도로 봐요.</strong> 4월의 글래스윙은 앤트로픽이 정한 파트너 몇십 곳에 문을 여는 초대장이었어요. 이번 CVP는 지역 병원과 개인 연구자도 신청할 수 있는 창구, 하는 일에 따라 나눈 등급, 등급마다 다른 심사와 차단 규칙을 갖췄어요. 초대에서 신청·심사·등급으로 바뀐 거예요.</p>
+<p>9월 첫 주에는 AI 3사가 해킹 능력 모델의 문을 나란히 잠갔어요. 그 뒤 흐름은 ‘누구에게 어떤 열쇠를 주느냐’예요. 구글은 9월 30일 제미나이 4 아르곤을 페어윈드 프로그램의 일부 방어자에게 먼저 열었고, 미스트랄은 라지 4 가중치를 풀기 전에 보안 업계·검증된 파트너·정부 기관과 레드팀 시험을 하고 있어요. 앤트로픽은 그 열쇠를 단계별 규칙으로 정리한 쪽이에요.</p>
+<p>다만 4장에서 봤듯 성과 숫자는 아직 회사와 파트너의 집계예요. 앞으로 볼 건 세 가지예요. ① 파트너 쪽 패치 수가 공개되는지 ② 독립 기관의 집계가 회사 숫자와 맞는지 ③ 한국처럼 미국 밖 기관이 방어 단계에 얼마나 들어가는지예요. 도입하는 쪽이라면 회사 보안팀이 방어 단계 대상인지부터 보세요. 앤트로픽은 5월 글에서 개발사는 패치 주기를 줄이고, 네트워크 방어자는 패치 시험·배포 기간을 줄이면서 다단계 인증과 기록 보관 같은 기본을 지키라고 권했어요. 찾는 속도가 빨라질수록 업데이트를 미루지 않는 게 가장 현실적인 대응이에요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 10월 6일 글래스윙과 CVP를 3단계로 통합<br>② 12만9천 건은 파트너가 찾아 검증한 수<br>③ 치명·높음 3만3천 건 이상, 패치 수는 미공개<br>④ 오픈소스 장부: 알린 6,157건 중 패치 516건</div>
+<p><strong>오늘의 큰 흐름:</strong> 안전·칩·금융 인프라 경쟁. 가장 강한 모델을 누구에게 어떤 조건으로 여느냐가 안전 인프라 경쟁의 한 축이 됐어요.</p>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 12만9천 건이 전부 고쳐졌나요?</summary><p>알 수 없어요. 앤트로픽 발표에 파트너 쪽 패치 수는 없고, 패치 수를 알린 파트너는 절반이 안 된다고 했어요. 앤트로픽 자체 오픈소스 스캔은 10월 2일 기준 관리자에게 알린 6,157건 중 516건이 패치됐어요.</p></details>
+<details class="faq"><summary>Q. 일반 사용자도 미토스를 쓸 수 있나요?</summary><p>아니요. 미토스는 CVP 심사를 통과한 보안 조직과 연구자에게만 열려 있어요. 일반에 공개된 Opus 5.5·Fable 5.1·Sonnet 5.5에는 사이버 작업 대부분을 막는 보수적인 안전장치를 걸어 두었다고 앤트로픽은 밝혔어요.</p></details>
+<details class="faq"><summary>Q. 한국 회사도 신청할 수 있나요?</summary><p>10월 6일 발표문에는 나라별 조건이 따로 적혀 있지 않아요. 6월 로이터 보도로는 글래스윙 파트너가 15개국 이상에 있어요. 신청 페이지와 앤트로픽 도움말 센터의 단계별 안내에서 확인하는 게 정확해요.</p></details>
+<details class="faq"><summary>Q. 챗봇이 보안 질문을 거절하면 고장인가요?</summary><p>아니에요, 정책이에요. 앤트로픽은 일반 모델로도 코드 리뷰, 알려진 문제 패치, 자기 소스 코드의 취약점 찾기, 보안 경보 분류는 계속 할 수 있다고 했어요. CVP 회원은 자기 단계에서 허용된 일이 막히면 따로 신고할 수 있어요.</p></details>
+<p>AI 3사가 해킹 능력 모델의 문을 잠근 9월 이야기는 이 글에 있어요. 이번 발표는 그 문을 여는 규칙이에요.</p>
+<p class="nextpost">→ <a href="/posts/20260908-ai-cyber-models-gated/">AI 사이버보안 모델, 해킹 능력 AI를 3사가 잠근 이유</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>앤트로픽 발표 — Expanding the Cyber Verification Program · <a href="https://anthropic.com/news/cyber-verification-program">anthropic.com/news/cyber-verification-program</a></li>
+<li>앤트로픽 — 오픈소스 취약점 공개 대시보드 · <a href="https://red.anthropic.com/2026/cvd">red.anthropic.com/2026/cvd</a></li>
+<li>VulnCheck — 글래스윙 장부 분석(9월 8일) · <a href="https://vulncheck.com/blog/anthropic-glasswing-receipts">vulncheck.com/blog/anthropic-glasswing-receipts</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 8일 · 같은 날 기준<br>앤트로픽 발표·대시보드, 로이터, VulnCheck<br>직접 써 본 후기 아님 · 숫자마다 집계한 곳 표기<br>취약점 악용 방법은 다루지 않음<br>제휴 없음 · 앤트로픽과 관계 없음<br>캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<h2 id="부록-출처-전체-2026-10-08-확인">부록: 출처 전체 (2026-10-08 확인)</h2>
+<ul>
+<li><a href="https://www.anthropic.com/news/cyber-verification-program">앤트로픽 — Expanding the Cyber Verification Program</a> (2026-10-06) — CVP 확대와 세 단계(Defense·Red Team·Specialized Access)의 대상·조건, 포함 모델, 글래스윙 회원 이전, 검증된 취약점 12만9천 건(파트너, 4월부터 7월)·5,500건(앤트로픽, 4월부터 10월)·치명·높음 3만3천 건 이상, 자료의 한계(파트너 33곳 보고, 분류 방식 차이, 패치 수 보고 절반 미만), CyScenarioBench 결과, 데이터 보관, 제공 플랫폼</li>
+<li><a href="https://www.anthropic.com/glasswing">앤트로픽 — Project Glasswing</a> (2026-04-07 출범) — 출범 파트너, 40곳 이상 추가, 사용 크레딧 1억 달러·기부 400만 달러, 제로데이 수천 개, OpenBSD·FFmpeg 예(패치됨), 이름의 유래</li>
+<li><a href="https://www.anthropic.com/research/glasswing-initial-update">앤트로픽 — Project Glasswing: An initial update</a> (2026-05-22) — 약 50개 파트너, 병목이 검증·공개·패치로 옮겨 감, 외부 보안 업체 6곳 검토, 패치 평균 2주, 패치 주기·다단계 인증·로그 권고</li>
+<li><a href="https://red.anthropic.com/2026/cvd/">앤트로픽 — 오픈소스 취약점 공개 대시보드</a> (2026-10-02 갱신, 2026-10-08 조회) — 알림 6,157건(591개 프로젝트), 관리자 응답 5,103건, 패치 516건, 식별 번호 584개, 외부 검토 없이 직접 알린 4,824건</li>
+<li>Reuters — Anthropic Mythos access to grow four-fold to about 200 Glasswing partners (2026-06-02) · <a href="https://www.cp24.com/news/money/2026/06/02/anthropic-mythos-access-to-grow-four-fold-to-about-200-glasswing-partners/">CP24 전재</a> — 약 50곳에서 약 200곳, 15개국 이상, 의료·전력·수도·통신·하드웨어</li>
+<li><a href="https://www.vulncheck.com/blog/anthropic-glasswing-receipts">VulnCheck — The Anthropic Glasswing Receipts Are Starting to Trickle In</a> (2026-09-08) — 클로드 등급과 관리자 등급 차이(91.5% 대 51.3%), 대시보드·장부 숫자 불일치</li>
+<li><a href="https://www.vulncheck.com/blog/state-of-exploitation-1h-2026">VulnCheck — State of Exploitation 1H-2026</a> (2026-07-28) — 공개 CVE 126개 중 실제 악용 확인 1개(보고서 작성 시점), ‘증거 대비 과장’과 ‘방어자에게 유리’ 평가</li>
+</ul>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260908-ai-cyber-models-gated/">AI 사이버보안 모델, 해킹 능력 AI를 3사가 잠근 이유</a> · <a href="/posts/20261006-gemini-4-argon/">제미나이 4 아르곤 정리, 보안 방어자부터 여는 이유</a> · <a href="/posts/20261007-mistral-large-4/">미스트랄 라지 4 정리, 1조 파라미터 MoE 뜻과 공개 일정</a></p> </article> <nav class="end-nav" aria-label="목록" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로 · 📰 뉴스</a><div class="more" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261008-google-ondevice-search-nano-banana/" data-astro-cid-f3qesd3f>임베딩젬마 2 정리, 폰 안에서 사진·영상 찾는 구글 검색 모델</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-broadcom-openai-custom-chips/" data-astro-cid-f3qesd3f>브로드컴 OpenAI 칩 정리, 500억 달러 조달 논의와 금융 구조</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-ai-safety-joint-evaluation/" data-astro-cid-f3qesd3f>AI 안전 표준 기구, OpenAI·앤트로픽·구글은 어디까지 합의했나</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-claude-haiku-5-5/" data-astro-cid-f3qesd3f>Claude Haiku 5.5 출시, 가격 인하와 작업별 실제 비용</a></li></ul></div></nav> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> <script>
+      // 소메뉴 펼침: 바깥을 누르거나 Esc 를 누르면 닫는다 (나들이로그 site-t 와 같은 동작)
+      (function () {
+        var dd = document.querySelectorAll('[data-navdrop]');
+        if (!dd.length) return;
+        document.addEventListener('click', function (e) { dd.forEach(function (d) { if (d.open && !d.contains(e.target)) d.open = false; }); });
+        document.addEventListener('keydown', function (e) {
+          if (e.key !== 'Escape') return;
+          dd.forEach(function (d) { if (d.open) { d.open = false; d.querySelector('summary').focus(); } });
+        });
+      })();
+    </script> <script>
+      // 머리글 높이를 --hdr-h 로 (목차 이동·글 양옆 칸·행사 날짜 줄이 머리글 아래에 오게)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var set = function () { document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px'); };
+        set(); addEventListener('resize', set);
+        if ('ResizeObserver' in window) new ResizeObserver(set).observe(h);
+      })();
+    </script> <script>
+      // 머리글 맞춤 — 가운데 분류 줄이 넘치면 오른쪽 메뉴·언어를 단계적으로 줄인다(위 CSS data-fit 설명)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var mq = matchMedia('(min-width: 901px)');
+        function over() {
+          var hero = h.querySelector('.hero');
+          if (!hero) return false;
+          var t = hero.querySelector('.sec-tabs'), h1 = hero.querySelector('h1');
+          if (t && t.scrollWidth > t.clientWidth + 1) return true;
+          // 오른쪽 메뉴·언어가 넓어 가운데 칸이 정가운데에서 밀렸으면 줄인다
+          var hr = hero.getBoundingClientRect(), r = h.getBoundingClientRect();
+          if (h.getAttribute('data-fit') !== '4' && Math.abs((hr.left + hr.right) / 2 - (r.left + r.right) / 2) > 2) return true;
+          if (h1) { var lh = parseFloat(getComputedStyle(h1).lineHeight) || 24; if (h1.offsetHeight > lh * 1.5) return true; }
+          return false;
+        }
+        var busy = false;
+        function fit() {
+          if (busy) return; busy = true;
+          h.removeAttribute('data-fit');
+          if (mq.matches) for (var lv = 1; lv <= 4 && over(); lv++) h.setAttribute('data-fit', String(lv));
+          busy = false;
+        }
+        fit();
+        addEventListener('resize', fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      })();
+    </script> </body> </html> 

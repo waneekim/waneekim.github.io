@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>Claude Haiku 5.5 출시, 가격 인하와 작업별 실제 비용</title><meta name="description" content="2026년 10월 7일 앤트로픽이 소형 모델 Claude Haiku 5.5를 내놨다. 프롬프트 10만 토큰 이하는 100만 토큰당 입력 0.10달러·출력 0.50달러로 Haiku 4.5의 10분의 1이고, 10만 토큰을 넘으면 5배 비싼 구간이 붙는다. 앤트로픽이 말한 '평균 약 75% 절감'이 어떻게 나온 숫자인지, 같은 글이 약 30% 더 많은 토큰으로 세어지는 새 토크나이저와 10만 토큰 경계·생각 토큰·캐시·배치 때문에 작업 유형마다 실제 비용이 얼마나 달라지는지, Sonnet 5.5와의 차이까지 공식 요금표 단가로 계산해 정리했다."><meta property="og:title" content="Claude Haiku 5.5 출시, 가격 인하와 작업별 실제 비용"><meta property="og:description" content="2026년 10월 7일 앤트로픽이 소형 모델 Claude Haiku 5.5를 내놨다. 프롬프트 10만 토큰 이하는 100만 토큰당 입력 0.10달러·출력 0.50달러로 Haiku 4.5의 10분의 1이고, 10만 토큰을 넘으면 5배 비싼 구간이 붙는다. 앤트로픽이 말한 '평균 약 75% 절감'이 어떻게 나온 숫자인지, 같은 글이 약 30% 더 많은 토큰으로 세어지는 새 토크나이저와 10만 토큰 경계·생각 토큰·캐시·배치 때문에 작업 유형마다 실제 비용이 얼마나 달라지는지, Sonnet 5.5와의 차이까지 공식 요금표 단가로 계산해 정리했다."><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.DYL9so9z.css">
+<link rel="stylesheet" href="/_astro/_id_.DkQyrgYf.css">
+<style>.sec-tabs[data-astro-cid-cnlsgtkd]{display:flex;gap:6px;width:fit-content;max-width:100%;margin:6px auto 0;padding-bottom:4px;overflow-x:auto;scrollbar-width:none;text-align:left}.sec-tabs[data-astro-cid-cnlsgtkd]::-webkit-scrollbar{display:none}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]:hover{border-color:var(--accent);color:var(--accent)}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}.sec-tabs[data-astro-cid-cnlsgtkd] .n[data-astro-cid-cnlsgtkd]{margin-left:2px;font-size:.8em;color:var(--sub);font-weight:600}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page] .n[data-astro-cid-cnlsgtkd]{color:inherit;opacity:.75}.sr[data-astro-cid-cnlsgtkd]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style></head> <body> <a class="skip" href="#main">본문으로 건너뛰기</a> <header class="site"> <nav class="langbar" aria-label="언어 · Language"> <span aria-hidden="true">🌐</span> <a href="/" hreflang="ko" lang="ko" class="on" aria-current="true"><span class="lbl-full">한국어</span><span class="lbl-short" aria-hidden="true">KO</span></a><a href="/nadeuli/en/" hreflang="en" lang="en"><span class="lbl-full">English</span><span class="lbl-short" aria-hidden="true">EN</span></a><a href="/nadeuli/ja/" hreflang="ja" lang="ja"><span class="lbl-full">日本語</span><span class="lbl-short" aria-hidden="true">JA</span></a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant"><span class="lbl-full">繁體中文</span><span class="lbl-short" aria-hidden="true">繁中</span></a> </nav> <div class="brand-box"> <a class="brand" href="/" aria-label="happy_various"><img class="wm light" src="/brand/wordmark-light.png" alt="happy_various" width="134" height="22"></a> <a class="site-char" href="/" aria-hidden="true" tabindex="-1"><img class="mascot light" src="/brand/ai-info-light.gif" alt="" width="53" height="54"></a> <a class="site-name" href="/">AI 로그</a> </div> <nav class="sites" aria-label="사이트 메뉴"> <details class="navdrop ai on" data-navdrop> <summary title="AI 로그">🤖 <span class="lbl-full">AI 로그</span><span class="lbl-short" aria-hidden="true">AI</span> <span class="caret" aria-hidden="true">▾</span></summary> <ul aria-label="AI 로그 소메뉴"> <li><a href="/">🤖 전체 글</a></li><li><a href="/use/">🛠️ 활용</a></li><li><a href="/project/">🧪 프로젝트</a></li><li><a href="/news/">📰 뉴스</a></li> </ul> </details> <details class="navdrop" data-navdrop> <summary title="나들이로그">🧺 <span class="lbl-full">나들이로그</span><span class="lbl-short" aria-hidden="true">나들이</span> <span class="caret" aria-hidden="true">▾</span></summary> <ul aria-label="나들이 소메뉴"> <li><a href="/nadeuli/">🧺 전체 글</a></li> <li><a href="/nadeuli/food/">🍽️ 맛집</a></li> <li><a href="/nadeuli/trip/">🧳 여행</a></li> <li><a href="/nadeuli/kids/">🧸 육아</a></li> <li><a href="/nadeuli/events/">🎪 행사</a></li> </ul> </details> </nav> <div class="hero"><nav class="sec-tabs" aria-label="AI 로그 소메뉴" data-astro-cid-cnlsgtkd> <a href="/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🤖</span> 전체 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>93</span> </a><a href="/use/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🛠️</span> 활용 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>36</span> </a><a href="/project/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🧪</span> 프로젝트 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>33</span> </a><a href="/news/" aria-current="page" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>📰</span> 뉴스 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>24</span> </a> </nav> </div> <div class="hdr-bar" hidden></div> </header> <main id="main" tabindex="-1">  <nav class="crumb" aria-label="목록" data-astro-cid-f3qesd3f><a href="/" data-astro-cid-f3qesd3f>🤖 AI 로그</a><span aria-hidden="true" data-astro-cid-f3qesd3f>›</span><a href="/news/" data-back data-astro-cid-f3qesd3f>📰 뉴스</a></nav><aside class="rail rail-l" aria-label="목록" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로</a><ul class="secs" data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/" data-astro-cid-f3qesd3f>🤖 전체 글</a></li><li data-astro-cid-f3qesd3f><a href="/use/" data-astro-cid-f3qesd3f>🛠️ 활용</a></li><li data-astro-cid-f3qesd3f><a href="/project/" data-astro-cid-f3qesd3f>🧪 프로젝트</a></li><li data-astro-cid-f3qesd3f><a href="/news/" aria-current="true" data-astro-cid-f3qesd3f>📰 뉴스</a></li></ul></div></aside><aside class="rail rail-r" aria-label="이 글 목차" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><nav class="toc" aria-label="이 글 목차" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>이 글 목차</p><ol data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="#1-무슨-일-가장-싸고-빠른-하이쿠" data-toc="1-무슨-일-가장-싸고-빠른-하이쿠" data-astro-cid-f3qesd3f>1. 무슨 일: 가장 싸고 빠른 하이쿠</a></li><li data-astro-cid-f3qesd3f><a href="#2-가격표-이전-하이쿠소넷과-비교" data-toc="2-가격표-이전-하이쿠소넷과-비교" data-astro-cid-f3qesd3f>2. 가격표, 이전 하이쿠·소넷과 비교</a></li><li data-astro-cid-f3qesd3f><a href="#3-평균-75-절감-계산-방식" data-toc="3-평균-75-절감-계산-방식" data-astro-cid-f3qesd3f>3. 평균 75% 절감, 계산 방식</a></li><li data-astro-cid-f3qesd3f><a href="#4-작업-유형별로-다시-세-보기" data-toc="4-작업-유형별로-다시-세-보기" data-astro-cid-f3qesd3f>4. 작업 유형별로 다시 세 보기</a></li><li data-astro-cid-f3qesd3f><a href="#5-sonnet-55와의-차이도-일마다" data-toc="5-sonnet-55와의-차이도-일마다" data-astro-cid-f3qesd3f>5. Sonnet 5.5와의 차이도 일마다</a></li><li data-astro-cid-f3qesd3f><a href="#6-앤트로픽이-밝힌-성능" data-toc="6-앤트로픽이-밝힌-성능" data-astro-cid-f3qesd3f>6. 앤트로픽이 밝힌 성능</a></li><li data-astro-cid-f3qesd3f><a href="#7-무슨-뜻인가-소형-모델-가격전" data-toc="7-무슨-뜻인가-소형-모델-가격전" data-astro-cid-f3qesd3f>7. 무슨 뜻인가: 소형 모델 가격전</a></li><li data-astro-cid-f3qesd3f><a href="#자주-묻는-질문" data-toc="자주-묻는-질문" data-astro-cid-f3qesd3f>자주 묻는 질문</a></li><li data-astro-cid-f3qesd3f><a href="#부록-계산에-쓴-식-2026-10-08-공식-단가" data-toc="부록-계산에-쓴-식-2026-10-08-공식-단가" data-astro-cid-f3qesd3f>부록: 계산에 쓴 식 (2026-10-08 공식 단가)</a></li><li data-astro-cid-f3qesd3f><a href="#부록-출처-전체-2026-10-08-확인" data-toc="부록-출처-전체-2026-10-08-확인" data-astro-cid-f3qesd3f>부록: 출처 전체 (2026-10-08 확인)</a></li></ol><a class="up" href="#main" data-astro-cid-f3qesd3f>↑ 맨 위로</a></nav><nav class="more" aria-label="다른 뉴스 글" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261008-google-ondevice-search-nano-banana/" data-astro-cid-f3qesd3f>임베딩젬마 2 정리, 폰 안에서 사진·영상 찾는 구글 검색 모델</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-broadcom-openai-custom-chips/" data-astro-cid-f3qesd3f>브로드컴 OpenAI 칩 정리, 500억 달러 조달 논의와 금융 구조</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-ai-safety-joint-evaluation/" data-astro-cid-f3qesd3f>AI 안전 표준 기구, OpenAI·앤트로픽·구글은 어디까지 합의했나</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-anthropic-glasswing/" data-astro-cid-f3qesd3f>프로젝트 글래스윙 정리, 취약점 12만9천 건과 보안팀 3단계 접근</a></li></ul></nav></div></aside><a class="float-back" href="/news/" data-back aria-label="목록으로" data-astro-cid-f3qesd3f>← 목록</a><script type="module">document.querySelectorAll("[data-back]").forEach(e=>e.addEventListener("click",r=>{try{const t=new URL(document.referrer);t.origin===location.origin&&!t.pathname.includes("/posts/")&&history.length>1&&(r.preventDefault(),history.back())}catch{}}));const n=new Map([...document.querySelectorAll("[data-toc]")].map(e=>[e.dataset.toc,e]));if(n.size&&"IntersectionObserver"in window){const e=new IntersectionObserver(r=>{for(const t of r)t.isIntersecting&&(n.forEach(o=>o.removeAttribute("aria-current")),n.get(t.target.id)?.setAttribute("aria-current","true"))},{rootMargin:"0px 0px -72% 0px"});n.forEach((r,t)=>{const o=document.getElementById(t);o&&e.observe(o)})}const c=document.querySelector(".float-back");if(c){const e=()=>c.classList.toggle("show",scrollY>480);addEventListener("scroll",e,{passive:!0}),e()}</script> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 8일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 10개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무슨-일-가장-싸고-빠른-하이쿠" data-astro-cid-lvjzyg5v>1. 무슨 일: 가장 싸고 빠른 하이쿠</a></li><li data-astro-cid-lvjzyg5v><a href="#2-가격표-이전-하이쿠소넷과-비교" data-astro-cid-lvjzyg5v>2. 가격표, 이전 하이쿠·소넷과 비교</a></li><li data-astro-cid-lvjzyg5v><a href="#3-평균-75-절감-계산-방식" data-astro-cid-lvjzyg5v>3. 평균 75% 절감, 계산 방식</a></li><li data-astro-cid-lvjzyg5v><a href="#4-작업-유형별로-다시-세-보기" data-astro-cid-lvjzyg5v>4. 작업 유형별로 다시 세 보기</a></li><li data-astro-cid-lvjzyg5v><a href="#5-sonnet-55와의-차이도-일마다" data-astro-cid-lvjzyg5v>5. Sonnet 5.5와의 차이도 일마다</a></li><li data-astro-cid-lvjzyg5v><a href="#6-앤트로픽이-밝힌-성능" data-astro-cid-lvjzyg5v>6. 앤트로픽이 밝힌 성능</a></li><li data-astro-cid-lvjzyg5v><a href="#7-무슨-뜻인가-소형-모델-가격전" data-astro-cid-lvjzyg5v>7. 무슨 뜻인가: 소형 모델 가격전</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-계산에-쓴-식-2026-10-08-공식-단가" data-astro-cid-lvjzyg5v>부록: 계산에 쓴 식 (2026-10-08 공식 단가)</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-08-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-08 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>이 글에는 제휴 링크가 없고 앤트로픽과 아무 관계가 없습니다. 내용은 앤트로픽 공식 발표(2026-10-07)와 Claude 공식 문서(2026-10-08 확인), SiliconANGLE·Yahoo Finance 보도와 사이먼 윌리슨 블로그(2026-10-07) 기준이며, 직접 써 본 후기는 아닙니다. 비용 예시는 공식 단가에 설명용으로 정한 토큰 수를 곱한 계산이라 실제 청구액과 다를 수 있습니다. 삽화는 GPT 이미지 생성, 도식은 직접 제작했습니다.</blockquote> <h1 id="claude-haiku-55-출시-가격-인하와-작업별-실제-비용">Claude Haiku 5.5 출시, 가격 인하와 작업별 실제 비용</h1>
+<p><img alt="Claude Haiku 5.5 — 가격 인하, 작업마다 다른 실제 비용 (캐릭터는 GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.vt7gosFv_Z1C36Vs.webp" ></p>
+<p class="cap">Claude Haiku 5.5 — 가격 인하, 작업마다 다른 실제 비용 (캐릭터는 GPT 이미지 생성)</p>
+<p>“단가가 90% 내렸다는데, 우리 청구서도 90% 줄어들까?” 앤트로픽이 10월 7일 Claude Haiku 5.5를 내놓자 이 질문부터 나와요. 에이전트나 대량 처리에 작은 모델을 돌리는 곳이라면 운영비에 바로 닿는 소식이라서요.</p>
+<p>마트 전단에 ‘전 품목 90% 할인’이 붙었다고 해 볼게요. 그런데 봉지가 작아져서 같은 양을 사려면 봉지가 30% 더 들어요. 장바구니가 일정 크기를 넘으면 그 장바구니는 50% 할인만 받아요. 영수증이 얼마나 줄지는 무엇을 얼마나 담았느냐에 달렸어요.<br>
+<strong>Haiku 5.5는 토큰 단가를 짧은 요청에서 90%, 10만 토큰이 넘는 요청에서 50% 내렸어요. 내 청구서가 얼마나 줄지는 프롬프트 길이와 캐시, 생각 토큰에 따라 달라져요.</strong></p>
+<p><img alt="할인 표지판 아래 계산대에서 긴 영수증을 돋보기로 살펴보는 손님 — 단가 인하와 실제 청구액은 다르다 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-receipt-basket.CDH-zFgQ_19Iguf.webp" ></p>
+<p class="cap">할인 표지판 아래 계산대에서 긴 영수증을 돋보기로 살펴보는 손님 — 단가 인하와 실제 청구액은 다르다 (GPT 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: Claude API로 에이전트·대량 작업을 돌리는 분<br>① Haiku 5.5 단가를 Haiku 4.5·Sonnet 5.5와 비교<br>② ‘평균 75% 절감’이 나온 계산 방식<br>③ 작업 유형별로 공식 단가로 다시 센 비용<br>2026년 10월 8일 기준 · 앤트로픽 발표·공식 문서</div>
+<hr>
+<h2 id="1-무슨-일-가장-싸고-빠른-하이쿠">1. 무슨 일: 가장 싸고 빠른 하이쿠</h2>
+<p><strong>2026년 10월 7일 앤트로픽이 소형 모델 Claude Haiku 5.5를 내놨어요. 발표문은 “우리가 낸 소형 모델 중 가장 싸고, 가장 빠르고, 가장 유능한 모델”이라고 소개해요.</strong></p>
+<ul>
+<li>앤트로픽이 꼽은 용도는 요약, 대화 압축(compaction), 데이터베이스 조회, 분류처럼 짧고 반복되는 일이에요. Opus 5.5·Sonnet 5.5가 코딩할 때 잔일을 넘겨받는 하위 에이전트(subagent)로도 맞다고 했어요.</li>
+<li>표준 속도 기준으로 앤트로픽 모델 가운데 가장 빨라서 실시간 고객 상담과 브라우저 조작에도 권해요. 각주에 따르면 Opus의 빠른 모드(Fast Mode)보다는 느려요.</li>
+</ul>
+<p>API 모델 이름은 <code>claude-haiku-5-5</code>이고, 클로드 플랫폼과 AWS·구글 클라우드·마이크로소프트 애저에서 바로 쓸 수 있어요. 컨텍스트는 100만 토큰, 최대 출력은 12만 8천 토큰으로 Haiku 4.5(20만·6만 4천)보다 커졌어요. 하이쿠 급에서 처음으로 생각 강도(effort)를 고를 수 있고, 기본값은 medium이에요. 이 글은 앤트로픽 발표문(10월 7일)과 공식 문서(10월 8일 확인)를 옮긴 것이고, 직접 써 본 후기가 아니에요.</p>
+<h2 id="2-가격표-이전-하이쿠소넷과-비교">2. 가격표, 이전 하이쿠·소넷과 비교</h2>
+<p><strong>짧은 요청(프롬프트 10만 토큰 이하)은 100만 토큰당 입력 0.10달러, 출력 0.50달러예요. Haiku 4.5의 10분의 1이에요.</strong></p>
+<ul>
+<li>프롬프트가 10만 토큰을 넘으면 그 요청은 입력 0.50달러, 출력 2.50달러로 5배 비싼 구간을 적용받아요. Opus 5.5·Sonnet 5.5는 100만 토큰 전 구간이 같은 단가라, 프롬프트 길이로 단가가 갈리는 건 Haiku 5.5만의 방식이에요.</li>
+<li>공식 요금표(10월 8일 확인)의 숫자를 옮겼어요.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>모델 (100만 토큰당)</th><th>입력 · 출력 · 캐시 읽기</th></tr></thead><tbody><tr><td>Haiku 5.5 (10만 이하)</td><td>$0.10 · $0.50 · $0.01</td></tr><tr><td>Haiku 5.5 (10만 초과)</td><td>$0.50 · $2.50 · $0.05</td></tr><tr><td>Haiku 4.5 (이전 하이쿠)</td><td>$1.00 · $5.00 · $0.10</td></tr><tr><td>Sonnet 5.5 (한 단계 위)</td><td>$2.00 · $10.00 · $0.10</td></tr><tr><td>Opus 5.5 (참고)</td><td>$4.00 · $20.00 · $0.20</td></tr></tbody></table>
+<p>24시간 안에만 끝나면 되는 대량 작업용 배치(Batch API)는 입력·출력 모두 50% 할인이에요. Haiku 5.5 배치는 10만 이하 기준 입력 0.05달러, 출력 0.25달러예요. 캐시에 새로 쓰는 값(5분 캐시)은 0.125달러, 10만 초과 구간은 0.625달러예요.</p>
+<p>같은 날 Sonnet 5.5의 캐시 읽기 값도 0.20달러에서 0.10달러로 절반이 됐어요. 앤트로픽은 캐시 읽기가 토큰 사용의 큰 몫이라 대부분의 에이전트 작업에서 Sonnet 5.5가 약 20% 싸진다고 했어요.</p>
+<h2 id="3-평균-75-절감-계산-방식">3. 평균 75% 절감, 계산 방식</h2>
+<p><strong>앤트로픽은 Haiku 5.5가 Haiku 4.5보다 평균 약 75% 싸게 돌아간다고 밝혔어요. 단가 인하율 90%와는 다른 숫자예요.</strong></p>
+<ul>
+<li>발표문 각주에 계산 방식이 있어요. 10만 토큰 이하 요청은 90%, 넘는 요청은 50% 싸졌고, Haiku 4.5 요청의 90%가 10만 이하였대요.</li>
+<li>여기에 토큰 수 변화도 넣었다고 해요. Haiku 5.5는 Opus 5.5·Sonnet 5.5와 비슷한 새 토크나이저(글을 토큰으로 자르는 장치)를 써서 같은 일에 토큰을 조금 더 써요.</li>
+</ul>
+<p>공식 문서는 더 구체적이에요. 같은 글이 Haiku 5.5에서는 Haiku 4.5보다 <strong>약 30% 더 많은 토큰</strong>으로 세어지고, 늘어나는 폭은 내용마다 달라요. 독립 개발자 사이먼 윌리슨이 같은 긴 프롬프트를 세어 보니 약 1.25배였고, 그는 이걸 “숨은 가격 인상”이라고 불렀어요. 그래서 공식 마이그레이션 가이드는 Haiku 4.5에서 잰 토큰 수로 만든 비용 추정을 Haiku 5.5의 토큰 수와 단가로 다시 계산하라고 해요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>토큰 단가 인하율(90%·50%)과 내 청구서 감소율은 다른 숫자예요.</div>
+<h2 id="4-작업-유형별로-다시-세-보기">4. 작업 유형별로 다시 세 보기</h2>
+<p><strong>Haiku 4.5 로그의 토큰 수를 1.3배로 늘려 Haiku 5.5 단가를 곱하면, 짧은 요청은 약 87% 줄고 10만 토큰을 넘는 요청은 약 35% 줄어요.</strong></p>
+<ul>
+<li>계산식은 단순해요. 토큰 수 × 100만 토큰당 단가 ÷ 100만을 입력·출력·캐시마다 더하면 돼요.</li>
+<li>아래는 같은 일 1,000건을 공식 단가로 센 예시예요. 토큰 수는 설명을 위해 정한 값이에요.</li>
+</ul>
+<p><img alt="Claude Haiku 5.5 비용 계산 — 같은 일 1,000건을 Haiku 4.5와 공식 단가로 비교한 네 경우, 10만 토큰 경계에서 절감률이 87%에서 35%로 바뀐다 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="3320" src="/_astro/diagram-haiku-cost-cases.BpfB8qrL_Zt7ehh.webp" ></p>
+<p class="cap">Claude Haiku 5.5 비용 계산 — 같은 일 1,000건을 Haiku 4.5와 공식 단가로 비교한 네 경우, 10만 토큰 경계에서 절감률이 87%에서 35%로 바뀐다 (직접 제작)</p>
+<p>눈여겨볼 곳은 ②와 ③이에요. Haiku 4.5에서 입력 7만이던 요청은 5.5에서 약 9.1만 토큰이라 싼 구간에 남아요. 8만이던 요청은 약 10.4만 토큰이 되어 비싼 구간으로 넘어가요. <mark>4.5에서 약 7.7만 토큰을 넘던 요청은 5.5에서 비싼 구간</mark>일 수 있어요. 긴 문서를 통째로 넣는 요약이나 대화가 쌓이는 에이전트가 여기에 걸리기 쉬워요.</p>
+<p><strong>출력 비중과 생각 토큰도 계산을 바꿔요.</strong></p>
+<ul>
+<li>Haiku 5.5는 적응형 생각(adaptive thinking)이 기본으로 켜져 있고, 생각에 쓴 토큰은 출력 토큰으로 청구돼요.</li>
+<li>예를 들어 Haiku 4.5 기준 입력 2,000·출력 20토큰인 분류 1건은 5.5에서 0.000273달러예요. 여기에 생각 토큰 1,000개가 붙는다고 가정하면 0.000773달러로 약 2.8배가 되고, Haiku 4.5 대비 절감률은 87%에서 63%로 내려가요.</li>
+<li>답이 짧은 일일수록 생각 토큰의 몫이 커져요. 문서는 생각 강도를 낮추면 쉬운 요청에서는 생각을 건너뛸 수 있다고 안내하고, 실제로 쓴 생각 토큰은 응답의 usage 항목에 찍혀요.</li>
+</ul>
+<p><strong>배치는 금액을 반으로 줄이지만 모델 사이 배수는 그대로예요.</strong><br>
+①번 짧은 요청 1,000건을 배치로 돌리면 Haiku 5.5는 0.78달러에서 0.39달러가 돼요. Haiku 4.5도 배치면 3달러라서 두 모델의 차이는 그대로 87%예요.</p>
+<h2 id="5-sonnet-55와의-차이도-일마다">5. Sonnet 5.5와의 차이도 일마다</h2>
+<p><img alt="작은 짐을 잔뜩 실은 스쿠터와 큰 퍼즐 상자 하나를 실은 트럭이 나란히 달리는 장면 — 작은 모델과 큰 모델의 일 나누기 (GPT 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-scooter-truck.DdBFNeNy_Z1xGi1a.webp" ></p>
+<p class="cap">작은 짐을 잔뜩 실은 스쿠터와 큰 퍼즐 상자 하나를 실은 트럭이 나란히 달리는 장면 — 작은 모델과 큰 모델의 일 나누기 (GPT 이미지 생성)</p>
+<p><strong>캐시 없는 짧은 요청에서는 Haiku 5.5가 Sonnet 5.5의 20분의 1 값이지만, 캐시가 쌓인 긴 에이전트 턴에서는 약 3분의 1까지 좁혀져요.</strong></p>
+<ul>
+<li>에이전트는 턴마다 지금까지의 대화를 통째로 다시 보내요. 그래서 앞부분은 캐시에서 읽고, 새로 붙은 부분만 캐시에 쓰는 게 보통이라고 공식 비용 안내서는 설명해요.</li>
+<li>공식 단가로 에이전트 한 턴을 세어 봤어요. 새 입력 1만 토큰은 5분 캐시 쓰기로 쳤고, 캐시에서 읽은 부분도 프롬프트 길이에 들어간다고 보고 계산했어요.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>한 번 요청 (Haiku 5.5 토큰 기준)</th><th>Haiku 5.5 · Sonnet 5.5</th></tr></thead><tbody><tr><td>짧은 요청, 캐시 없음 (입력 5,200 · 출력 520)</td><td>$0.00078 · $0.0156 (20배)</td></tr><tr><td>캐시 8만 + 새 입력 1만 + 출력 2천</td><td>$0.00305 · $0.053 (약 17배)</td></tr><tr><td>캐시 14만 + 새 입력 1만 + 출력 2천</td><td>$0.01825 · $0.059 (약 3.2배)</td></tr></tbody></table>
+<p>마지막 줄은 프롬프트가 15만 토큰이라 Haiku 5.5가 비싼 구간에 들어가요. 그 구간의 캐시 읽기는 0.05달러인데, 같은 날 Sonnet 5.5의 캐시 읽기가 0.10달러로 내려와 차이가 2배뿐이에요. 여기에 성공률이 더해져요. 앤트로픽도 복잡한 에이전트 코딩에는 Sonnet 5.5·Opus 5.5가 더 낫다고 했고, Terminal-Bench 4.0 점수는 Haiku 5.5 39.2%, Sonnet 5.5 70.6%예요. 공식 안내서는 실패한 작업도 토큰이 청구되고, 그다음 재시도 비용이 붙는다고 적었어요. 우선 처리 등급(Priority Tier)이 Haiku 5.5에서는 지원되지 않는다는 점도 운영 계획에 넣어야 해요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>토큰 단가표만 보고 총비용이 더 싸다고 단정하지 마세요. 공식 안내서도 토큰당이 아니라 완료한 작업당 비용으로 비교하라고 해요.</div>
+<h2 id="6-앤트로픽이-밝힌-성능">6. 앤트로픽이 밝힌 성능</h2>
+<p><strong>앤트로픽 발표 표에서 Haiku 5.5는 모든 항목에서 Haiku 4.5를 크게 앞서고, Sonnet 5.5에는 못 미쳐요.</strong> 평가 종목도, 측정도 앤트로픽이 한 거예요. 세부 조건은 Haiku 5.5 시스템 카드에 있다고 했어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>평가 (재는 것)</th><th>Haiku 5.5 · 4.5 · Sonnet 5.5</th></tr></thead><tbody><tr><td>OSWorld 2.1 오프라인 (컴퓨터 조작)</td><td>72.4% · 15.7% · 83.9%</td></tr><tr><td>Terminal-Bench 4.0 (터미널 코딩)</td><td>39.2% · 0.0% · 70.6%</td></tr><tr><td>Humanity’s Last Exam (도구 없음)</td><td>45.9% · 10.2% · 56.9%</td></tr><tr><td>GDPval-AA v2.1 (실무 과제, Elo)</td><td>1620 · 735 · 1840</td></tr><tr><td>Chartography (차트 읽기, 도구 없음)</td><td>46.4% · 6.4% · 61.6%</td></tr></tbody></table>
+<p>같은 표에는 OpenAI GPT-6 Luna도 있어요. 둘 다 점수가 있는 6개 항목에서 모두 Haiku 5.5가 앞섰다고 실리콘앵글은 정리했어요. OSWorld가 72.4% 대 48.9%예요. 다만 모두 앤트로픽이 고르고 잰 숫자예요. 내 작업에서 다시 재 보기 전까지는 출발점으로만 보는 게 안전해요.</p>
+<h2 id="7-무슨-뜻인가-소형-모델-가격전">7. 무슨 뜻인가: 소형 모델 가격전</h2>
+<p><strong>happy_various는 이번 발표를 소형 모델 가격전이 본격화한 신호로 봐요. 에이전트·배치 작업의 운영비에 바로 닿는 인하예요.</strong></p>
+<ul>
+<li>실리콘앵글과 야후 파이낸스는 Haiku 5.5의 10만 토큰 이하 단가가 지난달 나온 OpenAI의 가장 작은 모델 GPT-6 Luna와 같다고 보도했어요.</li>
+<li>야후 파이낸스는 가격이 AI 논의에서 점점 중요해졌고, 기업 고객들이 비용을 줄일 방법을 찾고 있다고 짚었어요.</li>
+<li>사이먼 윌리슨은 “10만 토큰 안에 들어오는 일이면 Luna와 같은 값에 점수는 더 높지만, 10만을 넘으면 Luna가 훨씬 나은 거래로 보인다”고 평했어요.</li>
+</ul>
+<p>운영 쪽에서 보면 이래요. 하위 에이전트·요약·분류처럼 짧고 범위가 좁은 일은 Haiku 5.5로 옮길 이유가 커졌어요. 앤트로픽도 예전에는 비용 때문에 못 하던 좁은 일(압축·요약·하위 에이전트)에 맞다고 했어요. 반대로 긴 문서를 통째로 넣는 일, 대화가 길게 쌓이는 에이전트, 어려운 코딩은 위 계산처럼 차이가 줄고 재시도까지 넣으면 더 줄 수 있어요. 옮기기 전에 내 로그 일부를 Haiku 5.5로 다시 세고, 완료한 작업당 비용을 비교하는 게 순서예요.</p>
+<p>구독자에게는 이번 주부터 매달 API 크레딧이 생겨요. Max 5x는 100달러, Max 20x는 200달러, Team은 사용자 합산 최대 500달러이고 어느 모델에나 쓸 수 있어요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 10월 7일 출시, 모든 주요 클라우드에서 사용<br>② 10만 이하 $0.10 · $0.50, 초과는 5배<br>③ 같은 글이 약 1.3배 토큰, 절감은 일마다 다름<br>④ Sonnet 5.5 캐시 읽기 절반, 비교는 작업당으로</div>
+<p><strong>오늘의 큰 흐름:</strong> 소형 모델 가격전. 단가표의 90%보다, 내 작업 로그로 다시 센 청구서가 기준이에요.</p>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. Haiku 4.5에서 바꾸면 비용이 정말 75% 줄어드나요?</summary><p>75%는 Haiku 4.5 요청 분포를 기준으로 한 앤트로픽의 평균이에요. 10만 토큰 이하 요청만 쓰면 단가 기준 87% 안팎, 넘는 요청이 많으면 35% 안팎이고, 생각 토큰과 재시도까지 넣으면 또 달라져요. 내 로그를 Haiku 5.5로 다시 세어 보는 게 정확해요.</p></details>
+<details class="faq"><summary>Q. 10만 토큰 기준에는 캐시에서 읽은 부분도 들어가나요?</summary><p>요금표는 ‘프롬프트 길이’로 나눈다고만 적었어요. 캐시 읽기 단가도 구간마다 따로 적혀 있어서 이 글은 들어간다고 보고 계산했어요. 정확한 기준은 내 청구 내역으로 확인하세요.</p></details>
+<details class="faq"><summary>Q. Haiku 4.5용 코드를 그대로 쓸 수 있나요?</summary><p>모델 이름만 바꾸면 오류가 나는 부분이 있어요. 마이그레이션 가이드에 따르면 기본값이 아닌 temperature·top_p·top_k, 답변 미리 채우기(prefill), budget_tokens 방식의 생각 설정은 오류가 나요. 토큰이 늘어나니 max_tokens도 다시 봐야 해요.</p></details>
+<details class="faq"><summary>Q. 구독 크레딧은 다음 달로 넘어가나요?</summary><p>사이먼 윌리슨에 따르면 매달 주는 API 크레딧은 이월되지 않아요. 앤트로픽 발표문에는 Max 5x 100달러, Max 20x 200달러, Team 최대 500달러이고 어느 모델에나 쓸 수 있다고 적혀 있어요.</p></details>
+<p>Sonnet 5.5가 나왔을 때도 토큰 단가보다 작업당 비용이 기준이라고 정리했어요. 큰 모델 쪽 이야기는 이 글에 있어요.</p>
+<p class="nextpost">→ <a href="/posts/20261001-claude-sonnet-5-5/">Claude Sonnet 5.5 출시, 가격·성능과 Opus 5.5 비교</a></p>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>앤트로픽 공식 발표 — Introducing Claude Haiku 5.5 · <a href="https://anthropic.com/claude-haiku-5-5">anthropic.com/claude-haiku-5-5</a></li>
+<li>Claude 공식 문서 — 요금 · <a href="https://platform.claude.com/docs/en/about-claude/pricing">platform.claude.com/docs/en/about-claude/pricing</a></li>
+<li>Claude 공식 문서 — Haiku 5.5 마이그레이션 가이드 · <a href="https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide">platform.claude.com/docs/en/models/haiku-5-5/migration-guide</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 8일 · 같은 날 기준<br>앤트로픽 발표·공식 문서, 보도·개발자 글<br>직접 써 본 후기 아님 · 계산은 공식 단가로<br>제휴 없음 · 앤트로픽과 관계없음<br>캐릭터는 GPT 생성, 도식은 직접 제작</div>
+<h2 id="부록-계산에-쓴-식-2026-10-08-공식-단가">부록: 계산에 쓴 식 (2026-10-08 공식 단가)</h2>
+<ul>
+<li>비용 = 입력 토큰 × 입력 단가 + 출력 토큰 × 출력 단가 + 캐시 읽기 토큰 × 캐시 읽기 단가 + 캐시 쓰기 토큰 × 캐시 쓰기 단가, 모두 ÷ 100만</li>
+<li>Haiku 4.5 → 5.5 토큰은 공식 문서의 ‘같은 글이 약 30% 더 많은 토큰’을 1.3배로 썼어요. 실제 증가 폭은 내용마다 달라요.</li>
+<li>① 입력 4,000 · 출력 400 (5.5: 5,200 · 520) — Haiku 4.5 $0.006, Haiku 5.5 $0.00078 → 1,000건 $6.00 → $0.78</li>
+<li>② 입력 70,000 · 출력 1,000 (5.5: 91,000 · 1,300, 10만 이하) — 1,000건 $75 → $9.75</li>
+<li>③ 입력 80,000 · 출력 1,000 (5.5: 104,000 · 1,300, 10만 초과) — 1,000건 $85 → $55.25</li>
+<li>④ 입력 120,000 · 출력 1,000 (5.5: 156,000 · 1,300, 10만 초과) — 1,000건 $125 → $81.25</li>
+<li>분류 1건: 4.5 입력 2,000 · 출력 20 = $0.0021 → 5.5 입력 2,600 · 출력 26 = $0.000273 → 생각 토큰 1,000개 가정 시 출력 1,026 = $0.000773</li>
+<li>에이전트 한 턴(캐시 읽기 + 새 입력 1만은 5분 캐시 쓰기 + 출력 2,000): 캐시 8만 — Haiku 5.5 $0.00305 · Sonnet 5.5 $0.053 / 캐시 14만(프롬프트 15만, 10만 초과) — Haiku 5.5 $0.01825 · Sonnet 5.5 $0.059</li>
+</ul>
+<h2 id="부록-출처-전체-2026-10-08-확인">부록: 출처 전체 (2026-10-08 확인)</h2>
+<ul>
+<li><a href="https://www.anthropic.com/claude-haiku-5-5">앤트로픽 — Introducing Claude Haiku 5.5</a> (2026-10-07) — 용도, 평균 약 75% 절감과 각주(10만 이하 90%·초과 50%, 4.5 요청의 90%가 10만 이하, 새 토크나이저), 가격표, 벤치마크 표, Sonnet 5.5 캐시 읽기 절반(약 20%↓), Max·Team 월 API 크레딧</li>
+<li><a href="https://platform.claude.com/docs/en/about-claude/pricing">Claude 공식 문서 — 요금</a> — Haiku 5.5 두 구간 단가·배치 50%·캐시 단가, ‘priced by prompt length’, Haiku 4.5·Sonnet 5.5·Opus 5.5 단가</li>
+<li><a href="https://platform.claude.com/docs/en/models/haiku-5-5/overview">Claude 공식 문서 — Haiku 5.5 개요</a> · <a href="https://platform.claude.com/docs/en/models/haiku-5-5/whats-new-haiku-5-5">새 기능</a> · <a href="https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide">마이그레이션 가이드</a> — 1M 컨텍스트·128K 출력, 같은 글이 약 30% 더 많은 토큰, 적응형 생각 기본, 기본값 아닌 샘플링 값·prefill 오류, Priority Tier 미지원</li>
+<li><a href="https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking">Claude 공식 문서 — 적응형 생각</a> — 생각 토큰은 출력 토큰으로 청구, usage 에서 확인</li>
+<li><a href="https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence">Claude 공식 문서 — 비용과 지능 최적화</a> — 완료한 작업당 비용으로 비교, 실패한 작업도 토큰 청구 후 재시도, 에이전트는 턴마다 대화 전체를 다시 보냄</li>
+<li><a href="https://siliconangle.com/2026/10/07/anthropic-releases-claude-haiku-5-5-small-model-and-halves-sonnet-5-5-cache-read-prices/">SiliconANGLE — Anthropic releases Claude Haiku 5.5 small model and halves Sonnet 5.5 cache read prices</a> (2026-10-07) — GPT-6 Luna와 같은 단가, 6개 항목 모두 앞섬</li>
+<li><a href="https://finance.yahoo.com/technology/article/anthropic-reveals-haiku-55-model-as-ai-pricing-war-intensifies-180000423.html">Yahoo Finance — Anthropic reveals Haiku 5.5 model as AI pricing war intensifies</a> (2026-10-07) — 가격이 AI 경쟁의 축, Luna와 같은 수준</li>
+<li><a href="https://simonwillison.net/2026/Oct/7/claude-haiku-5-5/">Simon Willison — Claude Haiku 5.5</a> (2026-10-07) — 약 1.25배 토큰 ‘숨은 가격 인상’, 10만 넘으면 Luna가 나은 거래, 크레딧 이월 없음</li>
+</ul>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20261001-claude-sonnet-5-5/">Claude Sonnet 5.5 출시, 가격·성능과 Opus 5.5 비교</a> · <a href="/posts/20260925-claude-opus-5-5/">Claude Opus 5.5 벤치마크·가격, Fable 5.1과 비교</a> · <a href="/posts/20260906-openai-api-cost/">OpenAI API 비용, 한 달 요금 계산법</a></p> </article> <nav class="end-nav" aria-label="목록" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로 · 📰 뉴스</a><div class="more" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261008-google-ondevice-search-nano-banana/" data-astro-cid-f3qesd3f>임베딩젬마 2 정리, 폰 안에서 사진·영상 찾는 구글 검색 모델</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-broadcom-openai-custom-chips/" data-astro-cid-f3qesd3f>브로드컴 OpenAI 칩 정리, 500억 달러 조달 논의와 금융 구조</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-ai-safety-joint-evaluation/" data-astro-cid-f3qesd3f>AI 안전 표준 기구, OpenAI·앤트로픽·구글은 어디까지 합의했나</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261008-anthropic-glasswing/" data-astro-cid-f3qesd3f>프로젝트 글래스윙 정리, 취약점 12만9천 건과 보안팀 3단계 접근</a></li></ul></div></nav> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> <script>
+      // 소메뉴 펼침: 바깥을 누르거나 Esc 를 누르면 닫는다 (나들이로그 site-t 와 같은 동작)
+      (function () {
+        var dd = document.querySelectorAll('[data-navdrop]');
+        if (!dd.length) return;
+        document.addEventListener('click', function (e) { dd.forEach(function (d) { if (d.open && !d.contains(e.target)) d.open = false; }); });
+        document.addEventListener('keydown', function (e) {
+          if (e.key !== 'Escape') return;
+          dd.forEach(function (d) { if (d.open) { d.open = false; d.querySelector('summary').focus(); } });
+        });
+      })();
+    </script> <script>
+      // 머리글 높이를 --hdr-h 로 (목차 이동·글 양옆 칸·행사 날짜 줄이 머리글 아래에 오게)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var set = function () { document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px'); };
+        set(); addEventListener('resize', set);
+        if ('ResizeObserver' in window) new ResizeObserver(set).observe(h);
+      })();
+    </script> <script>
+      // 머리글 맞춤 — 가운데 분류 줄이 넘치면 오른쪽 메뉴·언어를 단계적으로 줄인다(위 CSS data-fit 설명)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var mq = matchMedia('(min-width: 901px)');
+        function over() {
+          var hero = h.querySelector('.hero');
+          if (!hero) return false;
+          var t = hero.querySelector('.sec-tabs'), h1 = hero.querySelector('h1');
+          if (t && t.scrollWidth > t.clientWidth + 1) return true;
+          // 오른쪽 메뉴·언어가 넓어 가운데 칸이 정가운데에서 밀렸으면 줄인다
+          var hr = hero.getBoundingClientRect(), r = h.getBoundingClientRect();
+          if (h.getAttribute('data-fit') !== '4' && Math.abs((hr.left + hr.right) / 2 - (r.left + r.right) / 2) > 2) return true;
+          if (h1) { var lh = parseFloat(getComputedStyle(h1).lineHeight) || 24; if (h1.offsetHeight > lh * 1.5) return true; }
+          return false;
+        }
+        var busy = false;
+        function fit() {
+          if (busy) return; busy = true;
+          h.removeAttribute('data-fit');
+          if (mq.matches) for (var lv = 1; lv <= 4 && over(); lv++) h.setAttribute('data-fit', String(lv));
+          busy = false;
+        }
+        fit();
+        addEventListener('resize', fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      })();
+    </script> </body> </html> 
