@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>딥시크 DeepInfer 정리, 추론 엔진 오픈소스의 뜻과 쓰는 조건</title><meta name="description" content="딥시크가 10월 20일 자사 API에서 V4.1 Flash를 돌리는 추론 엔진 DeepInfer를 Apache 2.0으로 공개했어요. 추론 엔진이 하는 일, 엔비디아 SM100과 화웨이 어센드 950 동시 지원의 뜻, 딥시크 요금과 가격 경쟁 분석, 이번 공개에서 빠진 것과 직접 돌리는 조건을 저장소 원문으로 확인해 정리했어요."><meta property="og:title" content="딥시크 DeepInfer 정리, 추론 엔진 오픈소스의 뜻과 쓰는 조건"><meta property="og:description" content="딥시크가 10월 20일 자사 API에서 V4.1 Flash를 돌리는 추론 엔진 DeepInfer를 Apache 2.0으로 공개했어요. 추론 엔진이 하는 일, 엔비디아 SM100과 화웨이 어센드 950 동시 지원의 뜻, 딥시크 요금과 가격 경쟁 분석, 이번 공개에서 빠진 것과 직접 돌리는 조건을 저장소 원문으로 확인해 정리했어요."><meta property="og:url" content="https://happyvarious.com/posts/20261021-deepseek-deepinfer-open/"><meta property="og:site_name" content="AI 로그"><meta property="og:image" content="https://happyvarious.com/_astro/titlecard.GlO-wdXV_10HrM7.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.Cm929lyb.css">
+<link rel="stylesheet" href="/_astro/_id_.BkQGK3p6.css">
+<style>.sec-tabs[data-astro-cid-cnlsgtkd]{display:flex;gap:6px;width:fit-content;max-width:100%;margin:6px auto 0;padding-bottom:4px;overflow-x:auto;scrollbar-width:none;text-align:left}.sec-tabs[data-astro-cid-cnlsgtkd]::-webkit-scrollbar{display:none}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]:hover{border-color:var(--accent);color:var(--accent)}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}.sec-tabs[data-astro-cid-cnlsgtkd] .n[data-astro-cid-cnlsgtkd]{position:relative;margin-left:2px;font-size:.8em;color:var(--sub);font-weight:600}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page] .n[data-astro-cid-cnlsgtkd]{color:inherit;opacity:.75}.sr[data-astro-cid-cnlsgtkd]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style></head> <body> <a class="skip" href="#main">본문으로 건너뛰기</a> <header class="site"> <div class="hdr-tools"> <details class="lang-menu" data-lang-menu> <summary aria-label="언어 · Language: 한국어" title="언어 · Language"><span aria-hidden="true">🌐</span><span aria-hidden="true">KO</span><span class="caret" aria-hidden="true">▾</span></summary> <nav class="langbar" aria-label="언어 · Language"> <a href="/ai/" hreflang="ko" lang="ko" class="on" aria-current="true"><span>한국어</span><span class="code" aria-hidden="true">KO</span></a><a href="/nadeuli/en/" hreflang="en" lang="en"><span>English</span><span class="code" aria-hidden="true">EN</span></a><a href="/nadeuli/ja/" hreflang="ja" lang="ja"><span>日本語</span><span class="code" aria-hidden="true">JA</span></a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant"><span>繁體中文</span><span class="code" aria-hidden="true">繁中</span></a> </nav> </details> <a class="search-btn" href="/nadeuli/search/" aria-label="통합 검색" title="통합 검색 — 나들이·AI 로그"><span aria-hidden="true">🔍</span></a>  </div> <div class="brand-box"> <a class="brand" href="/ai/" aria-label="happy_various"><img class="wm light" src="/brand/wordmark-light.png" alt="happy_various" width="134" height="22"></a> <a class="site-char" href="/ai/" aria-hidden="true" tabindex="-1"><img class="mascot light" src="/brand/ai-info-light.gif" alt="" width="53" height="54"></a> <a class="site-name" href="/ai/">AI 로그</a> </div> <div class="hero"> <nav class="sec-tabs" aria-label="AI 로그 소메뉴" data-astro-cid-cnlsgtkd> <a href="/ai/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🤖</span> 전체 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>133</span> </a><a href="/use/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🛠️</span> 활용 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>39</span> </a><a href="/project/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🧪</span> 프로젝트 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>33</span> </a><a href="/news/" aria-current="page" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>📰</span> 뉴스 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>61</span> </a> </nav>  </div> <div class="hdr-bar" hidden></div> </header> <main id="main" tabindex="-1">  <script type="module">document.querySelectorAll("[data-share]").forEach(t=>{let o=0;const c=async a=>{try{return await navigator.clipboard.writeText(a),!0}catch{}const e=document.createElement("textarea");e.value=a,e.setAttribute("readonly",""),e.style.cssText="position:fixed;top:0;left:0;opacity:0",document.body.appendChild(e),e.select();let r=!1;try{r=document.execCommand("copy")}catch{r=!1}return e.remove(),r};t.addEventListener("click",async()=>{const a=t.dataset.url||location.href,e=t.dataset.title||document.title;if(matchMedia("(pointer: coarse)").matches&&navigator.share)try{await navigator.share({title:e,url:a});return}catch(r){if(r?.name==="AbortError")return}await c(a)?(t.classList.add("done"),clearTimeout(o),o=window.setTimeout(()=>t.classList.remove("done"),2e3)):window.prompt(t.querySelector(".lbl")?.textContent||"",a)})});</script><div class="crumb-bar" data-astro-cid-f3qesd3f><nav class="crumb" aria-label="목록" data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 AI 로그</a><span aria-hidden="true" data-astro-cid-f3qesd3f>›</span><a href="/news/" data-back data-astro-cid-f3qesd3f>📰 뉴스</a></nav><button type="button" class="share-btn" data-share data-url="https://happyvarious.com/posts/20261021-deepseek-deepinfer-open/" data-title="딥시크 DeepInfer 정리, 추론 엔진 오픈소스의 뜻과 쓰는 조건" aria-label="이 글 공유하기" title="공유하기" data-astro-cid-qan2qojn><span aria-hidden="true" data-astro-cid-qan2qojn>🔗</span><span class="lbl" aria-hidden="true" data-astro-cid-qan2qojn>링크 복사됨</span></button>  </div><script>
+      // 경로 줄은 머리글 맨 아래 줄로 — 스크롤과 상관없이 처음부터 머리글 안, 틈 없이 (2026-10-12 happy_various)
+      (function () { var c = document.currentScript.previousElementSibling, bar = document.querySelector('header.site .hdr-bar'); if (c && bar) { bar.appendChild(c); bar.hidden = false; } })();
+    </script><aside class="rail rail-l" aria-label="목록" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로</a><ul class="secs" data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 전체 글</a></li><li data-astro-cid-f3qesd3f><a href="/use/" data-astro-cid-f3qesd3f>🛠️ 활용</a></li><li data-astro-cid-f3qesd3f><a href="/project/" data-astro-cid-f3qesd3f>🧪 프로젝트</a></li><li data-astro-cid-f3qesd3f><a href="/news/" aria-current="true" data-astro-cid-f3qesd3f>📰 뉴스</a></li></ul></div></aside><aside class="rail rail-r" aria-label="이 글 목차" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><nav class="toc" aria-label="이 글 목차" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>이 글 목차</p><ol data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="#1-무슨-일-deepinfer-공개" data-toc="1-무슨-일-deepinfer-공개" data-astro-cid-f3qesd3f>1. 무슨 일: DeepInfer 공개</a></li><li data-astro-cid-f3qesd3f><a href="#2-추론-엔진이-하는-일" data-toc="2-추론-엔진이-하는-일" data-astro-cid-f3qesd3f>2. 추론 엔진이 하는 일</a></li><li data-astro-cid-f3qesd3f><a href="#3-엔비디아와-화웨이-칩을-함께" data-toc="3-엔비디아와-화웨이-칩을-함께" data-astro-cid-f3qesd3f>3. 엔비디아와 화웨이 칩을 함께</a></li><li data-astro-cid-f3qesd3f><a href="#4-값-경쟁은-얼마나-커질까" data-toc="4-값-경쟁은-얼마나-커질까" data-astro-cid-f3qesd3f>4. 값 경쟁은 얼마나 커질까</a></li><li data-astro-cid-f3qesd3f><a href="#5-검증-열린-것과-빠진-것" data-toc="5-검증-열린-것과-빠진-것" data-astro-cid-f3qesd3f>5. 검증: 열린 것과 빠진 것</a></li><li data-astro-cid-f3qesd3f><a href="#6-누가-쓰나-도입-전-점검" data-toc="6-누가-쓰나-도입-전-점검" data-astro-cid-f3qesd3f>6. 누가 쓰나, 도입 전 점검</a></li><li data-astro-cid-f3qesd3f><a href="#자주-묻는-질문" data-toc="자주-묻는-질문" data-astro-cid-f3qesd3f>자주 묻는 질문</a></li><li data-astro-cid-f3qesd3f><a href="#부록-출처-전체-2026-10-21-확인" data-toc="부록-출처-전체-2026-10-21-확인" data-astro-cid-f3qesd3f>부록: 출처 전체 (2026-10-21 확인)</a></li></ol><a class="up" href="#main" data-astro-cid-f3qesd3f>↑ 맨 위로</a></nav><nav class="more" aria-label="다른 뉴스 글" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261020-meta-muse-spark-open/" data-astro-cid-f3qesd3f>메타 뮤즈 스파크 오픈 정리, 미국 오픈웨이트 1위의 라이선스와 장비</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-chatgpt-locked-chats-slides/" data-astro-cid-f3qesd3f>챗GPT 잠금 채팅 사용법, 숨겨 주는 것과 지켜 주지 않는 것</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-anthropic-s1-cloud-capacity/" data-astro-cid-f3qesd3f>앤트로픽 S-1 초안 유출, 클라우드 용량 갈등과 적자 숫자 읽는 법</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-gpt-6-astra-legacy-code/" data-astro-cid-f3qesd3f>오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까</a></li></ul></nav></div></aside><a class="float-back" href="/news/" data-back aria-label="목록으로" data-astro-cid-f3qesd3f>← 목록</a><script type="module">document.querySelectorAll("[data-back]").forEach(e=>e.addEventListener("click",r=>{try{const t=new URL(document.referrer);t.origin===location.origin&&!t.pathname.includes("/posts/")&&history.length>1&&(r.preventDefault(),history.back())}catch{}}));const n=new Map([...document.querySelectorAll("[data-toc]")].map(e=>[e.dataset.toc,e]));if(n.size&&"IntersectionObserver"in window){const e=new IntersectionObserver(r=>{for(const t of r)t.isIntersecting&&(n.forEach(o=>o.removeAttribute("aria-current")),n.get(t.target.id)?.setAttribute("aria-current","true"))},{rootMargin:"0px 0px -72% 0px"});n.forEach((r,t)=>{const o=document.getElementById(t);o&&e.observe(o)})}const c=document.querySelector(".float-back");if(c){const e=()=>c.classList.toggle("show",scrollY>480);addEventListener("scroll",e,{passive:!0}),e()}</script> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 21일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무슨-일-deepinfer-공개" data-astro-cid-lvjzyg5v>1. 무슨 일: DeepInfer 공개</a></li><li data-astro-cid-lvjzyg5v><a href="#2-추론-엔진이-하는-일" data-astro-cid-lvjzyg5v>2. 추론 엔진이 하는 일</a></li><li data-astro-cid-lvjzyg5v><a href="#3-엔비디아와-화웨이-칩을-함께" data-astro-cid-lvjzyg5v>3. 엔비디아와 화웨이 칩을 함께</a></li><li data-astro-cid-lvjzyg5v><a href="#4-값-경쟁은-얼마나-커질까" data-astro-cid-lvjzyg5v>4. 값 경쟁은 얼마나 커질까</a></li><li data-astro-cid-lvjzyg5v><a href="#5-검증-열린-것과-빠진-것" data-astro-cid-lvjzyg5v>5. 검증: 열린 것과 빠진 것</a></li><li data-astro-cid-lvjzyg5v><a href="#6-누가-쓰나-도입-전-점검" data-astro-cid-lvjzyg5v>6. 누가 쓰나, 도입 전 점검</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-21-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-21 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>딥시크 깃허브 저장소(README·라이선스·Q&amp;A 문서)·X 발표·API 요금표와 The Decoder·SCMP 보도, Artificial Analysis 평가를 대조해 정리한 글이에요. 엔진을 직접 내려받거나 돌려 보지 않았고, 성능 숫자는 딥시크 자체 측정이에요. 라이선스 설명은 법률 판단이 아니에요. 제휴 링크는 없어요. 캐릭터·비유 삽화는 AI 이미지 생성(fal)이고, 도식은 직접 제작했어요.</blockquote> <h1 id="딥시크-deepinfer-정리-추론-엔진-오픈소스의-뜻과-쓰는-조건">딥시크 DeepInfer 정리, 추론 엔진 오픈소스의 뜻과 쓰는 조건</h1>
+<p><img alt="딥시크 DeepInfer 공개 — 추론 엔진을 오픈소스로 (캐릭터는 AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.GlO-wdXV_Zukc5m.webp" ></p>
+<p class="cap">딥시크 DeepInfer 공개 — 추론 엔진을 오픈소스로 (캐릭터는 AI 이미지 생성)</p>
+<p>같은 레시피로 만들어도 식당마다 한 시간에 내놓는 접시 수와 값이 달라요. 주문을 어떻게 나눠 받고, 화구를 어떻게 쓰고, 미리 손질한 재료를 어떻게 다시 쓰느냐가 다르기 때문이에요. AI도 비슷해요. 모델 가중치가 레시피라면, 그 모델로 수많은 사람의 질문에 빠르고 싸게 답하게 하는 ‘추론 엔진’은 주방 운영 시스템에 가까워요.</p>
+<p><strong>중국 AI 회사 딥시크(DeepSeek)가 10월 20일 자사 API에서 V4.1 Flash 모델을 돌리는 추론 엔진 DeepInfer를 Apache 2.0 라이선스로 공개했어요.</strong> 레시피에 이어 주방 운영법까지 내놓은 셈이에요. 다만 주방 전체는 아니고, 몇몇 부품은 아직 빠져 있어요.</p>
+<p><img alt="로봇 주방장이 두꺼운 주방 운영 매뉴얼을 다른 식당 로봇 요리사들에게 건네는 장면 — 추론 엔진을 공개한 딥시크를 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-kitchen-manual.uKp96zK0_Z3VVIA.webp" ></p>
+<p class="cap">로봇 주방장이 두꺼운 주방 운영 매뉴얼을 다른 식당 로봇 요리사들에게 건네는 장면 — 추론 엔진을 공개한 딥시크를 빗댄 그림 (AI 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 오픈 모델을 직접 돌리거나 AI API 값을 따지는 개발자·담당자<br>① DeepInfer가 무엇이고 무엇이 공개됐나<br>② 추론 엔진이 하는 일<br>③ 엔비디아·화웨이 칩을 함께 지원한다는 뜻<br>④ 값 경쟁 분석과 이번 공개의 한계<br>2026년 10월 21일 기준 · 저장소·딥시크 발표 확인</div>
+<hr>
+<h2 id="1-무슨-일-deepinfer-공개">1. 무슨 일: DeepInfer 공개</h2>
+<p><strong>딥시크는 10월 20일 X(옛 트위터)에서 사내 추론 프레임워크 DeepInfer를 오픈소스로 공개한다고 밝혔어요.</strong> ‘V4.1 Flash를 대규모로 돌리는 우리 생산 스택을 공유해, 커뮤니티가 연산 비용과 에너지 사용을 줄이고 AI를 더 싸게 쓰도록 돕겠다’는 설명이에요.</p>
+<p>깃허브 저장소와 문서에서 확인한 내용을 표로 옮겼어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>저장소에서 확인한 내용</th></tr></thead><tbody><tr><td>이름</td><td>DeepInfer (깃허브 deepseek-ai/DeepInfer)</td></tr><tr><td>하는 일</td><td>딥시크 서비스의 대규모 추론을 맡는 프레임워크</td></tr><tr><td>라이선스</td><td>Apache 2.0 (저장소 LICENSE 파일)</td></tr><tr><td>바탕</td><td>처음에 주로 vLLM을 바탕으로 만듦, SGLang·TensorRT-LLM 참고</td></tr><tr><td>지원 모델</td><td>DeepSeek-V4.1-Flash 하나</td></tr><tr><td>지원 장비</td><td>엔비디아 SM100 GPU, 화웨이 어센드 950 NPU</td></tr><tr><td>함께 공개</td><td>deepseek-recipe(MIT) — API 요청을 모델이 읽는 토큰으로 바꾸는 부품</td></tr></tbody></table>
+<p>엔진이 돌리는 모델 V4.1 Flash 1017은 10월 17일에 나왔고, 가중치는 MIT 라이선스로 허깅페이스에 올라 있어요. 딥시크는 앞으로 나올 모델의 추론 코드와 성능 개선도 이 저장소에 계속 올리겠다고 했어요. 10월 21일 기준 저장소에는 별(관심 표시)이 약 1만 6,000개 붙었어요.</p>
+<h2 id="2-추론-엔진이-하는-일">2. 추론 엔진이 하는 일</h2>
+<p><strong>추론(inference)은 학습이 끝난 모델이 질문을 받아 답을 만드는 일이고, 추론 엔진은 그 일을 많은 사람에게 동시에, 빠르고 싸게 해 주는 소프트웨어예요.</strong> 같은 모델이라도 엔진에 따라 GPU 한 대가 처리하는 질문 수와 첫 글자가 나오기까지 걸리는 시간이 달라져요.</p>
+<p>README에 적힌 주요 기능을 쉬운 말로 옮기면 이래요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>기능</th><th>쉬운 말로</th></tr></thead><tbody><tr><td>최적화 커널</td><td>GPU에서 도는 계산 코드를 딥시크 모델에 맞춰 빠르게 만든 것(FlashMLA·DeepGEMM·DeepEP 등)</td></tr><tr><td>병렬 처리</td><td>모델 안의 ‘전문가’ 부분을 여러 GPU에 나눠 계산</td></tr><tr><td>DSpark 추측 디코딩</td><td>초안 모델이 토큰 몇 개를 먼저 쓰고, 본 모델이 검사해 한꺼번에 받아들임</td></tr><tr><td>비동기 스케줄링</td><td>GPU가 계산하는 동안 CPU가 다음 일을 미리 준비</td></tr><tr><td>구조화 출력</td><td>JSON 등 정해진 형식에 맞춰 답하게 함</td></tr></tbody></table>
+<p>딥시크 Q&#x26;A 문서는 질문을 읽는 단계(prefill)와 답을 한 토큰씩 쓰는 단계(decode)를 서로 다른 GPU 묶음에 나눠 맡긴다고 설명했어요. 그래서 효율이 나는 최소 단위를 입력 처리 GPU 64개와 답 생성 GPU 64개, 모두 128개로 잡았어요.</p>
+<p><img alt="딥시크 추론 서비스 한 벌 가운데 이번에 열린 칸(deepseek-recipe·DeepInfer·모델 가중치)과 아직 비공개인 칸(부하 분산·KV 캐시 저장) (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="4020" src="/_astro/diagram-deepinfer-open-parts.B_CeYNND_18joni.webp" ></p>
+<p class="cap">딥시크 추론 서비스 한 벌 가운데 이번에 열린 칸(deepseek-recipe·DeepInfer·모델 가중치)과 아직 비공개인 칸(부하 분산·KV 캐시 저장) (직접 제작)</p>
+<h2 id="3-엔비디아와-화웨이-칩을-함께">3. 엔비디아와 화웨이 칩을 함께</h2>
+<p><strong>DeepInfer는 엔비디아 SM100 GPU와 화웨이 어센드 950 NPU 두 가지에서 돌아가요.</strong> SM100은 엔비디아 개발자 자료 기준 B200·GB200 같은 블랙웰 데이터센터 GPU(계산 능력 10.0)를 가리켜요. 어센드 950은 화웨이의 AI 가속기(NPU)예요.</p>
+<p>딥시크 문서는 처음부터 ‘여러 회사의 가속기를 지원해 장비마다 성능을 끝까지 쓰는 것’을 목표로 삼았다고 적었어요. 다만 묶음 구성이 달라도 같은 결과를 내는 기능과, 같은 입력에 같은 답을 내는 기능은 엔비디아에서만 된다고 README에 적혀 있어요.</p>
+<p><img alt="로봇 요리사가 가스레인지와 인덕션 위에서 같은 요리를 동시에 만드는 장면 — 엔비디아와 화웨이 칩에서 함께 도는 DeepInfer를 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-two-stoves.C7DNwzzP_1iPv2p.webp" ></p>
+<p class="cap">로봇 요리사가 가스레인지와 인덕션 위에서 같은 요리를 동시에 만드는 장면 — 엔비디아와 화웨이 칩에서 함께 도는 DeepInfer를 빗댄 그림 (AI 이미지 생성)</p>
+<p><strong>어센드 지원은 9월 말부터 이어진 흐름이에요.</strong> SCMP에 따르면 딥시크는 9월 30일 어센드용 도구 6가지(TileLang 어센드판, DeepGEMM·DeepEP 어센드판 등)를 공개했고, 어센드 950 128개로 만든 슈퍼노드를 화웨이와 함께 다듬었다고 밝혔어요. SCMP는 이를 미국의 수출 규제 속에서 엔비디아 의존을 줄이려는 중국의 움직임으로 봤어요.</p>
+<h2 id="4-값-경쟁은-얼마나-커질까">4. 값 경쟁은 얼마나 커질까</h2>
+<p><strong>딥시크 모델은 이미 싼 편이에요.</strong> 10월 21일 딥시크 API 요금표로 V4.1 Flash(1017)의 100만 토큰당 값은 이래요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>구분</th><th>피크 · 할인 시간대</th></tr></thead><tbody><tr><td>입력(캐시 적중)</td><td>0.006달러 · 0.003달러</td></tr><tr><td>입력(캐시 미적중)</td><td>0.3달러 · 0.15달러</td></tr><tr><td>출력</td><td>1.2달러 · 0.6달러</td></tr></tbody></table>
+<p>할인 시간대 값은 피크의 절반이에요. 피크는 평일 UTC 1시에서 4시, 6시에서 10시(한국 시각 오전 10시에서 오후 1시, 오후 3시에서 7시)이고, 주말과 중국 공휴일은 모두 할인 시간대예요. 벤치마크 회사 Artificial Analysis(AA)는 이 모델에 지능 지수 45점을 매기고, 평가 과제 하나에 평균 0.26달러가 들었다고 계산했어요(10월 21일 조회). 딥시크 모델의 과제당 비용은 <a href="/posts/20261019-reflection-beam-weights-open/">10월 19일 빔 글</a>에서도 비교했어요.</p>
+<p>딥시크는 Q&#x26;A 문서에서 이 엔진으로 클러스터 하나가 하루 155조 토큰을 처리하고, 할인 시간대 값으로 셈해도 GPU 한 시간당 매출이 38달러라고 적었어요. 회사가 스스로 밝힌 숫자이고, 따로 확인할 방법은 없어요.</p>
+<p><strong>‘글로벌 추론 가격 경쟁을 키운다’는 건 매체의 분석이에요.</strong> The Decoder의 마티아스 바스티안은 이번 공개가 오픈AI·앤트로픽 같은 서구 회사에 가격 압박을 더한다고 봤고, 미·중 AI 경쟁을 생각하면 정치적 동기도 있을 수 있다고 덧붙였어요.</p>
+<p>엔진과 deepseek-recipe가 공개되면, 다른 클라우드 회사도 딥시크 모델을 공식 API와 같은 방식으로 처리해 팔기 쉬워져요. deepseek-recipe는 ‘공식 API와 같은 동작을 커뮤니티 배포에도’ 주려고 냈다고 딥시크가 밝혔어요. 반면 엔진 공개와 함께 딥시크가 요금을 바꾼다는 발표는 10월 21일까지 찾지 못했어요. 미국 AI 회사와 중국 모델 회사 사이의 긴장은 10월 6일 적대적 증류 글에도 정리했어요.</p>
+<p class="nextpost">→ <a href="/posts/20261006-adversarial-distillation/">적대적 증류 뜻, OpenAI·앤트로픽이 막은 AI 풀이 과정 빼내기</a></p>
+<h2 id="5-검증-열린-것과-빠진-것">5. 검증: 열린 것과 빠진 것</h2>
+<p><strong>이번 공개는 딥시크 서비스 전체가 아니라 엔진 부분이에요.</strong> README는 이번 판이 오프라인 추론용이라며, 완전한 추론 서비스에 필요한 세 가지가 빠졌다고 적었어요. KV 캐시 시스템, 입력 처리와 답 생성의 분리 운영, 여러 GPU 묶음 사이의 부하 분산이에요.</p>
+<p>Q&#x26;A 문서는 KV 캐시 관리와 부하 분산이 사내 인프라와 단단히 묶여 있어 아직 공개하지 않았다고 설명해요. KV 캐시는 앞서 읽은 글의 계산 결과를 저장해 두는 것으로, 같은 앞부분이 다시 오면 다시 계산하지 않아도 돼요. 딥시크는 이 캐시를 72시간 넘게 보관하는 것을 목표로 삼았다고 했어요.</p>
+<p><strong>성능 그래프도 딥시크가 직접 잰 것이에요.</strong> 입력 처리는 SM100 GPU 4개, 답 생성은 64개로 쟀고, 다시 재 볼 스크립트를 함께 올렸어요. 외부 기관의 비교 측정은 10월 21일까지 찾지 못했어요. 딥시크는 내부판과의 차이도 적었어요. 공개한 FlashMLA는 손으로 다듬은 최적화 하나가 빠져 답 생성 커널이 5에서 10% 느리지만, 전체 성능 차이는 최대 5%라고 해요.</p>
+<p>지원 모델도 V4.1 Flash 하나뿐이에요. 여러 회사 모델을 두루 돌리는 범용 엔진(vLLM 등)을 바로 대신하는 도구는 아니에요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>DeepInfer는 딥시크 모델을 싸게 돌리는 엔진이 열린 것이에요. 서비스 전체를 따라 하려면 캐시·부하 분산을 직접 갖춰야 해요.</div>
+<h2 id="6-누가-쓰나-도입-전-점검">6. 누가 쓰나, 도입 전 점검</h2>
+<p><strong>개인 PC용이 아니라, GPU 100개가 넘는 설비를 가진 클라우드 회사나 대기업에 맞는 도구예요.</strong> README 기준 리눅스, 파이썬 3.12, GCC 13 이상, 그리고 CUDA 13(엔비디아) 또는 CANN 9.2(어센드)가 필요해요. 오프라인 추론 예제는 있지만, 효율이 나는 최소 단위는 앞에서 본 GPU 128개예요.</p>
+<p>그래서 대부분의 개발자에게 당장 달라지는 건 크지 않아요. 바뀔 수 있는 건 딥시크 모델을 파는 클라우드 업체들의 값과 속도예요.</p>
+<p>딥시크 모델 도입을 검토한다면 볼 곳은 세 가지예요.<br>
+① 쓰임새 — API로 쓰면 딥시크·클라우드 업체 요금표만 비교하면 돼요<br>
+② 직접 돌린다면 — SM100이나 어센드 950 장비와, 빠진 캐시·부하 분산을 채울 인력이 필요해요<br>
+③ 라이선스 — 엔진은 Apache 2.0, deepseek-recipe와 모델 가중치는 MIT로 상업 이용을 허용하는 라이선스예요</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>딥시크 API를 쓰면 요청이 딥시크 서버에서 처리돼요. 회사 자료를 보내기 전에 사내 보안 정책을 먼저 확인하세요. 이 글의 라이선스 설명은 법률 판단이 아니에요.</div>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 딥시크가 10월 20일 추론 엔진 DeepInfer를 공개했어요<br>② Apache 2.0, 처음에 주로 vLLM을 바탕으로 만들었어요<br>③ 엔비디아 SM100과 화웨이 어센드 950에서 돌아가요<br>④ 가격 경쟁을 키운다는 건 매체의 분석이에요<br>⑤ KV 캐시·부하 분산은 빠졌고, GPU 128개급 도구예요</div>
+<p><strong>오늘의 큰 흐름:</strong> 오픈 가중치와 추론 비용 경쟁이 붙었어요. 딥시크는 모델 가중치에 이어 그 모델을 싸게 돌리는 엔진까지 열어, 경쟁의 무대를 ‘얼마나 싸게 돌리나’로 넓혔어요.</p>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 집 PC에서 딥시크를 돌릴 수 있게 된 건가요?</summary><p>아니요. DeepInfer는 엔비디아 SM100(B200·GB200급)이나 화웨이 어센드 950 같은 데이터센터 장비용이고, 딥시크 문서는 효율이 나는 최소 단위를 GPU 128개로 잡았어요.</p></details>
+<details class="faq"><summary>Q. vLLM과는 무엇이 다른가요?</summary><p>README는 DeepInfer를 처음에 주로 vLLM을 바탕으로 만들고 SGLang·TensorRT-LLM을 참고했다고 적었어요. vLLM이 여러 회사 모델을 두루 돌리는 범용 엔진이라면, DeepInfer는 지금 딥시크 V4.1 Flash 하나에 맞춘 엔진이에요.</p></details>
+<details class="faq"><summary>Q. 딥시크 API 값이 내려가나요?</summary><p>10월 21일까지 요금 변경 발표는 찾지 못했어요. 지금 V4.1 Flash는 100만 토큰당 입력 0.3달러(캐시 미적중), 출력 1.2달러이고, 할인 시간대에는 그 절반이에요.</p></details>
+<details class="faq"><summary>Q. 회사에서 써도 되나요?</summary><p>엔진은 Apache 2.0, deepseek-recipe와 모델 가중치는 MIT로 상업 이용을 허용하는 라이선스예요. 실제 도입 전에는 라이선스 원문과 사내 보안 정책을 확인하세요. 이 글은 법률 판단이 아니에요.</p></details>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>딥시크 — DeepInfer 저장소 README · <a href="https://github.com/deepseek-ai/DeepInfer">github.com/deepseek-ai/DeepInfer</a></li>
+<li>딥시크 — V4.1 Flash 추론 배포 Q&#x26;A(같은 저장소 doc 폴더)</li>
+<li>The Decoder — Deepseek open-sources the inference engine(10월 20일) · the-decoder.com</li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 21일 · 같은 날 확인<br>딥시크 저장소·Q&#x26;A 문서·X 발표·요금표와 The Decoder·SCMP 보도 대조<br>엔진을 내려받거나 돌려 보지 않음 · 성능 숫자는 딥시크 자체 측정<br>라이선스 설명은 법률 판단 아님 · 제휴 없음<br>캐릭터·비유 삽화는 AI 이미지 생성 · 도식은 직접 제작</div>
+<h2 id="부록-출처-전체-2026-10-21-확인">부록: 출처 전체 (2026-10-21 확인)</h2>
+<p>happy_various 브리핑(10월 21일)의 7번 항목 ‘DeepSeek, 자사 API 추론 엔진 DeepInfer 오픈소스 공개’를 출발점으로, 아래 원문을 직접 열어 확인했어요. 저장소 숫자(별 수 등)와 요금은 조회한 날 기준이에요.</p>
+<ul>
+<li><a href="https://github.com/deepseek-ai/DeepInfer">깃허브 — deepseek-ai/DeepInfer</a> — README(지원 모델·기능·장비, 빠진 세 가지, 성능 그래프 측정 조건, vLLM 바탕), LICENSE(Apache 2.0), 저장소 정보(10월 21일 별 15,953개, 첫 커밋 10월 20일) (1·2·3·5·6절)</li>
+<li><a href="https://github.com/deepseek-ai/DeepInfer/blob/main/doc/inference_deployment_qa.md">깃허브 — DeepInfer Q&#x26;A 문서(inference_deployment_qa.md)</a> — 여러 회사 가속기 지원 목표, 입력 처리·답 생성 분리, 최소 단위 64+64, 하루 155조 토큰·GPU 시간당 38달러(할인 시간대 값), KV 캐시 72시간, 캐시·부하 분산 비공개 이유, FlashMLA 내부판 차이 (2·4·5절)</li>
+<li><a href="https://github.com/deepseek-ai/deepseek-recipe">깃허브 — deepseek-ai/deepseek-recipe</a> — MIT, API 형식과 토큰 사이 변환 (1·4절)</li>
+<li><a href="https://x.com/deepseek_ai/status/2112476496283775135">딥시크 X 발표</a> (2026-10-20, 4개 글) — ‘연산 비용과 에너지를 줄이고 AI를 더 싸게’, 앞으로 나올 모델 코드도 공개, deepseek-recipe (1·4절)</li>
+<li><a href="https://api-docs.deepseek.com/quick_start/pricing/">딥시크 API — 모델과 요금</a> — 10월 21일 조회: V4.1 Flash 1017 피크·할인 시간대 값, 피크 시간 (4절, 자주 묻는 질문)</li>
+<li><a href="https://api-docs.deepseek.com/news/news261017/">딥시크 API — V4.1 Flash 1017 출시 공지</a> (2026-10-17) · <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017">허깅페이스 모델 카드</a> — MIT 가중치 (1절)</li>
+<li><a href="https://the-decoder.com/deepseek-open-sources-the-inference-engine-that-powers-its-fastest-and-cheapest-ai-model/">The Decoder — Deepseek open-sources the inference engine that powers its fastest and cheapest AI model</a> (2026-10-20, 마티아스 바스티안) — 브리핑 원문, 가격 압박·정치적 동기 분석 (4절)</li>
+<li><a href="https://www.scmp.com/tech/tech-trends/article/3369301/chinas-deepseek-open-sources-tools-help-huawei-chips-supplant-nvidia-ai">SCMP — China’s DeepSeek open-sources tools to help Huawei chips supplant Nvidia in AI</a> (2026-09-30) — 어센드용 도구 6가지, 어센드 950 128개 슈퍼노드 (3절)</li>
+<li><a href="https://developer.nvidia.com/cuda-gpus">엔비디아 — CUDA GPU 계산 능력 표</a> — 계산 능력 10.0 = B200·GB200 (3절)</li>
+<li><a href="https://artificialanalysis.ai/models/deepseek-v4-1-flash-1017">Artificial Analysis — DeepSeek V4.1 Flash 1017 (Max)</a> — 10월 21일 조회: 지능 지수 45, 과제당 0.26달러, 입력 0.30·출력 1.20달러 (4절)</li>
+</ul>
+<p>브리핑과 다른 점: 브리핑의 ‘엔비디아 최신 GPU’는 README에 ‘NVIDIA SM100 GPUs’로 적혀 있어요(B200·GB200 계열). ‘vLLM 기반’은 README 표현으로 ‘처음에 주로 vLLM을 바탕으로 만들고 SGLang·TensorRT-LLM을 참고’예요. 브리핑 원문인 The Decoder 기사에는 화웨이 어센드 950 이야기가 없고, 저장소 README에서 확인했어요. ‘가격 경쟁을 키울 것’은 The Decoder의 분석이에요.</p>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20261019-reflection-beam-weights-open/">리플렉션 AI 빔 가중치 공개, 독립 평가로 본 토큰 효율과 한계</a> · <a href="/posts/20261020-meta-muse-spark-open/">메타 뮤즈 스파크 오픈 정리, 미국 오픈웨이트 1위의 라이선스와 장비</a> · <a href="/posts/20261006-adversarial-distillation/">적대적 증류 뜻, OpenAI·앤트로픽이 막은 AI 풀이 과정 빼내기</a> · <a href="/posts/20261007-mistral-large-4/">미스트랄 라지 4 정리, 1조 파라미터 MoE 뜻과 공개 일정</a></p>  <p class="meta" data-astro-cid-lvjzyg5v>🤖 그날 AI 글을 30초로 묶은 쇼츠는 인스타그램 <a href="https://www.instagram.com/second.syntax/" rel="noopener" target="_blank" data-astro-cid-lvjzyg5v>@second.syntax</a>에 매일 올려요.</p> </article> <nav class="end-nav" aria-label="목록" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로 · 📰 뉴스</a><div class="more" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261020-meta-muse-spark-open/" data-astro-cid-f3qesd3f>메타 뮤즈 스파크 오픈 정리, 미국 오픈웨이트 1위의 라이선스와 장비</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-chatgpt-locked-chats-slides/" data-astro-cid-f3qesd3f>챗GPT 잠금 채팅 사용법, 숨겨 주는 것과 지켜 주지 않는 것</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-anthropic-s1-cloud-capacity/" data-astro-cid-f3qesd3f>앤트로픽 S-1 초안 유출, 클라우드 용량 갈등과 적자 숫자 읽는 법</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-gpt-6-astra-legacy-code/" data-astro-cid-f3qesd3f>오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까</a></li></ul></div></nav> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> <script>
+      // 머리글 높이를 --hdr-h 로 (목차 이동·글 양옆 칸·행사 날짜 줄이 머리글 아래에 오게)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var set = function () { document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px'); };
+        set(); addEventListener('resize', set);
+        if ('ResizeObserver' in window) new ResizeObserver(set).observe(h);
+      })();
+    </script> <script>
+      // 언어 목록 — 바깥을 누르거나 Esc 를 누르면 닫는다 (나들이로그와 같음)
+      (function () {
+        var m = document.querySelector('[data-lang-menu]');
+        if (!m) return;
+        document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+      })();
+    </script> <script>
+      // 머리글 맞춤 — 가운데 분류 줄이 넘치면 오른쪽 메뉴·언어를 단계적으로 줄인다(위 CSS data-fit 설명)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var mq = matchMedia('(min-width: 901px)');
+        function over() {
+          var hero = h.querySelector('.hero');
+          if (!hero) return false;
+          var t = hero.querySelector('.sec-tabs'), h1 = hero.querySelector('h1');
+          if (t && t.scrollWidth > t.clientWidth + 1) return true;
+          // 오른쪽 메뉴·언어가 넓어 가운데 칸이 정가운데에서 밀렸으면 줄인다
+          var hr = hero.getBoundingClientRect(), r = h.getBoundingClientRect();
+          if (h.getAttribute('data-fit') !== '4' && Math.abs((hr.left + hr.right) / 2 - (r.left + r.right) / 2) > 2) return true;
+          if (h1) { var lh = parseFloat(getComputedStyle(h1).lineHeight) || 24; if (h1.offsetHeight > lh * 1.5) return true; }
+          return false;
+        }
+        var busy = false;
+        function fit() {
+          if (busy) return; busy = true;
+          h.removeAttribute('data-fit');
+          if (mq.matches) for (var lv = 1; lv <= 4 && over(); lv++) h.setAttribute('data-fit', String(lv));
+          busy = false;
+        }
+        fit();
+        addEventListener('resize', fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      })();
+    </script> </body> </html> 

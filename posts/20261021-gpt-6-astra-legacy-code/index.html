@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까</title><meta name="description" content="OpenAI가 10월 19일 COBOL·포트란 같은 옛 프로그래밍 언어의 코딩 실력을 재는 평가 두 가지(MultiLangBench, COBOL 이전)와 모델 점수를 공개했어요. 새 모델 출시가 아니라는 점, 언어별 점수, 97.9%가 어느 모델 값인지, 아스트라와 GPT-6.1 Sol의 점수·비용 차이, 회사가 만든 시험의 한계를 원문과 그래프 값으로 확인해 정리했어요."><meta property="og:title" content="오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까"><meta property="og:description" content="OpenAI가 10월 19일 COBOL·포트란 같은 옛 프로그래밍 언어의 코딩 실력을 재는 평가 두 가지(MultiLangBench, COBOL 이전)와 모델 점수를 공개했어요. 새 모델 출시가 아니라는 점, 언어별 점수, 97.9%가 어느 모델 값인지, 아스트라와 GPT-6.1 Sol의 점수·비용 차이, 회사가 만든 시험의 한계를 원문과 그래프 값으로 확인해 정리했어요."><meta property="og:url" content="https://happyvarious.com/posts/20261021-gpt-6-astra-legacy-code/"><meta property="og:site_name" content="AI 로그"><meta property="og:image" content="https://happyvarious.com/_astro/titlecard.B3JEHNJj_Z1c2506.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.Cm929lyb.css">
+<link rel="stylesheet" href="/_astro/_id_.BkQGK3p6.css">
+<style>.sec-tabs[data-astro-cid-cnlsgtkd]{display:flex;gap:6px;width:fit-content;max-width:100%;margin:6px auto 0;padding-bottom:4px;overflow-x:auto;scrollbar-width:none;text-align:left}.sec-tabs[data-astro-cid-cnlsgtkd]::-webkit-scrollbar{display:none}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]:hover{border-color:var(--accent);color:var(--accent)}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}.sec-tabs[data-astro-cid-cnlsgtkd] .n[data-astro-cid-cnlsgtkd]{position:relative;margin-left:2px;font-size:.8em;color:var(--sub);font-weight:600}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page] .n[data-astro-cid-cnlsgtkd]{color:inherit;opacity:.75}.sr[data-astro-cid-cnlsgtkd]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style></head> <body> <a class="skip" href="#main">본문으로 건너뛰기</a> <header class="site"> <div class="hdr-tools"> <details class="lang-menu" data-lang-menu> <summary aria-label="언어 · Language: 한국어" title="언어 · Language"><span aria-hidden="true">🌐</span><span aria-hidden="true">KO</span><span class="caret" aria-hidden="true">▾</span></summary> <nav class="langbar" aria-label="언어 · Language"> <a href="/ai/" hreflang="ko" lang="ko" class="on" aria-current="true"><span>한국어</span><span class="code" aria-hidden="true">KO</span></a><a href="/nadeuli/en/" hreflang="en" lang="en"><span>English</span><span class="code" aria-hidden="true">EN</span></a><a href="/nadeuli/ja/" hreflang="ja" lang="ja"><span>日本語</span><span class="code" aria-hidden="true">JA</span></a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant"><span>繁體中文</span><span class="code" aria-hidden="true">繁中</span></a> </nav> </details> <a class="search-btn" href="/nadeuli/search/" aria-label="통합 검색" title="통합 검색 — 나들이·AI 로그"><span aria-hidden="true">🔍</span></a>  </div> <div class="brand-box"> <a class="brand" href="/ai/" aria-label="happy_various"><img class="wm light" src="/brand/wordmark-light.png" alt="happy_various" width="134" height="22"></a> <a class="site-char" href="/ai/" aria-hidden="true" tabindex="-1"><img class="mascot light" src="/brand/ai-info-light.gif" alt="" width="53" height="54"></a> <a class="site-name" href="/ai/">AI 로그</a> </div> <div class="hero"> <nav class="sec-tabs" aria-label="AI 로그 소메뉴" data-astro-cid-cnlsgtkd> <a href="/ai/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🤖</span> 전체 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>133</span> </a><a href="/use/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🛠️</span> 활용 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>39</span> </a><a href="/project/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🧪</span> 프로젝트 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>33</span> </a><a href="/news/" aria-current="page" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>📰</span> 뉴스 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>61</span> </a> </nav>  </div> <div class="hdr-bar" hidden></div> </header> <main id="main" tabindex="-1">  <script type="module">document.querySelectorAll("[data-share]").forEach(t=>{let o=0;const c=async a=>{try{return await navigator.clipboard.writeText(a),!0}catch{}const e=document.createElement("textarea");e.value=a,e.setAttribute("readonly",""),e.style.cssText="position:fixed;top:0;left:0;opacity:0",document.body.appendChild(e),e.select();let r=!1;try{r=document.execCommand("copy")}catch{r=!1}return e.remove(),r};t.addEventListener("click",async()=>{const a=t.dataset.url||location.href,e=t.dataset.title||document.title;if(matchMedia("(pointer: coarse)").matches&&navigator.share)try{await navigator.share({title:e,url:a});return}catch(r){if(r?.name==="AbortError")return}await c(a)?(t.classList.add("done"),clearTimeout(o),o=window.setTimeout(()=>t.classList.remove("done"),2e3)):window.prompt(t.querySelector(".lbl")?.textContent||"",a)})});</script><div class="crumb-bar" data-astro-cid-f3qesd3f><nav class="crumb" aria-label="목록" data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 AI 로그</a><span aria-hidden="true" data-astro-cid-f3qesd3f>›</span><a href="/news/" data-back data-astro-cid-f3qesd3f>📰 뉴스</a></nav><button type="button" class="share-btn" data-share data-url="https://happyvarious.com/posts/20261021-gpt-6-astra-legacy-code/" data-title="오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까" aria-label="이 글 공유하기" title="공유하기" data-astro-cid-qan2qojn><span aria-hidden="true" data-astro-cid-qan2qojn>🔗</span><span class="lbl" aria-hidden="true" data-astro-cid-qan2qojn>링크 복사됨</span></button>  </div><script>
+      // 경로 줄은 머리글 맨 아래 줄로 — 스크롤과 상관없이 처음부터 머리글 안, 틈 없이 (2026-10-12 happy_various)
+      (function () { var c = document.currentScript.previousElementSibling, bar = document.querySelector('header.site .hdr-bar'); if (c && bar) { bar.appendChild(c); bar.hidden = false; } })();
+    </script><aside class="rail rail-l" aria-label="목록" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로</a><ul class="secs" data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 전체 글</a></li><li data-astro-cid-f3qesd3f><a href="/use/" data-astro-cid-f3qesd3f>🛠️ 활용</a></li><li data-astro-cid-f3qesd3f><a href="/project/" data-astro-cid-f3qesd3f>🧪 프로젝트</a></li><li data-astro-cid-f3qesd3f><a href="/news/" aria-current="true" data-astro-cid-f3qesd3f>📰 뉴스</a></li></ul></div></aside><aside class="rail rail-r" aria-label="이 글 목차" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><nav class="toc" aria-label="이 글 목차" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>이 글 목차</p><ol data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="#1-무슨-일-새-모델이-아닌-평가-발표" data-toc="1-무슨-일-새-모델이-아닌-평가-발표" data-astro-cid-f3qesd3f>1. 무슨 일: 새 모델이 아닌 평가 발표</a></li><li data-astro-cid-f3qesd3f><a href="#2-평가--sqlite-만들기" data-toc="2-평가--sqlite-만들기" data-astro-cid-f3qesd3f>2. 평가 ①: SQLite 만들기</a></li><li data-astro-cid-f3qesd3f><a href="#3-평가--cobol-다른-언어로-옮기기" data-toc="3-평가--cobol-다른-언어로-옮기기" data-astro-cid-f3qesd3f>3. 평가 ②: COBOL 다른 언어로 옮기기</a></li><li data-astro-cid-f3qesd3f><a href="#4-아스트라와-솔-점수와-비용-차이" data-toc="4-아스트라와-솔-점수와-비용-차이" data-astro-cid-f3qesd3f>4. 아스트라와 솔, 점수와 비용 차이</a></li><li data-astro-cid-f3qesd3f><a href="#5-검증과-한계-회사가-만든-시험" data-toc="5-검증과-한계-회사가-만든-시험" data-astro-cid-f3qesd3f>5. 검증과 한계: 회사가 만든 시험</a></li><li data-astro-cid-f3qesd3f><a href="#6-써-보기-전에-볼-것" data-toc="6-써-보기-전에-볼-것" data-astro-cid-f3qesd3f>6. 써 보기 전에 볼 것</a></li><li data-astro-cid-f3qesd3f><a href="#자주-묻는-질문" data-toc="자주-묻는-질문" data-astro-cid-f3qesd3f>자주 묻는 질문</a></li><li data-astro-cid-f3qesd3f><a href="#부록-출처-전체-2026-10-21-확인" data-toc="부록-출처-전체-2026-10-21-확인" data-astro-cid-f3qesd3f>부록: 출처 전체 (2026-10-21 확인)</a></li></ol><a class="up" href="#main" data-astro-cid-f3qesd3f>↑ 맨 위로</a></nav><nav class="more" aria-label="다른 뉴스 글" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261020-meta-muse-spark-open/" data-astro-cid-f3qesd3f>메타 뮤즈 스파크 오픈 정리, 미국 오픈웨이트 1위의 라이선스와 장비</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-chatgpt-locked-chats-slides/" data-astro-cid-f3qesd3f>챗GPT 잠금 채팅 사용법, 숨겨 주는 것과 지켜 주지 않는 것</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-anthropic-s1-cloud-capacity/" data-astro-cid-f3qesd3f>앤트로픽 S-1 초안 유출, 클라우드 용량 갈등과 적자 숫자 읽는 법</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-deepseek-deepinfer-open/" data-astro-cid-f3qesd3f>딥시크 DeepInfer 정리, 추론 엔진 오픈소스의 뜻과 쓰는 조건</a></li></ul></nav></div></aside><a class="float-back" href="/news/" data-back aria-label="목록으로" data-astro-cid-f3qesd3f>← 목록</a><script type="module">document.querySelectorAll("[data-back]").forEach(e=>e.addEventListener("click",r=>{try{const t=new URL(document.referrer);t.origin===location.origin&&!t.pathname.includes("/posts/")&&history.length>1&&(r.preventDefault(),history.back())}catch{}}));const n=new Map([...document.querySelectorAll("[data-toc]")].map(e=>[e.dataset.toc,e]));if(n.size&&"IntersectionObserver"in window){const e=new IntersectionObserver(r=>{for(const t of r)t.isIntersecting&&(n.forEach(o=>o.removeAttribute("aria-current")),n.get(t.target.id)?.setAttribute("aria-current","true"))},{rootMargin:"0px 0px -72% 0px"});n.forEach((r,t)=>{const o=document.getElementById(t);o&&e.observe(o)})}const c=document.querySelector(".float-back");if(c){const e=()=>c.classList.toggle("show",scrollY>480);addEventListener("scroll",e,{passive:!0}),e()}</script> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 21일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무슨-일-새-모델이-아닌-평가-발표" data-astro-cid-lvjzyg5v>1. 무슨 일: 새 모델이 아닌 평가 발표</a></li><li data-astro-cid-lvjzyg5v><a href="#2-평가--sqlite-만들기" data-astro-cid-lvjzyg5v>2. 평가 ①: SQLite 만들기</a></li><li data-astro-cid-lvjzyg5v><a href="#3-평가--cobol-다른-언어로-옮기기" data-astro-cid-lvjzyg5v>3. 평가 ②: COBOL 다른 언어로 옮기기</a></li><li data-astro-cid-lvjzyg5v><a href="#4-아스트라와-솔-점수와-비용-차이" data-astro-cid-lvjzyg5v>4. 아스트라와 솔, 점수와 비용 차이</a></li><li data-astro-cid-lvjzyg5v><a href="#5-검증과-한계-회사가-만든-시험" data-astro-cid-lvjzyg5v>5. 검증과 한계: 회사가 만든 시험</a></li><li data-astro-cid-lvjzyg5v><a href="#6-써-보기-전에-볼-것" data-astro-cid-lvjzyg5v>6. 써 보기 전에 볼 것</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-21-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-21 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>OpenAI 연구 글과 페이지 그래프 데이터, GitHub 시험 세트, OpenAI API 요금표, Thurrott·The Decoder 보도를 대조해 정리한 글이에요. 모델을 직접 써 보지 않았고, 점수는 OpenAI가 직접 잰 값이에요. 제휴 링크는 없어요. 캐릭터·비유 삽화는 AI 이미지 생성(fal)이고, 도식은 직접 제작했어요.</blockquote> <h1 id="오픈ai-코볼-코딩-평가-정리-아스트라와-솔-중-무엇을-쓸까">오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까</h1>
+<p><img alt="오픈AI 코볼 코딩 평가 — 새 모델이 아닌 평가 발표 (캐릭터는 AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.B3JEHNJj_2n7oVm.webp" ></p>
+<p class="cap">오픈AI 코볼 코딩 평가 — 새 모델이 아닌 평가 발표 (캐릭터는 AI 이미지 생성)</p>
+<p>할머니가 쓰던 두꺼운 가죽 장부를 태블릿 가계부로 옮긴다고 해 볼게요. 옛 글씨를 읽을 줄 알아야 하고, 옮긴 뒤에도 숫자가 끝자리까지 같아야 해요. COBOL·포트란처럼 오래된 프로그래밍 언어로 짠 은행·공공 시스템을 고치거나 새 언어로 옮기는 일이 이와 비슷해요.</p>
+<p><strong>OpenAI가 10월 19일 이런 옛 언어 코딩 실력을 재는 평가 두 가지와 자기 모델 점수를 공개했어요. 새 모델 출시는 아니에요.</strong> 일부 기사는 ‘옛 언어용 코딩 모델 GPT-6 Astra 출시’로 전했지만, 아스트라는 9월 3일에 나온 OpenAI 최상위 모델이에요. 아스트라가 처음 나왔을 때 이야기는 <a href="/posts/20260907-gpt6-astra-agi/">9월 7일 글</a>에 있어요.</p>
+<p class="nextpost">→ <a href="/posts/20261001-gpt-6-1-sol/">GPT-6.1 Sol 발표, 가격·성능과 Sonnet 5.5 비교</a></p>
+<p><img alt="두꺼운 옛 장부의 내용을 새 태블릿으로 옮기는 로봇 — 옛 언어 코드를 읽고 새 언어로 옮기는 일을 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-old-ledger.CmLMwQwO_2nyGaP.webp" ></p>
+<p class="cap">두꺼운 옛 장부의 내용을 새 태블릿으로 옮기는 로봇 — 옛 언어 코드를 읽고 새 언어로 옮기는 일을 빗댄 그림 (AI 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 옛 시스템 유지보수·이전을 검토하는 개발자·담당자<br>① 10월 19일에 실제로 나온 것<br>② 두 평가가 재는 것과 점수<br>③ 아스트라와 6.1 솔의 점수·비용 차이<br>④ 회사가 만든 시험을 읽는 법<br>2026년 10월 21일 기준 · OpenAI 원문·그래프 값 확인</div>
+<hr>
+<h2 id="1-무슨-일-새-모델이-아닌-평가-발표">1. 무슨 일: 새 모델이 아닌 평가 발표</h2>
+<p><strong>OpenAI는 10월 19일 연구 글 ‘학습 자료가 적은 프로그래밍 언어에서의 코딩 발전’을 올렸어요.</strong> 글에 나온 내용을 표로 옮겼어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>확인한 내용</th></tr></thead><tbody><tr><td>날짜·형식</td><td>10월 19일(미국) OpenAI 연구 글</td></tr><tr><td>새 평가</td><td>MultiLangBench(SQLite 만들기, 20개 언어), COBOL 이전 평가</td></tr><tr><td>나온 모델</td><td>GPT-6 Astra(9월 3일), GPT-6.1 Sol(9월 29일), GPT-6 Luna(9월 22일)</td></tr><tr><td>비교 기준</td><td>직전 세대 GPT-5.6 Sol</td></tr><tr><td>함께 공개</td><td>MultiLangBench 시험 세트·언어별 결과(GitHub, Apache 2.0)</td></tr><tr><td>써 보는 곳</td><td>OpenAI API — 우리 팀 언어로 시험해 보라고 안내</td></tr></tbody></table>
+<p>옛 언어를 고른 까닭으로 OpenAI는 IBM 자료를 들어, COBOL이 온라인 뱅킹 시스템의 40% 이상, 대면 카드 결제의 80%, ATM 거래의 95%를 떠받친다고 적었어요. 포트란은 날씨 예보와 원자로 안전 분석에 쓰인다고 했어요. 이런 언어는 파이썬·자바스크립트보다 배울 코드와 문서가 적어서, 코딩 모델이 약하다는 고객 의견이 많았다고 해요.</p>
+<h2 id="2-평가--sqlite-만들기">2. 평가 ①: SQLite 만들기</h2>
+<p><strong>MultiLangBench는 SQLite와 똑같이 움직이는 데이터베이스 엔진을 정해진 언어로 처음부터 만들게 하는 시험이에요.</strong> 만든 프로그램에 처음 데이터베이스 파일과 SQL 문을 넣으면 바뀐 파일이 나오고, 그 파일을 진짜 SQLite 3.40.1로 확인해 맞으면 통과예요.</p>
+<p>GitHub 설명서를 보면 시험 문제는 SQLite 자체 시험 5만 1,000개 가운데 이 방식으로 바꿀 수 있었던 2만 4,000개에서 나왔어요. 기본 채점은 그중 272개만 써요. 시험 중에는 인터넷을 막고, 환경에서 SQLite 흔적을 지워야 해요. 정해진 언어가 아닌 언어로 짜면 0점이에요.</p>
+<p>최고 추론 설정에서 아스트라와 GPT-5.6 Sol의 통과율을 언어별로 놓으면 이래요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>언어</th><th>GPT-5.6 Sol → GPT-6 Astra</th></tr></thead><tbody><tr><td><code>COBOL</code></td><td>10.9% → 72.1%</td></tr><tr><td>포트란</td><td>21.4% → 83.5%</td></tr><tr><td><code>OCaml</code></td><td>25.6% → 85.8%</td></tr><tr><td>비주얼 베이식</td><td>27.5% → 89.4%</td></tr><tr><td>20개 언어 평균</td><td>26.8% → 87.4%</td></tr></tbody></table>
+<p>아스트라는 20개 언어 중 19개에서 83%를 넘었고, 가장 어려운 언어는 여전히 COBOL(72%)이었어요. 싼 모델 GPT-6 Luna는 평균 40.3%로, GPT-5.6 Sol보다 높으면서 샘플 하나당 예상 비용은 0.77달러로 78% 낮았다고 OpenAI는 적었어요.</p>
+<p>추론 설정(reasoning effort)은 답하기 전에 모델이 얼마나 오래 생각할지 정하는 값이에요. 높일수록 점수가 오르지만 토큰과 비용도 늘어요.</p>
+<h2 id="3-평가--cobol-다른-언어로-옮기기">3. 평가 ②: COBOL 다른 언어로 옮기기</h2>
+<p><strong>두 번째 평가는 COBOL 프로그램을 C++·자바·코틀린·파이썬·러스트로 옮기면서 하는 일을 그대로 지키는지 봐요.</strong> 숨겨 둔 시험에서 출력이 바이트 하나까지 같아야 하고, 시험을 모두 통과해야만 성공으로 쳐요.</p>
+<p>OpenAI가 든 예가 반올림이에요. COBOL의 고정소수점 계산은 따로 반올림하라고 하지 않으면 넘치는 소수 자리를 버려요. 새 코드가 이걸 반올림으로 바꾸면 오류 없이 돌아가도 금액 결과가 달라져요.</p>
+<p><img alt="옛 블록 더미와 새 블록 더미가 똑같은지 돋보기로 맞춰 보는 로봇 — 옮긴 프로그램이 옛 결과를 그대로 내는지 보는 COBOL 이전 평가를 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-two-receipts.Bc4K1SCo_yCeSy.webp" ></p>
+<p class="cap">옛 블록 더미와 새 블록 더미가 똑같은지 돋보기로 맞춰 보는 로봇 — 옮긴 프로그램이 옛 결과를 그대로 내는지 보는 COBOL 이전 평가를 빗댄 그림 (AI 이미지 생성)</p>
+<p><strong>이 평가에서는 아스트라가 아니라 GPT-6.1 Sol이 주인공이었어요.</strong> 낮은 추론 설정에서 86.6%로, 같은 설정의 GPT-5.6 Sol(5.4%)보다 크게 높았고 API 비용은 61% 수준이었어요. 설정을 올리면 97.9%까지 나와, OpenAI는 이 시험이 거의 꽉 찼다고 적었어요.</p>
+<p>같은 글의 그래프를 보면 아스트라는 96.8%, 9월에 나온 GPT-6 Sol은 최고 설정에서 95.8%였어요.</p>
+<h2 id="4-아스트라와-솔-점수와-비용-차이">4. 아스트라와 솔, 점수와 비용 차이</h2>
+<p><strong>두 시험 모두 GPT-6.1 Sol이 아스트라와 거의 같은 점수를 훨씬 싸게 냈어요.</strong> OpenAI 글 본문에는 없고, 페이지에 실린 그래프 값을 옮겨 정리한 거예요.</p>
+<p><img alt="OpenAI 옛 언어 코딩 평가 두 가지의 모델별 점수와 비용 — SQLite 만들기와 COBOL 옮기기 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="4776" src="/_astro/diagram-astra-sol-cost.yfzVLoKa_1m3BzF.webp" ></p>
+<p class="cap">OpenAI 옛 언어 코딩 평가 두 가지의 모델별 점수와 비용 — SQLite 만들기와 COBOL 옮기기 (직접 제작)</p>
+<p>SQLite 만들기에서 6.1 Sol 최고 설정은 87.0%로 아스트라(87.4%)와 0.4%포인트 차이였고, 샘플당 예상 비용은 7.53달러 대 32.18달러로 4분의 1 안팎이었어요. COBOL 옮기기에서도 6.1 Sol은 97.9%를 0.70달러에, 아스트라는 96.8%를 3.26달러에 냈어요.</p>
+<p>최고 설정의 아스트라는 COBOL로 SQLite를 만드는 샘플 하나에 54.72달러가 들었어요. 점수를 끝까지 끌어올리면 비용이 크게 뛴다는 뜻이에요.</p>
+<p>10월 21일 OpenAI API 요금표(100만 토큰당 입력·출력)도 함께 보면 이래요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>모델</th><th>입력 · 출력</th></tr></thead><tbody><tr><td><code>GPT-6 Astra</code></td><td>10달러 · 50달러</td></tr><tr><td><code>GPT-6.1 Sol</code></td><td>2달러 · 10달러</td></tr><tr><td><code>GPT-6 Sol</code></td><td>2달러 · 10달러</td></tr><tr><td><code>GPT-6 Luna</code></td><td>0.10달러 · 0.50달러</td></tr><tr><td>GPT-5.6 Sol (이전)</td><td>4달러 · 20달러</td></tr></tbody></table>
+<p>토큰 단가는 아스트라가 6.1 Sol의 5배예요. 실제 비용 차이가 그보다 작은 건 모델마다 같은 일에 쓰는 토큰 수가 달라서예요. 6.1 Sol의 값과 성능은 <a href="/posts/20261001-gpt-6-1-sol/">10월 1일 글</a>에 정리해 뒀어요.</p>
+<h2 id="5-검증과-한계-회사가-만든-시험">5. 검증과 한계: 회사가 만든 시험</h2>
+<p><strong>두 시험 모두 OpenAI가 만들고 OpenAI가 잰 점수예요.</strong> 10월 21일까지 다른 기관이 같은 시험으로 잰 결과는 찾지 못했어요. MultiLangBench는 문제와 채점 방법이 공개돼 누구나 다시 재 볼 수 있어요. 반면 COBOL 이전 평가는 숨긴 시험을 쓰고, 문제를 공개한다는 안내가 없어요.</p>
+<p>시험 범위도 봐야 해요. SQLite는 설명서가 잘 갖춰진 프로그램이고, 실제 회사 시스템은 문서가 빠져 있거나 업무 규칙이 코드에만 남은 경우가 많아요. OpenAI도 실제 운영 소프트웨어에 쓰려면 전문가 검토와 그 시스템의 업무 규칙·의존성에 맞춘 시험이 여전히 필요하다고 적었어요.</p>
+<p>‘5.4%에서 86.6%’는 가장 낮은 설정끼리 비교한 숫자예요. 같은 그래프에서 GPT-5.6 Sol도 최고 설정에서는 65.2%였어요.</p>
+<p>보도도 엇갈려요. Thurrott는 ‘새 코딩 모델 출시’로 쓰고 COBOL 이전 결과를 아스트라 몫(86.8%)으로 적었어요. The Decoder는 비교 기준을 같은 그래프의 GPT-5.6 Terra(37.9%)로 잡았어요. 이 글은 10월 21일 OpenAI 원문 기준이에요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>회사가 만든 시험의 점수예요. 우리 코드로 재 보기 전까지는 ‘옛 언어 작업이 해 볼 만해졌다’는 신호로만 보세요.</div>
+<h2 id="6-써-보기-전에-볼-것">6. 써 보기 전에 볼 것</h2>
+<p><strong>옛 시스템에 AI를 붙여 보려면 정답지부터 만드는 게 순서예요.</strong> 볼 곳은 네 가지예요.<br>
+① 우리 언어 점수 — MultiLangBench 언어별 결과에서 우리 팀 언어부터 보세요<br>
+② 싼 설정부터 — 6.1 Sol 낮은 설정으로 작은 프로그램 하나를 옮겨 보고, 모자랄 때 설정과 모델을 올리세요<br>
+③ 정답지 — 옛 시스템의 실제 출력을 모아 바이트 단위로 비교하는 시험을 먼저 만드세요<br>
+④ 사람 검토 — 반올림·빈 레코드 처리 같은 업무 규칙은 담당자가 확인하세요</p>
+<p><mark>정답지 없이 옮긴 코드는 돌아가도 맞는지 알 수 없어요.</mark> OpenAI 평가도 같은 방식으로 채점했어요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>금융·공공 시스템 코드는 회사 자산이에요. 외부 AI API에 넣기 전에 회사 보안 규정과 계약부터 확인하세요.</div>
+<p>회사 정보를 AI에 넣을 때 지킬 점은 <a href="/posts/20260907-chatgpt-at-work/">9월 7일 글</a>에 정리해 뒀어요.</p>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 10월 19일 OpenAI 연구 글, 새 모델이 아닌 평가 발표예요<br>② SQLite 만들기에서 아스트라 87.4%, COBOL은 72.1%예요<br>③ COBOL 옮기기에서 6.1 Sol이 86.6%에서 97.9%까지 냈어요<br>④ 두 시험 모두 6.1 Sol이 비슷한 점수를 더 싸게 냈어요<br>⑤ 회사가 만든 시험이라 독립 확인 전이에요</div>
+<p><strong>오늘의 큰 흐름:</strong> OpenAI가 채팅 밖으로 영역을 넓히고 있어요. 옛 코드 현대화처럼 기업이 오래 미뤄 온 일을 겨누는데, 남은 질문은 회사 밖 시험에서도 같은 점수가 나오느냐예요.</p>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. GPT-6 아스트라는 이번에 새로 나온 모델인가요?</summary><p>아니요. 9월 3일 공개된 OpenAI 최상위 모델이에요. 10월 19일 글은 이미 나온 모델들의 옛 언어 실력을 새 평가로 잰 결과예요.</p></details>
+<details class="faq"><summary>Q. COBOL 코드를 AI가 알아서 다 옮겨 주나요?</summary><p>OpenAI 시험에서는 97.9%까지 나왔지만 회사가 만든 시험이에요. OpenAI도 실제 운영 코드에는 전문가 검토와 업무 규칙에 맞춘 시험이 필요하다고 적었어요.</p></details>
+<details class="faq"><summary>Q. 아스트라와 6.1 Sol 중 무엇을 쓰면 되나요?</summary><p>이 두 시험에서는 6.1 Sol이 아스트라와 비슷한 점수를 4분의 1 안팎의 비용에 냈어요. 우리 코드 몇 개로 둘 다 재 보고 고르는 게 안전해요.</p></details>
+<details class="faq"><summary>Q. 한국 금융권 시스템에도 통할까요?</summary><p>한국 시스템을 따로 잰 자료는 찾지 못했어요. 회사마다 업무 규칙과 시스템 환경이 달라서, 작은 프로그램으로 직접 시험해 보는 게 먼저예요.</p></details>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>OpenAI — Advancing coding in low-resource programming languages(10월 19일) · <a href="https://openai.com/index/low-resource-programming-languages">openai.com/index/low-resource-programming-languages</a></li>
+<li>GitHub — openai/MultiLangBench · <a href="https://github.com/openai/MultiLangBench">github.com/openai/MultiLangBench</a></li>
+<li>OpenAI API 요금표 · <a href="https://developers.openai.com/api/docs/pricing">developers.openai.com/api/docs/pricing</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 21일 · 같은 날 확인<br>OpenAI 연구 글·그래프 값·요금표, GitHub 시험 세트, 보도 대조<br>모델을 직접 써 보지 않음 · 점수는 OpenAI 자체 측정<br>제휴 없음<br>비유 삽화는 AI 이미지 생성 · 도식은 직접 제작</div>
+<h2 id="부록-출처-전체-2026-10-21-확인">부록: 출처 전체 (2026-10-21 확인)</h2>
+<p>happy_various 지시(10월 21일)와 브리핑을 출발점으로, 아래 원문을 직접 열어 확인했어요. 점수·요금은 조회한 날 기준이에요.</p>
+<ul>
+<li><a href="https://openai.com/index/low-resource-programming-languages/">OpenAI — Advancing coding in low-resource programming languages</a> (2026-10-19) — 평가 두 가지의 방식, 본문 수치(87.4%·26.8%·40.3%·86.6%·5.4%·97.9%), 언어별 수치, COBOL·포트란 쓰임새, 실제 운영 적용엔 전문가 검토 필요 (1·2·3·5절)</li>
+<li>같은 페이지의 그래프 데이터 — 모델·추론 설정·언어별 통과율과 비용(아스트라 최고 설정 샘플당 평균 32.18달러, 6.1 Sol 최고 설정 87.0%·7.53달러, COBOL 이전 6.1 Sol 매우 높음 97.9%·0.70달러, 아스트라 96.8%·3.26달러, GPT-6 Sol 최고 95.8%, GPT-5.6 Sol 최고 65.2%) (3·4·5절, 도식)</li>
+<li><a href="https://github.com/openai/MultiLangBench">GitHub — openai/MultiLangBench</a> (2026-10-19 공개, Apache 2.0) — SQLite 3.40.1 구현 과제, TCL 시험 5만 1,000개 중 2만 4,000개 변환, 기본 272개, 인터넷 차단·SQLite 흔적 삭제, 다른 언어로 짜면 0점 (2절)</li>
+<li><a href="https://developers.openai.com/api/docs/pricing">OpenAI API 요금표</a> — 10월 21일 조회: GPT-6 Astra 입력 10·출력 50달러, GPT-6.1 Sol·GPT-6 Sol 2·10달러, GPT-6 Luna 0.10·0.50달러, GPT-5.6 Sol 4·20달러 (100만 토큰당, 4절)</li>
+<li><a href="https://www.thurrott.com/a-i/openai-a-i/343049/openai-launches-a-coding-model-for-older-programming-languages">Thurrott — OpenAI Launches a Coding Model for Older Programming Languages</a> (2026-10-20) — 브리핑 원문. ‘새 코딩 모델 출시’ 표현, COBOL 이전 86.8%·97.9%를 아스트라 몫으로 적음 (5절)</li>
+<li><a href="https://the-decoder.com/openai-says-gpt-6-is-much-better-with-legacy-programming-languages-such-as-cobol-and-fortran/">The Decoder — OpenAI says GPT-6 is much better with legacy programming languages such as COBOL and Fortran</a> (2026-10-20) — 비교 기준을 GPT-5.6 Terra(약 38%)로 적음 (5절)</li>
+</ul>
+<p>보도끼리 다른 곳: Thurrott는 아스트라를 새 모델처럼 썼지만 OpenAI 글은 ‘최신 모델의 발전’을 새 평가로 보여 준 연구 글이에요. COBOL 이전 평가의 낮은 설정 값은 OpenAI 원문이 86.6%, Thurrott가 86.8%예요. MultiLangBench 그래프에는 GPT-5.6 Sol(26.8%)과 GPT-5.6 Terra(37.9%)가 함께 있어, 본문은 OpenAI 글처럼 GPT-5.6 Sol을 기준으로 썼어요.</p>
+<p>계산: ‘4분의 1 안팎’은 그래프 값 7.53달러÷32.18달러(약 0.23)예요. 6.1 Sol 87.0%는 그래프 막대 값(0.8704), 언어별 평균으로 다시 셈해도 같아요. 아스트라 COBOL 샘플 비용 54.72달러는 그래프 데이터의 언어별 값이에요.</p>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20260907-gpt6-astra-agi/">GPT-6 아스트라 AGI 선언, 진짜 AGI인지 용어부터 정리</a> · <a href="/posts/20261001-gpt-6-1-sol/">GPT-6.1 Sol 발표, 가격·성능과 Sonnet 5.5 비교</a> · <a href="/posts/20260907-chatgpt-at-work/">회사에서 ChatGPT 써도 될까, 직장인 보안 수칙 4가지</a></p>  <p class="meta" data-astro-cid-lvjzyg5v>🤖 그날 AI 글을 30초로 묶은 쇼츠는 인스타그램 <a href="https://www.instagram.com/second.syntax/" rel="noopener" target="_blank" data-astro-cid-lvjzyg5v>@second.syntax</a>에 매일 올려요.</p> </article> <nav class="end-nav" aria-label="목록" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로 · 📰 뉴스</a><div class="more" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261020-meta-muse-spark-open/" data-astro-cid-f3qesd3f>메타 뮤즈 스파크 오픈 정리, 미국 오픈웨이트 1위의 라이선스와 장비</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-chatgpt-locked-chats-slides/" data-astro-cid-f3qesd3f>챗GPT 잠금 채팅 사용법, 숨겨 주는 것과 지켜 주지 않는 것</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-anthropic-s1-cloud-capacity/" data-astro-cid-f3qesd3f>앤트로픽 S-1 초안 유출, 클라우드 용량 갈등과 적자 숫자 읽는 법</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-deepseek-deepinfer-open/" data-astro-cid-f3qesd3f>딥시크 DeepInfer 정리, 추론 엔진 오픈소스의 뜻과 쓰는 조건</a></li></ul></div></nav> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> <script>
+      // 머리글 높이를 --hdr-h 로 (목차 이동·글 양옆 칸·행사 날짜 줄이 머리글 아래에 오게)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var set = function () { document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px'); };
+        set(); addEventListener('resize', set);
+        if ('ResizeObserver' in window) new ResizeObserver(set).observe(h);
+      })();
+    </script> <script>
+      // 언어 목록 — 바깥을 누르거나 Esc 를 누르면 닫는다 (나들이로그와 같음)
+      (function () {
+        var m = document.querySelector('[data-lang-menu]');
+        if (!m) return;
+        document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+      })();
+    </script> <script>
+      // 머리글 맞춤 — 가운데 분류 줄이 넘치면 오른쪽 메뉴·언어를 단계적으로 줄인다(위 CSS data-fit 설명)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var mq = matchMedia('(min-width: 901px)');
+        function over() {
+          var hero = h.querySelector('.hero');
+          if (!hero) return false;
+          var t = hero.querySelector('.sec-tabs'), h1 = hero.querySelector('h1');
+          if (t && t.scrollWidth > t.clientWidth + 1) return true;
+          // 오른쪽 메뉴·언어가 넓어 가운데 칸이 정가운데에서 밀렸으면 줄인다
+          var hr = hero.getBoundingClientRect(), r = h.getBoundingClientRect();
+          if (h.getAttribute('data-fit') !== '4' && Math.abs((hr.left + hr.right) / 2 - (r.left + r.right) / 2) > 2) return true;
+          if (h1) { var lh = parseFloat(getComputedStyle(h1).lineHeight) || 24; if (h1.offsetHeight > lh * 1.5) return true; }
+          return false;
+        }
+        var busy = false;
+        function fit() {
+          if (busy) return; busy = true;
+          h.removeAttribute('data-fit');
+          if (mq.matches) for (var lv = 1; lv <= 4 && over(); lv++) h.setAttribute('data-fit', String(lv));
+          busy = false;
+        }
+        fit();
+        addEventListener('resize', fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      })();
+    </script> </body> </html> 

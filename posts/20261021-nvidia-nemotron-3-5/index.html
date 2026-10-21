@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트</title><meta name="description" content="엔비디아가 10월 15일 오픈웨이트 모델 네모트론 3.5 슈퍼 VL(기업 서버용)과 볼트(AI PC용)를 공개했어요. 세 모델이 맡는 일, 필요한 장비와 파일 크기, OpenMDW-1.1 라이선스와 메타 뮤즈 스파크 오픈과의 차이, 독립 평가(Artificial Analysis 26점, 미국 오픈웨이트 3위)와 '5배 빠름' 주장을 원문으로 확인해 정리했어요."><meta property="og:title" content="엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트"><meta property="og:description" content="엔비디아가 10월 15일 오픈웨이트 모델 네모트론 3.5 슈퍼 VL(기업 서버용)과 볼트(AI PC용)를 공개했어요. 세 모델이 맡는 일, 필요한 장비와 파일 크기, OpenMDW-1.1 라이선스와 메타 뮤즈 스파크 오픈과의 차이, 독립 평가(Artificial Analysis 26점, 미국 오픈웨이트 3위)와 '5배 빠름' 주장을 원문으로 확인해 정리했어요."><meta property="og:url" content="https://happyvarious.com/posts/20261021-nvidia-nemotron-3-5/"><meta property="og:site_name" content="AI 로그"><meta property="og:image" content="https://happyvarious.com/_astro/titlecard.vkaVZoit_Z1LiNsz.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.Cm929lyb.css">
+<link rel="stylesheet" href="/_astro/_id_.BkQGK3p6.css">
+<style>.sec-tabs[data-astro-cid-cnlsgtkd]{display:flex;gap:6px;width:fit-content;max-width:100%;margin:6px auto 0;padding-bottom:4px;overflow-x:auto;scrollbar-width:none;text-align:left}.sec-tabs[data-astro-cid-cnlsgtkd]::-webkit-scrollbar{display:none}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]:hover{border-color:var(--accent);color:var(--accent)}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}.sec-tabs[data-astro-cid-cnlsgtkd] .n[data-astro-cid-cnlsgtkd]{position:relative;margin-left:2px;font-size:.8em;color:var(--sub);font-weight:600}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page] .n[data-astro-cid-cnlsgtkd]{color:inherit;opacity:.75}.sr[data-astro-cid-cnlsgtkd]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style></head> <body> <a class="skip" href="#main">본문으로 건너뛰기</a> <header class="site"> <div class="hdr-tools"> <details class="lang-menu" data-lang-menu> <summary aria-label="언어 · Language: 한국어" title="언어 · Language"><span aria-hidden="true">🌐</span><span aria-hidden="true">KO</span><span class="caret" aria-hidden="true">▾</span></summary> <nav class="langbar" aria-label="언어 · Language"> <a href="/ai/" hreflang="ko" lang="ko" class="on" aria-current="true"><span>한국어</span><span class="code" aria-hidden="true">KO</span></a><a href="/nadeuli/en/" hreflang="en" lang="en"><span>English</span><span class="code" aria-hidden="true">EN</span></a><a href="/nadeuli/ja/" hreflang="ja" lang="ja"><span>日本語</span><span class="code" aria-hidden="true">JA</span></a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant"><span>繁體中文</span><span class="code" aria-hidden="true">繁中</span></a> </nav> </details> <a class="search-btn" href="/nadeuli/search/" aria-label="통합 검색" title="통합 검색 — 나들이·AI 로그"><span aria-hidden="true">🔍</span></a>  </div> <div class="brand-box"> <a class="brand" href="/ai/" aria-label="happy_various"><img class="wm light" src="/brand/wordmark-light.png" alt="happy_various" width="134" height="22"></a> <a class="site-char" href="/ai/" aria-hidden="true" tabindex="-1"><img class="mascot light" src="/brand/ai-info-light.gif" alt="" width="53" height="54"></a> <a class="site-name" href="/ai/">AI 로그</a> </div> <div class="hero"> <nav class="sec-tabs" aria-label="AI 로그 소메뉴" data-astro-cid-cnlsgtkd> <a href="/ai/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🤖</span> 전체 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>133</span> </a><a href="/use/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🛠️</span> 활용 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>39</span> </a><a href="/project/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🧪</span> 프로젝트 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>33</span> </a><a href="/news/" aria-current="page" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>📰</span> 뉴스 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>61</span> </a> </nav>  </div> <div class="hdr-bar" hidden></div> </header> <main id="main" tabindex="-1">  <script type="module">document.querySelectorAll("[data-share]").forEach(t=>{let o=0;const c=async a=>{try{return await navigator.clipboard.writeText(a),!0}catch{}const e=document.createElement("textarea");e.value=a,e.setAttribute("readonly",""),e.style.cssText="position:fixed;top:0;left:0;opacity:0",document.body.appendChild(e),e.select();let r=!1;try{r=document.execCommand("copy")}catch{r=!1}return e.remove(),r};t.addEventListener("click",async()=>{const a=t.dataset.url||location.href,e=t.dataset.title||document.title;if(matchMedia("(pointer: coarse)").matches&&navigator.share)try{await navigator.share({title:e,url:a});return}catch(r){if(r?.name==="AbortError")return}await c(a)?(t.classList.add("done"),clearTimeout(o),o=window.setTimeout(()=>t.classList.remove("done"),2e3)):window.prompt(t.querySelector(".lbl")?.textContent||"",a)})});</script><div class="crumb-bar" data-astro-cid-f3qesd3f><nav class="crumb" aria-label="목록" data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 AI 로그</a><span aria-hidden="true" data-astro-cid-f3qesd3f>›</span><a href="/news/" data-back data-astro-cid-f3qesd3f>📰 뉴스</a></nav><button type="button" class="share-btn" data-share data-url="https://happyvarious.com/posts/20261021-nvidia-nemotron-3-5/" data-title="엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트" aria-label="이 글 공유하기" title="공유하기" data-astro-cid-qan2qojn><span aria-hidden="true" data-astro-cid-qan2qojn>🔗</span><span class="lbl" aria-hidden="true" data-astro-cid-qan2qojn>링크 복사됨</span></button>  </div><script>
+      // 경로 줄은 머리글 맨 아래 줄로 — 스크롤과 상관없이 처음부터 머리글 안, 틈 없이 (2026-10-12 happy_various)
+      (function () { var c = document.currentScript.previousElementSibling, bar = document.querySelector('header.site .hdr-bar'); if (c && bar) { bar.appendChild(c); bar.hidden = false; } })();
+    </script><aside class="rail rail-l" aria-label="목록" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로</a><ul class="secs" data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 전체 글</a></li><li data-astro-cid-f3qesd3f><a href="/use/" data-astro-cid-f3qesd3f>🛠️ 활용</a></li><li data-astro-cid-f3qesd3f><a href="/project/" data-astro-cid-f3qesd3f>🧪 프로젝트</a></li><li data-astro-cid-f3qesd3f><a href="/news/" aria-current="true" data-astro-cid-f3qesd3f>📰 뉴스</a></li></ul></div></aside><aside class="rail rail-r" aria-label="이 글 목차" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><nav class="toc" aria-label="이 글 목차" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>이 글 목차</p><ol data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="#1-무슨-일-10월-15일-모델-셋-발표" data-toc="1-무슨-일-10월-15일-모델-셋-발표" data-astro-cid-f3qesd3f>1. 무슨 일: 10월 15일 모델 셋 발표</a></li><li data-astro-cid-f3qesd3f><a href="#2-슈퍼-vl-기업-에이전트용-큰-모델" data-toc="2-슈퍼-vl-기업-에이전트용-큰-모델" data-astro-cid-f3qesd3f>2. 슈퍼 VL: 기업 에이전트용 큰 모델</a></li><li data-astro-cid-f3qesd3f><a href="#3-볼트-큰-모델을-줄여-ai-pc에" data-toc="3-볼트-큰-모델을-줄여-ai-pc에" data-astro-cid-f3qesd3f>3. 볼트: 큰 모델을 줄여 AI PC에</a></li><li data-astro-cid-f3qesd3f><a href="#4-라이선스-조건이-거의-없는-오픈웨이트" data-toc="4-라이선스-조건이-거의-없는-오픈웨이트" data-astro-cid-f3qesd3f>4. 라이선스: 조건이 거의 없는 오픈웨이트</a></li><li data-astro-cid-f3qesd3f><a href="#5-검증-독립-평가로-본-위치" data-toc="5-검증-독립-평가로-본-위치" data-astro-cid-f3qesd3f>5. 검증: 독립 평가로 본 위치</a></li><li data-astro-cid-f3qesd3f><a href="#6-api-값과-도입-전-점검" data-toc="6-api-값과-도입-전-점검" data-astro-cid-f3qesd3f>6. API 값과 도입 전 점검</a></li><li data-astro-cid-f3qesd3f><a href="#자주-묻는-질문" data-toc="자주-묻는-질문" data-astro-cid-f3qesd3f>자주 묻는 질문</a></li><li data-astro-cid-f3qesd3f><a href="#부록-출처-전체-2026-10-21-확인" data-toc="부록-출처-전체-2026-10-21-확인" data-astro-cid-f3qesd3f>부록: 출처 전체 (2026-10-21 확인)</a></li></ol><a class="up" href="#main" data-astro-cid-f3qesd3f>↑ 맨 위로</a></nav><nav class="more" aria-label="다른 뉴스 글" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261020-meta-muse-spark-open/" data-astro-cid-f3qesd3f>메타 뮤즈 스파크 오픈 정리, 미국 오픈웨이트 1위의 라이선스와 장비</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-chatgpt-locked-chats-slides/" data-astro-cid-f3qesd3f>챗GPT 잠금 채팅 사용법, 숨겨 주는 것과 지켜 주지 않는 것</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-anthropic-s1-cloud-capacity/" data-astro-cid-f3qesd3f>앤트로픽 S-1 초안 유출, 클라우드 용량 갈등과 적자 숫자 읽는 법</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-gpt-6-astra-legacy-code/" data-astro-cid-f3qesd3f>오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까</a></li></ul></nav></div></aside><a class="float-back" href="/news/" data-back aria-label="목록으로" data-astro-cid-f3qesd3f>← 목록</a><script type="module">document.querySelectorAll("[data-back]").forEach(e=>e.addEventListener("click",r=>{try{const t=new URL(document.referrer);t.origin===location.origin&&!t.pathname.includes("/posts/")&&history.length>1&&(r.preventDefault(),history.back())}catch{}}));const n=new Map([...document.querySelectorAll("[data-toc]")].map(e=>[e.dataset.toc,e]));if(n.size&&"IntersectionObserver"in window){const e=new IntersectionObserver(r=>{for(const t of r)t.isIntersecting&&(n.forEach(o=>o.removeAttribute("aria-current")),n.get(t.target.id)?.setAttribute("aria-current","true"))},{rootMargin:"0px 0px -72% 0px"});n.forEach((r,t)=>{const o=document.getElementById(t);o&&e.observe(o)})}const c=document.querySelector(".float-back");if(c){const e=()=>c.classList.toggle("show",scrollY>480);addEventListener("scroll",e,{passive:!0}),e()}</script> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 21일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무슨-일-10월-15일-모델-셋-발표" data-astro-cid-lvjzyg5v>1. 무슨 일: 10월 15일 모델 셋 발표</a></li><li data-astro-cid-lvjzyg5v><a href="#2-슈퍼-vl-기업-에이전트용-큰-모델" data-astro-cid-lvjzyg5v>2. 슈퍼 VL: 기업 에이전트용 큰 모델</a></li><li data-astro-cid-lvjzyg5v><a href="#3-볼트-큰-모델을-줄여-ai-pc에" data-astro-cid-lvjzyg5v>3. 볼트: 큰 모델을 줄여 AI PC에</a></li><li data-astro-cid-lvjzyg5v><a href="#4-라이선스-조건이-거의-없는-오픈웨이트" data-astro-cid-lvjzyg5v>4. 라이선스: 조건이 거의 없는 오픈웨이트</a></li><li data-astro-cid-lvjzyg5v><a href="#5-검증-독립-평가로-본-위치" data-astro-cid-lvjzyg5v>5. 검증: 독립 평가로 본 위치</a></li><li data-astro-cid-lvjzyg5v><a href="#6-api-값과-도입-전-점검" data-astro-cid-lvjzyg5v>6. API 값과 도입 전 점검</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-21-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-21 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>엔비디아 발표·모델 카드·OpenMDW 라이선스 원문, Artificial Analysis 평가, 오픈라우터 가격, 테크크런치·디지털투데이 보도를 대조해 정리한 글이에요. 모델을 직접 내려받거나 써 보지 않았고, 라이선스 설명은 법률 판단이 아니에요. 제휴 링크는 없어요. 캐릭터·비유 삽화는 AI 이미지 생성(fal)이고, 도식은 직접 제작했어요.</blockquote> <h1 id="엔비디아-네모트론-35-정리-서버용-슈퍼-vl과-ai-pc용-볼트">엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트</h1>
+<p><img alt="엔비디아 네모트론 3.5 공개 — 서버용 슈퍼 VL과 AI PC용 볼트 (캐릭터는 AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.vkaVZoit_1MPFsS.webp" ></p>
+<p class="cap">엔비디아 네모트론 3.5 공개 — 서버용 슈퍼 VL과 AI PC용 볼트 (캐릭터는 AI 이미지 생성)</p>
+<p>오븐을 파는 회사가 레시피 책을 공짜로 나눠 준다고 해 볼게요. 식당 주방용 두꺼운 책과 집에서 쓰는 얇은 책, 두 가지로요. 책값은 받지 않지만, 레시피가 그 회사 오븐에서 가장 잘 되도록 짜여 있다면 이야기가 달라져요.</p>
+<p><strong>GPU를 파는 엔비디아가 10월 15일 오픈웨이트 모델 네모트론(Nemotron) 3.5 슈퍼 VL과 볼트(Bolt)를 내놨어요. 슈퍼 VL은 기업 서버용, 볼트는 AI PC용이에요.</strong> 둘 다 가중치를 무료로 받고, 자기 데이터로 더 학습시켜 자기 장비에 둘 수 있어요. 같은 날 나온 메타 뮤즈 스파크 오픈은 <a href="/posts/20261020-meta-muse-spark-open/">10월 20일 글</a>에 정리해 뒀어요.</p>
+<p><img alt="앞치마를 두른 로봇이 큰 레시피 책과 작은 레시피 책을 함께 내놓은 장면 — 서버용과 PC용으로 크기를 나눠 낸 네모트론 3.5를 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-recipe-sizes.CGrHmZp-_Z1ypw7i.webp" ></p>
+<p class="cap">앞치마를 두른 로봇이 큰 레시피 책과 작은 레시피 책을 함께 내놓은 장면 — 서버용과 PC용으로 크기를 나눠 낸 네모트론 3.5를 빗댄 그림 (AI 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 오픈웨이트 모델이나 AI PC 도입을 검토하는 개발자·담당자<br>① 슈퍼 VL·볼트 74B·볼트 E4B가 각각 맡는 일<br>② 필요한 장비와 파일 크기<br>③ 라이선스 조건과 메타 뮤즈 스파크 오픈과의 차이<br>④ 독립 평가로 본 위치와 회사 주장 읽는 법<br>2026년 10월 21일 기준 · 원문·독립 평가 확인</div>
+<hr>
+<h2 id="1-무슨-일-10월-15일-모델-셋-발표">1. 무슨 일: 10월 15일 모델 셋 발표</h2>
+<p><strong>엔비디아는 10월 15일 블로그에 네모트론 3.5 슈퍼 VL과 볼트 두 종을 발표했어요.</strong> 오픈 모델·소프트웨어 담당 카리 브리스키(Kari Briski) 부사장의 글이에요. 세 모델은 큰 서버부터 노트북, 작은 기기까지 크기를 나눠 맡아요. 발표 내용을 표로 옮겼어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>모델</th><th>크기 · 쓰는 곳 · 공개</th></tr></thead><tbody><tr><td>슈퍼 VL</td><td>1,200억(한 번에 120억 계산) · 기업 서버의 상시 에이전트 · 10월 15일</td></tr><tr><td>볼트 74B-A9B 24GB</td><td>740억(한 번에 90억 계산) · RTX Spark·DGX Spark 같은 AI PC · 10월 15일</td></tr><tr><td>볼트 E4B 4GB</td><td>약 4GB · 음성 비서·기기 속 대화 캐릭터 · 10월 23일 예정</td></tr></tbody></table>
+<p>슈퍼 VL과 볼트 74B는 발표 날 허깅페이스에 올라왔어요. 10월 21일 허깅페이스 엔비디아 계정에는 아직 E4B가 없어요. 엔비디아는 8월에 낸 처리량용 라이트닝(Lightning)과 가장 어려운 추론을 맡는 네모트론 3 울트라(Ultra)까지 묶어, 어느 크기의 장비에도 맞는 모델이 있다고 설명해요. 테크크런치는 나흘 뒤인 10월 19일 이 소식을 다뤘어요.</p>
+<h2 id="2-슈퍼-vl-기업-에이전트용-큰-모델">2. 슈퍼 VL: 기업 에이전트용 큰 모델</h2>
+<p><strong>슈퍼 VL은 글·이미지·영상을 함께 읽고 도구를 부르는 기업 에이전트용 모델이에요.</strong> 모델 카드에 따르면 파라미터 1,200억 개 가운데 한 번에 120억 개만 계산하는 MoE(전문가 혼합) 구조예요. 긴 글을 빠르게 다루는 맘바(Mamba) 층과 트랜스포머 층을 섞었고, 문맥은 최대 100만 토큰이에요.</p>
+<p>엔비디아는 자기 회사의 가장 큰 추론 모델(네모트론 3 울트라)과 비슷한 정확도를 약 5분의 1 크기로 낸다고 설명해요. 기술 블로그에는 울트라의 지식을 옮겨 배우는 증류(distillation)로 만들었다고 적었어요. 강점으로는 문서 속 표·차트 읽기와 웹 페이지·PDF 이해를 내세웠어요. 영상은 2분 이하 mp4를 받아요.</p>
+<p><strong>엔비디아가 가장 힘준 말은 ‘빨리 끝낸다’예요.</strong> 같은 급 오픈 에이전트 모델 가운데 가장 빠르고, 다음 모델보다 5배 빠르다는 게 회사 설명이에요. 또 기업이 자기 데이터로 추가 학습(포스트 트레이닝)해 자기 서버에 두고 쓸 수 있다는 점을 앞세웠어요. 예를 들어 스케일 AI가 미디어 회사 스카이댄스의 거래처 신용 처리용으로 학습시켜 추론 비용이 40분의 1로 줄 것이라고 했어요.</p>
+<p>아틀라시안·크라우드스트라이크·퍼플렉시티·세일즈포스 등도 쓰거나 맞춤 학습 중이라고 밝혔어요. 다만 이런 숫자와 사례는 모두 회사와 고객이 밝힌 기대치예요.</p>
+<h2 id="3-볼트-큰-모델을-줄여-ai-pc에">3. 볼트: 큰 모델을 줄여 AI PC에</h2>
+<p><strong>볼트 74B-A9B 24GB는 슈퍼 VL을 줄이고 2비트로 눌러 24GB 안에 넣은 PC용 모델이에요.</strong> 엔비디아 연구 블로그에 따르면 1,200억짜리 슈퍼 VL을 740억(한 번에 90억 계산)으로 줄인 뒤, 무게 대부분을 차지하는 전문가 부분을 2비트로 줄였어요. 같은 크기를 처음부터 학습해 4비트로 줄인 모델보다 이 방식이 낫다는 게 엔비디아의 설명이에요.</p>
+<p>설계 목표는 ‘24GB 안에서 다른 앱과 함께 돌고 초당 80토큰 이상’이었어요. 엔비디아는 128GB 메모리 서피스 랩톱 울트라(RTX Spark)에서 llama.cpp로 초당 84토큰을 쟀다고 밝혔어요.</p>
+<p><img alt="큰 여행 가방의 옷을 작은 기내용 가방에 맞춰 정리하는 로봇, 옆에는 노트북 — 1,200억짜리 슈퍼 VL을 줄여 24GB에 담은 볼트를 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-compress-suitcase.8m3Zh_Gu_1wQIqy.webp" ></p>
+<p class="cap">큰 여행 가방의 옷을 작은 기내용 가방에 맞춰 정리하는 로봇, 옆에는 노트북 — 1,200억짜리 슈퍼 VL을 줄여 24GB에 담은 볼트를 빗댄 그림 (AI 이미지 생성)</p>
+<p>웹 조사, 글쓰기, 코드 고치기 같은 일을 클라우드로 보내지 않고 PC 안의 에이전트 도구에 맡기는 용도예요. llama.cpp·올라마(Ollama)·LM 스튜디오·Unsloth·vLLM에서 쓸 수 있고, 문맥은 최대 256K 토큰이에요. 가장 작은 볼트 E4B 4GB는 10월 23일에 나와요. 지포스 RTX·젯슨(Jetson) 같은 기기에서 음성 비서나 대화 캐릭터를 돌리는 용도라고 해요.</p>
+<p><strong>다만 ‘24GB’는 모델 크기이지 PC 사양이 아니에요.</strong> 허깅페이스 파일 합계는 약 24GB(우리 계산)이고, 엔비디아가 속도를 잰 기기는 128GB 구성이었어요. 몇 GB 메모리 PC부터 넉넉한지 최소 사양은 찾지 못했어요. RTX Spark 노트북은 10월 16일 판매를 시작했어요. 가장 낮은 구성은 24GB이고 GPU가 쓸 수 있는 메모리는 전체보다 적어요. 제품별 값과 메모리 구성은 <a href="/posts/20261019-rtx-spark-laptops-launch/">10월 19일 글</a>에, 플랫폼 소개는 <a href="/posts/20261009-rtx-spark-windows/">10월 9일 글</a>에 정리해 뒀어요.</p>
+<p><img alt="네모트론 3.5 한 장 정리 — 서버용 슈퍼 VL, AI PC용 볼트 74B, 기기용 볼트 E4B와 장비·라이선스 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="3480" src="/_astro/diagram-nemotron-lineup.DkBmQR8T_1S4mdo.webp" ></p>
+<p class="cap">네모트론 3.5 한 장 정리 — 서버용 슈퍼 VL, AI PC용 볼트 74B, 기기용 볼트 E4B와 장비·라이선스 (직접 제작)</p>
+<h2 id="4-라이선스-조건이-거의-없는-오픈웨이트">4. 라이선스: 조건이 거의 없는 오픈웨이트</h2>
+<p><strong>슈퍼 VL과 볼트 74B는 OpenMDW-1.1 라이선스로 나왔고, 쓰는 조건이 거의 없어요.</strong> 리눅스 재단 사이트(openmdw.ai)에 실린 원문은 모델과 관련 자료를 ‘무료로, 제한 없이’ 다룰 수 있다고 적었어요. 그 밖의 내용을 표로 옮겼어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>원문 내용</th></tr></thead><tbody><tr><td>다시 나눌 때</td><td>라이선스 사본과 저작권·출처 고지를 함께 넣기</td></tr><tr><td>소송</td><td>이 모델이 특허·저작권을 침해한다며 소송을 걸면 권리가 끝남(먼저 소송을 당해 맞선 경우는 예외)</td></tr><tr><td>출력물</td><td>모델로 만든 결과물에는 제한·의무가 없음</td></tr><tr><td>책임</td><td>있는 그대로 제공, 다른 사람 권리 확인은 쓰는 사람 몫</td></tr></tbody></table>
+<p>10월 20일 글에서 본 메타 뮤즈 스파크 오픈과는 차이가 커요. 뮤즈는 ‘Built with’ 표시, API 판매 매출 기준, 사용 분야 금지, 허깅페이스 승인제가 있었어요. 네모트론 3.5 저장소는 10월 21일 기준 승인 절차 없이 바로 받을 수 있어요(허깅페이스 API). 엔비디아는 가중치와 함께 학습 데이터셋 일부, 학습 방법(레시피), 강화학습 환경도 공개한다고 밝혔어요.</p>
+<p><strong>엔비디아가 모델을 공짜로 푸는 데는 계산이 있어요.</strong> 테크크런치는 큰 AI 연구소들이 아마존 트레이니엄·세레브라스나 자체 칩으로 눈을 돌리자, 엔비디아가 자기 데이터센터에서 오픈 모델을 돌리려는 기업 쪽에 힘을 싣는다고 봤어요. 모델 카드도 엔비디아 GPU에서 돌도록 설계하고 최적화했다고 적었어요. 디지털투데이는 브리스키 부사장이 ‘공공기관·금융기관은 중국산 모델을 꺼리는데, 네모트론은 미국산이고 학습 데이터를 볼 수 있어 관심이 커진다’고 말했다고 전했어요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>가중치·라이선스·학습 데이터까지 넓게 열었고, 가장 잘 도는 곳은 엔비디아 GPU예요. 무료 레시피가 오븐 판매로 이어지는 구조예요.</div>
+<h2 id="5-검증-독립-평가로-본-위치">5. 검증: 독립 평가로 본 위치</h2>
+<p><strong>벤치마크 회사 Artificial Analysis(AA)는 슈퍼 VL에 지능 지수 26점을 매겼어요. 발표 당일엔 미국 오픈웨이트 1위였지만, 지금은 3위예요.</strong> AA는 10월 15일 글에서 슈퍼 VL(26.5)이 씽킹 머신즈의 인클링 스몰(25.7)과 네모트론 3 울트라(23)를 앞선 미국 오픈웨이트 1위라고 적었어요. 같은 날 메타 뮤즈 스파크 오픈(39점), 다음 날 리플렉션 빔(30점)이 나오면서 순위가 바뀌었어요(AA 10월 16일 빔 글).</p>
+<p>10월 21일 AA 페이지 데이터에서 관련 오픈웨이트 모델을 골라 놓으면 이래요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>모델 (회사·나라)</th><th>AA 지수</th></tr></thead><tbody><tr><td>MiMo-V2.6-Pro (샤오미·중국)</td><td>46점 — 오픈웨이트 1위</td></tr><tr><td>뮤즈 스파크 오픈 (메타·미국)</td><td>39점</td></tr><tr><td>K2 Horizon (IFM·아랍에미리트)</td><td>31점</td></tr><tr><td>빔 1.0 (리플렉션·미국)</td><td>30점</td></tr><tr><td>슈퍼 VL (엔비디아·미국)</td><td>26점</td></tr><tr><td>인클링 스몰 (씽킹 머신즈·미국)</td><td>26점</td></tr><tr><td>네모트론 3 울트라 (엔비디아·미국)</td><td>23점</td></tr><tr><td>볼트 74B-A9B (엔비디아·미국)</td><td>21점</td></tr></tbody></table>
+<p>좋아진 점도 분명해요. 지수 평가에 쓴 출력 토큰은 과제당 약 4만 6,000개로, 전작 네모트론 3 슈퍼(11만 4,000개)보다 약 60% 적어요. 4비트판도 원본과 지수 차이가 0.1점 안이었어요(AA). 볼트 74B의 21점은 AA 기준 1,000억 파라미터 아래 모델 가운데 4위, 그중 미국 모델로는 1위예요.</p>
+<p><strong>‘5배 빠르다’는 재는 조건에 따라 달라요.</strong> AA가 공개 전 딥인프라 엔드포인트에서 10만 토큰짜리 긴 입력으로 잰 출력 속도는 초당 약 630토큰으로, 인클링 스몰(124)의 약 5배였어요. 10월 21일 AA 페이지의 업체별 중간값으로 보면 슈퍼 VL은 초당 430토큰, 인클링 스몰은 191토큰으로 약 2.3배예요.</p>
+<p><strong>약점도 있어요.</strong> 엔비디아 모델 카드 표에서 명령줄 작업 평가 Terminal-Bench 2.1은 60.67로, 같은 표의 GLM-5.3-Flash(82.7)·큐웬3.8-Flash-Next(85.8)보다 크게 낮아요. 모를 때 틀린 답을 낸 비율(AA 환각률)은 36%로, 뮤즈 스파크 오픈(24%)보다 높아요.</p>
+<p>모델 카드 점수는 엔비디아가 자체 평가 도구(NeMo Gym)로 돌린 값이고, 재현용 설정을 공개한 점은 장점이에요. 하지만 고객 사례의 ‘비용 40분의 1’ 같은 숫자는 회사·고객이 밝힌 값이라 독립 확인은 아직 없어요. 한국어도 확인이 필요해요. 슈퍼 VL 모델 카드의 언어 표시는 영어·스페인어·프랑스어·독일어·이탈리아어·일본어 6개뿐이고, 볼트 카드는 한 곳엔 같은 6개, 다른 곳엔 한국어까지 적혀 있어 서로 달라요.</p>
+<h2 id="6-api-값과-도입-전-점검">6. API 값과 도입 전 점검</h2>
+<p><strong>API로 쓰면 오픈라우터 기준 100만 토큰당 입력 0.15달러, 출력 0.50달러 안팎이에요.</strong> 10월 21일 오픈라우터의 슈퍼 VL 업체 6곳 가운데 3곳이 이 값이었고, 가장 싼 곳은 입력 0.10·출력 0.40달러, 가장 비싼 곳은 입력 0.25·출력 1.25달러였어요. 무료판도 따로 올라와 있어요.</p>
+<p>같은 날 뮤즈 스파크 오픈은 입력 1.25·출력 4.25달러라, 토큰값만 보면 슈퍼 VL이 약 8분의 1이에요. AA가 계산한 지수 과제 하나당 비용은 0.19달러예요. 직접 돌린다면 슈퍼 VL 4비트판 파일이 약 75GB예요. 모델 카드는 DGX Spark 1대, H200 1장, H100 2장, GB200 1장 구성을 안내해요.</p>
+<p>네모트론 3.5를 검토한다면 볼 곳은 세 가지예요.<br>
+① 어디서 돌릴지 — 서버면 슈퍼 VL 4비트판, PC면 볼트 24GB, 먼저 API로 우리 업무 예시를 재 보세요<br>
+② 한국어 — 공식 언어 표시가 카드마다 달라서, 우리 문서로 직접 시험해 보는 게 안전해요<br>
+③ 추가 학습 계획 — 자기 데이터로 더 학습시키는 게 이 모델의 핵심 쓰임새라, 데이터와 평가 기준을 먼저 정하세요</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>회사 서비스에 넣기 전에 라이선스 원문과 모델 카드의 사용 조건을 담당자와 확인하세요. 이 글의 라이선스 설명은 법률 판단이 아니에요.</div>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 10월 15일 서버용 슈퍼 VL과 PC용 볼트를 공개했어요<br>② 슈퍼 VL은 1,200억 중 120억을 쓰는 멀티모달 MoE예요<br>③ 볼트는 슈퍼 VL을 줄여 24GB에 담았고, E4B는 10월 23일<br>④ OpenMDW-1.1이라 쓰는 조건이 거의 없어요<br>⑤ AA 26점으로 미국 오픈웨이트 3위, 값은 싼 편이에요</div>
+<p><strong>오늘의 큰 흐름:</strong> 오픈 가중치 경쟁이 점수에서 ‘조건과 추론 비용’으로 옮겨 가고 있어요. 같은 날 메타는 조건 붙은 큰 모델을, 엔비디아는 조건 없이 빨리 끝내는 모델을 내놨어요.</p>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 네모트론 3.5는 무료인가요?</summary><p>가중치는 OpenMDW-1.1 라이선스로 무료이고, 허깅페이스에서 승인 없이 받을 수 있어요. API로 쓰면 업체 요금이 들고, 10월 21일 오픈라우터에서는 100만 토큰당 입력 0.15달러·출력 0.50달러 안팎이었어요. 무료판도 올라와 있어요.</p></details>
+<details class="faq"><summary>Q. 내 노트북에서 돌릴 수 있나요?</summary><p>볼트 74B-A9B 24GB가 RTX Spark·DGX Spark·지포스 RTX PC용이에요. 다만 엔비디아가 속도를 잰 기기는 128GB 서피스 랩톱 울트라였고, 최소 메모리 사양은 찾지 못했어요. 슈퍼 VL은 4비트판도 약 75GB라 서버나 DGX Spark급 장비가 필요해요.</p></details>
+<details class="faq"><summary>Q. 한국어도 되나요?</summary><p>슈퍼 VL 모델 카드의 언어 표시에는 한국어가 없어요. 볼트 카드는 한 곳에만 한국어를 적어 서로 달라요. 사전 학습 데이터에 한국어 웹 문서가 들어 있지만, 성능을 밝힌 자료는 찾지 못했어요. 우리 업무 예시로 직접 시험해 보세요.</p></details>
+<details class="faq"><summary>Q. 메타 뮤즈 스파크 오픈과 무엇이 다른가요?</summary><p>AA 지수는 뮤즈 스파크 오픈(39점)이 슈퍼 VL(26점)보다 높아요. 대신 슈퍼 VL은 라이선스 조건이 거의 없고 승인제도 없으며, 10월 21일 오픈라우터 토큰값이 약 8분의 1이에요.</p></details>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>엔비디아 블로그 — Nemotron 3.5 Super VL·Bolt 발표(10월 15일) · <a href="https://blogs.nvidia.com/blog/nemotron-3-5-super-vl">blogs.nvidia.com/blog/nemotron-3-5-super-vl</a></li>
+<li>허깅페이스 — 슈퍼 VL·볼트 모델 카드 · huggingface.co/nvidia</li>
+<li>Artificial Analysis — 네모트론 3.5 평가(10월 15일) · <a href="https://artificialanalysis.ai/articles/nemotron-3-5-super-and-bolt">artificialanalysis.ai/articles/nemotron-3-5-super-and-bolt</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 21일 · 같은 날 확인<br>엔비디아 발표·모델 카드·라이선스 원문·AA 평가·보도 대조<br>모델을 내려받거나 써 보지 않음 · 수치는 표기한 출처 기준<br>라이선스 설명은 법률 판단 아님 · 제휴 없음<br>비유 삽화는 AI 이미지 생성 · 도식은 직접 제작</div>
+<h2 id="부록-출처-전체-2026-10-21-확인">부록: 출처 전체 (2026-10-21 확인)</h2>
+<p>happy_various 브리핑(10월 21일) 8번 ‘엔비디아, 기업 에이전트·AI PC용 오픈 모델 Nemotron 3.5 출시’를 출발점으로, 아래 원문을 직접 열어 확인했어요. 점수·가격은 조회한 날 기준이에요.</p>
+<ul>
+<li><a href="https://blogs.nvidia.com/blog/nemotron-3-5-super-vl/">엔비디아 블로그 — Open From Data Center to Desktop: NVIDIA Expands Nemotron Family With Highest Efficiency Super VL and Bolt Models</a> (2026-10-15, 카리 브리스키) — 120B 슈퍼 VL, 볼트 74B-A9B 24GB·E4B 4GB, E4B 10월 23일, ‘5배 빠름’, 고객 사례, 약 26조 토큰 학습, 오픈 데이터셋, 볼트 지원 도구, RTX Spark 노트북 10월 16일 (1·2·3·4절)</li>
+<li><a href="https://developer.nvidia.com/blog/nvidia-nemotron-3-5-super-vl-powers-specialized-agents-with-multimodal-reasoning/">엔비디아 기술 블로그 — NVIDIA Nemotron 3.5 Super VL Powers Specialized Agents with Multimodal Reasoning</a> (2026-10-15) — 12B 활성 MoE, 울트라에서 증류, 스카이댄스 40배·램프·AI21 사례, 라이트닝·울트라와의 역할 (2절)</li>
+<li><a href="https://research.nvidia.com/labs/nemotron/Nemotron-3.5-Bolt-24GB/">엔비디아 연구 블로그 — NVIDIA Nemotron 3.5 Bolt 74B-A9B 24GB</a> (2026-10-15) — 슈퍼 VL을 줄이는 압축, 2비트 양자화, 24GB·초당 80토큰 목표, 128GB 서피스 랩톱 울트라에서 84토큰 (3절)</li>
+<li><a href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16">허깅페이스 — NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16</a> · <a href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-NVFP4">NVFP4</a> 모델 카드 — 120B/12B, 100만 토큰, 입력 형식, 배포 구성, 언어 표시, 자체 벤치마크 표 (2·5·6절, 자주 묻는 질문)</li>
+<li><a href="https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-24GB">허깅페이스 — NVIDIA-Nemotron-3.5-Bolt-74B-A9B-24GB</a> 모델 카드 — 74B/9B, 256K, 2비트, 지원 언어 두 가지 표기 (3·5절)</li>
+<li><a href="https://openmdw.ai/license/1-1/">OpenMDW License Agreement, version 1.1</a> — 무료·제한 없는 이용, 재배포 시 사본·고지, 소송 시 권리 종료, 출력물 무제한 (4절)</li>
+<li><a href="https://artificialanalysis.ai/articles/nemotron-3-5-super-and-bolt">Artificial Analysis — NVIDIA Releases Nemotron 3.5 Super and Nemotron 3.5 Bolt</a> (2026-10-15) — 26.5점 당일 미국 오픈웨이트 1위, 볼트 21점, 토큰 4만 6,000개, NVFP4 0.1점 차, 공개 전 엔드포인트 초당 약 630토큰 (5절)</li>
+<li><a href="https://artificialanalysis.ai/articles/reflection-beam">Artificial Analysis — Reflection has released Beam</a> (2026-10-16) — 뮤즈 스파크 오픈 39, 빔 30, 슈퍼 VL 26 (5절)</li>
+<li><a href="https://artificialanalysis.ai/models/nemotron-3-5-super-vl">Artificial Analysis — Nemotron 3.5 Super VL 모델 페이지</a> — 10월 21일 조회: 입력 0.23·출력 0.57달러, 과제당 0.19달러, 초당 430토큰, 같은 페이지 데이터의 비교 모델 지수·환각률 (5·6절)</li>
+<li><a href="https://openrouter.ai/nvidia/nemotron-3.5-super-vl">OpenRouter — NVIDIA: Nemotron 3.5 Super VL 업체별 값</a> — 10월 21일 API 조회: 6개 업체 입력 0.10에서 0.25달러, 출력 0.40에서 1.25달러, 무료판 (6절)</li>
+<li><a href="https://techcrunch.com/2026/10/19/nvidia-launches-new-open-models-to-run-agents-in-the-enterprise-and-on-pcs/">TechCrunch — Nvidia launches new open models to run agents in the enterprise and on PCs</a> (2026-10-19, 줄리 보트) — 발표 요약, 큰 AI 연구소의 다른 칩 이동 분석 (1·4절)</li>
+<li><a href="https://www.digitaltoday.co.kr/en/view/115861/nvidia-unveils-nemotron-3-5-open-models-for-ai-agents-targeting-server-to-edge">디지털투데이 — Nvidia unveils Nemotron 3.5 open models for AI agents</a> (2026-10-17) — 브리스키 부사장의 중국산 모델·학습 데이터 발언 (4절)</li>
+</ul>
+<p>보도끼리 다른 곳: 테크크런치 기사는 10월 19일에 나왔지만 발표는 10월 15일(목)이에요. ‘이달 말’로 전한 볼트 E4B는 엔비디아 발표상 10월 23일이에요. 일부 기사는 볼트를 ‘Volt’로 적었어요.</p>
+<p>계산: 파일 크기는 허깅페이스 API 파일 목록의 합계(슈퍼 VL BF16 248,913,061,416바이트, NVFP4 75,010,188,240바이트, 볼트 24GB 24,083,745,496바이트)예요. ‘약 8분의 1’은 10월 21일 오픈라우터의 슈퍼 VL 대표 값(0.15·0.50달러)과 뮤즈 스파크 오픈(1.25·4.25달러)을 나눈 값이에요. AA 지수는 페이지 데이터 값을 반올림했어요.</p>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20261020-meta-muse-spark-open/">메타 뮤즈 스파크 오픈 정리, 미국 오픈웨이트 1위의 라이선스와 장비</a> · <a href="/posts/20261019-rtx-spark-laptops-launch/">RTX Spark 노트북 출시, 모델별 가격과 시작가 표기 차이</a> · <a href="/posts/20261009-rtx-spark-windows/">RTX Spark 정리, 로컬 AI 성능과 제품별 출하 일정</a></p>  <p class="meta" data-astro-cid-lvjzyg5v>🤖 그날 AI 글을 30초로 묶은 쇼츠는 인스타그램 <a href="https://www.instagram.com/second.syntax/" rel="noopener" target="_blank" data-astro-cid-lvjzyg5v>@second.syntax</a>에 매일 올려요.</p> </article> <nav class="end-nav" aria-label="목록" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로 · 📰 뉴스</a><div class="more" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261020-meta-muse-spark-open/" data-astro-cid-f3qesd3f>메타 뮤즈 스파크 오픈 정리, 미국 오픈웨이트 1위의 라이선스와 장비</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-chatgpt-locked-chats-slides/" data-astro-cid-f3qesd3f>챗GPT 잠금 채팅 사용법, 숨겨 주는 것과 지켜 주지 않는 것</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-anthropic-s1-cloud-capacity/" data-astro-cid-f3qesd3f>앤트로픽 S-1 초안 유출, 클라우드 용량 갈등과 적자 숫자 읽는 법</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-gpt-6-astra-legacy-code/" data-astro-cid-f3qesd3f>오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까</a></li></ul></div></nav> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> <script>
+      // 머리글 높이를 --hdr-h 로 (목차 이동·글 양옆 칸·행사 날짜 줄이 머리글 아래에 오게)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var set = function () { document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px'); };
+        set(); addEventListener('resize', set);
+        if ('ResizeObserver' in window) new ResizeObserver(set).observe(h);
+      })();
+    </script> <script>
+      // 언어 목록 — 바깥을 누르거나 Esc 를 누르면 닫는다 (나들이로그와 같음)
+      (function () {
+        var m = document.querySelector('[data-lang-menu]');
+        if (!m) return;
+        document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+      })();
+    </script> <script>
+      // 머리글 맞춤 — 가운데 분류 줄이 넘치면 오른쪽 메뉴·언어를 단계적으로 줄인다(위 CSS data-fit 설명)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var mq = matchMedia('(min-width: 901px)');
+        function over() {
+          var hero = h.querySelector('.hero');
+          if (!hero) return false;
+          var t = hero.querySelector('.sec-tabs'), h1 = hero.querySelector('h1');
+          if (t && t.scrollWidth > t.clientWidth + 1) return true;
+          // 오른쪽 메뉴·언어가 넓어 가운데 칸이 정가운데에서 밀렸으면 줄인다
+          var hr = hero.getBoundingClientRect(), r = h.getBoundingClientRect();
+          if (h.getAttribute('data-fit') !== '4' && Math.abs((hr.left + hr.right) / 2 - (r.left + r.right) / 2) > 2) return true;
+          if (h1) { var lh = parseFloat(getComputedStyle(h1).lineHeight) || 24; if (h1.offsetHeight > lh * 1.5) return true; }
+          return false;
+        }
+        var busy = false;
+        function fit() {
+          if (busy) return; busy = true;
+          h.removeAttribute('data-fit');
+          if (mq.matches) for (var lv = 1; lv <= 4 && over(); lv++) h.setAttribute('data-fit', String(lv));
+          busy = false;
+        }
+        fit();
+        addEventListener('resize', fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      })();
+    </script> </body> </html> 

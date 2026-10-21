@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>미스트랄 Voxtral 3 정리, 실시간 음성 에이전트 구성과 한계</title><meta name="description" content="미스트랄 AI가 10월 20일 음성 모델 묶음 Voxtral 3와 LiveKit 기반 음성 에이전트 SDK를 공개했어요. 모델 넷과 값, SIP·IVR·말 끊기 뜻, 한국어와 언어 수, 처리 위치와 가중치 비공개, 독립 평가(Artificial Analysis 음성 인식 3위)와 고객센터 도입 전 한계를 원문과 문서로 확인해 정리했어요."><meta property="og:title" content="미스트랄 Voxtral 3 정리, 실시간 음성 에이전트 구성과 한계"><meta property="og:description" content="미스트랄 AI가 10월 20일 음성 모델 묶음 Voxtral 3와 LiveKit 기반 음성 에이전트 SDK를 공개했어요. 모델 넷과 값, SIP·IVR·말 끊기 뜻, 한국어와 언어 수, 처리 위치와 가중치 비공개, 독립 평가(Artificial Analysis 음성 인식 3위)와 고객센터 도입 전 한계를 원문과 문서로 확인해 정리했어요."><meta property="og:url" content="https://happyvarious.com/posts/20261021-mistral-voxtral-3/"><meta property="og:site_name" content="AI 로그"><meta property="og:image" content="https://happyvarious.com/_astro/titlecard.CK5V_PfP_Z1Cz0uw.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.Cm929lyb.css">
+<link rel="stylesheet" href="/_astro/_id_.BkQGK3p6.css">
+<style>.sec-tabs[data-astro-cid-cnlsgtkd]{display:flex;gap:6px;width:fit-content;max-width:100%;margin:6px auto 0;padding-bottom:4px;overflow-x:auto;scrollbar-width:none;text-align:left}.sec-tabs[data-astro-cid-cnlsgtkd]::-webkit-scrollbar{display:none}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]:hover{border-color:var(--accent);color:var(--accent)}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}.sec-tabs[data-astro-cid-cnlsgtkd] .n[data-astro-cid-cnlsgtkd]{position:relative;margin-left:2px;font-size:.8em;color:var(--sub);font-weight:600}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page] .n[data-astro-cid-cnlsgtkd]{color:inherit;opacity:.75}.sr[data-astro-cid-cnlsgtkd]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style></head> <body> <a class="skip" href="#main">본문으로 건너뛰기</a> <header class="site"> <div class="hdr-tools"> <details class="lang-menu" data-lang-menu> <summary aria-label="언어 · Language: 한국어" title="언어 · Language"><span aria-hidden="true">🌐</span><span aria-hidden="true">KO</span><span class="caret" aria-hidden="true">▾</span></summary> <nav class="langbar" aria-label="언어 · Language"> <a href="/ai/" hreflang="ko" lang="ko" class="on" aria-current="true"><span>한국어</span><span class="code" aria-hidden="true">KO</span></a><a href="/nadeuli/en/" hreflang="en" lang="en"><span>English</span><span class="code" aria-hidden="true">EN</span></a><a href="/nadeuli/ja/" hreflang="ja" lang="ja"><span>日本語</span><span class="code" aria-hidden="true">JA</span></a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant"><span>繁體中文</span><span class="code" aria-hidden="true">繁中</span></a> </nav> </details> <a class="search-btn" href="/nadeuli/search/" aria-label="통합 검색" title="통합 검색 — 나들이·AI 로그"><span aria-hidden="true">🔍</span></a>  </div> <div class="brand-box"> <a class="brand" href="/ai/" aria-label="happy_various"><img class="wm light" src="/brand/wordmark-light.png" alt="happy_various" width="134" height="22"></a> <a class="site-char" href="/ai/" aria-hidden="true" tabindex="-1"><img class="mascot light" src="/brand/ai-info-light.gif" alt="" width="53" height="54"></a> <a class="site-name" href="/ai/">AI 로그</a> </div> <div class="hero"> <nav class="sec-tabs" aria-label="AI 로그 소메뉴" data-astro-cid-cnlsgtkd> <a href="/ai/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🤖</span> 전체 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>133</span> </a><a href="/use/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🛠️</span> 활용 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>39</span> </a><a href="/project/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🧪</span> 프로젝트 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>33</span> </a><a href="/news/" aria-current="page" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>📰</span> 뉴스 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>61</span> </a> </nav>  </div> <div class="hdr-bar" hidden></div> </header> <main id="main" tabindex="-1">  <script type="module">document.querySelectorAll("[data-share]").forEach(t=>{let o=0;const c=async a=>{try{return await navigator.clipboard.writeText(a),!0}catch{}const e=document.createElement("textarea");e.value=a,e.setAttribute("readonly",""),e.style.cssText="position:fixed;top:0;left:0;opacity:0",document.body.appendChild(e),e.select();let r=!1;try{r=document.execCommand("copy")}catch{r=!1}return e.remove(),r};t.addEventListener("click",async()=>{const a=t.dataset.url||location.href,e=t.dataset.title||document.title;if(matchMedia("(pointer: coarse)").matches&&navigator.share)try{await navigator.share({title:e,url:a});return}catch(r){if(r?.name==="AbortError")return}await c(a)?(t.classList.add("done"),clearTimeout(o),o=window.setTimeout(()=>t.classList.remove("done"),2e3)):window.prompt(t.querySelector(".lbl")?.textContent||"",a)})});</script><div class="crumb-bar" data-astro-cid-f3qesd3f><nav class="crumb" aria-label="목록" data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 AI 로그</a><span aria-hidden="true" data-astro-cid-f3qesd3f>›</span><a href="/news/" data-back data-astro-cid-f3qesd3f>📰 뉴스</a></nav><button type="button" class="share-btn" data-share data-url="https://happyvarious.com/posts/20261021-mistral-voxtral-3/" data-title="미스트랄 Voxtral 3 정리, 실시간 음성 에이전트 구성과 한계" aria-label="이 글 공유하기" title="공유하기" data-astro-cid-qan2qojn><span aria-hidden="true" data-astro-cid-qan2qojn>🔗</span><span class="lbl" aria-hidden="true" data-astro-cid-qan2qojn>링크 복사됨</span></button>  </div><script>
+      // 경로 줄은 머리글 맨 아래 줄로 — 스크롤과 상관없이 처음부터 머리글 안, 틈 없이 (2026-10-12 happy_various)
+      (function () { var c = document.currentScript.previousElementSibling, bar = document.querySelector('header.site .hdr-bar'); if (c && bar) { bar.appendChild(c); bar.hidden = false; } })();
+    </script><aside class="rail rail-l" aria-label="목록" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로</a><ul class="secs" data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 전체 글</a></li><li data-astro-cid-f3qesd3f><a href="/use/" data-astro-cid-f3qesd3f>🛠️ 활용</a></li><li data-astro-cid-f3qesd3f><a href="/project/" data-astro-cid-f3qesd3f>🧪 프로젝트</a></li><li data-astro-cid-f3qesd3f><a href="/news/" aria-current="true" data-astro-cid-f3qesd3f>📰 뉴스</a></li></ul></div></aside><aside class="rail rail-r" aria-label="이 글 목차" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><nav class="toc" aria-label="이 글 목차" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>이 글 목차</p><ol data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="#1-무슨-일-모델-넷과-에이전트-sdk" data-toc="1-무슨-일-모델-넷과-에이전트-sdk" data-astro-cid-f3qesd3f>1. 무슨 일: 모델 넷과 에이전트 SDK</a></li><li data-astro-cid-f3qesd3f><a href="#2-음성-에이전트-한-턴은-이렇게-돌아요" data-toc="2-음성-에이전트-한-턴은-이렇게-돌아요" data-astro-cid-f3qesd3f>2. 음성 에이전트 한 턴은 이렇게 돌아요</a></li><li data-astro-cid-f3qesd3f><a href="#3-한국어와-언어-수" data-toc="3-한국어와-언어-수" data-astro-cid-f3qesd3f>3. 한국어와 언어 수</a></li><li data-astro-cid-f3qesd3f><a href="#4-처리-위치와-가중치-공개" data-toc="4-처리-위치와-가중치-공개" data-astro-cid-f3qesd3f>4. 처리 위치와 가중치 공개</a></li><li data-astro-cid-f3qesd3f><a href="#5-검증-회사-표와-독립-평가" data-toc="5-검증-회사-표와-독립-평가" data-astro-cid-f3qesd3f>5. 검증: 회사 표와 독립 평가</a></li><li data-astro-cid-f3qesd3f><a href="#6-고객센터에-넣기-전-점검" data-toc="6-고객센터에-넣기-전-점검" data-astro-cid-f3qesd3f>6. 고객센터에 넣기 전 점검</a></li><li data-astro-cid-f3qesd3f><a href="#자주-묻는-질문" data-toc="자주-묻는-질문" data-astro-cid-f3qesd3f>자주 묻는 질문</a></li><li data-astro-cid-f3qesd3f><a href="#부록-출처-전체-2026-10-21-확인" data-toc="부록-출처-전체-2026-10-21-확인" data-astro-cid-f3qesd3f>부록: 출처 전체 (2026-10-21 확인)</a></li></ol><a class="up" href="#main" data-astro-cid-f3qesd3f>↑ 맨 위로</a></nav><nav class="more" aria-label="다른 뉴스 글" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261020-meta-muse-spark-open/" data-astro-cid-f3qesd3f>메타 뮤즈 스파크 오픈 정리, 미국 오픈웨이트 1위의 라이선스와 장비</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-chatgpt-locked-chats-slides/" data-astro-cid-f3qesd3f>챗GPT 잠금 채팅 사용법, 숨겨 주는 것과 지켜 주지 않는 것</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-anthropic-s1-cloud-capacity/" data-astro-cid-f3qesd3f>앤트로픽 S-1 초안 유출, 클라우드 용량 갈등과 적자 숫자 읽는 법</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-gpt-6-astra-legacy-code/" data-astro-cid-f3qesd3f>오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까</a></li></ul></nav></div></aside><a class="float-back" href="/news/" data-back aria-label="목록으로" data-astro-cid-f3qesd3f>← 목록</a><script type="module">document.querySelectorAll("[data-back]").forEach(e=>e.addEventListener("click",r=>{try{const t=new URL(document.referrer);t.origin===location.origin&&!t.pathname.includes("/posts/")&&history.length>1&&(r.preventDefault(),history.back())}catch{}}));const n=new Map([...document.querySelectorAll("[data-toc]")].map(e=>[e.dataset.toc,e]));if(n.size&&"IntersectionObserver"in window){const e=new IntersectionObserver(r=>{for(const t of r)t.isIntersecting&&(n.forEach(o=>o.removeAttribute("aria-current")),n.get(t.target.id)?.setAttribute("aria-current","true"))},{rootMargin:"0px 0px -72% 0px"});n.forEach((r,t)=>{const o=document.getElementById(t);o&&e.observe(o)})}const c=document.querySelector(".float-back");if(c){const e=()=>c.classList.toggle("show",scrollY>480);addEventListener("scroll",e,{passive:!0}),e()}</script> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 21일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 8개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무슨-일-모델-넷과-에이전트-sdk" data-astro-cid-lvjzyg5v>1. 무슨 일: 모델 넷과 에이전트 SDK</a></li><li data-astro-cid-lvjzyg5v><a href="#2-음성-에이전트-한-턴은-이렇게-돌아요" data-astro-cid-lvjzyg5v>2. 음성 에이전트 한 턴은 이렇게 돌아요</a></li><li data-astro-cid-lvjzyg5v><a href="#3-한국어와-언어-수" data-astro-cid-lvjzyg5v>3. 한국어와 언어 수</a></li><li data-astro-cid-lvjzyg5v><a href="#4-처리-위치와-가중치-공개" data-astro-cid-lvjzyg5v>4. 처리 위치와 가중치 공개</a></li><li data-astro-cid-lvjzyg5v><a href="#5-검증-회사-표와-독립-평가" data-astro-cid-lvjzyg5v>5. 검증: 회사 표와 독립 평가</a></li><li data-astro-cid-lvjzyg5v><a href="#6-고객센터에-넣기-전-점검" data-astro-cid-lvjzyg5v>6. 고객센터에 넣기 전 점검</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-21-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-21 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>미스트랄 발표 글과 문서, Artificial Analysis 평가, 허깅페이스 저장소 목록, 마크테크포스트·테스팅카탈로그 보도를 대조해 정리한 글이에요. 모델을 직접 써 보지 않았어요. 제휴 링크는 없어요. 캐릭터는 AI 이미지 생성(fal)이고, 도식은 직접 제작했어요.</blockquote> <h1 id="미스트랄-voxtral-3-정리-실시간-음성-에이전트-구성과-한계">미스트랄 Voxtral 3 정리, 실시간 음성 에이전트 구성과 한계</h1>
+<p><img alt="미스트랄 Voxtral 3 공개 — 듣고 생각하고 말하는 실시간 음성 에이전트 (캐릭터는 AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.CK5V_PfP_1VztqV.webp" ></p>
+<p class="cap">미스트랄 Voxtral 3 공개 — 듣고 생각하고 말하는 실시간 음성 에이전트 (캐릭터는 AI 이미지 생성)</p>
+<p>전화 주문이 몰리는 반찬가게를 떠올려 볼게요. 받아 적는 사람, 장부를 확인하는 사람, 대답하는 사람이 따로 있으면 손님은 매번 ‘잠시만요’를 들어요. 손님이 ‘아, 잠깐만요’ 하고 말을 끊어도, 대답하던 사람은 한참 뒤에야 멈추고요.</p>
+<p><strong>미스트랄 AI가 10월 20일 음성 모델 묶음 Voxtral(복스트랄) 3와 음성 에이전트 SDK를 내놨어요. 듣기·생각과 도구 부르기·말하기를 한 줄로 이어 실시간으로 돌려요.</strong> 다만 이번 모델은 가중치를 공개하지 않았고, 전화 연결(SIP)은 출시 시점에 기업 고객만 쓸 수 있어요.</p>
+<p><img alt="헤드셋을 쓴 로봇이 전화 주문을 들으며 태블릿 달력에 예약을 잡는 장면 — 듣기·생각·말하기를 한 번에 하는 음성 에이전트를 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-phone-desk.CBdQgCkl_28I0tg.webp" ></p>
+<p class="cap">헤드셋을 쓴 로봇이 전화 주문을 들으며 태블릿 달력에 예약을 잡는 장면 — 듣기·생각·말하기를 한 번에 하는 음성 에이전트를 빗댄 그림 (AI 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 고객센터 음성 봇이나 음성 비서를 검토하는 개발자·담당자<br>① Voxtral 3에 든 모델 넷과 값<br>② 음성 에이전트 한 턴이 도는 방식과 SIP·IVR·말 끊기 뜻<br>③ 한국어·처리 위치·가중치 공개 여부<br>④ 회사 발표와 독립 평가 읽는 법<br>2026년 10월 21일 기준 · 원문·문서·독립 평가 확인</div>
+<hr>
+<h2 id="1-무슨-일-모델-넷과-에이전트-sdk">1. 무슨 일: 모델 넷과 에이전트 SDK</h2>
+<p><strong>미스트랄은 10월 20일 받아 적기(전사) 모델 셋, 음성 합성 모델 하나, 이를 묶는 음성 에이전트 SDK를 공개했어요.</strong> 발표 글과 문서에 적힌 이름·역할·값을 표로 옮겼어요. 값은 미스트랄 API 기준이에요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>모델</th><th>하는 일 · 값</th></tr></thead><tbody><tr><td><code>Voxtral Small Transcribe 3</code></td><td>녹음 파일 받아 적기·화자 구분, 가장 정확한 판 · 분당 0.004달러</td></tr><tr><td><code>Voxtral Mini Transcribe 3</code></td><td>파라미터 40억 개의 작은 판 · 분당 0.0035달러</td></tr><tr><td><code>Voxtral Mini Transcribe Realtime 3</code></td><td>말하는 동안 받아 적기·말 끝 감지 · 분당 0.008달러</td></tr><tr><td><code>Voxtral Speech 3 (TTS 3)</code></td><td>감정·속도를 바꾸는 음성 합성 · 글자 100만 자당 13달러</td></tr><tr><td>음성 에이전트 API</td><td>위 모델과 언어 모델을 한 줄로 · 분당 0.04달러(미스트랄 스몰 4), 다른 언어 모델은 0.08달러</td></tr></tbody></table>
+<p>네 모델 모두 미스트랄 문서에 ‘공개 프리뷰(Public Preview)’로 올라 있어요. API는 유럽·미국·글로벌 엔드포인트로 열렸고, AI 스튜디오 놀이터에서 음성 에이전트·받아 적기·음성 합성·목소리 복제를 바로 시험할 수 있어요. 음성 합성 모델은 발표 글 안에서도 ‘Voxtral Mini TTS 3’와 ‘Voxtral Speech 3’ 두 이름으로 나와요. 이 글은 값 표에 쓰인 Voxtral Speech 3로 적을게요.</p>
+<p>미스트랄의 큰 언어 모델 라지 4는 10월 7일 글에 정리해 뒀어요.</p>
+<p class="nextpost">→ <a href="/posts/20261007-mistral-large-4/">미스트랄 라지 4 정리, 1조 파라미터 MoE 뜻과 공개 일정</a></p>
+<h2 id="2-음성-에이전트-한-턴은-이렇게-돌아요">2. 음성 에이전트 한 턴은 이렇게 돌아요</h2>
+<p><strong>SDK가 듣기·생각·말하기를 한 줄로 흘려보내서, 한 턴을 1초 안에 끝낸다는 게 미스트랄의 설명이에요.</strong> 실시간 전사 모델이 듣다가 말이 끝났다고 판단하면, 미스트랄 스몰 4 같은 언어 모델이 답을 만들고 필요하면 도구를 불러요. 그다음 Voxtral Speech 3가 지금까지 대화의 분위기에 맞춰 말해요.</p>
+<p>단계마다 모델이 따로라서 언어 모델·목소리·언어를 바꿔 끼울 수 있어요. 도구로는 본인 확인, 요금 조회, 예약 같은 일을 맡기고, 웹 검색·문서 라이브러리·연결한 업무 시스템을 부를 수 있어요. 실시간 오디오 전송은 LiveKit이라는 실시간 통신 도구 위에 만들었고, LiveKit을 몰라도 쓸 수 있다고 문서에 적혀 있어요.</p>
+<p><img alt="Voxtral 3 음성 에이전트 한 턴 — 듣기(실시간 전사)·생각과 도구·말하기(음성 합성), 말 끊기와 연결 방식 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="3920" src="/_astro/diagram-voxtral-turn.DFDglpMN_IEnTR.webp" ></p>
+<p class="cap">Voxtral 3 음성 에이전트 한 턴 — 듣기(실시간 전사)·생각과 도구·말하기(음성 합성), 말 끊기와 연결 방식 (직접 제작)</p>
+<p><strong>콜센터 이야기에 자주 나오는 낯선 말 세 개를 먼저 풀어 볼게요.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>말</th><th>뜻</th></tr></thead><tbody><tr><td><code>SIP</code></td><td>인터넷으로 전화를 걸고 받는 표준 방식. 회사 전화망과 콜센터 시스템이 이 방식으로 통화를 넘겨요</td></tr><tr><td><code>IVR</code></td><td>‘1번은 요금 문의’ 같은 자동 응답 메뉴. 기존 전화 상담 시스템의 한 부분이에요</td></tr><tr><td>말 끊기(barge-in)</td><td>기계가 말하는 도중 사람이 끼어들면 바로 멈추고 듣는 기능</td></tr></tbody></table>
+<p>미스트랄은 SIP로 전화를 받고 걸며, 이미 쓰는 전화·IVR·콜센터 소프트웨어에 연결된다고 밝혔어요. 웹과 앱에서는 WebRTC(브라우저에서 음성을 실시간으로 주고받는 표준)로 붙어요. 말 끊기는 기본으로 켜져 있어요. 법적 고지처럼 끝까지 들려줘야 하는 안내는 설정으로 끌 수 있어요(미스트랄 문서).</p>
+<p>말이 끝났는지는 침묵 길이만 보지 않고, 무슨 말을 어떻게 했는지까지 보고 판단한다고 해요. 주문 번호를 한 자리씩 불러 주다 잠깐 멈추는 사람을 끊지 않으려는 거예요.</p>
+<p><img alt="말하던 로봇이 손을 들어 멈추고 귀를 기울이는 장면 — 사람이 끼어들면 바로 멈추고 듣는 말 끊기(barge-in)를 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-stop-listen.Deo2LOXh_RLY32.webp" ></p>
+<p class="cap">말하던 로봇이 손을 들어 멈추고 귀를 기울이는 장면 — 사람이 끼어들면 바로 멈추고 듣는 말 끊기(barge-in)를 빗댄 그림 (AI 이미지 생성)</p>
+<h2 id="3-한국어와-언어-수">3. 한국어와 언어 수</h2>
+<p><strong>미스트랄 발표 기준으로 한국어는 받아 적기와 음성 합성 모두 대상 언어에 들어 있어요.</strong> 파일 전사 평가(FLEURS 45개 언어)와 실시간 전사 평가(35개 언어) 목록에 한국어가 있고, 미리 만든 목소리(프리셋)를 주는 18개 언어에도 한국어가 있어요.</p>
+<p>언어 수는 모델마다 달라요. 문서의 언어 표에서 파일 전사 두 모델은 50개, 실시간 전사는 45개 언어·방언, 음성 합성은 35개 언어·50개 넘는 방언이에요. 다만 표기가 엇갈려요. 발표 글은 실시간 전사를 ‘35개 넘는 언어’와 ‘40개 넘는 언어’로 다르게 적었고, 음성 합성 모델 소개 칸에는 ‘9개 언어 지원’이라고 적혀 있어요. 한국어만의 점수는 따로 밝히지 않았어요.</p>
+<h2 id="4-처리-위치와-가중치-공개">4. 처리 위치와 가중치 공개</h2>
+<p><strong>Voxtral 3는 가중치를 공개하지 않았어요. 대신 ‘어디서 처리하느냐’를 고르게 해요.</strong> 미스트랄은 유럽에서 운영하는 API, 미국·글로벌 엔드포인트, 자기 인프라에 직접 까는 방식을 모두 내놨어요. 자체 구축하면 민감한 통화를 회사 안에 두고, 녹음을 남길지도 정할 수 있다고 해요.</p>
+<p>다만 온프레미스(회사 서버)나 프라이빗 클라우드로 전체를 돌리려면 미스트랄 팀에 문의하라고 적혀 있어요. 필요한 GPU·메모리 사양은 밝히지 않았어요(마크테크포스트). 10월 21일 허깅페이스 mistralai 계정에는 Voxtral 3 모델이 없고, AA도 Small Transcribe 3를 ‘가중치 비공개’로 표시해요. 앞선 Voxtral 모델 일부(Voxtral Small 24B, Mini 4B Realtime 등)가 Apache 2.0으로 공개된 것과 달라요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>이번엔 가중치 공개가 아니라 ‘처리 위치 선택’으로 데이터 주권을 내세웠어요. 회사 서버에 깔려면 영업 상담을 거쳐야 해요.</div>
+<h2 id="5-검증-회사-표와-독립-평가">5. 검증: 회사 표와 독립 평가</h2>
+<p><strong>파일 전사는 독립 평가에서도 상위권이지만 1위는 아니에요.</strong> 벤치마크 회사 Artificial Analysis(AA)의 음성 인식 오류율 지수(AA-WER, 낮을수록 좋음)에서 Small Transcribe 3는 2.09%로 3위예요. 10월 21일 AA 페이지 데이터에서 위쪽 모델을 골라 놓으면 이래요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>모델 (회사)</th><th>AA-WER · 1,000분당 값</th></tr></thead><tbody><tr><td>Fun-Realtime-ASR-preview (알리바바)</td><td>1.73% · 값 표시 없음</td></tr><tr><td>MAI-Transcribe-2 (마이크로소프트 AI)</td><td>2.04% · 1.67달러</td></tr><tr><td>Voxtral Small Transcribe 3 (미스트랄)</td><td>2.09% · 4달러</td></tr><tr><td>Scribe v2 (일레븐랩스)</td><td>2.18% · 3.67달러</td></tr><tr><td>Voxtral Mini Transcribe 3 (미스트랄)</td><td>2.22% · 3.5달러</td></tr><tr><td>Gemini 3.5 Transcribe (구글)</td><td>2.60% · 5달러</td></tr></tbody></table>
+<p>미스트랄 발표 글의 45개 언어 평가(FLEURS)에서도 Small은 오류율 4.1%로 마이크로소프트 AI Transcribe 2와 같았어요. 문서의 모델 소개는 마이크로소프트 모델을 ‘앞선다’고 적었지만, 발표 글 그림과 AA 기준으로는 비기거나 조금 뒤예요. 누가 말했는지 가리는 화자 구분 오류율은 18.4%로 비교한 모델 중 가장 낮다고 미스트랄 표에 나와요. 이 표는 회사가 직접 잰 값이에요.</p>
+<p><strong>실시간 전사는 미스트랄 자기 그림에서도 구글보다 낮아요.</strong> 35개 언어 평가에서 지연을 480ms로 맞추면 오류율 6.4%, 240ms면 7.4%예요. 같은 그림에서 제미나이 3.5 실시간 전사는 4.2%였어요. 빨리 받아 적을수록 정확도가 떨어지는 구조라, 지연 설정을 업무에 맞게 골라야 해요. 문서에 따르면 지연은 80ms에서 2,400ms까지 정할 수 있어요.</p>
+<p>발표 글과 문서가 다른 곳도 있어요. 발표 글은 음성 합성의 ‘프롬프트 지시 따르기’를 새 기능으로 소개했지만, 문서는 스타일 지시(style instructions)가 출시 때는 안 된다고 적었어요. 감정·속도는 글 속 태그로 정해요.</p>
+<h2 id="6-고객센터에-넣기-전-점검">6. 고객센터에 넣기 전 점검</h2>
+<p><strong>전화 상담에 바로 붙이기 전에, 문서에 적힌 전화 연결의 한계부터 보세요.</strong> 전화(SIP) 연결은 출시 때 기업 고객만 쓸 수 있고, 스스로 켤 수 없어 계정팀을 거쳐야 해요. 전화번호와 통화를 실어 나르는 시스템은 회사가 직접 마련해요.</p>
+<p>문서는 전화 에이전트가 통화를 사람 상담원에게 넘길 수 없다고 적었어요. 처리 못 할 요청에는 ‘담당자가 다시 연락드린다’처럼 말하게 하라고 안내해요. 전화 중에는 우리 앱 코드가 돌지 않아서 앱 쪽 도구는 실패하고, 서버 쪽 도구만 써야 해요. 또 한 실시간 세션에서 말 끝 감지와 화자 구분을 함께 켜면 오류가 나요.</p>
+<p>값은 음성 에이전트 API가 분당 0.04달러(미스트랄 스몰 4)라, 10분 통화 한 건이면 0.4달러예요(우리 계산). Voxtral 3를 검토한다면 볼 곳은 세 가지예요.<br>
+① 채널 — 웹·앱으로 먼저 시험하고, 전화 연결은 계정팀과 일정을 잡으세요<br>
+② 한국어 — 우리 상담 녹음 몇 건으로 받아 적기 정확도와 목소리를 먼저 들어 보세요<br>
+③ 사람 연결 — 상담원 이관이 안 되니, 처리 못 할 요청의 다음 단계를 먼저 정하세요</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>실제 고객 통화를 넣기 전에 녹음 보관·개인정보 처리 조건을 담당자와 확인하세요. 목소리 복제는 당사자 동의를 받은 뒤에 쓰세요.</div>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 10월 20일 전사 셋·음성 합성 하나·음성 에이전트 SDK 공개<br>② 듣기·생각·말하기를 한 줄로, 한 턴 1초 안(회사 발표)<br>③ 파일 전사는 AA 3위, 실시간 전사는 구글보다 낮아요<br>④ 한국어는 대상 언어에 있지만 따로 밝힌 점수는 없어요<br>⑤ 가중치 비공개, 전화(SIP)는 출시 땐 기업 고객만</div>
+<p><strong>오늘의 큰 흐름:</strong> 오픈 가중치와 추론 비용 경쟁이에요. 미스트랄은 이번엔 가중치 대신 분당 값과 처리 위치 선택으로 겨뤘어요.</p>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. Voxtral 3로 한국어 상담 봇을 만들 수 있나요?</summary><p>미스트랄 발표 기준으로 한국어는 받아 적기와 음성 합성 대상 언어에 들어 있어요. 다만 한국어 점수는 따로 밝히지 않았고, 전화 연결은 출시 때 기업 고객만 계정팀을 거쳐 쓸 수 있어요. 웹·앱에서 우리 상담 녹음으로 먼저 시험해 보세요.</p></details>
+<details class="faq"><summary>Q. 모델을 내려받아 무료로 쓸 수 있나요?</summary><p>아니요. 10월 21일 기준 Voxtral 3는 가중치를 공개하지 않았어요. API로 쓰거나, 회사 서버에 까는 방식은 미스트랄 팀과 상의해야 해요. 앞선 Voxtral 모델 일부는 Apache 2.0으로 허깅페이스에 있어요.</p></details>
+<details class="faq"><summary>Q. 값은 얼마인가요?</summary><p>받아 적기는 분당 0.0035달러에서 0.008달러, 음성 합성은 글자 100만 자당 13달러예요. 음성 에이전트 API는 미스트랄 스몰 4를 쓰면 분당 0.04달러, 다른 언어 모델이면 0.08달러예요(10월 20일 발표).</p></details>
+<details class="faq"><summary>Q. 기존 전화 상담 시스템(IVR)에 붙일 수 있나요?</summary><p>미스트랄은 SIP로 기존 전화·IVR·콜센터 소프트웨어에 연결된다고 밝혔어요. 출시 때는 기업 고객이 계정팀을 통해 켜고, 번호와 전화 시스템은 회사가 마련해요. 문서상 사람 상담원에게 통화를 넘기는 기능은 없어요.</p></details>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>미스트랄 — Voxtral 3 발표(10월 20일) · <a href="https://mistral.ai/news/voxtral-3">mistral.ai/news/voxtral-3</a></li>
+<li>미스트랄 문서 — 음성 에이전트·전화(SIP) · <a href="https://docs.mistral.ai/studio/audio/voice-agents/overview">docs.mistral.ai/studio/audio/voice-agents/overview</a></li>
+<li>Artificial Analysis — 음성 인식 순위 · <a href="https://artificialanalysis.ai/speech-to-text">artificialanalysis.ai/speech-to-text</a></li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 21일 · 같은 날 확인<br>미스트랄 발표·문서·AA 평가·보도 대조<br>모델을 직접 써 보지 않음 · 수치는 표기한 출처 기준<br>제휴 없음 · 캐릭터는 AI 이미지 생성 · 도식은 직접 제작</div>
+<h2 id="부록-출처-전체-2026-10-21-확인">부록: 출처 전체 (2026-10-21 확인)</h2>
+<p>happy_various 브리핑(10월 21일) 9번 ‘미스트랄 Voxtral 3 출시… 실시간 음성 에이전트 풀스택’을 출발점으로, 아래 원문을 직접 열어 확인했어요. 값과 순위는 조회한 날 기준이에요.</p>
+<ul>
+<li><a href="https://mistral.ai/news/voxtral-3/">미스트랄 — Voxtral 3: Voice Agent SDK &#x26; Speech Models in 50+ Languages</a> (2026-10-20) — 모델 넷과 SDK, 50개 언어 전사, 35개 넘는 언어 음성 합성, LiveKit 기반 SDK, 한 턴 1초 안, SIP·WebRTC·IVR, 유럽·미국·글로벌 엔드포인트, 자체 구축 문의, 값 표, 회사 평가 그림(FLEURS·화자 구분·실시간) (1·2·3·4·5절)</li>
+<li><a href="https://docs.mistral.ai/models/voxtral-small-transcribe-3-0">미스트랄 문서 — 모델 페이지: Small Transcribe 3</a> · <a href="https://docs.mistral.ai/models/voxtral-mini-transcribe-3-0">Mini Transcribe 3</a> · <a href="https://docs.mistral.ai/models/voxtral-mini-transcribe-realtime-3-0">Mini Transcribe Realtime 3</a> · <a href="https://docs.mistral.ai/models/voxtral-mini-tts-3-0">TTS 3</a> — 공개 프리뷰, 분당·글자당 값, 실시간 지연 80ms에서 2,400ms, 음성 합성 ‘9개 언어’ 표기 (1·3·5절)</li>
+<li><a href="https://docs.mistral.ai/studio/audio/specs-and-limits/languages">미스트랄 문서 — 언어</a> — 파일 전사 50개, 실시간 45개 언어·방언, 음성 합성 35개 언어·50개 넘는 방언 (3절)</li>
+<li><a href="https://docs.mistral.ai/studio/audio/voice-agents/overview">미스트랄 문서 — 음성 에이전트</a> · <a href="https://docs.mistral.ai/studio/audio/voice-agents/telephony">전화(SIP)</a> — LiveKit 기반, 끼어들기, 서버·앱 쪽 도구, SIP 는 기업 고객·계정팀, 사람 상담원 이관 불가 (2·6절)</li>
+<li><a href="https://docs.mistral.ai/studio/audio/concepts/turns">미스트랄 문서 — 말 차례와 끼어들기</a> · <a href="https://docs.mistral.ai/studio/audio/concepts/voices">목소리</a> — 말 끝 감지 방식, 끼어들기 기본 켬, 말 끝 감지와 화자 구분 동시 사용 불가, 스타일 지시 출시 때 미지원 (2·5·6절)</li>
+<li><a href="https://artificialanalysis.ai/speech-to-text">Artificial Analysis — 음성 인식(Speech to Text) 순위</a> — 10월 21일 페이지 데이터: AA-WER 지수와 1,000분당 값, Voxtral 3 ‘가중치 비공개’ 표시 (4·5절)</li>
+<li><a href="https://huggingface.co/mistralai">허깅페이스 — mistralai Voxtral 저장소 목록(API)</a> — 10월 21일 Voxtral 3 없음, 이전 Voxtral Small 24B·Mini 3B·Mini 4B Realtime 은 Apache 2.0 (4절)</li>
+<li><a href="https://www.marktechpost.com/2026/10/20/mistral-voxtral-3-speech-models-voice-agent-sdk/">마크테크포스트 — Mistral AI Releases Voxtral 3</a> (2026-10-20) — 회사 수치 요약, GPU 사양 미공개, AA 3위, 가중치 발표 없음 (4·5절)</li>
+<li><a href="https://www.testingcatalog.com/mistral-launches-voxtral-3-with-a-voice-agent-sdk/">테스팅카탈로그 — Mistral launches Voxtral 3 with a voice agent SDK</a> (2026-10-21) — 발표 요약, AA 의 X 게시물(전사 3위) 인용 (5절)</li>
+</ul>
+<p>발표 글과 문서가 다른 곳: 실시간 전사 언어 수(발표 글 ‘35개 넘게’·‘40개 넘게’, 문서 언어 표 45개), 음성 합성 언어 수(발표 글·언어 표 35개, 모델 소개 칸 9개), 음성 합성 이름(Mini TTS 3·Speech 3), ‘마이크로소프트 모델을 앞선다’(문서)와 FLEURS 동점(발표 글 그림), 프롬프트 지시 따르기(발표 글)와 스타일 지시 미지원(문서).</p>
+<p>계산: ‘10분 통화 0.4달러’는 음성 에이전트 API 분당 0.04달러 × 10분(우리 계산)이에요. AA-WER 은 페이지 데이터 값을 소수 둘째 자리로 반올림했어요.</p>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20261007-mistral-large-4/">미스트랄 라지 4 정리, 1조 파라미터 MoE 뜻과 공개 일정</a> · <a href="/posts/20261021-nvidia-nemotron-3-5/">엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트</a></p>  <p class="meta" data-astro-cid-lvjzyg5v>🤖 그날 AI 글을 30초로 묶은 쇼츠는 인스타그램 <a href="https://www.instagram.com/second.syntax/" rel="noopener" target="_blank" data-astro-cid-lvjzyg5v>@second.syntax</a>에 매일 올려요.</p> </article> <nav class="end-nav" aria-label="목록" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로 · 📰 뉴스</a><div class="more" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261020-meta-muse-spark-open/" data-astro-cid-f3qesd3f>메타 뮤즈 스파크 오픈 정리, 미국 오픈웨이트 1위의 라이선스와 장비</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-chatgpt-locked-chats-slides/" data-astro-cid-f3qesd3f>챗GPT 잠금 채팅 사용법, 숨겨 주는 것과 지켜 주지 않는 것</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-anthropic-s1-cloud-capacity/" data-astro-cid-f3qesd3f>앤트로픽 S-1 초안 유출, 클라우드 용량 갈등과 적자 숫자 읽는 법</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-gpt-6-astra-legacy-code/" data-astro-cid-f3qesd3f>오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까</a></li></ul></div></nav> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> <script>
+      // 머리글 높이를 --hdr-h 로 (목차 이동·글 양옆 칸·행사 날짜 줄이 머리글 아래에 오게)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var set = function () { document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px'); };
+        set(); addEventListener('resize', set);
+        if ('ResizeObserver' in window) new ResizeObserver(set).observe(h);
+      })();
+    </script> <script>
+      // 언어 목록 — 바깥을 누르거나 Esc 를 누르면 닫는다 (나들이로그와 같음)
+      (function () {
+        var m = document.querySelector('[data-lang-menu]');
+        if (!m) return;
+        document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+      })();
+    </script> <script>
+      // 머리글 맞춤 — 가운데 분류 줄이 넘치면 오른쪽 메뉴·언어를 단계적으로 줄인다(위 CSS data-fit 설명)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var mq = matchMedia('(min-width: 901px)');
+        function over() {
+          var hero = h.querySelector('.hero');
+          if (!hero) return false;
+          var t = hero.querySelector('.sec-tabs'), h1 = hero.querySelector('h1');
+          if (t && t.scrollWidth > t.clientWidth + 1) return true;
+          // 오른쪽 메뉴·언어가 넓어 가운데 칸이 정가운데에서 밀렸으면 줄인다
+          var hr = hero.getBoundingClientRect(), r = h.getBoundingClientRect();
+          if (h.getAttribute('data-fit') !== '4' && Math.abs((hr.left + hr.right) / 2 - (r.left + r.right) / 2) > 2) return true;
+          if (h1) { var lh = parseFloat(getComputedStyle(h1).lineHeight) || 24; if (h1.offsetHeight > lh * 1.5) return true; }
+          return false;
+        }
+        var busy = false;
+        function fit() {
+          if (busy) return; busy = true;
+          h.removeAttribute('data-fit');
+          if (mq.matches) for (var lv = 1; lv <= 4 && over(); lv++) h.setAttribute('data-fit', String(lv));
+          busy = false;
+        }
+        fit();
+        addEventListener('resize', fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      })();
+    </script> </body> </html> 
