@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>오픈AI 모델 구글 클라우드 입점, 기업 고객에게 달라지는 것</title><meta name="description" content="오픈AI가 10월 21일 구글 클라우드와 손잡고 GPT-6 Astra·GPT-6.1 Sol·GPT-6 Luna를 구글 클라우드 모델 가든에 넣는다고 발표했어요. 지금은 일부 기업 고객 대상 비공개 프리뷰이고, 기업은 쓰던 구글 클라우드 약정으로 결제할 수 있어요. 애저·AWS·오라클을 거쳐 구글까지 온 순서와 아직 공개되지 않은 요금·지역을 원문으로 확인해 정리했어요."><meta property="og:title" content="오픈AI 모델 구글 클라우드 입점, 기업 고객에게 달라지는 것"><meta property="og:description" content="오픈AI가 10월 21일 구글 클라우드와 손잡고 GPT-6 Astra·GPT-6.1 Sol·GPT-6 Luna를 구글 클라우드 모델 가든에 넣는다고 발표했어요. 지금은 일부 기업 고객 대상 비공개 프리뷰이고, 기업은 쓰던 구글 클라우드 약정으로 결제할 수 있어요. 애저·AWS·오라클을 거쳐 구글까지 온 순서와 아직 공개되지 않은 요금·지역을 원문으로 확인해 정리했어요."><meta property="og:url" content="https://happyvarious.com/posts/20261022-openai-models-google-cloud/"><meta property="og:site_name" content="AI 로그"><meta property="og:image" content="https://happyvarious.com/_astro/titlecard.rmZcZlV8_tJPUP.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.Cm929lyb.css">
+<link rel="stylesheet" href="/_astro/_id_.BkQGK3p6.css">
+<style>.sec-tabs[data-astro-cid-cnlsgtkd]{display:flex;gap:6px;width:fit-content;max-width:100%;margin:6px auto 0;padding-bottom:4px;overflow-x:auto;scrollbar-width:none;text-align:left}.sec-tabs[data-astro-cid-cnlsgtkd]::-webkit-scrollbar{display:none}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]:hover{border-color:var(--accent);color:var(--accent)}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}.sec-tabs[data-astro-cid-cnlsgtkd] .n[data-astro-cid-cnlsgtkd]{position:relative;margin-left:2px;font-size:.8em;color:var(--sub);font-weight:600}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page] .n[data-astro-cid-cnlsgtkd]{color:inherit;opacity:.75}.sr[data-astro-cid-cnlsgtkd]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style></head> <body> <a class="skip" href="#main">본문으로 건너뛰기</a> <header class="site"> <div class="hdr-tools"> <details class="lang-menu" data-lang-menu> <summary aria-label="언어 · Language: 한국어" title="언어 · Language"><span aria-hidden="true">🌐</span><span aria-hidden="true">KO</span><span class="caret" aria-hidden="true">▾</span></summary> <nav class="langbar" aria-label="언어 · Language"> <a href="/ai/" hreflang="ko" lang="ko" class="on" aria-current="true"><span>한국어</span><span class="code" aria-hidden="true">KO</span></a><a href="/nadeuli/en/" hreflang="en" lang="en"><span>English</span><span class="code" aria-hidden="true">EN</span></a><a href="/nadeuli/ja/" hreflang="ja" lang="ja"><span>日本語</span><span class="code" aria-hidden="true">JA</span></a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant"><span>繁體中文</span><span class="code" aria-hidden="true">繁中</span></a> </nav> </details> <a class="search-btn" href="/nadeuli/search/" aria-label="통합 검색" title="통합 검색 — 나들이·AI 로그"><span aria-hidden="true">🔍</span></a>  </div> <div class="brand-box"> <a class="brand" href="/ai/" aria-label="happy_various"><img class="wm light" src="/brand/wordmark-light.png" alt="happy_various" width="134" height="22"></a> <a class="site-char" href="/ai/" aria-hidden="true" tabindex="-1"><img class="mascot light" src="/brand/ai-info-light.gif" alt="" width="53" height="54"></a> <a class="site-name" href="/ai/">AI 로그</a> </div> <div class="hero"> <nav class="sec-tabs" aria-label="AI 로그 소메뉴" data-astro-cid-cnlsgtkd> <a href="/ai/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🤖</span> 전체 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>143</span> </a><a href="/use/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🛠️</span> 활용 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>39</span> </a><a href="/project/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🧪</span> 프로젝트 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>33</span> </a><a href="/news/" aria-current="page" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>📰</span> 뉴스 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>71</span> </a> </nav>  </div> <div class="hdr-bar" hidden></div> </header> <main id="main" tabindex="-1">  <script type="module">document.querySelectorAll("[data-share]").forEach(t=>{let o=0;const c=async a=>{try{return await navigator.clipboard.writeText(a),!0}catch{}const e=document.createElement("textarea");e.value=a,e.setAttribute("readonly",""),e.style.cssText="position:fixed;top:0;left:0;opacity:0",document.body.appendChild(e),e.select();let r=!1;try{r=document.execCommand("copy")}catch{r=!1}return e.remove(),r};t.addEventListener("click",async()=>{const a=t.dataset.url||location.href,e=t.dataset.title||document.title;if(matchMedia("(pointer: coarse)").matches&&navigator.share)try{await navigator.share({title:e,url:a});return}catch(r){if(r?.name==="AbortError")return}await c(a)?(t.classList.add("done"),clearTimeout(o),o=window.setTimeout(()=>t.classList.remove("done"),2e3)):window.prompt(t.querySelector(".lbl")?.textContent||"",a)})});</script><div class="crumb-bar" data-astro-cid-f3qesd3f><nav class="crumb" aria-label="목록" data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 AI 로그</a><span aria-hidden="true" data-astro-cid-f3qesd3f>›</span><a href="/news/" data-back data-astro-cid-f3qesd3f>📰 뉴스</a></nav><button type="button" class="share-btn" data-share data-url="https://happyvarious.com/posts/20261022-openai-models-google-cloud/" data-title="오픈AI 모델 구글 클라우드 입점, 기업 고객에게 달라지는 것" aria-label="이 글 공유하기" title="공유하기" data-astro-cid-qan2qojn><span aria-hidden="true" data-astro-cid-qan2qojn>🔗</span><span class="lbl" aria-hidden="true" data-astro-cid-qan2qojn>링크 복사됨</span></button>  </div><script>
+      // 경로 줄은 머리글 맨 아래 줄로 — 스크롤과 상관없이 처음부터 머리글 안, 틈 없이 (2026-10-12 happy_various)
+      (function () { var c = document.currentScript.previousElementSibling, bar = document.querySelector('header.site .hdr-bar'); if (c && bar) { bar.appendChild(c); bar.hidden = false; } })();
+    </script><aside class="rail rail-l" aria-label="목록" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로</a><ul class="secs" data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 전체 글</a></li><li data-astro-cid-f3qesd3f><a href="/use/" data-astro-cid-f3qesd3f>🛠️ 활용</a></li><li data-astro-cid-f3qesd3f><a href="/project/" data-astro-cid-f3qesd3f>🧪 프로젝트</a></li><li data-astro-cid-f3qesd3f><a href="/news/" aria-current="true" data-astro-cid-f3qesd3f>📰 뉴스</a></li></ul></div></aside><aside class="rail rail-r" aria-label="이 글 목차" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><nav class="toc" aria-label="이 글 목차" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>이 글 목차</p><ol data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="#1-무슨-일-모델-가든에-오픈ai" data-toc="1-무슨-일-모델-가든에-오픈ai" data-astro-cid-f3qesd3f>1. 무슨 일: 모델 가든에 오픈AI</a></li><li data-astro-cid-f3qesd3f><a href="#2-들어가는-모델-셋은-어떻게-다른가" data-toc="2-들어가는-모델-셋은-어떻게-다른가" data-astro-cid-f3qesd3f>2. 들어가는 모델 셋은 어떻게 다른가</a></li><li data-astro-cid-f3qesd3f><a href="#3-기업이-얻는-것-청구서와-약정" data-toc="3-기업이-얻는-것-청구서와-약정" data-astro-cid-f3qesd3f>3. 기업이 얻는 것: 청구서와 약정</a></li><li data-astro-cid-f3qesd3f><a href="#4-애저aws를-거쳐-구글까지" data-toc="4-애저aws를-거쳐-구글까지" data-astro-cid-f3qesd3f>4. 애저·AWS를 거쳐 구글까지</a></li><li data-astro-cid-f3qesd3f><a href="#5-발표만으로-알-수-없는-것" data-toc="5-발표만으로-알-수-없는-것" data-astro-cid-f3qesd3f>5. 발표만으로 알 수 없는 것</a></li><li data-astro-cid-f3qesd3f><a href="#자주-묻는-질문" data-toc="자주-묻는-질문" data-astro-cid-f3qesd3f>자주 묻는 질문</a></li><li data-astro-cid-f3qesd3f><a href="#부록-출처-전체-2026-10-22-확인" data-toc="부록-출처-전체-2026-10-22-확인" data-astro-cid-f3qesd3f>부록: 출처 전체 (2026-10-22 확인)</a></li></ol><a class="up" href="#main" data-astro-cid-f3qesd3f>↑ 맨 위로</a></nav><nav class="more" aria-label="다른 뉴스 글" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261021-nvidia-nemotron-3-5/" data-astro-cid-f3qesd3f>엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-mistral-voxtral-3/" data-astro-cid-f3qesd3f>미스트랄 Voxtral 3 정리, 실시간 음성 에이전트 구성과 한계</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-anthropic-federal-safety-bill/" data-astro-cid-f3qesd3f>앤트로픽 연방 AI 안전법 초안, 모델 출시를 멈추는 조건 정리</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-anthropic-claude-duet/" data-astro-cid-f3qesd3f>클로드 듀엣 공개, 먼저 챙겨 주는 업무 에이전트의 일과 한계</a></li></ul></nav></div></aside><a class="float-back" href="/news/" data-back aria-label="목록으로" data-astro-cid-f3qesd3f>← 목록</a><script type="module">document.querySelectorAll("[data-back]").forEach(e=>e.addEventListener("click",r=>{try{const t=new URL(document.referrer);t.origin===location.origin&&!t.pathname.includes("/posts/")&&history.length>1&&(r.preventDefault(),history.back())}catch{}}));const n=new Map([...document.querySelectorAll("[data-toc]")].map(e=>[e.dataset.toc,e]));if(n.size&&"IntersectionObserver"in window){const e=new IntersectionObserver(r=>{for(const t of r)t.isIntersecting&&(n.forEach(o=>o.removeAttribute("aria-current")),n.get(t.target.id)?.setAttribute("aria-current","true"))},{rootMargin:"0px 0px -72% 0px"});n.forEach((r,t)=>{const o=document.getElementById(t);o&&e.observe(o)})}const c=document.querySelector(".float-back");if(c){const e=()=>c.classList.toggle("show",scrollY>480);addEventListener("scroll",e,{passive:!0}),e()}</script> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 22일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 7개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무슨-일-모델-가든에-오픈ai" data-astro-cid-lvjzyg5v>1. 무슨 일: 모델 가든에 오픈AI</a></li><li data-astro-cid-lvjzyg5v><a href="#2-들어가는-모델-셋은-어떻게-다른가" data-astro-cid-lvjzyg5v>2. 들어가는 모델 셋은 어떻게 다른가</a></li><li data-astro-cid-lvjzyg5v><a href="#3-기업이-얻는-것-청구서와-약정" data-astro-cid-lvjzyg5v>3. 기업이 얻는 것: 청구서와 약정</a></li><li data-astro-cid-lvjzyg5v><a href="#4-애저aws를-거쳐-구글까지" data-astro-cid-lvjzyg5v>4. 애저·AWS를 거쳐 구글까지</a></li><li data-astro-cid-lvjzyg5v><a href="#5-발표만으로-알-수-없는-것" data-astro-cid-lvjzyg5v>5. 발표만으로 알 수 없는 것</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-22-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-22 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>오픈AI·구글 클라우드 발표와 아르스 테크니카 보도, 오픈AI의 지난 클라우드 발표를 대조해 정리한 글이에요. 특정 클라우드나 모델을 권하는 글이 아니고, 제휴 링크는 없어요. 캐릭터·비유 삽화는 AI 이미지 생성이고, 도식은 직접 제작했어요.</blockquote> <h1 id="오픈ai-모델-구글-클라우드-입점-기업-고객에게-달라지는-것">오픈AI 모델 구글 클라우드 입점, 기업 고객에게 달라지는 것</h1>
+<p><img alt="오픈AI 모델이 구글 클라우드로 — 기업은 쓰던 약정으로 결제 (캐릭터는 AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.rmZcZlV8_Z11hMVD.webp" ></p>
+<p class="cap">오픈AI 모델이 구글 클라우드로 — 기업은 쓰던 약정으로 결제 (캐릭터는 AI 이미지 생성)</p>
+<p>동네에서 이름난 빵집이 오랫동안 한 백화점에만 매장을 내다가, 올해 들어 다른 백화점에도 하나씩 들어간다고 해 볼게요. 손님은 늘 가던 백화점에서, 이미 사 둔 그 백화점 상품권으로 같은 빵을 살 수 있게 돼요. 회사가 AI 모델을 고를 때도 비슷해요. 이미 쓰는 클라우드 안에서, 미리 약속해 둔 사용 금액으로 살 수 있느냐가 도입 속도를 크게 좌우해요.</p>
+<p><strong>오픈AI가 10월 21일(미국 현지) 구글 클라우드와 손잡고, 최신 모델을 구글 클라우드의 ‘모델 가든(Model Garden)’에 넣는다고 발표했어요.</strong> 마이크로소프트 애저와 아마존 AWS에 이어, 흔히 3대 클라우드로 불리는 세 곳 모두에 오픈AI 최신 모델이 들어가는 셈이에요. 다만 구글 쪽은 아직 일부 기업 고객만 쓰는 비공개 프리뷰예요.</p>
+<p><img alt="빵 바구니를 들고 여러 가게 앞에 선 로봇 — 한 회사의 모델이 여러 클라우드에 들어가는 모습을 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-bakery-three-stores.DiwFxPRC_2tswIc.webp" ></p>
+<p class="cap">빵 바구니를 들고 여러 가게 앞에 선 로봇 — 한 회사의 모델이 여러 클라우드에 들어가는 모습을 빗댄 그림 (AI 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: 회사에서 클라우드·AI 도입을 맡은 직장인·개발자<br>① 구글 클라우드에 들어가는 오픈AI 모델과 지금 상태<br>② 기업이 결제·보안에서 얻는 것<br>③ 애저·AWS를 거쳐 구글까지 온 순서<br>④ 발표만으로 알 수 없는 것<br>2026년 10월 22일 기준 · 오픈AI·구글 발표와 보도 확인</div>
+<hr>
+<h2 id="1-무슨-일-모델-가든에-오픈ai">1. 무슨 일: 모델 가든에 오픈AI</h2>
+<p><strong>오픈AI는 공식 블로그 글 ‘OpenAI models are coming to Google Cloud’에서 최신 모델과 코딩 에이전트 코덱스(Codex)의 작업 흐름을 구글 클라우드 모델 가든에 넣는다고 밝혔어요.</strong> 모델 가든은 구글 클라우드에서 여러 회사의 AI 모델을 골라 쓰는 곳이에요. 구글은 자사·외부·오픈 모델을 합쳐 200개가 넘는다고 적었어요. 두 회사 발표에서 확인한 내용을 표로 옮겼어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>확인한 내용</th></tr></thead><tbody><tr><td>발표</td><td>10월 21일(미국 현지), 오픈AI·구글 클라우드 블로그 같은 날</td></tr><tr><td>들어가는 모델</td><td>GPT-6 Astra, GPT-6.1 Sol, GPT-6 Luna(구글 발표)</td></tr><tr><td>지금 상태</td><td>일부 기업 고객 대상 비공개 프리뷰</td></tr><tr><td>정식 출시</td><td>‘앞으로 몇 주 안’ 계획, 날짜는 없음</td></tr><tr><td>결제</td><td>구글 클라우드 마켓플레이스, 기존 약정에서 차감</td></tr><tr><td>곧 들어갈 곳</td><td>구글 안티그래비티(코딩 도구), 제미나이 에이전트</td></tr><tr><td>마이크로소프트</td><td>‘여전히 오픈AI의 주력 클라우드 파트너’(오픈AI)</td></tr></tbody></table>
+<p>구글은 같은 날 자기 블로그에서, 앞서가는 비공개 모델 세 가지를 모두 제공하는 대형 클라우드는 이제 구글뿐이라고 주장했어요. 모델 가든에는 이미 제미나이와 앤트로픽 클로드가 있었어요(아르스 테크니카). 제미나이 에이전트는 구글이 10월 8일 발표한 업무용 에이전트예요. 권한과 감사 기록 이야기는 <a href="/posts/20261009-gemini-work-agent/">10월 9일 글</a>에 정리해 뒀어요.</p>
+<h2 id="2-들어가는-모델-셋은-어떻게-다른가">2. 들어가는 모델 셋은 어떻게 다른가</h2>
+<p><strong>구글이 밝힌 모델은 가장 센 GPT-6 Astra, 그보다 싼 GPT-6.1 Sol, 가볍고 빠른 GPT-6 Luna예요.</strong> 구글의 설명과 오픈AI API 표준 요금을 나란히 놓으면 이래요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>모델</th><th>구글 설명</th></tr></thead><tbody><tr><td><code>GPT-6 Astra</code></td><td>코딩·컴퓨터 사용·전문 업무·과학 연구처럼 어려운 일</td></tr><tr><td><code>GPT-6.1 Sol</code></td><td>아스트라에 가까운 지능을 더 낮은 비용으로</td></tr><tr><td><code>GPT-6 Luna</code></td><td>많은 양의 일상 업무를 빠르고 싸게</td></tr></tbody></table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>모델</th><th>오픈AI API 요금(100만 토큰당 입력 · 출력)</th></tr></thead><tbody><tr><td><code>GPT-6 Astra</code></td><td>10달러 · 50달러</td></tr><tr><td><code>GPT-6.1 Sol</code></td><td>2달러 · 10달러</td></tr><tr><td><code>GPT-6 Luna</code></td><td>0.10달러 · 0.50달러</td></tr></tbody></table>
+<p>요금은 오픈AI API 요금표(10월 22일 조회, 표준·짧은 문맥 기준)예요. 구글 클라우드에서 얼마에 파는지는 두 회사 모두 밝히지 않았어요. 구글은 계약을 따로 맺거나 구조를 바꾸지 않고도 성능·지연·비용에 맞춰 모델을 바꿔 쓸 수 있다고 설명했어요.</p>
+<p><img alt="정원에서 화분을 돌보는 로봇 정원사 — 여러 회사 모델이 모인 모델 가든에 오픈AI 모델이 새로 들어가는 것을 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-model-garden.DkRWsRh3_igPyA.webp" ></p>
+<p class="cap">정원에서 화분을 돌보는 로봇 정원사 — 여러 회사 모델이 모인 모델 가든에 오픈AI 모델이 새로 들어가는 것을 빗댄 그림 (AI 이미지 생성)</p>
+<p>세 모델은 9월에 차례로 나왔어요. 출시일과 코딩 평가에서 어떻게 달랐는지는 <a href="/posts/20261021-gpt-6-astra-legacy-code/">10월 21일 글</a>에 정리해 뒀어요.</p>
+<h2 id="3-기업이-얻는-것-청구서와-약정">3. 기업이 얻는 것: 청구서와 약정</h2>
+<p><strong>구글 클라우드 고객은 오픈AI 모델을 구글 클라우드 마켓플레이스에서 사고, 미리 약속해 둔 구글 클라우드 사용 금액(약정)에서 차감할 수 있어요.</strong> 구글 설명으로는 사용 요금이 구글 클라우드 청구서 한 장에 함께 나오고, 여러 모델 회사에 걸쳐 쓰는 할인 약정(Flexible Savings Plans)에도 잡혀요. 오픈AI와 따로 계약하지 않아도 된다는 뜻이에요.</p>
+<p>보안·관리 조건은 구글이 이렇게 밝혔어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>구글 설명</th></tr></thead><tbody><tr><td>데이터</td><td>입력·문맥·결과는 고객이 정한 범위 안에 두고, 기반 모델 학습에 쓰지 않음</td></tr><tr><td>실행 장소</td><td>구글 클라우드 전용 인프라, 격리된 게이트웨이를 거침</td></tr><tr><td>관리</td><td>인증된 신원, VPC 서비스 제어, 통합 감사 기록</td></tr><tr><td>아직 ‘곧’</td><td>데이터 무보존(ZDR) 선택지, 기밀 컴퓨팅(Confidential Compute)</td></tr></tbody></table>
+<p>개발자 쪽 변화도 있어요. 구글은 프리뷰 고객이 API로 모델을 쓰고, 코덱스 CLI와 데스크톱 앱이 구글 쪽에서 추론을 돌리도록 연결할 수 있다고 적었어요. 구글 발표에는 문서 관리 회사 박스(Box)의 AI 제품 부사장 말도 실렸어요. 구글 클라우드의 보안·규정 준수 기능과 함께 오픈AI 모델을 고객에게 줄 수 있게 된다는 내용이에요.</p>
+<div class="callout tip"><b class="ttl">💡 핵심</b>오픈AI는 규제가 까다로운 업종일수록 민감한 데이터에 누가 접근하는지 통제해야 한다고 적었어요. 그런 회사에는 ‘어느 모델이 좋은가’만큼 ‘이미 승인받은 클라우드 안에서 살 수 있는가’가 중요해요.</div>
+<h2 id="4-애저aws를-거쳐-구글까지">4. 애저·AWS를 거쳐 구글까지</h2>
+<p><strong>오픈AI 최신 모델이 마이크로소프트 밖 클라우드로 나간 건 올해 4월 두 회사가 계약을 고친 뒤부터예요.</strong> 오픈AI 발표로는 4월 27일 개정 계약에서 마이크로소프트는 주력 클라우드 파트너로 남고, 오픈AI 제품은 원칙적으로 애저에 먼저 나와요. 그러면서 오픈AI는 모든 제품을 어느 클라우드의 고객에게나 팔 수 있게 됐어요.</p>
+<p><img alt="4월 마이크로소프트 계약 개정부터 10월 구글 클라우드까지 — 오픈AI 모델이 클라우드로 퍼진 순서 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="3240" src="/_astro/diagram-openai-clouds.5TF-GwHa_ZD1OLe.webp" ></p>
+<p class="cap">4월 마이크로소프트 계약 개정부터 10월 구글 클라우드까지 — 오픈AI 모델이 클라우드로 퍼진 순서 (직접 제작)</p>
+<p>바로 다음 날인 4월 28일, 아마존 베드록(Amazon Bedrock)에 GPT-5.5와 코덱스, 관리형 에이전트가 제한 프리뷰로 들어갔어요. 6월 1일에는 AWS 정식 출시로 바뀌었어요. 6월 10일에는 오라클 클라우드가 뒤를 이었고, 8월 7일부터는 미국에서 오라클 마켓플레이스로 살 수 있게 됐어요.</p>
+<p>마이크로소프트는 2019년 10억 달러를 투자하며 오픈AI의 독점 클라우드 제공자가 됐어요(오픈AI 2019년 발표). 지금은 독점이 아니지만, 오픈AI는 이번 구글 발표 끝에도 ‘마이크로소프트는 여전히 주력 클라우드 파트너’라고 한 줄 적었어요. 경쟁사도 같은 길에 있어요. 앤트로픽도 최신 모델 클로드 오퍼스 5.5를 자기 플랫폼과 AWS, 구글 클라우드, 마이크로소프트 파운드리에서 함께 팔고 있어요. 모델 회사는 고객이 있는 클라우드로 들어가고, 클라우드는 고를 수 있는 모델을 늘리는 흐름이에요.</p>
+<h2 id="5-발표만으로-알-수-없는-것">5. 발표만으로 알 수 없는 것</h2>
+<p><strong>이번 소식은 두 회사의 발표가 중심이라, 실제로 써 본 독립 평가는 아직 없어요.</strong> 지금은 일부 기업 고객만 쓰는 비공개 프리뷰이고, 정식 출시는 ‘몇 주 안’이라고만 했어요. 구글 클라우드에서의 요금과 쓸 수 있는 지역(리전)도 발표에 없어요. 한국 기업이 언제 쓸 수 있는지는 구글 클라우드 쪽에 따로 확인해야 해요.</p>
+<p><strong>보안 약속 가운데 일부도 아직 ‘곧’이에요.</strong> 데이터를 아예 남기지 않는 선택지(ZDR)와 기밀 컴퓨팅은 준비 중이라고 구글이 적었어요. 안티그래비티에 어떤 오픈AI 모델이 들어갈지도 구글이 밝히지 않았다고 아르스 테크니카는 짚었어요.</p>
+<p>이 매체의 부제는 모델 이름을 ‘GPT 6.1 Astra’로 적었지만, 구글 발표의 이름은 GPT-6 Astra라 이 글은 구글 표기를 따랐어요.</p>
+<p>‘3대 클라우드 모두’라는 말도 나눠 봐야 해요. 애저와 AWS는 정식 제공이지만, 구글은 아직 프리뷰예요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>같은 이름의 모델이라도 오픈AI에서 직접 쓸 때와 구글 클라우드에서 쓸 때 요금·기능·데이터 처리 조건이 같은지는 아직 공개되지 않았어요. 도입 전에는 계약서와 문서를 직접 확인하세요.</div>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 오픈AI 모델이 구글 클라우드 모델 가든에 들어가요<br>② Astra·Sol·Luna, 지금은 비공개 프리뷰예요<br>③ 기존 구글 클라우드 약정으로 결제할 수 있어요<br>④ 애저·AWS에 이어 구글까지 왔어요(구글은 프리뷰)<br>⑤ 요금·지역·정식 출시일은 아직 공개되지 않았어요</div>
+<p><strong>오늘의 큰 흐름:</strong> 모델이 클라우드를 가리지 않아요. 오픈AI 모델이 구글 클라우드로 들어가면서, 고객은 쓰던 클라우드에서 모델을 고르게 됐어요.</p>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 지금 구글 클라우드에서 바로 쓸 수 있나요?</summary><p>아직은 구글이 고른 일부 기업 고객만 비공개 프리뷰로 써요. 구글 클라우드의 관심 신청 양식으로 요청할 수 있고, 정식 출시는 몇 주 안으로 계획돼 있어요.</p></details>
+<details class="faq"><summary>Q. 구글 클라우드에서 쓰면 요금은 오픈AI API와 같나요?</summary><p>공개되지 않았어요. 오픈AI API 표준 요금은 100만 토큰당 GPT-6 Astra 입력 10달러·출력 50달러, GPT-6.1 Sol 2달러·10달러, GPT-6 Luna 0.10달러·0.50달러예요(10월 22일 조회).</p></details>
+<details class="faq"><summary>Q. 마이크로소프트와 오픈AI 관계가 끝난 건가요?</summary><p>아니에요. 오픈AI는 이번 발표에도 마이크로소프트가 주력 클라우드 파트너라고 적었어요. 4월 개정 계약으로 오픈AI 제품은 원칙적으로 애저에 먼저 나오고, 마이크로소프트는 2032년까지 오픈AI 기술 사용권을 갖되 독점은 아니게 됐어요.</p></details>
+<details class="faq"><summary>Q. AWS에서는 언제부터 오픈AI 모델을 쓸 수 있었나요?</summary><p>4월 28일 아마존 베드록 제한 프리뷰로 시작해 6월 1일 정식 출시됐어요. 오픈AI는 상용 지역과 미국 정부용 GovCloud 지역에서 쓸 수 있다고 밝혔어요.</p></details>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>오픈AI — OpenAI models are coming to Google Cloud(10월 21일) · <a href="https://openai.com/index/openai-models-google-cloud">openai.com/index/openai-models-google-cloud</a></li>
+<li>구글 클라우드 — Google Cloud brings OpenAI models to customers(10월 21일) · <a href="https://cloud.google.com/blog">cloud.google.com/blog</a></li>
+<li>아르스 테크니카 — OpenAI’s latest AI models are coming to Google Cloud and Antigravity(10월 21일) · arstechnica.com</li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 22일 · 같은 날 확인<br>오픈AI·구글 클라우드 발표와 아르스 테크니카 보도 대조<br>투자 판단 아님 · 제휴 없음<br>캐릭터·비유 삽화는 AI 이미지 생성 · 도식은 직접 제작</div>
+<h2 id="부록-출처-전체-2026-10-22-확인">부록: 출처 전체 (2026-10-22 확인)</h2>
+<p>happy_various 브리핑(10월 22일)의 1번 항목 ‘오픈AI 모델, 구글 클라우드에 들어간다… MS·아마존 이어 미국 3대 클라우드 모두 진출’을 출발점으로, 아래 원문을 직접 열어 확인했어요. 날짜는 모두 미국 현지 기준이에요.</p>
+<ul>
+<li><a href="https://openai.com/index/openai-models-google-cloud/">오픈AI — OpenAI models are coming to Google Cloud</a> (2026-10-21) — 모델 가든, 코덱스 작업 흐름, 마켓플레이스 결제와 약정 차감, 안티그래비티·제미나이 에이전트에 곧, 정식 출시 몇 주 안, 마이크로소프트는 주력 클라우드 파트너 (1·3·4·5절)</li>
+<li><a href="https://cloud.google.com/blog/products/ai-machine-learning/google-cloud-brings-openai-models-to-customers">구글 클라우드 — Google Cloud brings OpenAI models to customers</a> (2026-10-21) — GPT-6 Astra·GPT-6.1 Sol·GPT-6 Luna, 비공개 프리뷰, 200개 넘는 모델, 청구서 한 장·약정 차감·할인 약정, 데이터·보안 조건, ZDR·기밀 컴퓨팅 곧, 코덱스 CLI·데스크톱 연결, 박스 인용 (1·2·3·5절)</li>
+<li><a href="https://arstechnica.com/ai/2026/10/openais-latest-ai-models-are-coming-to-google-cloud-and-antigravity/">아르스 테크니카 — OpenAI’s latest AI models are coming to Google Cloud and Antigravity</a> (2026-10-21) — 모델 가든에 이미 제미나이·클로드, 안티그래비티에 들어갈 모델은 미정 (1·5절)</li>
+<li><a href="https://openai.com/index/next-phase-of-microsoft-partnership/">오픈AI — The next phase of the Microsoft OpenAI partnership</a> (2026-04-27) — 마이크로소프트 주력 유지, 애저 먼저, 어느 클라우드에서나 판매, 2032년까지 비독점 사용권 (4절, FAQ)</li>
+<li><a href="https://openai.com/index/openai-on-aws/">오픈AI — OpenAI models, Codex, and Managed Agents come to AWS</a> (2026-04-28) — GPT-5.5·코덱스·관리형 에이전트 제한 프리뷰 (4절, 도식)</li>
+<li><a href="https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws/">오픈AI — OpenAI frontier models and Codex are now available on AWS</a> (2026-06-01) — 정식 출시, 상용·GovCloud 지역 (4절, 도식, FAQ)</li>
+<li><a href="https://openai.com/index/openai-on-oracle-cloud/">오픈AI — Access OpenAI models and Codex through your Oracle cloud commitment</a> (2026-06-10, 8월 7일 갱신) — 오라클 약정 사용, 미국 마켓플레이스 판매 (4절, 도식)</li>
+<li><a href="https://openai.com/index/microsoft-invests-in-and-partners-with-openai/">오픈AI — Microsoft invests in and partners with OpenAI</a> (2019-07-22) — 10억 달러 투자, 마이크로소프트가 독점 클라우드 제공자 (4절)</li>
+<li><a href="https://www.anthropic.com/claude/opus">앤트로픽 — Claude Opus 소개 페이지</a> — 10월 22일 조회: Opus 5.5 를 클로드 플랫폼과 AWS·구글 클라우드·마이크로소프트 파운드리에서 제공 (4절)</li>
+<li><a href="https://developers.openai.com/api/docs/pricing">오픈AI API 요금표</a> — 10월 22일 조회, 표준·짧은 문맥: GPT-6 Astra 10·50달러, GPT-6.1 Sol 2·10달러, GPT-6 Luna 0.10·0.50달러 (2절, FAQ)</li>
+</ul>
+<p>브리핑과 다른 점은 없었어요. 다만 오픈AI 발표에는 모델 이름과 ‘비공개 프리뷰’라는 말이 없고, 둘 다 구글 발표에서 확인했어요. 곧 들어갈 곳은 오픈AI가 ‘구글 안티그래비티와 제미나이 에이전트’, 구글이 ‘비즈니스용 제미나이와 안티그래비티’로 조금 다르게 적었어요. ‘3대 클라우드 모두’는 애저·AWS(정식)와 구글(프리뷰)을 묶은 말이에요.</p>
+<p>이 글은 특정 클라우드나 모델을 권하는 글이 아니에요. 투자 판단도 아니에요.</p>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20261021-gpt-6-astra-legacy-code/">오픈AI 코볼 코딩 평가 정리, 아스트라와 솔 중 무엇을 쓸까</a> · <a href="/posts/20261009-gemini-work-agent/">제미나이 업무 에이전트, 도입 전에 볼 권한과 감사 기록</a></p>  <p class="meta" data-astro-cid-lvjzyg5v>🤖 그날 AI 글을 30초로 묶은 쇼츠는 인스타그램 <a href="https://www.instagram.com/second.syntax/" rel="noopener" target="_blank" data-astro-cid-lvjzyg5v>@second.syntax</a>에 매일 올려요.</p> </article> <nav class="end-nav" aria-label="목록" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로 · 📰 뉴스</a><div class="more" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261021-nvidia-nemotron-3-5/" data-astro-cid-f3qesd3f>엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-mistral-voxtral-3/" data-astro-cid-f3qesd3f>미스트랄 Voxtral 3 정리, 실시간 음성 에이전트 구성과 한계</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-anthropic-federal-safety-bill/" data-astro-cid-f3qesd3f>앤트로픽 연방 AI 안전법 초안, 모델 출시를 멈추는 조건 정리</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-anthropic-claude-duet/" data-astro-cid-f3qesd3f>클로드 듀엣 공개, 먼저 챙겨 주는 업무 에이전트의 일과 한계</a></li></ul></div></nav> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> <script>
+      // 머리글 높이를 --hdr-h 로 (목차 이동·글 양옆 칸·행사 날짜 줄이 머리글 아래에 오게)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var set = function () { document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px'); };
+        set(); addEventListener('resize', set);
+        if ('ResizeObserver' in window) new ResizeObserver(set).observe(h);
+      })();
+    </script> <script>
+      // 언어 목록 — 바깥을 누르거나 Esc 를 누르면 닫는다 (나들이로그와 같음)
+      (function () {
+        var m = document.querySelector('[data-lang-menu]');
+        if (!m) return;
+        document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+      })();
+    </script> <script>
+      // 머리글 맞춤 — 가운데 분류 줄이 넘치면 오른쪽 메뉴·언어를 단계적으로 줄인다(위 CSS data-fit 설명)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var mq = matchMedia('(min-width: 901px)');
+        function over() {
+          var hero = h.querySelector('.hero');
+          if (!hero) return false;
+          var t = hero.querySelector('.sec-tabs'), h1 = hero.querySelector('h1');
+          if (t && t.scrollWidth > t.clientWidth + 1) return true;
+          // 오른쪽 메뉴·언어가 넓어 가운데 칸이 정가운데에서 밀렸으면 줄인다
+          var hr = hero.getBoundingClientRect(), r = h.getBoundingClientRect();
+          if (h.getAttribute('data-fit') !== '4' && Math.abs((hr.left + hr.right) / 2 - (r.left + r.right) / 2) > 2) return true;
+          if (h1) { var lh = parseFloat(getComputedStyle(h1).lineHeight) || 24; if (h1.offsetHeight > lh * 1.5) return true; }
+          return false;
+        }
+        var busy = false;
+        function fit() {
+          if (busy) return; busy = true;
+          h.removeAttribute('data-fit');
+          if (mq.matches) for (var lv = 1; lv <= 4 && over(); lv++) h.setAttribute('data-fit', String(lv));
+          busy = false;
+        }
+        fit();
+        addEventListener('resize', fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      })();
+    </script> </body> </html> 

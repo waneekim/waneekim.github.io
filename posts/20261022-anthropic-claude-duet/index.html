@@ -1,0 +1,245 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>클로드 듀엣 공개, 먼저 챙겨 주는 업무 에이전트의 일과 한계</title><meta name="description" content="앤트로픽이 10월 21일 클로드 듀엣(Claude Duet) 연구 프리뷰를 열었어요. 아침 브리핑을 보내고 맡긴 일을 클라우드에서 이어 가는 업무 에이전트로, 미국 Pro·Max 구독자부터 대기자 명단으로 받아요. 혼자 하는 일과 승인을 기다리는 일, 메타 뮤즈·오픈AI dots와 다른 점, 발표만으로 알 수 없는 것을 원문으로 확인해 정리했어요."><meta property="og:title" content="클로드 듀엣 공개, 먼저 챙겨 주는 업무 에이전트의 일과 한계"><meta property="og:description" content="앤트로픽이 10월 21일 클로드 듀엣(Claude Duet) 연구 프리뷰를 열었어요. 아침 브리핑을 보내고 맡긴 일을 클라우드에서 이어 가는 업무 에이전트로, 미국 Pro·Max 구독자부터 대기자 명단으로 받아요. 혼자 하는 일과 승인을 기다리는 일, 메타 뮤즈·오픈AI dots와 다른 점, 발표만으로 알 수 없는 것을 원문으로 확인해 정리했어요."><meta property="og:url" content="https://happyvarious.com/posts/20261022-anthropic-claude-duet/"><meta property="og:site_name" content="AI 로그"><meta property="og:image" content="https://happyvarious.com/_astro/titlecard.BHffpJ6s_16Aee4.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.Cm929lyb.css">
+<link rel="stylesheet" href="/_astro/_id_.BkQGK3p6.css">
+<style>.sec-tabs[data-astro-cid-cnlsgtkd]{display:flex;gap:6px;width:fit-content;max-width:100%;margin:6px auto 0;padding-bottom:4px;overflow-x:auto;scrollbar-width:none;text-align:left}.sec-tabs[data-astro-cid-cnlsgtkd]::-webkit-scrollbar{display:none}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]:hover{border-color:var(--accent);color:var(--accent)}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}.sec-tabs[data-astro-cid-cnlsgtkd] .n[data-astro-cid-cnlsgtkd]{position:relative;margin-left:2px;font-size:.8em;color:var(--sub);font-weight:600}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page] .n[data-astro-cid-cnlsgtkd]{color:inherit;opacity:.75}.sr[data-astro-cid-cnlsgtkd]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style></head> <body> <a class="skip" href="#main">본문으로 건너뛰기</a> <header class="site"> <div class="hdr-tools"> <details class="lang-menu" data-lang-menu> <summary aria-label="언어 · Language: 한국어" title="언어 · Language"><span aria-hidden="true">🌐</span><span aria-hidden="true">KO</span><span class="caret" aria-hidden="true">▾</span></summary> <nav class="langbar" aria-label="언어 · Language"> <a href="/ai/" hreflang="ko" lang="ko" class="on" aria-current="true"><span>한국어</span><span class="code" aria-hidden="true">KO</span></a><a href="/nadeuli/en/" hreflang="en" lang="en"><span>English</span><span class="code" aria-hidden="true">EN</span></a><a href="/nadeuli/ja/" hreflang="ja" lang="ja"><span>日本語</span><span class="code" aria-hidden="true">JA</span></a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant"><span>繁體中文</span><span class="code" aria-hidden="true">繁中</span></a> </nav> </details> <a class="search-btn" href="/nadeuli/search/" aria-label="통합 검색" title="통합 검색 — 나들이·AI 로그"><span aria-hidden="true">🔍</span></a>  </div> <div class="brand-box"> <a class="brand" href="/ai/" aria-label="happy_various"><img class="wm light" src="/brand/wordmark-light.png" alt="happy_various" width="134" height="22"></a> <a class="site-char" href="/ai/" aria-hidden="true" tabindex="-1"><img class="mascot light" src="/brand/ai-info-light.gif" alt="" width="53" height="54"></a> <a class="site-name" href="/ai/">AI 로그</a> </div> <div class="hero"> <nav class="sec-tabs" aria-label="AI 로그 소메뉴" data-astro-cid-cnlsgtkd> <a href="/ai/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🤖</span> 전체 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>143</span> </a><a href="/use/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🛠️</span> 활용 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>39</span> </a><a href="/project/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🧪</span> 프로젝트 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>33</span> </a><a href="/news/" aria-current="page" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>📰</span> 뉴스 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>71</span> </a> </nav>  </div> <div class="hdr-bar" hidden></div> </header> <main id="main" tabindex="-1">  <script type="module">document.querySelectorAll("[data-share]").forEach(t=>{let o=0;const c=async a=>{try{return await navigator.clipboard.writeText(a),!0}catch{}const e=document.createElement("textarea");e.value=a,e.setAttribute("readonly",""),e.style.cssText="position:fixed;top:0;left:0;opacity:0",document.body.appendChild(e),e.select();let r=!1;try{r=document.execCommand("copy")}catch{r=!1}return e.remove(),r};t.addEventListener("click",async()=>{const a=t.dataset.url||location.href,e=t.dataset.title||document.title;if(matchMedia("(pointer: coarse)").matches&&navigator.share)try{await navigator.share({title:e,url:a});return}catch(r){if(r?.name==="AbortError")return}await c(a)?(t.classList.add("done"),clearTimeout(o),o=window.setTimeout(()=>t.classList.remove("done"),2e3)):window.prompt(t.querySelector(".lbl")?.textContent||"",a)})});</script><div class="crumb-bar" data-astro-cid-f3qesd3f><nav class="crumb" aria-label="목록" data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 AI 로그</a><span aria-hidden="true" data-astro-cid-f3qesd3f>›</span><a href="/news/" data-back data-astro-cid-f3qesd3f>📰 뉴스</a></nav><button type="button" class="share-btn" data-share data-url="https://happyvarious.com/posts/20261022-anthropic-claude-duet/" data-title="클로드 듀엣 공개, 먼저 챙겨 주는 업무 에이전트의 일과 한계" aria-label="이 글 공유하기" title="공유하기" data-astro-cid-qan2qojn><span aria-hidden="true" data-astro-cid-qan2qojn>🔗</span><span class="lbl" aria-hidden="true" data-astro-cid-qan2qojn>링크 복사됨</span></button>  </div><script>
+      // 경로 줄은 머리글 맨 아래 줄로 — 스크롤과 상관없이 처음부터 머리글 안, 틈 없이 (2026-10-12 happy_various)
+      (function () { var c = document.currentScript.previousElementSibling, bar = document.querySelector('header.site .hdr-bar'); if (c && bar) { bar.appendChild(c); bar.hidden = false; } })();
+    </script><aside class="rail rail-l" aria-label="목록" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로</a><ul class="secs" data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 전체 글</a></li><li data-astro-cid-f3qesd3f><a href="/use/" data-astro-cid-f3qesd3f>🛠️ 활용</a></li><li data-astro-cid-f3qesd3f><a href="/project/" data-astro-cid-f3qesd3f>🧪 프로젝트</a></li><li data-astro-cid-f3qesd3f><a href="/news/" aria-current="true" data-astro-cid-f3qesd3f>📰 뉴스</a></li></ul></div></aside><aside class="rail rail-r" aria-label="이 글 목차" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><nav class="toc" aria-label="이 글 목차" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>이 글 목차</p><ol data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="#1-무슨-일-10월-21일-연구-프리뷰" data-toc="1-무슨-일-10월-21일-연구-프리뷰" data-astro-cid-f3qesd3f>1. 무슨 일: 10월 21일 연구 프리뷰</a></li><li data-astro-cid-f3qesd3f><a href="#2-먼저-알려-주고-맡기면-이어서-해요" data-toc="2-먼저-알려-주고-맡기면-이어서-해요" data-astro-cid-f3qesd3f>2. 먼저 알려 주고, 맡기면 이어서 해요</a></li><li data-astro-cid-f3qesd3f><a href="#3-대신-행동하기-전에는-묻는다" data-toc="3-대신-행동하기-전에는-묻는다" data-astro-cid-f3qesd3f>3. 대신 행동하기 전에는 묻는다</a></li><li data-astro-cid-f3qesd3f><a href="#4-메타-뮤즈오픈ai-dots와-다른-점" data-toc="4-메타-뮤즈오픈ai-dots와-다른-점" data-astro-cid-f3qesd3f>4. 메타 뮤즈·오픈AI dots와 다른 점</a></li><li data-astro-cid-f3qesd3f><a href="#5-발표만으로-알-수-없는-것" data-toc="5-발표만으로-알-수-없는-것" data-astro-cid-f3qesd3f>5. 발표만으로 알 수 없는 것</a></li><li data-astro-cid-f3qesd3f><a href="#자주-묻는-질문" data-toc="자주-묻는-질문" data-astro-cid-f3qesd3f>자주 묻는 질문</a></li><li data-astro-cid-f3qesd3f><a href="#부록-출처-전체-2026-10-22-확인" data-toc="부록-출처-전체-2026-10-22-확인" data-astro-cid-f3qesd3f>부록: 출처 전체 (2026-10-22 확인)</a></li></ol><a class="up" href="#main" data-astro-cid-f3qesd3f>↑ 맨 위로</a></nav><nav class="more" aria-label="다른 뉴스 글" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261021-nvidia-nemotron-3-5/" data-astro-cid-f3qesd3f>엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-mistral-voxtral-3/" data-astro-cid-f3qesd3f>미스트랄 Voxtral 3 정리, 실시간 음성 에이전트 구성과 한계</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-anthropic-federal-safety-bill/" data-astro-cid-f3qesd3f>앤트로픽 연방 AI 안전법 초안, 모델 출시를 멈추는 조건 정리</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-flapping-airplanes-series-a/" data-astro-cid-f3qesd3f>플래핑 에어플레인스 시리즈 A, 적은 데이터 연구에 몰린 돈</a></li></ul></nav></div></aside><a class="float-back" href="/news/" data-back aria-label="목록으로" data-astro-cid-f3qesd3f>← 목록</a><script type="module">document.querySelectorAll("[data-back]").forEach(e=>e.addEventListener("click",r=>{try{const t=new URL(document.referrer);t.origin===location.origin&&!t.pathname.includes("/posts/")&&history.length>1&&(r.preventDefault(),history.back())}catch{}}));const n=new Map([...document.querySelectorAll("[data-toc]")].map(e=>[e.dataset.toc,e]));if(n.size&&"IntersectionObserver"in window){const e=new IntersectionObserver(r=>{for(const t of r)t.isIntersecting&&(n.forEach(o=>o.removeAttribute("aria-current")),n.get(t.target.id)?.setAttribute("aria-current","true"))},{rootMargin:"0px 0px -72% 0px"});n.forEach((r,t)=>{const o=document.getElementById(t);o&&e.observe(o)})}const c=document.querySelector(".float-back");if(c){const e=()=>c.classList.toggle("show",scrollY>480);addEventListener("scroll",e,{passive:!0}),e()}</script> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 22일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 7개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무슨-일-10월-21일-연구-프리뷰" data-astro-cid-lvjzyg5v>1. 무슨 일: 10월 21일 연구 프리뷰</a></li><li data-astro-cid-lvjzyg5v><a href="#2-먼저-알려-주고-맡기면-이어서-해요" data-astro-cid-lvjzyg5v>2. 먼저 알려 주고, 맡기면 이어서 해요</a></li><li data-astro-cid-lvjzyg5v><a href="#3-대신-행동하기-전에는-묻는다" data-astro-cid-lvjzyg5v>3. 대신 행동하기 전에는 묻는다</a></li><li data-astro-cid-lvjzyg5v><a href="#4-메타-뮤즈오픈ai-dots와-다른-점" data-astro-cid-lvjzyg5v>4. 메타 뮤즈·오픈AI dots와 다른 점</a></li><li data-astro-cid-lvjzyg5v><a href="#5-발표만으로-알-수-없는-것" data-astro-cid-lvjzyg5v>5. 발표만으로 알 수 없는 것</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-22-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-22 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>앤트로픽 발표 글·제품 안내와 CNBC 보도를 대조해 정리한 글이에요. 직접 써 본 후기가 아니에요. 제휴 링크는 없어요. 캐릭터·비유 삽화는 AI 이미지 생성(Cloudflare Workers AI)이고, 도식은 직접 제작했어요.</blockquote> <h1 id="클로드-듀엣-공개-먼저-챙겨-주는-업무-에이전트의-일과-한계">클로드 듀엣 공개, 먼저 챙겨 주는 업무 에이전트의 일과 한계</h1>
+<p><img alt="앤트로픽 클로드 듀엣 연구 프리뷰 — 먼저 챙기는 업무 에이전트 (캐릭터는 AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.BHffpJ6s_ZorpDp.webp" ></p>
+<p class="cap">앤트로픽 클로드 듀엣 연구 프리뷰 — 먼저 챙기는 업무 에이전트 (캐릭터는 AI 이미지 생성)</p>
+<p>일 잘하는 비서는 출근하자마자 ‘오늘 꼭 보셔야 할 건 세 가지예요’라고 먼저 말해 줘요. 맡긴 일은 내가 자리를 비운 사이에도 해 두고, 돈을 보내거나 도장을 찍기 전에는 꼭 한 번 물어봐요.</p>
+<p><strong>앤트로픽이 10월 21일(미국 현지) 이런 비서처럼 움직이는 새 앱 클로드 듀엣(Claude Duet)의 연구 프리뷰를 열었어요.</strong> 전문직과 소상공인을 겨냥했고, 미국의 Pro·Max 구독자부터 대기자 명단으로 받아요.</p>
+<p><img alt="아침 햇살이 드는 창가에서 로봇이 작은 메모 한 장을 건네는 장면 — 매일 아침 중요한 일만 추려 보내는 브리핑을 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-morning-brief.bk8gs6gc_Z1zNRSc.webp" ></p>
+<p class="cap">아침 햇살이 드는 창가에서 로봇이 작은 메모 한 장을 건네는 장면 — 매일 아침 중요한 일만 추려 보내는 브리핑을 빗댄 그림 (AI 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: AI 비서·에이전트 소식을 따라가는 직장인·자영업자<br>① 클로드 듀엣이 무엇이고 누가 쓸 수 있나<br>② 혼자 하는 일과 묻고 하는 일<br>③ 메타 뮤즈·오픈AI dots와 다른 점<br>④ 발표만으로 알 수 없는 것<br>2026년 10월 22일 기준 · 회사 발표·보도 확인</div>
+<hr>
+<h2 id="1-무슨-일-10월-21일-연구-프리뷰">1. 무슨 일: 10월 21일 연구 프리뷰</h2>
+<p><strong>앤트로픽은 발표 글 ‘Introducing Claude Duet’에서 듀엣을 ‘클로드가 능동적인 에이전트로 일하는 새 앱’이라고 소개했어요.</strong></p>
+<ul>
+<li>앤트로픽 설명을 줄이면 이래요. 내가 신경 써야 할 일을 먼저 가져오고, 맡긴 일을 끝내고, 내가 자리를 비워도 계속 일하고, 나를 대신해 행동하기 전에는 확인을 받아요.</li>
+<li>발표 글과 제품 안내 페이지에서 확인한 조건을 표로 옮겼어요.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>확인한 내용</th></tr></thead><tbody><tr><td>발표</td><td>10월 21일(미국 현지) 앤트로픽 발표 글, 연구 프리뷰</td></tr><tr><td>겨냥한 사람</td><td>할 일이 너무 많은 전문직과 소상공인</td></tr><tr><td>쓰는 곳</td><td>iOS·안드로이드 전용 앱, 컴퓨터에서는 claude.ai</td></tr><tr><td>이용 조건</td><td>미국 Pro·Max 구독자, 대기자 명단 신청 순</td></tr><tr><td>요금</td><td>프리뷰 동안 Pro·Max에 포함, 같은 사용량 한도를 나눠 씀</td></tr><tr><td>빠진 요금제</td><td>Team·Enterprise는 아직 포함 안 됨</td></tr><tr><td>모델</td><td>클로드 오퍼스 5.5를 중심으로 설계</td></tr></tbody></table>
+<p>CNBC는 같은 날 이 소식을 전하며 메타 뮤즈와 오픈AI dots에 맞서는 제품이라고 봤어요. 둘 다 앞서 나온 개인 에이전트예요.</p>
+<h2 id="2-먼저-알려-주고-맡기면-이어서-해요">2. 먼저 알려 주고, 맡기면 이어서 해요</h2>
+<p><strong>듀엣은 내가 대화를 열기를 기다리지 않고 먼저 말을 걸어요.</strong></p>
+<ul>
+<li>매일 아침 연결한 앱에서 가장 중요한 일을 추려 짧은 브리핑을 보내요. 낮에는 그 앱들을 지켜보다가 내가 봐야 할 일이 생길 때만 메시지를 보내요.</li>
+<li>앤트로픽은 연결한 계정을 몇 시간마다 확인한다고 밝혔어요. 쉬지 않고 확인하면 요금제 한도가 훨씬 빨리 닳기 때문이래요.</li>
+</ul>
+<p>맡기는 일은 크기가 다양해요. 회의 일정 잡기 같은 간단한 일부터 여러 도구에서 자료를 모아 대시보드 만들기, 재무·매출 예측, 시제품과 웹앱 만들기까지 들었어요. 듀엣은 클라우드에 자기 가상 컴퓨터와 브라우저를 갖고 있어요. 그래서 내 노트북이나 휴대폰이 꺼져 있어도 일이 이어지고, 끝나거나 내 검토가 필요하면 알림이 와요.</p>
+<p><strong>쓰던 클로드 계정의 메모리·스킬·연결한 앱을 그대로 가져와요.</strong></p>
+<ul>
+<li>대화는 하나의 긴 스레드에서 글이나 음성으로 해요. 짧은 답장과 일주일짜리 일이 같은 자리에서 시작되는 셈이에요.</li>
+<li>클로드 마켓플레이스의 커넥터·플러그인을 6,000개 넘게 쓸 수 있다고 했고, 앤트로픽이 든 예는 이래요.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>연결하는 곳</th><th>앤트로픽이 든 쓰임</th></tr></thead><tbody><tr><td><code>Gmail·Slack</code></td><td>놓친 메시지를 찾아 답장을 도와요</td></tr><tr><td>퀵북스·스트라이프</td><td>밀린 청구서를 찾아 독촉 메일 초안</td></tr><tr><td>거스토</td><td>근무 시간·보너스를 채워 급여 준비</td></tr><tr><td>링크드인</td><td>채용 공고 초안, 내가 고치고 승인하면 게시</td></tr><tr><td>도큐사인</td><td>계약서를 준비해 검토·서명 요청</td></tr><tr><td>쇼피파이</td><td>온라인 가게 만들기와 관리</td></tr></tbody></table>
+<div class="callout tip"><b class="ttl">💡 핵심</b>기존 클로드 앱은 내가 대화를 열어야 일이 시작돼요. 듀엣은 반대로 아침마다 먼저 오고, 맡긴 일을 클라우드에서 이어 가요.</div>
+<h2 id="3-대신-행동하기-전에는-묻는다">3. 대신 행동하기 전에는 묻는다</h2>
+<p><strong>듀엣은 읽고, 초안을 쓰고, 일을 준비하는 것까지는 혼자 해요. 메시지를 보내거나, 결제하거나, 문서에 서명하거나, 무엇이든 지우기 전에는 할 일을 그대로 보여 주고 승인을 기다려요.</strong> 승인해도 하지 않는 일도 정해 뒀어요. 증권 거래와 계좌 사이 돈 옮기기예요. 듀엣이 쓰는 앱은 언제든 연결을 끊을 수 있어요.</p>
+<p><img alt="클로드 듀엣이 혼자 하는 일, 승인을 기다리는 일, 승인해도 하지 않는 일과 민감 정보 처리 — 앤트로픽 10월 21일 발표 기준 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="3580" src="/_astro/diagram-duet-approval.DZsWdWWH_Z2ukTE4.webp" ></p>
+<p class="cap">클로드 듀엣이 혼자 하는 일, 승인을 기다리는 일, 승인해도 하지 않는 일과 민감 정보 처리 — 앤트로픽 10월 21일 발표 기준 (직접 제작)</p>
+<p>앤트로픽은 이메일을 읽고 메시지를 보내는 에이전트는 정보가 어디로 갈지 늘 판단해야 한다고 설명했어요. 그래서 메시지마다 살피는 전용 분류기와 안전 지시문을 함께 넣었대요. 신용카드 번호와 신분증 번호처럼 가장 민감한 정보는 공유 요청을 거절해요. 건강이나 개인 재무 정보는 사용자가 분명히 보내라고 했을 때만 내보내요.</p>
+<p>로그인 정보는 앤트로픽의 클로드 관리형 에이전트(Claude Managed Agents)와 같은 설계를 따라, 듀엣이 비밀번호나 로그인 토큰을 직접 보지 않는다고 밝혔어요. 시키지 않은 행동을 막는 장치도 있어요. 클로드 코드에도 쓰는 자동 모드 분류기가 듀엣의 행동을 승인하고, 숨은 지시(프롬프트 인젝션)를 막는 브라우저 연구도 적용했대요.</p>
+<p><img alt="봉투를 든 로봇이 우체통에 넣기 전에 멈춰 생각하는 장면 — 보내기·결제 전에 승인을 기다리는 클로드 듀엣을 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-wait-approval.B8-ZP9gP_Z1G1aBF.webp" ></p>
+<p class="cap">봉투를 든 로봇이 우체통에 넣기 전에 멈춰 생각하는 장면 — 보내기·결제 전에 승인을 기다리는 클로드 듀엣을 빗댄 그림 (AI 이미지 생성)</p>
+<p><strong>물건을 살 때는 스트라이프의 디지털 지갑 링크(Link)를 써요.</strong> 듀엣이 살 물건을 확인받고, 링크가 지출 승인을 한 번 더 물어요. 결제는 가상 카드로 해서 실제 카드 번호는 넘어가지 않아요. 온라인 가게에서는 쇼피파이의 숍페이로도 결제할 수 있어요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 확인할 점</b>한 번 승인하는 구조라도, 무엇을 승인하는지 읽는 건 사람 몫이에요. 앤트로픽도 안전 설계는 며칠 안에 더 자세히 공개하겠다고 했어요.</div>
+<h2 id="4-메타-뮤즈오픈ai-dots와-다른-점">4. 메타 뮤즈·오픈AI dots와 다른 점</h2>
+<p><strong>세 회사가 한두 달 사이에 ‘먼저 움직이는 개인 에이전트’를 내놨어요. CNBC는 겨냥한 쪽이 서로 다르다고 정리했어요.</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>에이전트</th><th>공개 · 주로 겨냥한 쪽 · 확인한 소식</th></tr></thead><tbody><tr><td>클로드 듀엣(앤트로픽)</td><td>10월 21일 연구 프리뷰 · 직장 일, 전문직·소상공인 · 미국 Pro·Max 대기자 명단</td></tr><tr><td>메타 뮤즈(메타)</td><td>9월 공개 · 주로 일반 소비자 · 미국·캐나다 1,000만 명 넘게 설정(저커버그)</td></tr><tr><td>dots(오픈AI)</td><td>9월 29일 개발자 행사 · 기업과 소비자 양쪽 · 클라우드 컴퓨터에서 연결한 앱으로 상시 작동</td></tr></tbody></table>
+<p>겨냥한 쪽은 CNBC 정리와 앤트로픽 발표 기준이에요.</p>
+<p>메타는 10월 21일 3분기 실적 발표에서 저커버그 CEO가 지난 한 달 반 동안 미국과 캐나다에서 1,000만 명 넘게 뮤즈 개인 에이전트를 설정했다고 말했어요(CNBC). 앤트로픽은 듀엣이 일 중심이라 표 예매 같은 개인 심부름은 ‘아직 그만큼 강하지 않다’고 스스로 밝혔어요. 소비자용 뮤즈와 반대쪽에서 출발한 셈이에요.</p>
+<p>dots가 어떤 서비스인지는 <a href="/posts/20261004-openai-dots/">10월 4일 글</a>에, 뮤즈를 다른 에이전트와 비교한 내용은 <a href="/posts/20260927-personal-ai-agents-four/">9월 27일 글</a>에 정리해 뒀어요.</p>
+<h2 id="5-발표만으로-알-수-없는-것">5. 발표만으로 알 수 없는 것</h2>
+<p><strong>이번 소식은 앤트로픽 발표가 중심이고, 써 본 사람의 독립 평가는 아직 없어요.</strong> 발표 글의 쓰임새는 앤트로픽 직원과 먼저 써 본 소상공인의 사례예요. 예를 들어 클로드 코드 팀을 이끄는 보리스 체르니는 산책하며 머릿속 할 일 목록을 듀엣에 말로 넘긴대요. 회사가 고른 사례라, 얼마나 시간을 아꼈는지 잰 숫자는 없어요.</p>
+<p>앤트로픽이 먼저 밝힌 한계도 있어요. 스레드를 잘못 읽거나 무엇이 급한지 잘못 판단할 수 있고, 몇 시간마다 확인하는 사이에 들어온 일은 놓칠 수 있어요. 듀엣이 쓰는 브라우저 화면을 아직 보여 주지 못하고, 기존 클로드 앱과도 따로 떨어진 앱이에요.</p>
+<p><strong>사용량도 따져 봐야 해요.</strong></p>
+<ul>
+<li>백그라운드 확인이 요금제 한도에 들어가고, 재무 모델이나 발표 자료처럼 큰 일은 더 많이 써요. 한도가 얼마나 빨리 닳는지는 발표에 숫자가 없어요.</li>
+<li>한국에서는 아직 쓸 수 없어요. 10월 21일 기준 미국 Pro·Max 구독자부터 시작했고, 다른 나라 일정은 발표에 없어요.</li>
+</ul>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 앤트로픽이 10월 21일 클로드 듀엣 연구 프리뷰를 열었어요<br>② 아침 브리핑을 보내고 맡긴 일을 클라우드에서 이어 가요<br>③ 보내기·결제·서명·삭제 전에는 승인을 기다려요<br>④ 미국 Pro·Max 구독자 대기자 명단부터 시작해요<br>⑤ 급한 일 판단이 틀릴 수 있다고 회사가 먼저 밝혔어요</div>
+<p><strong>오늘의 큰 흐름:</strong> 개인 에이전트 경쟁이 붙었어요. 앤트로픽 클로드 듀엣, 1,000만 명을 넘긴 메타 뮤즈, 오픈AI dots에 이어 같은 날 월마트도 에이전트 전용 쇼핑 프로필을 내놨어요.</p>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 한국에서도 쓸 수 있나요?</summary><p>10월 21일 발표 기준으로는 아니에요. 미국의 Pro·Max 구독자부터 대기자 명단으로 시작했고, 다른 나라 일정은 밝히지 않았어요.</p></details>
+<details class="faq"><summary>Q. 요금을 따로 내나요?</summary><p>연구 프리뷰 동안은 Pro·Max 요금제에 포함돼요. 대신 클로드의 다른 기능과 같은 사용량 한도를 나눠 쓰고, 백그라운드 확인도 한도에 들어가요. Team·Enterprise 요금제는 아직 포함되지 않았어요.</p></details>
+<details class="faq"><summary>Q. 지금 쓰는 클로드 앱과 무엇이 다른가요?</summary><p>클로드 앱은 내가 대화를 열기를 기다리고, 듀엣은 아침 브리핑과 알림으로 먼저 와요. 메모리·스킬·연결한 앱은 같은 계정에서 가져와요. 지금은 기존 앱과 따로 떨어진 앱이에요.</p></details>
+<details class="faq"><summary>Q. 내 카드로 마음대로 결제하나요?</summary><p>결제 전에는 할 일을 보여 주고 승인을 기다려요. 스트라이프 링크로 살 때는 가상 카드로 결제해 실제 카드 번호가 넘어가지 않아요. 증권 거래와 계좌 사이 송금은 승인해도 하지 않아요.</p></details>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>앤트로픽 — Introducing Claude Duet(10월 21일) · <a href="https://claude.com/resources/articles/claude-duet">claude.com/resources/articles/claude-duet</a></li>
+<li>앤트로픽 — 클로드 듀엣 제품 안내·대기자 명단 · <a href="https://claude.com/product/claude-duet">claude.com/product/claude-duet</a></li>
+<li>CNBC — Anthropic announces preview of Claude Duet(10월 21일) · cnbc.com</li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 22일 · 같은 날 확인<br>앤트로픽 발표·제품 안내와 CNBC 보도 대조<br>직접 써 본 후기 아님 · 제휴 없음<br>앤트로픽 소식이라 밝혀 둬요 · 이 글을 정리한 AI도 앤트로픽의 Claude예요<br>캐릭터·비유 삽화는 AI 이미지 생성 · 도식은 직접 제작</div>
+<h2 id="부록-출처-전체-2026-10-22-확인">부록: 출처 전체 (2026-10-22 확인)</h2>
+<p>happy_various 브리핑(10월 22일)의 2번 항목 ‘앤트로픽, 개인 업무 에이전트 Claude Duet 프리뷰 공개’를 출발점으로, 아래 원문을 직접 열어 확인했어요. 날짜는 모두 미국 현지 기준이에요.</p>
+<ul>
+<li><a href="https://claude.com/resources/articles/claude-duet">앤트로픽 — Introducing Claude Duet</a> (2026-10-21) — 연구 프리뷰, 전문직·소상공인, iOS·안드로이드 앱과 claude.ai, Pro·Max 포함·같은 한도, 오퍼스 5.5, 아침 브리핑·몇 시간마다 확인, 가상 컴퓨터·자체 브라우저, 보내기·결제·서명·삭제 전 승인, 증권 거래·계좌 이체 금지, 커넥터·플러그인 6,000개 넘게, 링크 가상 카드·숍페이, 민감 정보 분류기, 한계, 미국 Pro·Max부터 (1·2·3·5절)</li>
+<li><a href="https://claude.com/product/claude-duet">앤트로픽 — Claude Duet 제품 안내·대기자 명단</a> — ‘Available in Pro and Max plans in the US’, 자주 묻는 질문(Team·Enterprise 미포함, 사용량, 놓칠 수 있는 일) (1·5절, 자주 묻는 질문)</li>
+<li><a href="https://www.cnbc.com/2026/10/21/anthropic-preview-of-claude-duet-personal-ai-agent-take-on-muse-dots.html">CNBC — Anthropic announces preview of Claude Duet, a personal AI agent to take on Muse, Dots</a> (2026-10-21, 애슐리 카푸트) — 뮤즈·dots와 경쟁, 메타는 소비자·오픈AI는 기업과 소비자 양쪽, 저커버그 ‘미국·캐나다 1,000만 명 넘게 뮤즈 설정’, 개인 심부름은 덜 강함 (1·4절)</li>
+<li><a href="https://x.com/claudeai/status/2112984669943968099">클로드 공식 X 글</a> (2026-10-21) — 미국 Pro·Max 대기자 명단, 급한 일 판단이 틀릴 수 있음 (5절)</li>
+</ul>
+<p>브리핑과 원문이 다른 점은 없었어요. 브리핑의 ‘미국 Pro·Max 구독자 대상 대기자 명단’은 앤트로픽 발표 글 끝과 제품 안내 페이지 문구로 확인했어요. CNBC 기사 본문에는 ‘Pro·Max 구독자’까지만 있고 ‘미국’은 앤트로픽 원문에 있어요.</p>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20261004-openai-dots/">OpenAI dots(닷츠) 발표, 24시간 일하는 에이전트 정리</a> · <a href="/posts/20260927-personal-ai-agents-four/">오픈클로·헤르메스·그록봇·메타 뮤즈 비교, AI 에이전트 차이</a></p>  <p class="meta" data-astro-cid-lvjzyg5v>🤖 그날 AI 글을 30초로 묶은 쇼츠는 인스타그램 <a href="https://www.instagram.com/second.syntax/" rel="noopener" target="_blank" data-astro-cid-lvjzyg5v>@second.syntax</a>에 매일 올려요.</p> </article> <nav class="end-nav" aria-label="목록" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로 · 📰 뉴스</a><div class="more" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261021-nvidia-nemotron-3-5/" data-astro-cid-f3qesd3f>엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-mistral-voxtral-3/" data-astro-cid-f3qesd3f>미스트랄 Voxtral 3 정리, 실시간 음성 에이전트 구성과 한계</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-anthropic-federal-safety-bill/" data-astro-cid-f3qesd3f>앤트로픽 연방 AI 안전법 초안, 모델 출시를 멈추는 조건 정리</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-flapping-airplanes-series-a/" data-astro-cid-f3qesd3f>플래핑 에어플레인스 시리즈 A, 적은 데이터 연구에 몰린 돈</a></li></ul></div></nav> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> <script>
+      // 머리글 높이를 --hdr-h 로 (목차 이동·글 양옆 칸·행사 날짜 줄이 머리글 아래에 오게)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var set = function () { document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px'); };
+        set(); addEventListener('resize', set);
+        if ('ResizeObserver' in window) new ResizeObserver(set).observe(h);
+      })();
+    </script> <script>
+      // 언어 목록 — 바깥을 누르거나 Esc 를 누르면 닫는다 (나들이로그와 같음)
+      (function () {
+        var m = document.querySelector('[data-lang-menu]');
+        if (!m) return;
+        document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+      })();
+    </script> <script>
+      // 머리글 맞춤 — 가운데 분류 줄이 넘치면 오른쪽 메뉴·언어를 단계적으로 줄인다(위 CSS data-fit 설명)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var mq = matchMedia('(min-width: 901px)');
+        function over() {
+          var hero = h.querySelector('.hero');
+          if (!hero) return false;
+          var t = hero.querySelector('.sec-tabs'), h1 = hero.querySelector('h1');
+          if (t && t.scrollWidth > t.clientWidth + 1) return true;
+          // 오른쪽 메뉴·언어가 넓어 가운데 칸이 정가운데에서 밀렸으면 줄인다
+          var hr = hero.getBoundingClientRect(), r = h.getBoundingClientRect();
+          if (h.getAttribute('data-fit') !== '4' && Math.abs((hr.left + hr.right) / 2 - (r.left + r.right) / 2) > 2) return true;
+          if (h1) { var lh = parseFloat(getComputedStyle(h1).lineHeight) || 24; if (h1.offsetHeight > lh * 1.5) return true; }
+          return false;
+        }
+        var busy = false;
+        function fit() {
+          if (busy) return; busy = true;
+          h.removeAttribute('data-fit');
+          if (mq.matches) for (var lv = 1; lv <= 4 && over(); lv++) h.setAttribute('data-fit', String(lv));
+          busy = false;
+        }
+        fit();
+        addEventListener('resize', fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      })();
+    </script> </body> </html> 

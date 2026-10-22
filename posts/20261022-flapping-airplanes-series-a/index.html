@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>플래핑 에어플레인스 시리즈 A, 적은 데이터 연구에 몰린 돈</title><meta name="description" content="적은 데이터로 큰 모델을 학습시키는 방법을 연구하는 플래핑 에어플레인스가 10월 21일 10억 달러 시리즈 A를 받았어요. 회사 누리집이 직접 밝힌 금액과 보도로 전해진 기업가치를 나눠 정리하고, 데이터 효율과 메가커널이 무엇인지, 아직 공개되지 않은 것이 무엇인지 확인해 적었어요. 투자 권유가 아니에요."><meta property="og:title" content="플래핑 에어플레인스 시리즈 A, 적은 데이터 연구에 몰린 돈"><meta property="og:description" content="적은 데이터로 큰 모델을 학습시키는 방법을 연구하는 플래핑 에어플레인스가 10월 21일 10억 달러 시리즈 A를 받았어요. 회사 누리집이 직접 밝힌 금액과 보도로 전해진 기업가치를 나눠 정리하고, 데이터 효율과 메가커널이 무엇인지, 아직 공개되지 않은 것이 무엇인지 확인해 적었어요. 투자 권유가 아니에요."><meta property="og:url" content="https://happyvarious.com/posts/20261022-flapping-airplanes-series-a/"><meta property="og:site_name" content="AI 로그"><meta property="og:image" content="https://happyvarious.com/_astro/titlecard.B8FuGumy_Z1AAKBL.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.Cm929lyb.css">
+<link rel="stylesheet" href="/_astro/_id_.BkQGK3p6.css">
+<style>.sec-tabs[data-astro-cid-cnlsgtkd]{display:flex;gap:6px;width:fit-content;max-width:100%;margin:6px auto 0;padding-bottom:4px;overflow-x:auto;scrollbar-width:none;text-align:left}.sec-tabs[data-astro-cid-cnlsgtkd]::-webkit-scrollbar{display:none}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]:hover{border-color:var(--accent);color:var(--accent)}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}.sec-tabs[data-astro-cid-cnlsgtkd] .n[data-astro-cid-cnlsgtkd]{position:relative;margin-left:2px;font-size:.8em;color:var(--sub);font-weight:600}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page] .n[data-astro-cid-cnlsgtkd]{color:inherit;opacity:.75}.sr[data-astro-cid-cnlsgtkd]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style></head> <body> <a class="skip" href="#main">본문으로 건너뛰기</a> <header class="site"> <div class="hdr-tools"> <details class="lang-menu" data-lang-menu> <summary aria-label="언어 · Language: 한국어" title="언어 · Language"><span aria-hidden="true">🌐</span><span aria-hidden="true">KO</span><span class="caret" aria-hidden="true">▾</span></summary> <nav class="langbar" aria-label="언어 · Language"> <a href="/ai/" hreflang="ko" lang="ko" class="on" aria-current="true"><span>한국어</span><span class="code" aria-hidden="true">KO</span></a><a href="/nadeuli/en/" hreflang="en" lang="en"><span>English</span><span class="code" aria-hidden="true">EN</span></a><a href="/nadeuli/ja/" hreflang="ja" lang="ja"><span>日本語</span><span class="code" aria-hidden="true">JA</span></a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant"><span>繁體中文</span><span class="code" aria-hidden="true">繁中</span></a> </nav> </details> <a class="search-btn" href="/nadeuli/search/" aria-label="통합 검색" title="통합 검색 — 나들이·AI 로그"><span aria-hidden="true">🔍</span></a>  </div> <div class="brand-box"> <a class="brand" href="/ai/" aria-label="happy_various"><img class="wm light" src="/brand/wordmark-light.png" alt="happy_various" width="134" height="22"></a> <a class="site-char" href="/ai/" aria-hidden="true" tabindex="-1"><img class="mascot light" src="/brand/ai-info-light.gif" alt="" width="53" height="54"></a> <a class="site-name" href="/ai/">AI 로그</a> </div> <div class="hero"> <nav class="sec-tabs" aria-label="AI 로그 소메뉴" data-astro-cid-cnlsgtkd> <a href="/ai/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🤖</span> 전체 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>143</span> </a><a href="/use/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🛠️</span> 활용 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>39</span> </a><a href="/project/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🧪</span> 프로젝트 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>33</span> </a><a href="/news/" aria-current="page" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>📰</span> 뉴스 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>71</span> </a> </nav>  </div> <div class="hdr-bar" hidden></div> </header> <main id="main" tabindex="-1">  <script type="module">document.querySelectorAll("[data-share]").forEach(t=>{let o=0;const c=async a=>{try{return await navigator.clipboard.writeText(a),!0}catch{}const e=document.createElement("textarea");e.value=a,e.setAttribute("readonly",""),e.style.cssText="position:fixed;top:0;left:0;opacity:0",document.body.appendChild(e),e.select();let r=!1;try{r=document.execCommand("copy")}catch{r=!1}return e.remove(),r};t.addEventListener("click",async()=>{const a=t.dataset.url||location.href,e=t.dataset.title||document.title;if(matchMedia("(pointer: coarse)").matches&&navigator.share)try{await navigator.share({title:e,url:a});return}catch(r){if(r?.name==="AbortError")return}await c(a)?(t.classList.add("done"),clearTimeout(o),o=window.setTimeout(()=>t.classList.remove("done"),2e3)):window.prompt(t.querySelector(".lbl")?.textContent||"",a)})});</script><div class="crumb-bar" data-astro-cid-f3qesd3f><nav class="crumb" aria-label="목록" data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 AI 로그</a><span aria-hidden="true" data-astro-cid-f3qesd3f>›</span><a href="/news/" data-back data-astro-cid-f3qesd3f>📰 뉴스</a></nav><button type="button" class="share-btn" data-share data-url="https://happyvarious.com/posts/20261022-flapping-airplanes-series-a/" data-title="플래핑 에어플레인스 시리즈 A, 적은 데이터 연구에 몰린 돈" aria-label="이 글 공유하기" title="공유하기" data-astro-cid-qan2qojn><span aria-hidden="true" data-astro-cid-qan2qojn>🔗</span><span class="lbl" aria-hidden="true" data-astro-cid-qan2qojn>링크 복사됨</span></button>  </div><script>
+      // 경로 줄은 머리글 맨 아래 줄로 — 스크롤과 상관없이 처음부터 머리글 안, 틈 없이 (2026-10-12 happy_various)
+      (function () { var c = document.currentScript.previousElementSibling, bar = document.querySelector('header.site .hdr-bar'); if (c && bar) { bar.appendChild(c); bar.hidden = false; } })();
+    </script><aside class="rail rail-l" aria-label="목록" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로</a><ul class="secs" data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 전체 글</a></li><li data-astro-cid-f3qesd3f><a href="/use/" data-astro-cid-f3qesd3f>🛠️ 활용</a></li><li data-astro-cid-f3qesd3f><a href="/project/" data-astro-cid-f3qesd3f>🧪 프로젝트</a></li><li data-astro-cid-f3qesd3f><a href="/news/" aria-current="true" data-astro-cid-f3qesd3f>📰 뉴스</a></li></ul></div></aside><aside class="rail rail-r" aria-label="이 글 목차" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><nav class="toc" aria-label="이 글 목차" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>이 글 목차</p><ol data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="#1-무슨-일-10월-21일-발표" data-toc="1-무슨-일-10월-21일-발표" data-astro-cid-f3qesd3f>1. 무슨 일: 10월 21일 발표</a></li><li data-astro-cid-f3qesd3f><a href="#2-적은-데이터로-배운다는-말" data-toc="2-적은-데이터로-배운다는-말" data-astro-cid-f3qesd3f>2. 적은 데이터로 배운다는 말</a></li><li data-astro-cid-f3qesd3f><a href="#3-메가커널이-바꾸는-것" data-toc="3-메가커널이-바꾸는-것" data-astro-cid-f3qesd3f>3. 메가커널이 바꾸는 것</a></li><li data-astro-cid-f3qesd3f><a href="#4-숫자를-읽을-때" data-toc="4-숫자를-읽을-때" data-astro-cid-f3qesd3f>4. 숫자를 읽을 때</a></li><li data-astro-cid-f3qesd3f><a href="#5-발표만으로-알-수-없는-것" data-toc="5-발표만으로-알-수-없는-것" data-astro-cid-f3qesd3f>5. 발표만으로 알 수 없는 것</a></li><li data-astro-cid-f3qesd3f><a href="#자주-묻는-질문" data-toc="자주-묻는-질문" data-astro-cid-f3qesd3f>자주 묻는 질문</a></li><li data-astro-cid-f3qesd3f><a href="#부록-출처-전체-2026-10-22-확인" data-toc="부록-출처-전체-2026-10-22-확인" data-astro-cid-f3qesd3f>부록: 출처 전체 (2026-10-22 확인)</a></li></ol><a class="up" href="#main" data-astro-cid-f3qesd3f>↑ 맨 위로</a></nav><nav class="more" aria-label="다른 뉴스 글" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261021-nvidia-nemotron-3-5/" data-astro-cid-f3qesd3f>엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-mistral-voxtral-3/" data-astro-cid-f3qesd3f>미스트랄 Voxtral 3 정리, 실시간 음성 에이전트 구성과 한계</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-anthropic-federal-safety-bill/" data-astro-cid-f3qesd3f>앤트로픽 연방 AI 안전법 초안, 모델 출시를 멈추는 조건 정리</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-anthropic-claude-duet/" data-astro-cid-f3qesd3f>클로드 듀엣 공개, 먼저 챙겨 주는 업무 에이전트의 일과 한계</a></li></ul></nav></div></aside><a class="float-back" href="/news/" data-back aria-label="목록으로" data-astro-cid-f3qesd3f>← 목록</a><script type="module">document.querySelectorAll("[data-back]").forEach(e=>e.addEventListener("click",r=>{try{const t=new URL(document.referrer);t.origin===location.origin&&!t.pathname.includes("/posts/")&&history.length>1&&(r.preventDefault(),history.back())}catch{}}));const n=new Map([...document.querySelectorAll("[data-toc]")].map(e=>[e.dataset.toc,e]));if(n.size&&"IntersectionObserver"in window){const e=new IntersectionObserver(r=>{for(const t of r)t.isIntersecting&&(n.forEach(o=>o.removeAttribute("aria-current")),n.get(t.target.id)?.setAttribute("aria-current","true"))},{rootMargin:"0px 0px -72% 0px"});n.forEach((r,t)=>{const o=document.getElementById(t);o&&e.observe(o)})}const c=document.querySelector(".float-back");if(c){const e=()=>c.classList.toggle("show",scrollY>480);addEventListener("scroll",e,{passive:!0}),e()}</script> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 22일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 7개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-무슨-일-10월-21일-발표" data-astro-cid-lvjzyg5v>1. 무슨 일: 10월 21일 발표</a></li><li data-astro-cid-lvjzyg5v><a href="#2-적은-데이터로-배운다는-말" data-astro-cid-lvjzyg5v>2. 적은 데이터로 배운다는 말</a></li><li data-astro-cid-lvjzyg5v><a href="#3-메가커널이-바꾸는-것" data-astro-cid-lvjzyg5v>3. 메가커널이 바꾸는 것</a></li><li data-astro-cid-lvjzyg5v><a href="#4-숫자를-읽을-때" data-astro-cid-lvjzyg5v>4. 숫자를 읽을 때</a></li><li data-astro-cid-lvjzyg5v><a href="#5-발표만으로-알-수-없는-것" data-astro-cid-lvjzyg5v>5. 발표만으로 알 수 없는 것</a></li><li data-astro-cid-lvjzyg5v><a href="#자주-묻는-질문" data-astro-cid-lvjzyg5v>자주 묻는 질문</a></li><li data-astro-cid-lvjzyg5v><a href="#부록-출처-전체-2026-10-22-확인" data-astro-cid-lvjzyg5v>부록: 출처 전체 (2026-10-22 확인)</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>플래핑 에어플레인스 누리집 본문과 테크크런치 기사 두 건을 2026년 10월 22일에 직접 열어 대조해 정리한 글이에요. 기업가치는 회사가 밝힌 숫자가 아니라 보도로 전해진 숫자예요. 투자 권유가 아니고 제휴 링크는 없어요. 캐릭터·비유 삽화는 AI 이미지 생성이고, 도식은 직접 제작했어요.</blockquote> <h1 id="플래핑-에어플레인스-시리즈-a-적은-데이터-연구에-몰린-돈">플래핑 에어플레인스 시리즈 A, 적은 데이터 연구에 몰린 돈</h1>
+<p><img alt="플래핑 에어플레인스 시리즈 A — 적은 데이터로 배우는 연구에 모인 돈 (캐릭터는 AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.B8FuGumy_1XxIjG.webp" ></p>
+<p class="cap">플래핑 에어플레인스 시리즈 A — 적은 데이터로 배우는 연구에 모인 돈 (캐릭터는 AI 이미지 생성)</p>
+<p>같은 거리를 가는 데 기름을 훨씬 적게 쓰는 차가 나오면, 기름값이 비싼 곳에서도 차를 굴릴 수 있게 돼요. 연비가 좋아지면 쓰임새가 늘어나는 거예요. 지금 큰 AI 모델은 연비가 나쁜 쪽에 가까워요. 인터넷에 있는 글을 거의 다 삼켜야 쓸 만해지거든요. 사람은 그보다 훨씬 적게 보고도 배우는데 말이에요.</p>
+<p><strong>적은 데이터로 큰 모델을 학습시키는 방법을 연구하는 플래핑 에어플레인스(Flapping Airplanes)가 10월 21일(미국 현지) 10억 달러 시리즈 A를 받았다고 테크크런치가 전했어요.</strong> 회사 누리집에도 시드 1억 8,000만 달러와 시리즈 A 10억 달러를 받았다고 적혀 있어요. 기업가치 약 60억 달러는 회사가 아니라 보도로 전해진 숫자예요.</p>
+<p><img alt="로봇이 작은 물뿌리개로 키 큰 화분에 물을 주는 장면 — 적게 주고도 크게 키우려는 데이터 효율 연구를 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-watering.CNpUHndp_1tWqng.webp" ></p>
+<p class="cap">로봇이 작은 물뿌리개로 키 큰 화분에 물을 주는 장면 — 적게 주고도 크게 키우려는 데이터 효율 연구를 빗댄 그림 (AI 이미지 생성)</p>
+<div class="box info"><b class="ttl">🎯 이 글에서 얻는 것</b>대상: AI 업계 소식을 따라가는 직장인·개발자<br>① 어떤 회사가 얼마를 받았나<br>② 적은 데이터로 배운다는 말의 뜻<br>③ 메가커널이 무엇을 바꾸나<br>④ 숫자를 읽을 때 조심할 점<br>2026년 10월 22일 기준 · 회사 누리집·보도 확인</div>
+<hr>
+<h2 id="1-무슨-일-10월-21일-발표">1. 무슨 일: 10월 21일 발표</h2>
+<p><strong>테크크런치는 10월 21일 기사에서 플래핑 에어플레인스가 10억 달러 시리즈 A를 인덱스(Index)와 럭스(Lux) 공동 주도로 받았다고 전했어요.</strong> 회사 누리집은 금액만 적고 기업가치는 말하지 않아요. 확인한 내용을 표로 옮겼어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>확인한 내용</th></tr></thead><tbody><tr><td>발표</td><td>10월 21일(미국 현지) 테크크런치 보도</td></tr><tr><td>금액</td><td>시리즈 A 10억 달러 (회사 누리집도 같은 금액)</td></tr><tr><td>공동 주도</td><td>인덱스, 럭스 (테크크런치)</td></tr><tr><td>기업가치</td><td>약 60억 달러 — 회사 발표 아닌 보도</td></tr><tr><td>직전 시드</td><td>1억 8,000만 달러, 9개월 전</td></tr><tr><td>시드 때 가치</td><td>15억 달러로 보도, 이번에 4배</td></tr><tr><td>하는 일</td><td>적은 데이터로 모델을 학습시키는 기초 연구</td></tr></tbody></table>
+<p>창업자는 세 사람이에요. 에이든 스미스, 그리고 형제인 애셔 스펙터와 벤 스펙터예요. 테크크런치에 따르면 스미스는 대학 시절 뇌 이식 장치 회사 뉴럴링크에서 일했고, 애셔는 스탠퍼드 통계학 박사, 벤은 스탠퍼드 컴퓨터과학 박사 과정이었어요. 회사 누리집에 적힌 투자자는 인덱스, 구글 벤처스, 세쿼이아, 럭스 캐피털, 노바 글로벌이고, 그 밖에 밸러, 아트레이데스, 클라이너 퍼킨스, 엔비디아 등이 더해져 있어요. 제프 딘, 안드레이 카파시 같은 개인 후원자 이름도 함께 적혀 있어요.</p>
+<h2 id="2-적은-데이터로-배운다는-말">2. 적은 데이터로 배운다는 말</h2>
+<p><strong>회사가 푸는 문제는 ‘데이터 효율’이에요. 같은 성능을 내는 데 필요한 학습 데이터를 크게 줄이자는 거예요.</strong></p>
+<ul>
+<li>2월 테크크런치 인터뷰에서 벤 스펙터는 지금의 최전선 모델이 ‘인류 지식 전체’로 학습하는데 사람은 그보다 훨씬 적은 것으로도 해낸다고 말했어요. 애셔 스펙터는 데이터 효율에서 1,000배 개선을 찾고 있다고 했어요.</li>
+<li>회사 누리집도 ‘인터넷의 절반을 삼키지 않고도’ 똑똑한 시스템을 만들 수 있다고 적었어요. 모두 목표를 말한 것이지, 이뤘다는 발표는 아니에요.</li>
+</ul>
+<div class="callout tip"><b class="ttl">💡 핵심</b>데이터를 덜 쓰면 학습과 추론에 드는 돈이 줄어요. 회사는 그래야 로봇이나 과학 연구처럼 데이터가 적은 분야에도 AI가 들어간다고 봐요.</div>
+<p>회사 이름도 이 생각에서 나왔어요. 2월 인터뷰에서 벤 스펙터는 지금 시스템이 커다란 여객기 같다면 자기들은 새를 그대로 베끼는 대신 ‘날갯짓하는 비행기’를 만들어 보려는 거라고 설명했어요. 파는 제품은 아직 없어요. 2월 인터뷰에서 애셔 스펙터는 큰 기업 계약을 먼저 따면 연구가 흐트러지니 연구부터 하겠다고 말했고, 언젠가는 상업화하고 싶다고도 했어요.</p>
+<h2 id="3-메가커널이-바꾸는-것">3. 메가커널이 바꾸는 것</h2>
+<p><strong>커널은 GPU 위에서 도는 프로그램 한 덩어리예요. 메가커널은 여러 일을 그 한 덩어리 안에 몰아넣은 것이에요.</strong> 회사는 자기들이 ‘세상에서 가장 완성된 메가커널 틀’을 만들었다고 누리집에 적었어요. 학습 전체를 돌리고, 추론을 서비스하고, 비디오 게임을 하고, 그 셋을 한 커널 안에서 동시에 할 수 있다는 설명이에요.</p>
+<p><img alt="요리사 모자를 쓴 로봇이 한 손으로 냄비를 젓고 다른 손으로 도마에서 채소를 써는 장면 — 기다리는 일과 계산하는 일을 겹쳐 돌리는 메가커널을 빗댄 그림 (AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1024" height="1024" src="/_astro/char-two-pots.C-efatNq_ZCEqR1.webp" ></p>
+<p class="cap">요리사 모자를 쓴 로봇이 한 손으로 냄비를 젓고 다른 손으로 도마에서 채소를 써는 장면 — 기다리는 일과 계산하는 일을 겹쳐 돌리는 메가커널을 빗댄 그림 (AI 이미지 생성)</p>
+<p>왜 그렇게 하냐면, 일의 성격이 다르기 때문이에요. 추론은 자료를 가져오느라 기다리는 시간이 많고, 학습은 계산하느라 바쁜 쪽이에요. 이 둘을 한 커널 안에서 겹쳐 돌리면 칩이 멍하니 노는 시간이 줄어요. 회사는 여기에 더해 보통 쓰지 않는 구조와 최적화 방식도 시험할 수 있다고 적었어요.</p>
+<p><img alt="일마다 프로그램을 따로 올리는 방식과 한 커널 안에서 겹쳐 돌리는 방식 — 회사가 누리집에 적은 설명을 그림으로 (직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="2840" src="/_astro/diagram-megakernel.CkzDAE8F_Z1hixhs.webp" ></p>
+<p class="cap">일마다 프로그램을 따로 올리는 방식과 한 커널 안에서 겹쳐 돌리는 방식 — 회사가 누리집에 적은 설명을 그림으로 (직접 제작)</p>
+<p>다만 이 그림은 회사가 밝힌 설명을 옮긴 것이에요. 얼마나 빨라지는지, 어떤 조건에서 그런지를 보여 주는 측정값은 10월 22일까지 공개되지 않았어요. 테크크런치도 창업자들의 주장(claim)이라고 적으면서, GPU로 할 수 있는 일의 표면만 긁었다는 것이 이들의 전제라고 전했어요.</p>
+<h2 id="4-숫자를-읽을-때">4. 숫자를 읽을 때</h2>
+<p><strong>회사가 직접 밝힌 것과 보도로 전해진 것을 나눠 보는 게 좋아요.</strong> 금액(시드 1억 8,000만 달러, 시리즈 A 10억 달러)은 회사 누리집에 그대로 있어요. 기업가치는 어느 쪽도 회사가 말하지 않았어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>무엇을</th><th>어디까지 확인됐나</th></tr></thead><tbody><tr><td>시리즈 A 10억 달러</td><td>회사 누리집에 명시</td></tr><tr><td>시드 1억 8,000만 달러</td><td>회사 누리집에 명시</td></tr><tr><td>기업가치 약 60억 달러</td><td>테크크런치가 ‘보도에 따르면’으로 전함</td></tr><tr><td>시드 때 15억 달러</td><td>테크크런치 기사 기준</td></tr><tr><td>인덱스·럭스 공동 주도</td><td>테크크런치 기사 기준</td></tr><tr><td>엔비디아</td><td>회사 누리집 투자자 명단에 있음</td></tr></tbody></table>
+<p>엔비디아는 이번 라운드에 들어왔다고 적힌 게 아니라, 회사의 투자자 가운데 하나로 적혀 있어요. 테크크런치도 기존 투자자를 소개하는 문장에서 이름을 들었어요. 시드가 9개월 전이었으니 가치가 짧은 기간에 크게 뛴 셈인데, 회사는 매출이나 제품을 공개하지 않았어요. 받은 돈은 사람을 뽑고 연구를 이어 가는 데 쓴다고 테크크런치는 전했어요.</p>
+<h2 id="5-발표만으로-알-수-없는-것">5. 발표만으로 알 수 없는 것</h2>
+<p><strong>이 글에서 확인한 1차 자료는 회사 누리집 한 곳이에요. 나머지는 보도예요.</strong> 회사 누리집은 금액과 기술 설명, 투자자 명단을 적었지만 기업가치, 라운드를 주도한 곳, 조건은 적지 않았어요. 기업가치 약 60억 달러는 테크크런치가 ‘보도에 따르면’이라고 밝힌 숫자라, 공식 수치로 읽으면 안 돼요.</p>
+<p>기술 쪽은 더 조심해야 해요. 메가커널의 성능을 외부에서 잰 자료, 논문, 공개된 코드는 10월 22일까지 찾지 못했어요. 데이터 효율 1,000배도 2월 인터뷰에서 말한 목표예요. 연구 단계라 제품도, 공개된 모델도 없어요. 큰 계산 자원을 모으는 쪽 소식이 이어지는 가운데 ‘덜 쓰는 쪽’에 큰돈이 들어왔다는 점이 이번 소식의 자리예요. 기가와트급 학습 클러스터 이야기는 <a href="/posts/20261021-meta-prometheus-supercluster/">10월 21일 글</a>에 정리해 뒀어요.</p>
+<div class="callout warn"><b class="ttl">⚠️ 주의</b>이 글은 회사 소식 정리예요. 투자 권유가 아니고, 기업가치나 주식에 대한 판단도 하지 않아요.</div>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>① 플래핑 에어플레인스가 시리즈 A 10억 달러를 받았어요<br>② 인덱스와 럭스가 공동 주도했다고 테크크런치가 전했어요<br>③ 기업가치 약 60억 달러는 보도로 전해진 숫자예요<br>④ 적은 데이터로 학습하는 방법을 연구하는 회사예요<br>⑤ 제품도, 외부에서 잰 성능 자료도 아직 없어요</div>
+<p><strong>오늘의 큰 흐름:</strong> AI에 들어가는 돈의 방향이 갈리고 있어요. 계산 자원을 더 많이 쌓는 쪽과, 같은 일을 더 적은 자원으로 하려는 쪽이 같이 커지는 중이에요.</p>
+<h2 id="자주-묻는-질문">자주 묻는 질문</h2>
+<details class="faq"><summary>Q. 플래핑 에어플레인스는 무엇을 파나요?</summary><p>아직 파는 제품이 없어요. 2월 인터뷰에서 창업자들은 연구를 먼저 하고 상업화는 나중이라고 말했고, 회사 누리집도 연구 내용만 적고 있어요.</p></details>
+<details class="faq"><summary>Q. 기업가치 60억 달러는 확정된 숫자인가요?</summary><p>아니요. 테크크런치가 ‘보도에 따르면’이라고 밝힌 숫자이고, 회사 누리집에는 기업가치가 적혀 있지 않아요.</p></details>
+<details class="faq"><summary>Q. 메가커널이 무엇인가요?</summary><p>GPU 위에서 도는 프로그램 한 덩어리가 커널이고, 메가커널은 여러 일을 그 하나에 몰아넣은 것이에요. 회사는 학습과 추론을 한 커널 안에서 겹쳐 돌려 칩이 노는 시간을 줄인다고 설명해요.</p></details>
+<details class="faq"><summary>Q. 이 회사 기술을 지금 써 볼 수 있나요?</summary><p>10월 22일까지 공개된 모델이나 코드, 외부에서 잰 성능 자료를 찾지 못했어요. 회사 누리집의 설명만 공개돼 있어요.</p></details>
+<p><strong>참고 자료</strong></p>
+<ul>
+<li>플래핑 에어플레인스 누리집 — 연구 설명과 투자 금액 · flappingairplanes.com</li>
+<li>TechCrunch — Year-old AI lab Flapping Airplanes raises $1B at a $6B valuation(10월 21일) · techcrunch.com</li>
+<li>TechCrunch — 창업자 인터뷰(2월 16일) · techcrunch.com</li>
+</ul>
+<div class="box info"><b class="ttl">📝 이 글의 작성 방식</b>처음 작성 2026년 10월 22일 · 같은 날 확인<br>회사 누리집 본문과 테크크런치 기사 두 건 대조<br>투자 판단 아님 · 제휴 없음<br>캐릭터·비유 삽화는 AI 이미지 생성 · 도식은 직접 제작</div>
+<h2 id="부록-출처-전체-2026-10-22-확인">부록: 출처 전체 (2026-10-22 확인)</h2>
+<p>happy_various 브리핑(10월 22일)의 9번 항목 ‘창업 1년 AI 연구소 Flapping Airplanes, 10억 달러 유치’를 출발점으로, 아래 원문을 직접 열어 확인했어요. 날짜는 모두 미국 현지 기준이에요.</p>
+<ul>
+<li><a href="https://flappingairplanes.com/">플래핑 에어플레인스 누리집</a> — ‘So far, we have raised a $180M seed round and a $1B Series A’, 메가커널 설명(학습·추론·게임을 한 커널에서, 기다리는 추론과 계산하는 학습을 겹침), 투자자 명단(인덱스·구글 벤처스·세쿼이아·럭스 캐피털·노바 글로벌, 추가로 엔비디아 등), 개인 후원자 명단 (1·2·3·4·5절)</li>
+<li><a href="https://techcrunch.com/2026/10/21/year-old-ai-lab-flapping-airplanes-raises-1b-at-a-6b-valuation/">TechCrunch — Year-old AI lab Flapping Airplanes raises $1B at a $6B valuation</a> (2026-10-21, Julie Bort) — 인덱스·럭스 공동 주도, ‘reportedly at a $6 billion valuation’, 9개월 전 시드 1억 8,000만 달러(구글 벤처스·세쿼이아·인덱스)와 15억 달러 가치, 창업자 이력, 커널·메가커널 설명, 사람을 뽑는 데 쓴다 (1·3·4절)</li>
+<li><a href="https://techcrunch.com/2026/02/16/flapping-airplanes-on-the-future-of-ai-we-want-to-try-really-radically-different-things/">TechCrunch — Flapping Airplanes on the future of AI(창업자 인터뷰)</a> (2026-02-16) — 데이터 효율이 핵심이라는 설명, ‘1000배’ 목표, 회사 이름의 뜻, 연구 먼저·상업화는 나중 (2절)</li>
+</ul>
+<p>브리핑과 원문이 다른 점은 한 가지예요. 브리핑은 ‘엔비디아도 투자자로 참여했다’고 했는데, 테크크런치 기사에서 엔비디아는 이번 라운드 참여자가 아니라 회사의 투자자를 소개하는 문장에 나와요. 회사 누리집 투자자 명단에도 들어 있어, 본문에는 ‘투자자 명단에 있다’로 적었어요.
+기업가치 약 60억 달러는 회사가 밝힌 숫자가 아니라 테크크런치가 ‘보도에 따르면’으로 전한 숫자라, 본문과 표에서 보도로 표시했어요. 7월에 50억 달러 기업가치로 협의 중이라는 포브스 보도가 있었다는 이야기는 원문을 직접 열지 못해 본문에서 뺐어요.</p>
+<p>이 글은 투자 권유가 아니에요. 기업가치나 주식에 대한 판단을 하지 않고, 회사가 밝힌 것과 보도로 전해진 것을 나눠 적었어요.</p>
+<p class="related">함께 보면 좋은 글: <a href="/posts/20261021-meta-prometheus-supercluster/">메타 프로메테우스 정리, 기가와트급 AI 학습 클러스터와 굿풋 읽는 법</a> · <a href="/posts/20261019-reflection-beam-weights-open/">리플렉션 AI 빔 가중치 공개, 독립 평가로 본 토큰 효율과 한계</a></p>  <p class="meta" data-astro-cid-lvjzyg5v>🤖 그날 AI 글을 30초로 묶은 쇼츠는 인스타그램 <a href="https://www.instagram.com/second.syntax/" rel="noopener" target="_blank" data-astro-cid-lvjzyg5v>@second.syntax</a>에 매일 올려요.</p> </article> <nav class="end-nav" aria-label="목록" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로 · 📰 뉴스</a><div class="more" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261021-nvidia-nemotron-3-5/" data-astro-cid-f3qesd3f>엔비디아 네모트론 3.5 정리, 서버용 슈퍼 VL과 AI PC용 볼트</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261021-mistral-voxtral-3/" data-astro-cid-f3qesd3f>미스트랄 Voxtral 3 정리, 실시간 음성 에이전트 구성과 한계</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-anthropic-federal-safety-bill/" data-astro-cid-f3qesd3f>앤트로픽 연방 AI 안전법 초안, 모델 출시를 멈추는 조건 정리</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261022-anthropic-claude-duet/" data-astro-cid-f3qesd3f>클로드 듀엣 공개, 먼저 챙겨 주는 업무 에이전트의 일과 한계</a></li></ul></div></nav> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> <script>
+      // 머리글 높이를 --hdr-h 로 (목차 이동·글 양옆 칸·행사 날짜 줄이 머리글 아래에 오게)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var set = function () { document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px'); };
+        set(); addEventListener('resize', set);
+        if ('ResizeObserver' in window) new ResizeObserver(set).observe(h);
+      })();
+    </script> <script>
+      // 언어 목록 — 바깥을 누르거나 Esc 를 누르면 닫는다 (나들이로그와 같음)
+      (function () {
+        var m = document.querySelector('[data-lang-menu]');
+        if (!m) return;
+        document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+      })();
+    </script> <script>
+      // 머리글 맞춤 — 가운데 분류 줄이 넘치면 오른쪽 메뉴·언어를 단계적으로 줄인다(위 CSS data-fit 설명)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var mq = matchMedia('(min-width: 901px)');
+        function over() {
+          var hero = h.querySelector('.hero');
+          if (!hero) return false;
+          var t = hero.querySelector('.sec-tabs'), h1 = hero.querySelector('h1');
+          if (t && t.scrollWidth > t.clientWidth + 1) return true;
+          // 오른쪽 메뉴·언어가 넓어 가운데 칸이 정가운데에서 밀렸으면 줄인다
+          var hr = hero.getBoundingClientRect(), r = h.getBoundingClientRect();
+          if (h.getAttribute('data-fit') !== '4' && Math.abs((hr.left + hr.right) / 2 - (r.left + r.right) / 2) > 2) return true;
+          if (h1) { var lh = parseFloat(getComputedStyle(h1).lineHeight) || 24; if (h1.offsetHeight > lh * 1.5) return true; }
+          return false;
+        }
+        var busy = false;
+        function fit() {
+          if (busy) return; busy = true;
+          h.removeAttribute('data-fit');
+          if (mq.matches) for (var lv = 1; lv <= 4 && over(); lv++) h.setAttribute('data-fit', String(lv));
+          busy = false;
+        }
+        fit();
+        addEventListener('resize', fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      })();
+    </script> </body> </html> 
