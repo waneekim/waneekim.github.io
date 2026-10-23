@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="google-site-verification" content="Tbam8ku0Ha3xT3Tf7dQwloMDbMK4FY4gr_3aVyhuiu8"><title>오픈AI 디시전스 API 정식 출시, 고르기만 하는 AI는 왜 빠를까</title><meta name="description" content="오픈AI가 10월 22일, 글 대신 확률·보기·점수로만 답하는 디시전스 API(Decisions API)를 모든 고객에게 정식으로 열었어요. 왜 기존 방식보다 약 10배 빠른지, 누가 어디에 쓰는지, 경쟁 모델 제브와 비교한 한계까지 4컷 만화와 그림으로 쉽게 정리했어요."><meta property="og:title" content="오픈AI 디시전스 API 정식 출시, 고르기만 하는 AI는 왜 빠를까"><meta property="og:description" content="오픈AI가 10월 22일, 글 대신 확률·보기·점수로만 답하는 디시전스 API(Decisions API)를 모든 고객에게 정식으로 열었어요. 왜 기존 방식보다 약 10배 빠른지, 누가 어디에 쓰는지, 경쟁 모델 제브와 비교한 한계까지 4컷 만화와 그림으로 쉽게 정리했어요."><meta property="og:url" content="https://happyvarious.com/posts/20261024-openai-decisions-api/"><meta property="og:site_name" content="AI 로그"><meta property="og:image" content="https://happyvarious.com/_astro/titlecard.DEE7ZbdT_ZOYT3b.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="google-adsense-account" content="ca-pub-3013525241448988"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3013525241448988" crossorigin="anonymous"></script><link rel="stylesheet" href="/_astro/index.De7HcuHM.css">
+<link rel="stylesheet" href="/_astro/_id_.BkQGK3p6.css">
+<style>.sec-tabs[data-astro-cid-cnlsgtkd]{display:flex;gap:6px;width:fit-content;max-width:100%;margin:6px auto 0;padding-bottom:4px;overflow-x:auto;scrollbar-width:none;text-align:left}.sec-tabs[data-astro-cid-cnlsgtkd]::-webkit-scrollbar{display:none}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]{flex:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-weight:700;font-size:.88rem;white-space:nowrap}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd]:hover{border-color:var(--accent);color:var(--accent)}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page]{background:var(--ink);border-color:var(--ink);color:#fff}.sec-tabs[data-astro-cid-cnlsgtkd] .n[data-astro-cid-cnlsgtkd]{position:relative;margin-left:2px;font-size:.8em;color:var(--sub);font-weight:600}.sec-tabs[data-astro-cid-cnlsgtkd] a[data-astro-cid-cnlsgtkd][aria-current=page] .n[data-astro-cid-cnlsgtkd]{color:inherit;opacity:.75}.sr[data-astro-cid-cnlsgtkd]{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style></head> <body> <a class="skip" href="#main">본문으로 건너뛰기</a> <header class="site"> <div class="hdr-tools"> <details class="lang-menu" data-lang-menu> <summary aria-label="언어 · Language: 한국어" title="언어 · Language"><span aria-hidden="true">🌐</span><span aria-hidden="true">KO</span><span class="caret" aria-hidden="true">▾</span></summary> <nav class="langbar" aria-label="언어 · Language"> <a href="/ai/" hreflang="ko" lang="ko" class="on" aria-current="true"><span>한국어</span><span class="code" aria-hidden="true">KO</span></a><a href="/nadeuli/en/" hreflang="en" lang="en"><span>English</span><span class="code" aria-hidden="true">EN</span></a><a href="/nadeuli/ja/" hreflang="ja" lang="ja"><span>日本語</span><span class="code" aria-hidden="true">JA</span></a><a href="/nadeuli/zh-hant/" hreflang="zh-Hant" lang="zh-Hant"><span>繁體中文</span><span class="code" aria-hidden="true">繁中</span></a> </nav> </details> <a class="search-btn" href="/nadeuli/search/" aria-label="통합 검색" title="통합 검색 — 나들이·AI 로그"><span aria-hidden="true">🔍</span></a>  </div> <div class="brand-box"> <a class="brand" href="/ai/" aria-label="happy_various"><img class="wm light" src="/brand/wordmark-light.png" alt="happy_various" width="134" height="22"></a> <a class="site-char" href="/ai/" aria-hidden="true" tabindex="-1"><img class="mascot light" src="/brand/ai-info-light.gif" alt="" width="53" height="54"></a> <a class="site-name" href="/ai/">AI 로그</a> </div> <div class="hero"> <nav class="sec-tabs" aria-label="AI 로그 소메뉴" data-astro-cid-cnlsgtkd> <a href="/ai/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🤖</span> 전체 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>156</span> </a><a href="/use/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🛠️</span> 활용 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>39</span> </a><a href="/project/" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>🧪</span> 프로젝트 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>33</span> </a><a href="/news/" aria-current="page" data-astro-cid-cnlsgtkd> <span aria-hidden="true" data-astro-cid-cnlsgtkd>📰</span> 뉴스 <span class="n" data-astro-cid-cnlsgtkd><span class="sr" data-astro-cid-cnlsgtkd>글 </span>84</span> </a> </nav>  </div> <div class="hdr-bar" hidden></div> </header> <main id="main" tabindex="-1">  <script type="module">document.querySelectorAll("[data-share]").forEach(t=>{let o=0;const c=async a=>{try{return await navigator.clipboard.writeText(a),!0}catch{}const e=document.createElement("textarea");e.value=a,e.setAttribute("readonly",""),e.style.cssText="position:fixed;top:0;left:0;opacity:0",document.body.appendChild(e),e.select();let r=!1;try{r=document.execCommand("copy")}catch{r=!1}return e.remove(),r};t.addEventListener("click",async()=>{const a=t.dataset.url||location.href,e=t.dataset.title||document.title;if(matchMedia("(pointer: coarse)").matches&&navigator.share)try{await navigator.share({title:e,url:a});return}catch(r){if(r?.name==="AbortError")return}await c(a)?(t.classList.add("done"),clearTimeout(o),o=window.setTimeout(()=>t.classList.remove("done"),2e3)):window.prompt(t.querySelector(".lbl")?.textContent||"",a)})});</script><div class="crumb-bar" data-astro-cid-f3qesd3f><nav class="crumb" aria-label="목록" data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 AI 로그</a><span aria-hidden="true" data-astro-cid-f3qesd3f>›</span><a href="/news/" data-back data-astro-cid-f3qesd3f>📰 뉴스</a></nav><button type="button" class="share-btn" data-share data-url="https://happyvarious.com/posts/20261024-openai-decisions-api/" data-title="오픈AI 디시전스 API 정식 출시, 고르기만 하는 AI는 왜 빠를까" aria-label="이 글 공유하기" title="공유하기" data-astro-cid-qan2qojn><span aria-hidden="true" data-astro-cid-qan2qojn>🔗</span><span class="lbl" aria-hidden="true" data-astro-cid-qan2qojn>링크 복사됨</span></button>  </div><script>
+      // 경로 줄은 머리글 맨 아래 줄로 — 스크롤과 상관없이 처음부터 머리글 안, 틈 없이 (2026-10-12 happy_various)
+      (function () { var c = document.currentScript.previousElementSibling, bar = document.querySelector('header.site .hdr-bar'); if (c && bar) { bar.appendChild(c); bar.hidden = false; } })();
+    </script><aside class="rail rail-l" aria-label="목록" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로</a><ul class="secs" data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/ai/" data-astro-cid-f3qesd3f>🤖 전체 글</a></li><li data-astro-cid-f3qesd3f><a href="/use/" data-astro-cid-f3qesd3f>🛠️ 활용</a></li><li data-astro-cid-f3qesd3f><a href="/project/" data-astro-cid-f3qesd3f>🧪 프로젝트</a></li><li data-astro-cid-f3qesd3f><a href="/news/" aria-current="true" data-astro-cid-f3qesd3f>📰 뉴스</a></li></ul></div></aside><aside class="rail rail-r" aria-label="이 글 목차" data-astro-cid-f3qesd3f><div class="rail-in" data-astro-cid-f3qesd3f><nav class="toc" aria-label="이 글 목차" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>이 글 목차</p><ol data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="#1-디시전스-api가-뭐예요" data-toc="1-디시전스-api가-뭐예요" data-astro-cid-f3qesd3f>1. 디시전스 API가 뭐예요?</a></li><li data-astro-cid-f3qesd3f><a href="#2-왜-이렇게-빨라요" data-toc="2-왜-이렇게-빨라요" data-astro-cid-f3qesd3f>2. 왜 이렇게 빨라요?</a></li><li data-astro-cid-f3qesd3f><a href="#3-누가-어디에-써요" data-toc="3-누가-어디에-써요" data-astro-cid-f3qesd3f>3. 누가, 어디에 써요?</a></li><li data-astro-cid-f3qesd3f><a href="#4-그럼-오픈ai-것이-제일-좋아요" data-toc="4-그럼-오픈ai-것이-제일-좋아요" data-astro-cid-f3qesd3f>4. 그럼 오픈AI 것이 제일 좋아요?</a></li><li data-astro-cid-f3qesd3f><a href="#5-나는-뭘-하면-돼요" data-toc="5-나는-뭘-하면-돼요" data-astro-cid-f3qesd3f>5. 나는 뭘 하면 돼요?</a></li><li data-astro-cid-f3qesd3f><a href="#-이-글의-작성-방식" data-toc="-이-글의-작성-방식" data-astro-cid-f3qesd3f>📝 이 글의 작성 방식</a></li></ol><a class="up" href="#main" data-astro-cid-f3qesd3f>↑ 맨 위로</a></nav><nav class="more" aria-label="다른 뉴스 글" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261024-uber-chatgpt-work/" data-astro-cid-f3qesd3f>우버 전 직원 챗GPT 워크, 회사 전체가 AI를 쓰면 뭐가 달라질까</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261024-openai-funding-talks/" data-astro-cid-f3qesd3f>오픈AI 상장 전 대형 투자 협상 보도, 지금 확인된 건 뭘까</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261024-microsoft-mai-dxo-diagnosis/" data-astro-cid-f3qesd3f>MS 진단 AI, 어려운 사례 두 배 맞혔다는데 무슨 뜻일까</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261024-korea-openai-dots-third/" data-astro-cid-f3qesd3f>오픈AI 닷츠 이용 한국 세계 3위, 이 순위는 무엇을 말해 줄까</a></li></ul></nav></div></aside><a class="float-back" href="/news/" data-back aria-label="목록으로" data-astro-cid-f3qesd3f>← 목록</a><script type="module">document.querySelectorAll("[data-back]").forEach(e=>e.addEventListener("click",r=>{try{const t=new URL(document.referrer);t.origin===location.origin&&!t.pathname.includes("/posts/")&&history.length>1&&(r.preventDefault(),history.back())}catch{}}));const n=new Map([...document.querySelectorAll("[data-toc]")].map(e=>[e.dataset.toc,e]));if(n.size&&"IntersectionObserver"in window){const e=new IntersectionObserver(r=>{for(const t of r)t.isIntersecting&&(n.forEach(o=>o.removeAttribute("aria-current")),n.get(t.target.id)?.setAttribute("aria-current","true"))},{rootMargin:"0px 0px -72% 0px"});n.forEach((r,t)=>{const o=document.getElementById(t);o&&e.observe(o)})}const c=document.querySelector(".float-back");if(c){const e=()=>c.classList.toggle("show",scrollY>480);addEventListener("scroll",e,{passive:!0}),e()}</script> <article class="tech" data-astro-cid-lvjzyg5v>  <p class="meta" data-astro-cid-lvjzyg5v>2026년 10월 24일 기준</p> <details class="toc" data-astro-cid-lvjzyg5v> <summary data-astro-cid-lvjzyg5v>목차 · 6개</summary> <ol data-astro-cid-lvjzyg5v><li data-astro-cid-lvjzyg5v><a href="#1-디시전스-api가-뭐예요" data-astro-cid-lvjzyg5v>1. 디시전스 API가 뭐예요?</a></li><li data-astro-cid-lvjzyg5v><a href="#2-왜-이렇게-빨라요" data-astro-cid-lvjzyg5v>2. 왜 이렇게 빨라요?</a></li><li data-astro-cid-lvjzyg5v><a href="#3-누가-어디에-써요" data-astro-cid-lvjzyg5v>3. 누가, 어디에 써요?</a></li><li data-astro-cid-lvjzyg5v><a href="#4-그럼-오픈ai-것이-제일-좋아요" data-astro-cid-lvjzyg5v>4. 그럼 오픈AI 것이 제일 좋아요?</a></li><li data-astro-cid-lvjzyg5v><a href="#5-나는-뭘-하면-돼요" data-astro-cid-lvjzyg5v>5. 나는 뭘 하면 돼요?</a></li><li data-astro-cid-lvjzyg5v><a href="#-이-글의-작성-방식" data-astro-cid-lvjzyg5v>📝 이 글의 작성 방식</a></li></ol> </details> <blockquote data-astro-cid-lvjzyg5v>오픈AI 개발자 문서(10월 22일 정식 출시 기록)와 테크크런치·AI타임스 보도를 대조해 정리한 글이에요. 제휴 링크는 없어요. 4컷 만화의 장면 그림과 캐릭터는 AI 이미지 생성이고, 말풍선 글자와 도식은 직접 만들었어요.</blockquote> <h1 id="오픈ai-디시전스-api-정식-출시-고르기만-하는-ai는-왜-빠를까">오픈AI 디시전스 API 정식 출시, 고르기만 하는 AI는 왜 빠를까</h1>
+<p><img alt="디시전스 API — 고르기만 하는 AI, 왜 빠를까? (캐릭터는 AI 이미지 생성)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="1080" src="/_astro/titlecard.DEE7ZbdT_Z2l2xUE.webp" ></p>
+<p class="cap">디시전스 API — 고르기만 하는 AI, 왜 빠를까? (캐릭터는 AI 이미지 생성)</p>
+<p>시험에 서술형 문제가 나오면 답을 길게 써야 해서 시간이 오래 걸려요. 그런데 O/X 문제나 객관식은 하나만 고르면 끝이죠. 같은 사람이 풀어도 고르는 문제가 훨씬 빨라요.</p>
+<p><strong>오픈AI가 10월 22일(미국 시각), AI가 긴 글 대신 ‘정해 둔 답 고르기’로만 빠르게 판단해 주는 디시전스 API(Decisions API)를 모든 고객에게 정식으로 열었어요.</strong> API는 다른 프로그램이 AI를 불러 쓰는 연결 창구예요. 개발자용 기능이지만, 우리가 쓰는 앱의 반응 속도를 바꿀 수 있는 소식이에요.</p>
+<p><img alt="4컷 만화 — 서술형처럼 길게 답하던 AI가, 객관식처럼 고르기만 하자 훨씬 빨라졌어요 (장면 그림 AI 이미지 생성, 말풍선 글자 직접 넣음)" loading="lazy" decoding="async" fetchpriority="auto" width="1080" height="3623" src="/_astro/comic-decisions-quiz.DYIgZuc8_IgIEH.webp" ></p>
+<p class="cap">4컷 만화 — 서술형처럼 길게 답하던 AI가, 객관식처럼 고르기만 하자 훨씬 빨라졌어요 (장면 그림 AI 이미지 생성, 말풍선 글자 직접 넣음)</p>
+<div class="box info"><b class="ttl">📌 30초 요약</b>① AI가 글을 쓰지 않고 '확률·보기 고르기·점수'로만 답해요<br>② 오픈AI는 기존 방식보다 약 10배 빠르다고 밝혔어요<br>③ 10월 6일 베타를 거쳐 10월 22일 모든 고객에게 정식으로 열렸어요<br>2026년 10월 24일 기준 · 오픈AI 개발자 문서 확인</div>
+<hr>
+<h2 id="1-디시전스-api가-뭐예요">1. 디시전스 API가 뭐예요?</h2>
+<div class="talk kid"><b>궁금이</b>AI가 고르기만 한다고요? 그럼 대답은 안 해요?</div>
+<div class="talk bot"><b>AI 로봇</b>문장으로 길게는 안 해요. 대신 "맞을 확률 0.9", "2번", "다섯 단계 중 4단계"처럼 딱 정해진 모양으로 답해요.</div>
+<p>개발자가 질문과 고를 수 있는 답을 미리 정해 두면, AI는 그 안에서만 골라요. 글·사진·정리된 데이터(JSON)를 함께 보낼 수 있어요.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>이런 질문이면</th><th>AI의 답</th></tr></thead><tbody><tr><td>이 사진에 찌그러짐이 있나요?</td><td>그럴 확률(0에서 1 사이)</td></tr><tr><td>이 문의는 어느 부서로 보낼까요?</td><td>정해 둔 보기 중 하나</td></tr><tr><td>이 문제는 얼마나 급한가요?</td><td>단계에 맞춘 점수</td></tr></tbody></table>
+<p>오픈AI 문서에 나온 예시도 이런 일이에요. 앱이 하루에도 수없이 되풀이하는 작은 판단이죠. 답을 받은 뒤 실제로 무엇을 할지는 앱이 정해요.</p>
+<h2 id="2-왜-이렇게-빨라요">2. 왜 이렇게 빨라요?</h2>
+<div class="talk kid"><b>궁금이</b>똑같은 AI인데 왜 고르기만 하면 빨라져요?</div>
+<div class="talk bot"><b>AI 로봇</b>글은 한 조각씩 이어 써야 해서 오래 걸려요. 고르기는 다 쓸 필요 없이 바로 끝나요!</div>
+<p>오픈AI 개발자 계정은 출시 글에서 “전체 답을 만들지 않고도” 분류하고 다음 할 일을 정한다고 소개했어요. 오픈AI API 제품 책임자 니쿤지 한다는 테크크런치 인터뷰에서 1~3초 걸리던 일을 100에서 180밀리초, 그러니까 0.1초대로 줄였다고 말했어요. 4컷 만화 2번 칸의 기다림이 거의 사라진 셈이에요.</p>
+<p><img alt="기다리는 시간 비교 — 오픈AI 설명과 스픽 시험 모두 0.1초대로 줄었어요 (회사·고객사가 밝힌 숫자로 직접 제작)" loading="lazy" decoding="async" fetchpriority="auto" width="2160" height="2120" src="/_astro/diagram-decisions-speed.DjbWBeS2_1Jw8tM.webp" ></p>
+<p class="cap">기다리는 시간 비교 — 오픈AI 설명과 스픽 시험 모두 0.1초대로 줄었어요 (회사·고객사가 밝힌 숫자로 직접 제작)</p>
+<p>새 모델을 따로 만든 것도 아니에요. 한다는 원래 있던 GPT-6 루나를 판단 일에 맞게 빠르고 싸게 돌리도록 고쳤다고 설명했어요. 값은 입력 100만 토큰(글자 조각)당 0.10달러이고, AI가 내놓는 답에는 요금을 받지 않아요.</p>
+<h2 id="3-누가-어디에-써요">3. 누가, 어디에 써요?</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>누가</th><th>어디에</th></tr></thead><tbody><tr><td>스픽(언어 학습 앱)</td><td>음성 대화에서 다음 행동까지 1.4초 → 0.13초</td></tr><tr><td>박스·데이터독·램프</td><td>정식 출시 전에 먼저 시험</td></tr><tr><td>오픈AI 자신</td><td>비서 서비스 닷츠(dots)의 반응 속도 높이기</td></tr></tbody></table>
+<p>실시간 음성 AI인 GPT-라이브와도 바로 이어 붙였어요. 사용자가 말하는 도중에도 상담 AI가 “더 물어볼까, 담당자에게 넘길까”를 고르는 식이에요. 요청 한 번에 질문을 400개까지 보낼 수 있어요(베타 때 200개). 4컷 만화 4번 칸처럼요.</p>
+<p>이런 ‘고르는 AI’는 오픈AI가 처음 만든 게 아니에요. 스타트업 타입세이프의 제브(Jev)가 먼저 이 분야를 열었고, 테크크런치는 타입세이프의 기업가치를 76억 달러로 전했어요. 제브가 어떤 AI인지는 지난 글에 쉽게 정리해 두었어요.</p>
+<p class="nextpost">→ <a href="/posts/20260922-system-one-model-jev/">System One 모델 Jev란, 글을 쓰지 않고 고르는 AI</a></p>
+<h2 id="4-그럼-오픈ai-것이-제일-좋아요">4. 그럼 오픈AI 것이 제일 좋아요?</h2>
+<div class="talk kid"><b>궁금이</b>그럼 이제 오픈AI 것만 쓰면 돼요?</div>
+<div class="talk bot"><b>AI 로봇</b>아직 몰라요! 어떤 일이냐에 따라 잘하는 모델이 달라요.</div>
+<div class="callout warn"><b class="ttl">⚠️ 알아 둘 점</b>① '약 10배 빠르다'는 오픈AI가 자기 기존 방식(리스폰스 API)과 비교한 숫자예요. 다른 회사 모델과 견준 게 아니에요.<br>② 테크크런치에 따르면 공개 순위표 두 곳에서 오픈AI 모델은 8위와 14위, 제브는 7위와 3위였어요.<br>③ 디시전스 API는 고르기만 해요. 설명 글이 필요한 일은 기존 방식을 쓰라고 오픈AI 문서도 안내해요.<br>④ 지금은 GPT-6 루나 모델 하나만 쓸 수 있어요.</div>
+<h2 id="5-나는-뭘-하면-돼요">5. 나는 뭘 하면 돼요?</h2>
+<ol class="steps">
+<li><b>개발자가 아니라면 '앱이 빨라지는 이유'로 알아 두기</b><span class="then">상담 챗봇이나 음성 비서가 눈에 띄게 빨라졌다면, 뒤에서 이런 고르는 AI가 일하고 있을 수 있어요.</span></li>
+<li><b>개발자라면 반복되는 작은 판단부터 바꿔 보기</b><span class="then">분류나 담당자 배정처럼 답이 정해진 일이 맞아요. 오픈AI는 코드를 쓰기 전에 시험해 보는 플레이그라운드도 열어 두었어요.</span></li>
+<li><b>중요한 결정은 사람이 다시 보기</b><span class="then">확률은 '아마 맞다'는 뜻이지 '반드시 맞다'가 아니에요. 돈이나 안전이 걸린 판단은 사람이 확인해요.</span></li>
+</ol>
+<hr>
+<div class="box info"><b class="ttl">✅ 한눈에 정리</b>· 디시전스 API는 글 대신 확률·보기·점수로만 답하는 '고르는 AI'예요<br>· 오픈AI는 기존 방식보다 약 10배 빠르다고 밝혔고, 0.1초대 사례가 나왔어요<br>· 10월 22일 모든 고객에게 정식 출시됐고, 입력 100만 토큰당 0.10달러예요<br>· 속도는 회사 발표 숫자이고, 공개 순위표에선 경쟁 모델이 앞선 곳도 있어요</div>
+<p>오늘의 큰 흐름: AI가 ‘말 잘하는 비서’를 넘어, 앱 속에서 0.1초 만에 판정하는 ‘보이지 않는 심판’으로도 쓰이기 시작했어요.</p>
+<h2 id="-이-글의-작성-방식">📝 이 글의 작성 방식</h2>
+<p>2026년 10월 24일에 아래 원문을 직접 열어 확인했어요. 날짜는 미국 현지 기준이에요.</p>
+<ul>
+<li><a href="https://developers.openai.com/api/docs/guides/decisions">오픈AI 개발자 문서 — Decisions 안내</a>와 <a href="https://developers.openai.com/api/docs/changelog">변경 기록</a> (10월 22일 정식 출시, 10월 6일 베타) — 약 10배, 세 가지 답 모양, 질문 400개, 가격, GPT-라이브 연결</li>
+<li><a href="https://techcrunch.com/2026/10/22/openai-makes-its-jev-competitor-widely-available-as-decision-model-competition-heats-up/">테크크런치 — OpenAI makes its Jev competitor widely available as decision model competition heats up</a> (10월 22일) — 니쿤지 한다 인터뷰, 스픽 1.4초에서 0.13초, 공개 순위표, 타입세이프 76억 달러</li>
+<li><a href="https://www.aitimes.com/news/articleView.html?idxno=216581">AI타임스 — 오픈AI, 분류·선택 특화 ‘디시전스 API’ 정식 출시…최대 10배 빠르게</a> (10월 23일) — 국내 보도, 오픈AI 개발자 계정 출시 글 인용, 상담 AI 활용 예</li>
+</ul>
+<p>오픈AI와 제휴하지 않았고, 이 글은 특정 서비스를 권하는 글이 아니에요.</p>  <p class="meta" data-astro-cid-lvjzyg5v>🤖 그날 AI 글을 30초로 묶은 쇼츠는 인스타그램 <a href="https://www.instagram.com/second.syntax/" rel="noopener" target="_blank" data-astro-cid-lvjzyg5v>@second.syntax</a>에 매일 올려요.</p> </article> <nav class="end-nav" aria-label="목록" data-astro-cid-f3qesd3f><a class="back" href="/news/" data-back data-astro-cid-f3qesd3f>← 목록으로 · 📰 뉴스</a><div class="more" data-astro-cid-f3qesd3f><p class="h" data-astro-cid-f3qesd3f>다른 뉴스 글</p><ul data-astro-cid-f3qesd3f><li data-astro-cid-f3qesd3f><a href="/posts/20261024-uber-chatgpt-work/" data-astro-cid-f3qesd3f>우버 전 직원 챗GPT 워크, 회사 전체가 AI를 쓰면 뭐가 달라질까</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261024-openai-funding-talks/" data-astro-cid-f3qesd3f>오픈AI 상장 전 대형 투자 협상 보도, 지금 확인된 건 뭘까</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261024-microsoft-mai-dxo-diagnosis/" data-astro-cid-f3qesd3f>MS 진단 AI, 어려운 사례 두 배 맞혔다는데 무슨 뜻일까</a></li><li data-astro-cid-f3qesd3f><a href="/posts/20261024-korea-openai-dots-third/" data-astro-cid-f3qesd3f>오픈AI 닷츠 이용 한국 세계 3위, 이 순위는 무엇을 말해 줄까</a></li></ul></div></nav> </main> <footer class="site">
+직접 해본 것만 씁니다. 제휴·광고가 있는 글에는 각 글에 이해관계를 표시합니다.
+<nav class="legal"> <a href="/about/">소개</a> · <a href="/privacy/">개인정보처리방침</a> · <a href="/contact/">문의</a> </nav> </footer> <script>
+      // (2026-10-06) A라인 기술 글(article.tech)의 명령·프롬프트 상자에 복사 버튼 — 네이버판은 복사 버튼이 없어 사이트판으로 안내한다
+      document.querySelectorAll('article.tech pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy'; b.textContent = '복사';
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code') || pre;
+          var done = function () { b.textContent = '복사됨'; setTimeout(function () { b.textContent = '복사'; }, 1500); };
+          // 네이버 앱 같은 인앱 브라우저는 clipboard API 가 없거나 막혀 있다(네이버판이 이 사이트판으로 보낸다) —
+          // 그때는 글을 골라 두고 execCommand 로 복사, 그것도 안 되면 골라 둔 채 '길게 눌러 복사' 안내 (2026-10-06)
+          var fallback = function () {
+            var r = document.createRange(); r.selectNodeContents(code);
+            var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+            var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+            if (ok) { s.removeAllRanges(); done(); } else { b.textContent = '길게 눌러 복사'; }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code.innerText).then(done, fallback);
+          else fallback();
+        });
+        pre.appendChild(b);
+      });
+    </script> <script>
+      // 머리글 높이를 --hdr-h 로 (목차 이동·글 양옆 칸·행사 날짜 줄이 머리글 아래에 오게)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var set = function () { document.documentElement.style.setProperty('--hdr-h', h.offsetHeight + 'px'); };
+        set(); addEventListener('resize', set);
+        if ('ResizeObserver' in window) new ResizeObserver(set).observe(h);
+      })();
+    </script> <script>
+      // 언어 목록 — 바깥을 누르거나 Esc 를 누르면 닫는다 (나들이로그와 같음)
+      (function () {
+        var m = document.querySelector('[data-lang-menu]');
+        if (!m) return;
+        document.addEventListener('click', function (e) { if (m.open && !m.contains(e.target)) m.open = false; });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && m.open) { m.open = false; m.querySelector('summary').focus(); } });
+      })();
+    </script> <script>
+      // 머리글 맞춤 — 가운데 분류 줄이 넘치면 오른쪽 메뉴·언어를 단계적으로 줄인다(위 CSS data-fit 설명)
+      (function () {
+        var h = document.querySelector('header.site');
+        if (!h) return;
+        var mq = matchMedia('(min-width: 901px)');
+        function over() {
+          var hero = h.querySelector('.hero');
+          if (!hero) return false;
+          var t = hero.querySelector('.sec-tabs'), h1 = hero.querySelector('h1');
+          if (t && t.scrollWidth > t.clientWidth + 1) return true;
+          // 오른쪽 메뉴·언어가 넓어 가운데 칸이 정가운데에서 밀렸으면 줄인다
+          var hr = hero.getBoundingClientRect(), r = h.getBoundingClientRect();
+          if (h.getAttribute('data-fit') !== '4' && Math.abs((hr.left + hr.right) / 2 - (r.left + r.right) / 2) > 2) return true;
+          if (h1) { var lh = parseFloat(getComputedStyle(h1).lineHeight) || 24; if (h1.offsetHeight > lh * 1.5) return true; }
+          return false;
+        }
+        var busy = false;
+        function fit() {
+          if (busy) return; busy = true;
+          h.removeAttribute('data-fit');
+          if (mq.matches) for (var lv = 1; lv <= 4 && over(); lv++) h.setAttribute('data-fit', String(lv));
+          busy = false;
+        }
+        fit();
+        addEventListener('resize', fit);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+      })();
+    </script> </body> </html> 
