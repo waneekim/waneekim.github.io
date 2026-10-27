@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
+# 나들이로그 행사·대회·검색의 필터 주소(?view=map&r=… · ?q=…)는 긁지 않는다. 글마다 시·군·구×4개 언어로 주소가 생겨
+# 서치 콘솔 '중복·리디렉션·대체 페이지' 목록이 수천 개로 불었다 (2026-10-27). 필터 없는 목록 주소(/nadeuli/events/ 등)는 그대로 허용.
+# robots.txt 는 도메인 맨 위 것만 읽혀서 나들이로그(site-t) 규칙도 여기에 둔다.
+Disallow: /nadeuli/*events/?
+Disallow: /nadeuli/*contests/?
+Disallow: /nadeuli/*search/?
 
 Sitemap: https://happyvarious.com/sitemap-index.xml
+Sitemap: https://happyvarious.com/nadeuli/sitemap-index.xml
